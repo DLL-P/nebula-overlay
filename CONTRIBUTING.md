@@ -12,7 +12,8 @@ tempos, escrever os alertas) é feito pelo mantenedor; o que mais ajuda é **mat
 | **Textos**: o que acontece, o que fazer, o que o alerta deveria dizer | descrição livre | [issue "Mecânica"](../../issues/new?template=mecanica.yml) |
 | **Capturas do Nebula Overlay** (`.pcap` da pasta capturas) | **envio privado**, ver abaixo | [issue "Captura de run"](../../issues/new?template=captura.yml) |
 | **Dados de outros programas de leitura** (logs de luta, linhas do tempo, tabelas) | arquivo ou link, dizendo de qual programa veio | [issue "Captura de run"](../../issues/new?template=captura.yml) |
-| **Traduções** e correções de texto | o texto atual e a sugestão | [issue "Tradução"](../../issues/new?template=traducao.yml) ou PR em `mecanicas/traducoes.json` |
+| **Traduções** e correções de texto | o texto atual e a sugestão | [issue "Tradução"](../../issues/new?template=traducao.yml) ou PR em `idiomas/` e `mecanicas/traducoes.json` |
+| **Um idioma novo** | um arquivo `idiomas/<código>.json` (copie o `en.json`) e a seção dele no `traducoes.json` | PR (passo a passo em [DESENVOLVIMENTO.md](docs/DESENVOLVIMENTO.md#acrescentar-um-idioma)) |
 | **Erros** | o que aconteceu e o arquivo `nebula.log` (Documentos\Nebula Overlay) | [issue "Problema"](../../issues/new?template=bug.yml) |
 | **Código** | pull request; os testes rodam sozinhos | — |
 

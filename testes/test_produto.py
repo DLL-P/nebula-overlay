@@ -17,10 +17,15 @@ class TestIdioma(unittest.TestCase):
     def tearDown(self):
         idioma.definir("pt")
 
-    def test_textos_da_interface_nos_tres_idiomas(self):
-        for chave, textos in idioma.UI.items():
-            self.assertEqual(len(textos), 3, chave)
-            self.assertTrue(all(textos), chave)
+    def test_cada_idioma_tem_todos_os_textos(self):
+        self.assertTrue({"pt", "en", "es"} <= set(idioma.IDIOMAS))
+        chaves = set(idioma._parte("pt", "interface"))
+        for cod in idioma.IDIOMAS:
+            for parte in ("interface", "classes", "papeis", "voz"):
+                faltam = set(idioma._parte("pt", parte)) - set(idioma._parte(cod, parte))
+                self.assertEqual(faltam, set(), f"{cod}: {parte}")
+            self.assertTrue(all(idioma._parte(cod, "interface").values()), cod)
+        self.assertGreater(len(chaves), 90)
         idioma.definir("en")
         self.assertEqual(idioma.t("em_s", s="5", texto="SPREAD"), "IN 5s · SPREAD")
         idioma.definir("es")
@@ -54,6 +59,33 @@ class TestIdioma(unittest.TestCase):
         for cod in ("en", "es"):
             faltam = sorted(textos - set(idioma._traducoes(cod)))
             self.assertEqual(faltam, [], f"sem tradução para {cod}")
+
+    def test_idioma_novo_e_so_um_arquivo(self):
+        """Um fr.json com metade dos textos já funciona: o resto sai em inglês."""
+        with tempfile.TemporaryDirectory() as tmp:
+            os.makedirs(os.path.join(tmp, "idiomas"))
+            json.dump({"idioma": {"nome": "Français", "voz": "fr-FR", "regioes": ["fr"]},
+                       "interface": {"btn_sair": "Quitter"}, "voz": {"sair": "Sortez !"}},
+                      open(os.path.join(tmp, "idiomas", "fr.json"), "w", encoding="utf-8"))
+            antigo = idioma.usuario
+            idioma.usuario = lambda *p: os.path.join(tmp, *p)
+            try:
+                novos = idioma._carregar()
+            finally:
+                idioma.usuario = antigo
+            guardado = dict(idioma._IDIOMAS), dict(idioma.IDIOMAS)
+            idioma._IDIOMAS.clear(), idioma._IDIOMAS.update(novos)
+            idioma.IDIOMAS["fr"] = "Français"
+            try:
+                idioma.definir("fr")
+                self.assertEqual(idioma.t("btn_sair"), "Quitter")
+                self.assertEqual(idioma.t("btn_config"), "Settings")              # faltou: inglês
+                self.assertIn(("fr-FR", "Français"), idioma.vozes())
+                self.assertEqual(idioma.frases("fr-FR")["sair"], "Sortez !")
+                self.assertNotIn("pular", idioma.frases("fr-FR"))                # sem frase: bipe
+            finally:
+                idioma._IDIOMAS.clear(), idioma._IDIOMAS.update(guardado[0])
+                idioma.IDIOMAS.clear(), idioma.IDIOMAS.update(guardado[1])
 
     def test_numero_no_formato_do_idioma(self):
         idioma.definir("pt")

@@ -40,8 +40,10 @@ class TestPalavras(unittest.TestCase):
         for chave in voz.POR_TIPO.values():
             self.assertIn(chave, voz.FRASES)
 
-    def test_ingles_tem_as_mesmas_frases(self):
-        self.assertEqual(set(voz.FRASES), set(voz.FRASES_EN))
+    def test_toda_voz_tem_as_mesmas_frases(self):
+        for cod, frases in voz.FRASES_POR_IDIOMA.items():
+            self.assertEqual(set(frases), set(voz.FRASES), cod)
+        self.assertEqual(voz.frases_de("es")["sair"], "¡Sal!")
         self.assertEqual(voz.frases_de("en-US")["sair"], "Move out!")
         self.assertTrue(voz.pasta_de("en-US").endswith(os.path.join("voz", "en-US")))
 

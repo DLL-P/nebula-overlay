@@ -17,7 +17,7 @@ import webbrowser
 
 from a2parse import atualizar, idioma
 from a2parse.caminhos import USUARIO, app, pasta_usuario
-from a2parse.idioma import CLASSES, IDIOMAS, t
+from a2parse.idioma import IDIOMAS, t
 from a2parse.versao import APOIO_URL, REPO, VERSAO
 
 CARTAO, BORDA, TEXTO, SUAVE = "#1a1c25", "#2c2f3d", "#ece7f5", "#8d8aa0"
@@ -236,7 +236,7 @@ class Configuracoes:
     def _aba_geral(self, c) -> None:
         self._titulo(c, t("idioma"))
         v_id = tk.StringVar(value=idioma.atual())
-        self._radios(c, v_id, IDIOMAS.items(), lambda: self._trocar_idioma(v_id.get()), lado=True)
+        self._radios(c, v_id, IDIOMAS.items(), lambda: self._trocar_idioma(v_id.get()), lado=len(IDIOMAS) <= 4)
 
         self._titulo(c, t("voz_alertas"))
         v_voz = tk.StringVar(value=self.ov.modo_som)
@@ -249,8 +249,7 @@ class Configuracoes:
             estado.config(text=self.msg_voz)
             v_voz.set(self.ov.modo_som)
         estado.pack_forget()
-        self._radios(c, v_voz, [("pt-BR", "Português"), ("en-US", "English"), ("es", "Español"),
-                                ("bipes", t("so_bipes")), ("mudo", t("sem_som"))], trocar_voz)
+        self._radios(c, v_voz, idioma.vozes() + [("bipes", t("so_bipes")), ("mudo", t("sem_som"))], trocar_voz)
         linha = tk.Frame(c, bg=CARTAO)
         linha.pack(fill="x", pady=(4, 0))
         _botao(linha, t("testar"), self.ov.testar_som, pequeno=True).pack(side="left", padx=(6, 0))
@@ -275,9 +274,8 @@ class Configuracoes:
         anterior = idioma.atual()
         idioma.definir(cod)
         self.ov.cfg["idioma"] = cod
-        voz_antes = {"pt": "pt-BR", "en": "en-US", "es": "es"}.get(anterior)
-        if self.ov.modo_som == voz_antes:            # a voz seguia o idioma: acompanha a troca
-            self.msg_voz = self.ov.aplicar_voz({"pt": "pt-BR", "en": "en-US", "es": "es"}[cod])
+        if self.ov.modo_som == idioma.voz_de(anterior):     # a voz seguia o idioma: acompanha a troca
+            self.msg_voz = self.ov.aplicar_voz(idioma.voz_de(cod))
         self.ov.salvar_cfg(forcar=True)
         self.construir()
         if self.ov.inicio:
@@ -296,7 +294,7 @@ class Configuracoes:
         self._titulo(c, t("classe"))
         detectada = idioma.nome_classe(self.ov.sessao.classe.classe) or "?"
         rotulos = {t("automatica_c", c=detectada): ""}
-        rotulos.update({nome: chave for chave, nome in CLASSES[idioma.atual()].items()})
+        rotulos.update({nome: chave for chave, nome in idioma.classes().items()})
         atual = next((r for r, k in rotulos.items() if k == (self.ov.cfg.get("classe") or "")), next(iter(rotulos)))
         v_cl = tk.StringVar(value=atual)
         menu = tk.OptionMenu(c, v_cl, *rotulos, command=lambda r: self._classe(rotulos[r]))

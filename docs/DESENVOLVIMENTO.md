@@ -35,7 +35,8 @@ Documentos\Nebula Overlay). A variável `NEBULA_OVERLAY_PASTA` troca esse lugar 
 | `a2parse/meter.py` | painel de dano |
 | `a2parse/classes.py` | classe e papel |
 | `a2parse/eventos.py` | eventos de campo: pacotes 0x6000/0x6001 e agenda |
-| `a2parse/idioma.py` | textos da interface em pt/en/es e tradução dos alertas |
+| `a2parse/idioma.py` | carrega os idiomas e traduz a interface e os alertas |
+| `idiomas/<código>.json` | um arquivo por idioma: nome, voz do Windows, textos da interface, classes, papéis e frases da voz |
 | `a2parse/caminhos.py` | pasta do programa e pasta do usuário |
 | `a2parse/atualizar.py`, `versao.py` | atualização automática pelas versões do GitHub |
 | `mecanicas/mecanicas.json` | mecânicas de cada boss (o conhecimento do app) |
@@ -109,3 +110,15 @@ Gera `dist/NebulaOverlay/`, e com o [Inno Setup 6](https://jrsoftware.org/isinfo
 - O app instalado consulta a versão mais nova ao abrir. Fora do jogo, atualiza sozinho (se "Atualizar sozinho" estiver ligado);
   durante o jogo, mostra o botão. Ele baixa só do próprio repositório, confere o SHA-256 e roda o instalador em modo silencioso,
   que reabre o app.
+
+## Acrescentar um idioma
+
+1. Copie `idiomas/en.json` para `idiomas/<código>.json` (ex.: `fr.json`) e traduza os **valores** (nunca as chaves).
+   Em `"idioma"`: `nome` (como aparece na engrenagem), `voz` (código da voz do Windows, ex.: `fr-FR`), `nome_voz`,
+   `regioes` (prefixos do formato regional do Windows que escolhem esse idioma sozinho) e `virgula_decimal`.
+2. Acrescente a seção `"<código>"` em `mecanicas/traducoes.json` com os textos dos alertas (chave = texto em português).
+3. Acrescente o nome em `"nome"` de cada evento de `mecanicas/eventos.json`.
+
+O idioma aparece na engrenagem sem mexer em código. Texto da interface que faltar sai em inglês; alerta sem tradução
+sai em português; frase de voz que faltar vira bipe. Para testar sem gerar o app, ponha o arquivo em
+`Documentos/Nebula Overlay/idiomas`. O teste `test_cada_idioma_tem_todos_os_textos` lista o que falta.

@@ -314,7 +314,7 @@ class Overlay:
         # voz: grava os áudios que faltarem sem travar a janela (na 1ª vez leva alguns segundos)
         import voz as voz_curta
         modo = "mudo" if args.sem_som else (args.idioma_voz or self.cfg.get("voz")
-                                             or voz_curta.VOZ_DO_IDIOMA.get(idioma.atual(), "pt-BR"))
+                                             or idioma.voz_de())
         threading.Thread(target=self.aplicar_voz, args=(modo, False), daemon=True).start()
         self.root.after(50, self._quadro)
         self.root.after(500, self._vigiar_jogo)
@@ -634,7 +634,7 @@ class Overlay:
                 msg = t("voz_pronta")
             else:
                 self.voz, self.modo_som = None, "bipes"
-                msg = t("sem_voz", idioma={"pt-BR": "Português", "en-US": "English", "es": "Español"}[modo])
+                msg = t("sem_voz", idioma=dict(idioma.vozes()).get(modo, modo))
         else:
             self.voz, self.modo_som = None, modo
             msg = ""

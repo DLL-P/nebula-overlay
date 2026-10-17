@@ -39,109 +39,16 @@ def pasta_de(idioma: str = IDIOMA_PADRAO) -> str:
 
 PASTA = pasta_de()
 
-# chave do arquivo -> o que a voz fala
-FRASES = {
-    "sair": "Sai!",
-    "sair_voce": "Em você! Sai!",
-    "empilhar": "Empilha!",
-    "empilhar_voce": "Em você! Fica parado!",
-    "espalhar": "Espalha!",
-    "pular": "Pula!",
-    "esquivar": "Esquiva!",
-    "borda": "Posição!",
-    "atras": "Atrás dele!",
-    "esconder": "Esconde!",
-    "parar_dano": "Para de bater!",
-    "stagger": "Quebra!",
-    "matar_alvo": "Mata o add!",
-    "enrage": "Enrage!",
-    "burst": "Burst!",
-    "segurar_burst": "Segura o burst!",
-    "debuff": "Limpa!",
-    "vira": "Vira ele!",
-    "defesa": "Defesa!",
-    "meio": "Pro meio!",
-    "engajar": "Engaje!",
-    "sai_zona": "Sai da zona!",
-    "evento_10": "Evento em dez minutos!",
-    "evento_5": "Evento em cinco minutos!",
-    "evento_1": "Evento em um minuto!",
-    "evento_agora": "O evento começou!",
-    "um": "Um",
-    "dois": "Dois",
-    "tres": "Três",
-}
+# chave do arquivo -> o que a voz fala: seção "voz" de cada idiomas/<código>.json
+from a2parse import idioma as _idioma
 
-FRASES_EN = {
-    "sair": "Move out!",
-    "sair_voce": "On you! Move out!",
-    "empilhar": "Stack!",
-    "empilhar_voce": "On you! Stay put!",
-    "espalhar": "Spread!",
-    "pular": "Jump!",
-    "esquivar": "Dodge!",
-    "borda": "Position!",
-    "atras": "Get behind!",
-    "esconder": "Hide!",
-    "parar_dano": "Stop attacking!",
-    "stagger": "Break!",
-    "matar_alvo": "Kill the add!",
-    "enrage": "Enrage!",
-    "burst": "Burst now!",
-    "segurar_burst": "Hold burst!",
-    "debuff": "Cleanse!",
-    "vira": "Turn him!",
-    "defesa": "Defense!",
-    "meio": "To the middle!",
-    "engajar": "Engage!",
-    "sai_zona": "Leave the zone!",
-    "evento_10": "Event in ten minutes!",
-    "evento_5": "Event in five minutes!",
-    "evento_1": "Event in one minute!",
-    "evento_agora": "The event has started!",
-    "um": "One",
-    "dois": "Two",
-    "tres": "Three",
-}
-
-FRASES_ES = {
-    "sair": "¡Sal!",
-    "sair_voce": "¡En ti! ¡Sal!",
-    "empilhar": "¡Agrúpense!",
-    "empilhar_voce": "¡En ti! ¡Quieto!",
-    "espalhar": "¡Dispérsense!",
-    "pular": "¡Salta!",
-    "esquivar": "¡Esquiva!",
-    "borda": "¡Posición!",
-    "atras": "¡Detrás!",
-    "esconder": "¡Escóndete!",
-    "parar_dano": "¡Deja de golpear!",
-    "stagger": "¡Rómpelo!",
-    "matar_alvo": "¡Mata al add!",
-    "enrage": "¡Enrage!",
-    "burst": "¡Burst!",
-    "segurar_burst": "¡Guarda el burst!",
-    "debuff": "¡Limpia!",
-    "vira": "¡Gíralo!",
-    "defesa": "¡Defensa!",
-    "meio": "¡Al centro!",
-    "engajar": "¡Engancha!",
-    "sai_zona": "¡Sal de la zona!",
-    "evento_10": "¡Evento en diez minutos!",
-    "evento_5": "¡Evento en cinco minutos!",
-    "evento_1": "¡Evento en un minuto!",
-    "evento_agora": "¡El evento empezó!",
-    "um": "Uno",
-    "dois": "Dos",
-    "tres": "Tres",
-}
-
-FRASES_POR_IDIOMA = {"pt-BR": FRASES, "en-US": FRASES_EN, "es": FRASES_ES}
-VOZ_DO_IDIOMA = {"pt": "pt-BR", "en": "en-US", "es": "es"}      # idioma da interface -> voz padrão
+FRASES = _idioma.frases("pt-BR")                                       # todas as chaves de áudio
+FRASES_POR_IDIOMA = {voz: _idioma.frases(voz) for voz, _ in _idioma.vozes()}   # código da voz -> frases
 
 
 def frases_de(idioma: str) -> dict[str, str]:
-    return FRASES_POR_IDIOMA.get(idioma) or FRASES_POR_IDIOMA.get(VOZ_DO_IDIOMA.get(idioma[:2], ""), FRASES)
+    return _idioma.frases(idioma)
+
 
 # tipo de ação do alerta -> chave da frase (o que não está aqui não fala: avisos "info")
 POR_TIPO = {t: t for t in ("sair", "empilhar", "espalhar", "pular", "esquivar", "borda", "atras", "esconder",
@@ -249,7 +156,7 @@ class VozCurta:
     def __init__(self, pasta: str | None = None, idioma: str = IDIOMA_PADRAO) -> None:
         pasta = pasta or pasta_de(idioma)
         self.pasta = pasta
-        self.arquivos = {k: os.path.join(pasta, f"{k}.wav") for k in FRASES
+        self.arquivos = {k: os.path.join(pasta, f"{k}.wav") for k in frases_de(idioma)
                          if os.path.exists(os.path.join(pasta, f"{k}.wav"))}
 
     @property
@@ -297,7 +204,7 @@ def main() -> int:
     ap.add_argument("--listar", action="store_true", help="vozes instaladas no Windows")
     ap.add_argument("--refazer", action="store_true", help="grava tudo de novo, mesmo o que já existe")
     ap.add_argument("--voz", default="", help="parte do nome da voz (ex.: Maria, Daniel)")
-    ap.add_argument("--idioma", default=IDIOMA_PADRAO, choices=sorted(FRASES_POR_IDIOMA), help="pt-BR, en-US ou es")
+    ap.add_argument("--idioma", default=IDIOMA_PADRAO, choices=sorted(FRASES_POR_IDIOMA), help="voz de um dos idiomas (pt-BR, en-US, es...)")
     ap.add_argument("--velocidade", type=float, default=1.15, help="1 = normal")
     ap.add_argument("--pasta", default=None, help="padrão: voz/<idioma>")
     ap.add_argument("--testar", action="store_true", help="toca todas as frases")
