@@ -10,6 +10,7 @@ import unittest
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import voz  # noqa: E402
+from a2parse import idioma  # noqa: E402
 from a2parse.alertas import MotorAlertas, boss, carregar_mecanicas  # noqa: E402
 
 DADOS = carregar_mecanicas()
@@ -53,6 +54,17 @@ class TestPalavras(unittest.TestCase):
             for k in ("sair", "empilhar", "um", "dois", "tres"):
                 open(os.path.join(tmp, f"{k}.wav"), "wb").close()
             self.assertTrue(voz.VozCurta(tmp).pronta)
+
+
+
+class TestVozesDoNebula(unittest.TestCase):
+    def test_toda_frase_tem_audio_em_cada_idioma(self):
+        """As vozes que vêm com o app (voz_padrao) cobrem todas as frases; frase nova pede rodar gerar_vozes.py."""
+        for cod, _ in idioma.vozes():
+            pasta = voz.pasta_padrao(cod)
+            faltam = sorted(k for k in voz.frases_de(cod) if not os.path.exists(os.path.join(pasta, f"{k}.wav")))
+            self.assertEqual(faltam, [], f"{cod}: rode empacotar/gerar_vozes.py")
+            self.assertIsNotNone(voz.preparar(cod, avisar=lambda _m: None, fonte="nebula"))
 
 
 if __name__ == "__main__":

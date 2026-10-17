@@ -14,6 +14,7 @@ dados = [
     (p("dados", "icone.png"), "dados"),
     (p("opcodes.json"), "."),
     (p("idiomas"), "idiomas"),
+    (p("voz_padrao"), "voz_padrao"),
     (p("mecanicas", "mecanicas.json"), "mecanicas"),
     (p("mecanicas", "roteiros.json"), "mecanicas"),
     (p("mecanicas", "traducoes.json"), "mecanicas"),

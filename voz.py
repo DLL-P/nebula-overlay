@@ -187,8 +187,22 @@ class VozCurta:
         threading.Thread(target=_c, daemon=True).start()
 
 
-def preparar(idioma: str = IDIOMA_PADRAO, avisar=print) -> VozCurta | None:
-    """Para o overlay: garante os áudios do idioma (gravando os que faltam) e devolve o tocador, ou None."""
+def pasta_padrao(idioma: str = IDIOMA_PADRAO) -> str:
+    """Vozes do Nebula: geradas com o Piper (empacotar/gerar_vozes.py) e instaladas junto com o app."""
+    from a2parse.caminhos import app
+    return app("voz_padrao", idioma)
+
+
+def preparar(idioma: str = IDIOMA_PADRAO, avisar=print, fonte: str = "nebula") -> VozCurta | None:
+    """Para o overlay: devolve o tocador do idioma, ou None.
+
+    fonte "nebula": as vozes que vêm com o app (nada a gravar); se o idioma não tiver, cai nas do Windows.
+    fonte "windows": grava com a voz do Windows os áudios que faltam (pasta voz/<idioma> do usuário).
+    """
+    if fonte == "nebula":
+        v = VozCurta(pasta_padrao(idioma), idioma)
+        if v.pronta:
+            return v
     v = VozCurta(idioma=idioma)
     if not v.pronta or set(frases_de(idioma)) - set(v.arquivos):   # frases novas: grava só as que faltam
         ok, msg = gravar(idioma=idioma)

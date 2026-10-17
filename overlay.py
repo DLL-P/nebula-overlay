@@ -697,7 +697,7 @@ class Overlay:
         """Troca a voz na hora (grava os áudios que faltarem). Devolve uma mensagem curta para a engrenagem."""
         import voz as voz_curta
         if modo in voz_curta.FRASES_POR_IDIOMA:
-            v = voz_curta.preparar(modo, avisar=print)
+            v = voz_curta.preparar(modo, avisar=print, fonte=self.cfg.get("voz_fonte", "nebula"))
             if v:
                 self.voz, self.modo_som = v, modo
                 msg = t("voz_pronta")

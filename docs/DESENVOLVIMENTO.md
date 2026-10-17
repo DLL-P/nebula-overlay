@@ -115,6 +115,12 @@ Gera `dist/NebulaOverlay/`, e com o [Inno Setup 6](https://jrsoftware.org/isinfo
 - Com versão nova, aparece um botão com seta no rodapé do painel (ao lado da engrenagem) e o "Atualizar agora" na aba Sobre;
   o app olha de novo a cada 6 horas. Detalhes e a medição da latência: [INSTALADOR_REDE_ATUALIZACAO.md](INSTALADOR_REDE_ATUALIZACAO.md).
 
+## Vozes que vêm com o app
+
+`voz_padrao/<voz>/*.wav` são gerados por `empacotar/gerar_vozes.py` com o [Piper](https://github.com/rhasspy/piper)
+(modelos e licenças em `voz_padrao/CREDITOS.md`). Frase nova numa seção `"voz"` de `idiomas/*.json` pede rodar o
+script de novo; o teste `test_toda_frase_tem_audio_em_cada_idioma` avisa.
+
 ## Acrescentar um idioma
 
 1. Copie `idiomas/en.json` para `idiomas/<código>.json` (ex.: `fr.json`) e traduza os **valores** (nunca as chaves).

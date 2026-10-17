@@ -143,7 +143,9 @@
   "contrib_falta_consentimento": "Marque a autorização para gerar o pacote.",
   "contrib_vazio": "Escolha uma run ou escreva um relato.",
   "gravar_tudo": "Gravar também fora de masmorra (eventos de campo; arquivos maiores)",
-  "vozes_windows": "Instalar vozes do Windows"
+  "vozes_windows": "Instalar vozes do Windows",
+  "voz_nebula": "Vozes do Nebula (vêm com o app)",
+  "voz_windows": "Vozes do Windows"
  },
  "classes": {
   "GLADIATOR": "Gladiador",

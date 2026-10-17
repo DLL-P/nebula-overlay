@@ -143,7 +143,9 @@
   "contrib_falta_consentimento": "Check the permission box to build the package.",
   "contrib_vazio": "Pick a run or write a report.",
   "gravar_tudo": "Also record outside dungeons (field events; bigger files)",
-  "vozes_windows": "Install Windows voices"
+  "vozes_windows": "Install Windows voices",
+  "voz_nebula": "Nebula voices (included)",
+  "voz_windows": "Windows voices"
  },
  "classes": {
   "GLADIATOR": "Gladiator",

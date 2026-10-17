@@ -143,7 +143,9 @@
   "contrib_falta_consentimento": "Marca la autorización para generar el paquete.",
   "contrib_vazio": "Elige una run o escribe un relato.",
   "gravar_tudo": "Grabar también fuera de mazmorras (eventos de campo; archivos más grandes)",
-  "vozes_windows": "Instalar voces de Windows"
+  "vozes_windows": "Instalar voces de Windows",
+  "voz_nebula": "Voces de Nebula (incluidas)",
+  "voz_windows": "Voces de Windows"
  },
  "classes": {
   "GLADIATOR": "Gladiador",

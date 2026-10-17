@@ -41,6 +41,11 @@ linha do tempo aprendida; as outras ainda dependem de mais runs mapeadas. Quer a
 
 O Nebula Overlay é e vai continuar gratuito. Contribuições com runs, prints, vídeos e traduções são o que mais ajuda.
 
+## Vozes
+
+As palavras de ordem vêm no instalador, em português, inglês e espanhol, geradas com o Piper (vozes de licença livre;
+créditos em [voz_padrao/CREDITOS.md](voz_padrao/CREDITOS.md)). Na engrenagem dá para trocar pelas vozes do Windows.
+
 ## Licença
 
 O código é livre sob a [GPL-3.0](LICENSE): pode usar, estudar, modificar e redistribuir, desde que versões modificadas também tenham o código aberto. A arte do jogo (símbolos das classes) pertence à NCSOFT e não está coberta pela licença.

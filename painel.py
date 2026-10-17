@@ -250,6 +250,17 @@ class Configuracoes:
             v_voz.set(self.ov.modo_som)
         estado.pack_forget()
         self._radios(c, v_voz, idioma.vozes() + [("bipes", t("so_bipes")), ("mudo", t("sem_som"))], trocar_voz)
+        v_fonte = tk.StringVar(value=self.ov.cfg.get("voz_fonte", "nebula"))
+
+        def trocar_fonte():
+            self.ov.cfg["voz_fonte"] = v_fonte.get()
+            self.ov.salvar_cfg(forcar=True)
+            if self.ov.modo_som not in ("bipes", "mudo"):
+                estado.config(text=t("aplicando"))
+                self.j.update_idletasks()
+                self.msg_voz = self.ov.aplicar_voz(self.ov.modo_som)
+                estado.config(text=self.msg_voz)
+        self._radios(c, v_fonte, [("nebula", t("voz_nebula")), ("windows", t("voz_windows"))], trocar_fonte, lado=True)
         linha = tk.Frame(c, bg=CARTAO)
         linha.pack(fill="x", pady=(4, 0))
         _botao(linha, t("testar"), self.ov.testar_som, pequeno=True).pack(side="left", padx=(6, 0))
