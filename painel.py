@@ -18,7 +18,7 @@ import webbrowser
 from a2parse import atualizar, idioma
 from a2parse.caminhos import USUARIO, app, pasta_usuario
 from a2parse.idioma import IDIOMAS, t
-from a2parse.versao import APOIO_URL, REPO, VERSAO
+from a2parse.versao import APOIO_URL, DISCORD_URL, FORMULARIO_URL, REPO, VERSAO
 
 CARTAO, BORDA, TEXTO, SUAVE = "#1a1c25", "#2c2f3d", "#ece7f5", "#8d8aa0"
 DESTAQUE, BOTAO, BOTAO_ATIVO = "#7b5cf0", "#2c2f3d", "#3a3e50"
@@ -362,7 +362,7 @@ class Configuracoes:
         for chave, acao in (("aprender", lambda: self.ov.ferramenta("roteiros")),
                             ("relatorio", lambda: self.ov.ferramenta("relatorio")),
                             ("abrir_pasta", lambda: abrir(pasta_usuario())),
-                            ("contribuir", lambda: abrir(CONTRIBUIR_URL))):
+                            ("contribuir", lambda: Contribuir(self.ov))):
             _botao(c, t(chave), acao).pack(fill="x", pady=3)
 
     def _aba_sobre(self, c) -> None:
@@ -458,3 +458,113 @@ class Saida:
             self.estado.config(text=t("pronto"), fg=VERDE)
             return
         self.j.after(150, self._ler)
+
+
+# ---------------- contribuir ----------------
+
+class Contribuir:
+    """Monta o pacote de contribuição: os dados da run sem nomes (a2parse/contribuicao.py) + o relato da pessoa."""
+
+    def __init__(self, ov) -> None:
+        import datetime as dt
+        import glob
+        self.ov = ov
+        self.j = tk.Toplevel(ov.root)
+        self.j.title(f"Nebula Overlay · {t('contribuir')}")
+        self.j.configure(bg=CARTAO)
+        self.j.attributes("-topmost", True)
+        self.j.resizable(False, False)
+        _icone(self.j)
+        self.pacote: str | None = None
+        capturas = sorted(glob.glob(os.path.join(pasta_usuario("capturas"), "*.pcap*")), key=os.path.getmtime, reverse=True)
+        c = tk.Frame(self.j, bg=CARTAO)
+        c.pack(fill="both", expand=True, padx=16, pady=12)
+        tk.Label(c, text=t("contrib_titulo"), bg=CARTAO, fg=TEXTO, font=(FONTE, 12, "bold"), anchor="w").pack(fill="x")
+        tk.Label(c, text=t("contrib_intro"), bg=CARTAO, fg=SUAVE, font=(FONTE, 9), wraplength=440, justify="left",
+                 anchor="w").pack(fill="x", pady=(2, 8))
+
+        def campo(rotulo: str) -> None:
+            tk.Label(c, text=rotulo, bg=CARTAO, fg=TEXTO, font=(FONTE, 10, "bold"), anchor="w").pack(fill="x", pady=(6, 2))
+
+        campo(t("contrib_run"))
+        self.rotulos = {t("contrib_sem_captura"): None}
+        for cap in capturas[:15]:
+            quando = dt.datetime.fromtimestamp(os.path.getmtime(cap)).strftime("%d/%m %H:%M")
+            self.rotulos[f"{quando} · {os.path.getsize(cap) / 1e6:.1f} MB"] = cap
+        self.v_run = tk.StringVar(value=list(self.rotulos)[1 if capturas else 0])
+        menu = tk.OptionMenu(c, self.v_run, *self.rotulos)
+        menu.config(bg=BOTAO, fg=TEXTO, activebackground=BOTAO_ATIVO, activeforeground=TEXTO, relief="flat",
+                    highlightthickness=0, font=(FONTE, 10), width=30, anchor="w")
+        menu["menu"].config(bg=BOTAO, fg=TEXTO, font=(FONTE, 10))
+        menu.pack(anchor="w")
+        entrada = dict(bg="#14111d", fg=TEXTO, insertbackground=TEXTO, relief="flat", font=(FONTE, 10))
+        campo(t("contrib_conteudo"))
+        self.e_conteudo = tk.Entry(c, width=56, **entrada)
+        self.e_conteudo.pack(fill="x", ipady=3)
+        campo(t("contrib_relato"))
+        self.t_relato = tk.Text(c, width=56, height=6, wrap="word", **entrada)
+        self.t_relato.pack(fill="x")
+        campo(t("contrib_video"))
+        self.e_video = tk.Entry(c, width=56, **entrada)
+        self.e_video.pack(fill="x", ipady=3)
+        self.v_bruta, self.v_ok = tk.BooleanVar(value=False), tk.BooleanVar(value=False)
+        for var, chave in ((self.v_bruta, "contrib_bruta"), (self.v_ok, "contrib_consentimento")):
+            tk.Checkbutton(c, text=t(chave), variable=var, bg=CARTAO, fg=TEXTO, selectcolor=BORDA, activebackground=CARTAO,
+                           activeforeground=TEXTO, font=(FONTE, 9), anchor="w", wraplength=430, justify="left").pack(
+                fill="x", pady=(6, 0))
+        self.estado = tk.Label(c, text="", bg=CARTAO, fg=SUAVE, font=(FONTE, 9), wraplength=440, justify="left", anchor="w")
+        self.estado.pack(fill="x", pady=(8, 0))
+        self.botoes = tk.Frame(c, bg=CARTAO)
+        self.botoes.pack(fill="x", pady=(8, 0))
+        self._botoes()
+        self.j.update_idletasks()
+        self.j.geometry(f"+{(ov.sw - self.j.winfo_width()) // 2}+{max(0, (ov.sh - self.j.winfo_height()) // 4)}")
+
+    def _botoes(self) -> None:
+        for w in self.botoes.winfo_children():
+            w.destroy()
+        _botao(self.botoes, t("contrib_gerar"), self._gerar, destaque=not self.pacote).pack(side="left")
+        if self.pacote:
+            _botao(self.botoes, t("btn_pasta"), lambda: abrir(os.path.dirname(self.pacote))).pack(side="left", padx=8)
+            _botao(self.botoes, t("contrib_enviar"), lambda: abrir(FORMULARIO_URL or CONTRIBUIR_URL),
+                   destaque=True).pack(side="left")
+        if DISCORD_URL:
+            _botao(self.botoes, "Discord", lambda: abrir(DISCORD_URL)).pack(side="left", padx=8)
+        _botao(self.botoes, t("fechar"), self.j.destroy).pack(side="right")
+
+    def _gerar(self) -> None:
+        if not self.v_ok.get():
+            self.estado.config(text=t("contrib_falta_consentimento"), fg=AMARELO)
+            return
+        captura = self.rotulos.get(self.v_run.get())
+        relato = {"conteudo": self.e_conteudo.get().strip(), "relato": self.t_relato.get("1.0", "end").strip(),
+                  "video": self.e_video.get().strip(), "idioma": idioma.atual()}
+        if not captura and not (relato["relato"] or relato["video"]):
+            self.estado.config(text=t("contrib_vazio"), fg=AMARELO)
+            return
+        self.estado.config(text=t("contrib_lendo") if captura else t("aplicando"), fg=AMARELO)
+        resultado: dict = {}
+        incluir = self.v_bruta.get()
+
+        def trabalho():
+            from a2parse.contribuicao import empacotar
+            try:
+                resultado["caminho"] = empacotar(captura, relato, incluir)
+            except Exception as e:
+                resultado["erro"] = str(e)[:120]
+
+        threading.Thread(target=trabalho, daemon=True).start()
+
+        def esperar():
+            if not self.j.winfo_exists():
+                return
+            if not resultado:
+                self.j.after(200, esperar)
+                return
+            if "erro" in resultado:
+                self.estado.config(text=t("contrib_erro", erro=resultado["erro"]), fg=VERMELHO)
+                return
+            self.pacote = resultado["caminho"]
+            self.estado.config(text=t("contrib_pronto", arquivo=os.path.basename(self.pacote)), fg=VERDE)
+            self._botoes()
+        esperar()
