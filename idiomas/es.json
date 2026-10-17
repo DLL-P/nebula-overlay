@@ -7,7 +7,8 @@
   "regioes": [
    "es"
   ],
-  "virgula_decimal": true
+  "virgula_decimal": true,
+  "ordem": 3
  },
  "interface": {
   "em_s": "EN {s}s · {texto}",

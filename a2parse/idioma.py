@@ -36,7 +36,8 @@ def _carregar() -> dict[str, dict]:
                         idiomas[cod].setdefault(parte, {}).update(valor)
             else:
                 idiomas[cod] = d
-    return idiomas
+    # ordem da engrenagem: "ordem" do arquivo (pt, en, es...) e depois o código
+    return dict(sorted(idiomas.items(), key=lambda kv: ((kv[1].get("idioma") or {}).get("ordem", 99), kv[0])))
 
 
 _IDIOMAS = _carregar()
