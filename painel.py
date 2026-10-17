@@ -29,7 +29,7 @@ FONTE = "Segoe UI"
 
 
 def abrir(caminho: str) -> None:
-    """Abre uma pasta no Explorador ou um link no navegador."""
+    """Abre um link no navegador, ou uma pasta / tela de configuração do Windows (ms-settings:)."""
     if caminho.startswith("http"):
         webbrowser.open(caminho)
     else:
@@ -253,6 +253,8 @@ class Configuracoes:
         linha = tk.Frame(c, bg=CARTAO)
         linha.pack(fill="x", pady=(4, 0))
         _botao(linha, t("testar"), self.ov.testar_som, pequeno=True).pack(side="left", padx=(6, 0))
+        # a voz de cada idioma vem do Windows: atalho para instalar (ex.: espanhol)
+        _botao(linha, t("vozes_windows"), lambda: abrir("ms-settings:speech"), pequeno=True).pack(side="left", padx=(8, 0))
         estado.pack(fill="x", pady=(2, 0))
 
         self._titulo(c, t("tamanho"))

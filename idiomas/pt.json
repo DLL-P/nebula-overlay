@@ -142,7 +142,8 @@
   "contrib_enviar": "Enviar",
   "contrib_falta_consentimento": "Marque a autorização para gerar o pacote.",
   "contrib_vazio": "Escolha uma run ou escreva um relato.",
-  "gravar_tudo": "Gravar também fora de masmorra (eventos de campo; arquivos maiores)"
+  "gravar_tudo": "Gravar também fora de masmorra (eventos de campo; arquivos maiores)",
+  "vozes_windows": "Instalar vozes do Windows"
  },
  "classes": {
   "GLADIATOR": "Gladiador",
