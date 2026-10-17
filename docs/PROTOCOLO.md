@@ -53,6 +53,8 @@ O resultado é mais uma sequência de mensagens no mesmo formato, até 3 níveis
 | 0x382C | buff/debuff removido | fim do controle em você |
 | 0x3816 | movimento forçado | derrubada/empurrão em você |
 | 0x6000 / 0x6001 | eventos de campo | cartão de eventos (seção 10) |
+| 0x9702 / 0x970B | lista do grupo / alguém entrou na sala | classe, nível, GS e CP de cada jogador (seção 11) |
+| 0x3656 | seu poder de combate | seu CP (atual e o maior) |
 
 A lista completa de nomes fica em `opcodes.json`.
 
@@ -242,3 +244,15 @@ do servidor (ms desde 1970)`. Como só o sentido servidor → cliente é lido, o
 Nas capturas de 2026-10-16, às 02:00 e às 23:00, os IDs 110101, 110201 … 110901 (9 eventos, provavelmente o Festival Shugo em 9 regiões)
 abriram às HH:00:01 na fase 1 (até HH:03:01), passaram à fase 2 às HH:03:02 e fecharam entre HH:05:57 e HH:08:14.
 O servidor só manda o evento quando ele abre; o aviso antecipado vem da agenda em `mecanicas/eventos.json`.
+
+## 11. 0x9702 / 0x970B grupo: GS e CP
+
+A lista do grupo chega a cada mudança no grupo ou na sala. Depois de um cabeçalho (mensagem da sala), cada jogador:
+
+```
+u8 0x1E | u8 posição | u32 ID | u16 0 | u16 servidor | u8 tamanho + nome (UTF-8) | u32 classe (faixas do 0x3633) |
+u32 nível | u32 GS | [u8 opcional] | u16 servidor (de novo) | u16 | u8 | u64 CP | u64 | u8 | u8
+```
+
+O byte opcional depois do GS só aparece em alguns jogadores; o servidor repetido serve de âncora. O CP é o que o
+perfil do jogo mostra (para você, o "maior" do 0x3656: `u64 CP atual | u64 CP maior`).

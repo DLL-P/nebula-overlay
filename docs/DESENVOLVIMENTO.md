@@ -34,6 +34,7 @@ Documentos\Nebula Overlay). A variável `NEBULA_OVERLAY_PASTA` troca esse lugar 
 | `a2parse/roteiro.py` | roteiro aprendido e previsão (cadeia de skills, fases por HP, atordoamento, ciclos) |
 | `a2parse/meter.py` | painel de dano |
 | `a2parse/classes.py` | classe e papel |
+| `a2parse/grupo.py` | GS e CP de cada jogador do grupo (0x9702 / 0x970B) |
 | `a2parse/eventos.py` | eventos de campo: pacotes 0x6000/0x6001 e agenda |
 | `a2parse/idioma.py` | carrega os idiomas e traduz a interface e os alertas |
 | `idiomas/<código>.json` | um arquivo por idioma: nome, voz do Windows, textos da interface, classes, papéis e frases da voz |

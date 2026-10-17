@@ -25,6 +25,7 @@ from .classes import NOME as NOME_CLASSE, PAPEL, DetectorClasse, classe_do_pc
 from . import controle as cc
 from .decoders import Leitor
 from .eventos import Eventos
+from .grupo import ler_perfis
 from .latencia import Latencia
 from .meter import Medidor
 from .roteiro import Previsor, carregar as carregar_roteiros, medidor_atordoamento
@@ -158,6 +159,8 @@ class Sessao:
     mensagens: int = 0
     nomes: dict[int, str] = field(default_factory=dict)
     odyle: tuple[int, int] | None = None   # energia Odyle: (restante, recarga), mostrada como "0 (+35)"
+    perfis: dict = field(default_factory=dict)  # nome -> {classe, nivel, gs, cp} (lista do grupo, 0x9702/0x970B)
+    grupo: list = field(default_factory=list)   # nomes do grupo, na ordem da última lista
     zona_com_boss: bool = False         # algum boss apareceu desde a última troca de zona (usado pela gravação)
     eventos: Eventos | None = None      # eventos de campo (Festival Shugo...); o overlay passa o mesmo entre conexões
     ultimo_ts: float = 0.0
@@ -228,6 +231,8 @@ class Sessao:
             "centro": centro,
             "atordoamento": b.atordoamento if b else None,
             "odyle": self.odyle,
+            "perfis": self.perfis,
+            "grupo": [self.perfis[n] for n in self.grupo if n in self.perfis],
             "latencia": self.latencia.estado(agora),
             "status": status,
             "cartoes": cartoes,
@@ -344,6 +349,13 @@ class Sessao:
         if op in (0x6000, 0x6001):
             self.eventos.mensagem(op, bytes(payload))
             return
+        if op in (0x9702, 0x970B):
+            lista = ler_perfis(bytes(payload))
+            for x in lista:
+                self.perfis[x["nome"]] = x
+            if op == 0x9702 and lista:
+                self.grupo = [x["nome"] for x in lista]
+            return
         if op == 0x3641:
             r = ler_spawn_completo(payload)
             if r:
@@ -354,6 +366,11 @@ class Sessao:
         if not resultado or resultado[0] != "ok":
             return
         c = resultado[1]
+        if op == 0x3656:                         # seu CP (o "maior" é o que o perfil do jogo mostra)
+            if self.meu_nome:
+                eu = self.perfis.setdefault(self.meu_nome, {"nome": self.meu_nome})
+                eu["cp"] = c["combat_power_maximo"] or c["combat_power"]
+            return
         if op == 0x3600:
             self.eventos.relogio(ts, c["horario_servidor"])
             self.latencia.relogio(ts, c["horario_servidor"])

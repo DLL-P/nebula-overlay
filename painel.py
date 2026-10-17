@@ -266,6 +266,7 @@ class Configuracoes:
                  activebackground=DESTAQUE).pack(anchor="w", padx=(6, 0))
         self._titulo(c, t("mostrar"))
         self._caixa(c, t("painel_dano"), "meter")
+        self._caixa(c, t("perfis_op"), "perfis")
         self._caixa(c, t("borda"), "borda")
         self._caixa(c, t("latencia_op"), "latencia")
         fonte = self.ov.fonte

@@ -1014,10 +1014,46 @@ class Overlay:
             y += 23 * e
         y += 6 * e
         # jogadores
+        perfis = (st.get("perfis") or {}) if self.cfg.get("perfis", True) else {}
+        f_p = (FONTE, max(6, int(7 * e)))
+
+        def cp_gs(p: dict) -> str:
+            return " · ".join(x for x in ((f"CP {numero(p['cp'])}" if p.get("cp") else ""),
+                                         (f"GS {p['gs']}" if p.get("gs") else "")) if x)
         if not linhas:
             msg = t("aguardando_boss") if not b else t("aguardando_golpe")
             desenhos.append(lambda y=y, msg=msg: cv.create_text(mg, y + h / 2, text=msg, anchor="w", fill="#8d8aa0", font=f_n, tags="dyn"))
             y += h + gap
+            # fora da luta: o grupo com CP e GS (ou só você, sem grupo)
+            eu_p = perfis.get(st.get("eu") or "")
+            grupo = [p for p in (st.get("grupo") or []) if p.get("cp")] if perfis else []
+            if not grupo and eu_p and eu_p.get("cp"):
+                grupo = [dict(eu_p, classe=eu_p.get("classe") or st.get("classe_chave"))]
+            maior_cp = max((p["cp"] for p in grupo), default=1)
+            h2 = 22 * e
+            for p in grupo[:8]:
+                def membro(y0=y, p=p):
+                    meio = y0 + h2 / 2
+                    voce = p["nome"] == st.get("eu")
+                    base_cor = CLASSE_COR.get(p.get("classe") or "", "#9d96b0")
+                    cv.create_rectangle(mg, y0, W - mg, y0 + h2, fill=CARTAO_LINHA, outline="", tags="dyn")
+                    cv.create_rectangle(mg, y0 + h2 - 3 * e, mg + (W - 2 * mg) * p["cp"] / maior_cp, y0 + h2,
+                                        fill=misturar(VOCE if voce else base_cor, CARTAO_LINHA, 0.6), outline="", tags="dyn")
+                    cx = mg + 13 * e
+                    img = self._simbolo_classe(p.get("classe") or "")
+                    if img:
+                        cv.create_image(cx, meio, image=img, tags="dyn")
+                    x = cx + 14 * e
+                    nome = p["nome"] if len(p["nome"]) <= 14 else p["nome"][:13] + "…"
+                    cv.create_text(x, meio, text=nome, anchor="w", fill=TEXTO, font=f_n, tags="dyn")
+                    if voce:
+                        cv.create_text(x + self._medir(nome, f_n) + 5 * e, meio, text=t("eu"), anchor="w", fill="#c9b8ff",
+                                       font=f_s, tags="dyn")
+                    cv.create_text(W - mg - 6 * e, meio, text=f"GS {p['gs']}" if p.get("gs") else "", anchor="e",
+                                   fill="#8d8aa0", font=f_s, tags="dyn")
+                    cv.create_text(W - mg - 62 * e, meio, text=f"CP {numero(p['cp'])}", anchor="e", fill=TEXTO, font=f_d, tags="dyn")
+                desenhos.append(membro)
+                y += h2 + gap
         topo_pct = linhas[0]["pct"] if linhas else 1.0
         for l in linhas:
             def jogador(y0=y, l=l):
@@ -1037,6 +1073,10 @@ class Overlay:
                     cv.create_text(cx, meio, text=CLASSE_SIGLA.get(l["chave"], "?")[0], fill=base_cor, font=f_s, tags="dyn")
                 x = cx + 14 * e
                 nome = l["nome"] if len(l["nome"]) <= 14 else l["nome"][:13] + "…"
+                sub = cp_gs(perfis.get(l["nome"]) or {})
+                if sub:                          # duas linhas: nome em cima, CP · GS embaixo
+                    cv.create_text(x, meio + 7 * e, text=sub, anchor="w", fill="#a29fb6", font=f_p, tags="dyn")
+                    meio -= 5 * e
                 cv.create_text(x, meio, text=nome, anchor="w", fill=TEXTO, font=f_n, tags="dyn")
                 x += self._medir(nome, f_n) + 5 * e
                 if l["voce"]:
@@ -1050,6 +1090,7 @@ class Overlay:
                     cv.create_rectangle(x, meio - 7 * e, x + lw, meio + 7 * e, fill="#5a1520", outline=NIVEL["alarme"], tags="dyn")
                     cv.create_text(x + lw / 2, meio, text=st_txt, font=f_s, fill="#ffffff", tags="dyn")
                     x += lw + 4 * e
+                meio = y0 + h / 2                # DPS e % continuam no meio da barra
                 cv.create_text(W - mg - 52 * e, meio, text=numero(l["dps"]), anchor="e", fill=TEXTO, font=f_d, tags="dyn")
                 cv.create_text(W - mg - 6 * e, meio, text=f"{l['pct']:.1f}%".replace(".", ","), anchor="e", fill="#8d8aa0",
                                font=f_s, tags="dyn")

@@ -124,7 +124,8 @@
   "apoiar": "Support the developer",
   "fechar": "Close",
   "sair_app": "Quit Nebula Overlay",
-  "erro_inesperado": "Unexpected error. Details saved to {arquivo}."
+  "erro_inesperado": "Unexpected error. Details saved to {arquivo}.",
+  "perfis_op": "Players' CP and GS on the panel"
  },
  "classes": {
   "GLADIATOR": "Gladiator",

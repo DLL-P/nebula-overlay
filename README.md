@@ -4,7 +4,7 @@ Overlay de mecânicas para o **Aion 2**: avisa o que o boss vai fazer, um pouco 
 
 - **Alertas antecipados.** O aviso sai quando o boss anuncia a skill, antes do cast. Vem com contagem, ícone, voz curta ("Sai!", "Empilha!", "Engaje!") e uma dica para a sua classe.
 - **Linha do tempo do boss.** Mostra as próximas mecânicas com o tempo até cada uma: rotação aprendida das runs, fases por HP e barra de atordoamento. As mais confiáveis sobem para o centro da tela 5 s antes.
-- **Painel do boss e do grupo.** HP do boss, atordoamento, dano e DPS de cada jogador com o símbolo da classe e a energia Odyle.
+- **Painel do boss e do grupo.** HP do boss, atordoamento, dano e DPS de cada jogador com o símbolo da classe, o CP e o GS de cada um, e a energia Odyle.
 - **Feito para a sua classe e papel.** Tank, healer, suporte e dps veem alertas diferentes; quem bate de longe não recebe "ENGAJE".
 - **Eventos de campo.** Avisa antes do Festival Shugo e dos outros eventos ("Festival Shugo · 5 min") e mostra quanto falta para fechar; o horário exato vem do servidor.
 - **Latência no painel.** Ping até o servidor (conexão direta) ou a oscilação da conexão (com ExitLag e outros aceleradores), medidos só lendo os pacotes.

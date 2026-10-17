@@ -124,7 +124,8 @@
   "apoiar": "Apoyar al desarrollador",
   "fechar": "Cerrar",
   "sair_app": "Cerrar Nebula Overlay",
-  "erro_inesperado": "Error inesperado. Los detalles quedaron en {arquivo}."
+  "erro_inesperado": "Error inesperado. Los detalles quedaron en {arquivo}.",
+  "perfis_op": "CP y GS de los jugadores en el panel"
  },
  "classes": {
   "GLADIATOR": "Gladiador",
