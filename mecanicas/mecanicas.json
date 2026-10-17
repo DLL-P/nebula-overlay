@@ -483,13 +483,32 @@
               "acao": "Mantenha o cone longe do alvo; se ele for atingido vira larva e perde o controle",
               "alerta": "CONE LONGE DO ALVO",
               "gatilho": {
-                "tipo": "buff",
-                "abnormal_id": null
+                "tipo": "skill",
+                "skill_ids": [
+                  1218700
+                ],
+                "preparo_s": {
+                  "1218700": 0.7
+                }
               },
               "wipe": false,
               "confianca": "media",
               "acao_tipo": "sair",
-              "id": "predator-saraswati-raiz-venenosa-nuvem-em-cone"
+              "id": "predator-saraswati-raiz-venenosa-nuvem-em-cone",
+              "confianca_skill": "media",
+              "observado": {
+                "fonte": "captura 2026-10-17 14:43 (Conquista, sem vídeo; nomes das skills pelo cliente)",
+                "nota": "1218700 (Laço de Tentáculos, preparo 0,7 s, 5 alvos) → 1218705 → 1218730 (Sopro Polimórfico, o cone) ~3,8 s depois → 1218720 (Puxão de Tentáculos)"
+              },
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "CONE LONGE DO ALVO",
+                  "sub": "tentáculos enraízam; o sopro em cone vem em ~4 s",
+                  "tipo": "sair",
+                  "contagem": 3.8
+                }
+              ]
             },
             {
               "nome": "Três círculos",
@@ -514,7 +533,10 @@
               "wipe": false,
               "confianca": "media",
               "acao_tipo": "atencao",
-              "id": "predator-saraswati-pocas-azuis"
+              "id": "predator-saraswati-pocas-azuis",
+              "candidatos_skill": {
+                "1218670": "Caça por Alimento: preparo 1,0 s, atinge 4"
+              }
             },
             {
               "nome": "Envolta na poça",
@@ -525,7 +547,10 @@
               "wipe": false,
               "confianca": "alta",
               "acao_tipo": "atencao",
-              "id": "predator-saraswati-envolta-na-poca"
+              "id": "predator-saraswati-envolta-na-poca",
+              "candidatos_skill": {
+                "1218650": "Devoramento: preparo 1,31 s, nela mesma, ~7 s depois da 1218670"
+              }
             },
             {
               "id": "predator-saraswati-atordoado",
@@ -599,7 +624,11 @@
               "wipe": false,
               "confianca": "alta",
               "acao_tipo": "esquivar",
-              "id": "phantasmal-lakshmi-ataque-circular-em-massa"
+              "id": "phantasmal-lakshmi-ataque-circular-em-massa",
+              "candidatos_skill": {
+                "1605930": "preparo 1,6 s, atinge 3",
+                "1605940": "preparo 0,8 s, atinge 4"
+              }
             },
             {
               "nome": "\"Agony always comes back around!\"",
@@ -613,7 +642,11 @@
               "wipe": false,
               "confianca": "media",
               "acao_tipo": "parar_dano",
-              "id": "phantasmal-lakshmi-agony-always-comes-back-around"
+              "id": "phantasmal-lakshmi-agony-always-comes-back-around",
+              "candidatos_skill": {
+                "1605910": "nela mesma aos 70%, preparo 0,7 s",
+                "1605970": "nela mesma aos 44%, preparo 1,05 s"
+              }
             },
             {
               "nome": "Lacaio curandeiro",
@@ -702,15 +735,25 @@
               "acao": "Pule cada anel (um pouco antes), avance até o lado dele e quebre a barra de stagger com as skills mais fortes",
               "alerta": "PULE OS ANÉIS → STAGGER",
               "gatilho": {
-                "tipo": "hp",
-                "pct": 75
+                "tipo": "skill",
+                "skill_ids": [
+                  1800690
+                ],
+                "preparo_s": {
+                  "1800690": 2.0
+                }
               },
               "wipe": true,
               "confianca": "alta",
               "nota": "Repete na segunda fase: a 35% segundo 3 fontes, a 25% segundo o games.gg (confira). Com redemoinhos (anote as posições antes de a tela escurecer) e projéteis extras. Guarde o stagger para essa fase.",
               "acao_tipo": "stagger",
               "pre_aviso_pct": 5,
-              "id": "transcendent-bakarma-teleporte-ondas-stagger"
+              "id": "transcendent-bakarma-teleporte-ondas-stagger",
+              "confianca_skill": "media",
+              "observado": {
+                "fonte": "captura 2026-10-17 14:43 (Conquista, sem vídeo; nomes das skills pelo cliente)",
+                "nota": "1800690 (Domínio do Subespaço, preparo 2,0 s) aos 61% nesta run (guias: 75%); o grupo quebrou a barra ~14 s depois (9668 → 1000009)"
+              }
             },
             {
               "nome": "Repetição do teleporte",
@@ -718,15 +761,25 @@
               "acao": "Mesma resposta; mais projéteis",
               "alerta": "PULE OS ANÉIS → STAGGER",
               "gatilho": {
-                "tipo": "hp",
-                "pct": 35
+                "tipo": "skill",
+                "skill_ids": [
+                  1800695
+                ],
+                "preparo_s": {
+                  "1800695": 2.0
+                }
               },
               "wipe": true,
               "confianca": "media",
               "nota": "Gatilho 35% ou 25% conforme a fonte.",
               "acao_tipo": "stagger",
               "pre_aviso_pct": 5,
-              "id": "transcendent-bakarma-repeticao-do-teleporte"
+              "id": "transcendent-bakarma-repeticao-do-teleporte",
+              "confianca_skill": "media",
+              "observado": {
+                "fonte": "captura 2026-10-17 14:43 (Conquista, sem vídeo; nomes das skills pelo cliente)",
+                "nota": "1800625 (Coluna de Água Envolvente, preparo 2,5 s) aos 35% e 1800695 (preparo 2,0 s) aos 32%"
+              }
             },
             {
               "nome": "Saltos para a borda",
@@ -749,12 +802,22 @@
               "alerta": "ANDA E ESPALHA",
               "gatilho": {
                 "tipo": "skill",
-                "skill_id": null
+                "skill_ids": [
+                  1800554
+                ],
+                "preparo_s": {
+                  "1800554": 2.5
+                }
               },
               "wipe": false,
               "confianca": "alta",
               "acao_tipo": "espalhar",
-              "id": "transcendent-bakarma-mergulho"
+              "id": "transcendent-bakarma-mergulho",
+              "confianca_skill": "media",
+              "observado": {
+                "fonte": "captura 2026-10-17 14:43 (Conquista, sem vídeo; nomes das skills pelo cliente)",
+                "nota": "1800554 (preparo 2,5 s) aos 49%; depois 45 toques 1800551 em 2 jogadores por vez (AoEs que seguem)"
+              }
             },
             {
               "nome": "Investida frontal",
@@ -768,7 +831,10 @@
               "wipe": false,
               "confianca": "alta",
               "acao_tipo": "atras",
-              "id": "transcendent-bakarma-investida-frontal"
+              "id": "transcendent-bakarma-investida-frontal",
+              "candidatos_skill": {
+                "1800560": "Golpe de Balanço: preparo 1,5 s, atinge 3"
+              }
             },
             {
               "nome": "Círculos laranja → gêiser",
@@ -782,7 +848,10 @@
               "wipe": false,
               "confianca": "alta",
               "acao_tipo": "sair",
-              "id": "transcendent-bakarma-circulos-laranja-geiser"
+              "id": "transcendent-bakarma-circulos-laranja-geiser",
+              "candidatos_skill": {
+                "1800540": "Bomba de Água: preparo 0,9 s, atinge 4"
+              }
             },
             {
               "nome": "Sopro frontal",

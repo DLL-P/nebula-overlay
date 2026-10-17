@@ -561,7 +561,8 @@
   "linhas laranja cruzam a arena: saia de cima delas já (batem em ~1 s)": "orange lines cross the arena: get off them now (they hit in ~1 s)",
   "Golpes seguidos em volta dele por ~2 s (4 × ~6 mil): saia e volte depois": "Repeated hits around him for ~2 s (4 × ~6k): get out and come back after",
   "fio em 2 jogadores; o golpe pesado vem em seguida (aviso próprio)": "tether on 2 players; the heavy hit comes next (own warning)",
-  "Golpe dividido por quem está no círculo (sozinho: até 91 mil); fique fora das faixas das cópias e com vida cheia": "Hit split among those in the circle (alone: up to 91k); stay out of the copies' lanes and at full HP"
+  "Golpe dividido por quem está no círculo (sozinho: até 91 mil); fique fora das faixas das cópias e com vida cheia": "Hit split among those in the circle (alone: up to 91k); stay out of the copies' lanes and at full HP",
+  "tentáculos enraízam; o sopro em cone vem em ~4 s": "tentacles root; the cone breath comes in ~4 s"
  },
  "es": {
   "3 ACÚMULOS: AFASTA": "3 CARGAS: ALÉJATE",
@@ -1124,6 +1125,7 @@
   "linhas laranja cruzam a arena: saia de cima delas já (batem em ~1 s)": "líneas naranjas cruzan la arena: sal de ellas ya (golpean en ~1 s)",
   "Golpes seguidos em volta dele por ~2 s (4 × ~6 mil): saia e volte depois": "Golpes seguidos a su alrededor durante ~2 s (4 × ~6 mil): sal y vuelve después",
   "fio em 2 jogadores; o golpe pesado vem em seguida (aviso próprio)": "hilo en 2 jugadores; el golpe pesado viene después (aviso propio)",
-  "Golpe dividido por quem está no círculo (sozinho: até 91 mil); fique fora das faixas das cópias e com vida cheia": "Golpe dividido entre quienes están en el círculo (solo: hasta 91 mil); fuera de las franjas de las copias y con vida llena"
+  "Golpe dividido por quem está no círculo (sozinho: até 91 mil); fique fora das faixas das cópias e com vida cheia": "Golpe dividido entre quienes están en el círculo (solo: hasta 91 mil); fuera de las franjas de las copias y con vida llena",
+  "tentáculos enraízam; o sopro em cone vem em ~4 s": "los tentáculos enraízan; el soplido en cono llega en ~4 s"
  }
 }
