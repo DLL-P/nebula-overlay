@@ -35,6 +35,7 @@ from a2parse.alertas import Alerta, carregar_mecanicas
 from a2parse.caminhos import INSTALADO, app, pasta_usuario, usuario
 from a2parse.idioma import t, tr
 from a2parse.roteiro import carregar as carregar_roteiros
+from a2parse.sons import tocar
 from a2parse.aovivo import Sessao
 from a2parse.classes import NOME as NOME_CLASSE
 from a2parse.eventos import Eventos, nome as nome_evento
@@ -771,13 +772,17 @@ class Overlay:
                 json.dump(self.cfg, f, indent=2, ensure_ascii=False)
 
     def _reafirmar(self) -> None:
-        self._seguir_jogo()
-        for j in (self.w_al, self.w_pa, self.w_me, self.w_bo, self.w_ev, *(c[0] for c in self.cadeados)):
-            if j and not self.escondido:
-                por_cima(j)
-        if self.travado:
-            self._posicionar_cadeados()
-        self.root.after(2000, self._reafirmar)
+        try:
+            self._protegido(self._seguir_jogo)
+            for j in (self.w_al, self.w_pa, self.w_me, self.w_bo, self.w_ev, *(c[0] for c in self.cadeados)):
+                if j and not self.escondido:
+                    por_cima(j)
+            if self.travado:
+                self._posicionar_cadeados()
+        except Exception:
+            self._registrar_erro()
+        finally:
+            self.root.after(2000, self._reafirmar)
 
     def _erro(self, tipo, valor, tb) -> None:
         if tipo is KeyboardInterrupt:
@@ -797,21 +802,44 @@ class Overlay:
 
     # ---------- laço ----------
     def _quadro(self) -> None:
-        self._n_quadro += 1
-        if self._n_quadro % 5 == 0:      # 4 vezes por segundo: o Alt+Tab some com o overlay na hora
-            self._checar_foco()
-        agora = self.fonte.processar(self.sessao) if self.fonte else time.time()
-        self.sessao.tick(agora)
-        st = self.sessao.estado(agora)
-        self._st = st
-        self._desenhar_alertas(st, agora)
-        if self.cv_me:
-            self._desenhar_meter(st.get("meter"), agora)
-        if self.cv_bo:
-            self._desenhar_borda(st, agora)
-        self._sons(st, agora)
-        self._desenhar_eventos(agora)
-        self.root.after(50, self._quadro)
+        """20 vezes por segundo: lê os pacotes, atualiza a sessão e desenha. Um erro numa parte nunca para o resto
+        (sem isso, um erro no desenho parava a leitura, o painel e a gravação de vez)."""
+        try:
+            self._n_quadro += 1
+            if self._n_quadro % 5 == 0:      # 4 vezes por segundo: o Alt+Tab some com o overlay na hora
+                self._protegido(self._checar_foco)
+            agora = self.fonte.processar(self.sessao) if self.fonte else time.time()
+            self.sessao.tick(agora)
+            st = self.sessao.estado(agora)
+            self._st = st
+            self._protegido(self._desenhar_alertas, st, agora)
+            if self.cv_me:
+                self._protegido(self._desenhar_meter, st.get("meter"), agora)
+            if self.cv_bo:
+                self._protegido(self._desenhar_borda, st, agora)
+            self._protegido(self._sons, st, agora)
+            self._protegido(self._desenhar_eventos, agora)
+        except Exception:
+            self._registrar_erro()
+        finally:
+            self.root.after(50, self._quadro)
+
+    def _protegido(self, funcao, *args) -> None:
+        try:
+            funcao(*args)
+        except Exception:
+            self._registrar_erro()
+
+    def _registrar_erro(self) -> None:
+        """Escreve o erro no log uma vez por lugar (sem encher o nebula.log 20 vezes por segundo)."""
+        import traceback
+        tipo, valor, tb = sys.exc_info()
+        lugar = traceback.extract_tb(tb)[-1]
+        chave = (tipo, lugar.filename, lugar.lineno)
+        vistos = self.__dict__.setdefault("_erros_vistos", set())
+        if chave not in vistos:
+            vistos.add(chave)
+            traceback.print_exception(tipo, valor, tb)
 
     def _cor_acao(self, tipo: str) -> str:
         return ACAO.get(self.cats.get(tipo, self.cats["atencao"])["cor"], "#b9b3c9")
@@ -1243,10 +1271,8 @@ class Overlay:
                     self.voz.contagem(time.monotonic() + (a.t + a.contagem - agora) / getattr(self.fonte, "velocidade", 1.0))
                 if falou:
                     continue
-                from a2parse.sons import tocar
                 tocar(self.cats.get(a.tipo, self.cats["atencao"])["som"])
             else:
-                from a2parse.sons import tocar
                 tocar(self.cats.get(a.tipo, self.cats["atencao"])["som"])
 
     def rodar(self) -> None:
