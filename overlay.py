@@ -37,6 +37,7 @@ from a2parse.idioma import t, tr
 from a2parse.roteiro import carregar as carregar_roteiros
 from a2parse.aovivo import Sessao
 from a2parse.classes import NOME as NOME_CLASSE
+from a2parse.eventos import Eventos, nome as nome_evento
 from a2parse.versao import VERSAO
 from a2parse.captura import _decodificar, ler_segmentos
 from a2parse.fontes import ler_tempo
@@ -53,7 +54,8 @@ CLASSE_COR = {"GLADIATOR": "#d9873f", "TEMPLAR": "#5fa8d3", "ASSASSIN": "#b36bff
               "FIGHTER": "#e0563b"}
 CLASSE_SIGLA = {"GLADIATOR": "GLA", "TEMPLAR": "TEM", "ASSASSIN": "ASS", "RANGER": "ARQ", "SORCERER": "MAG",
                 "ELEMENTALIST": "ESP", "CLERIC": "CLÉ", "CHANTER": "ENC", "FIGHTER": "LUT"}
-MOVEIS = ("alertas", "meter")
+MOVEIS = ("alertas", "meter", "eventos")
+EVENTO = "#4fd1c5"                       # cor dos eventos de campo (como o cartão do Festival Shugo)
 CARTAO, CARTAO_BORDA, CARTAO_LINHA = "#1a1c25", "#2c2f3d", "#242733"   # cartões no estilo do seu meter
 VOCE = "#7b5cf0"                                                        # sua linha no meter
 FONTE = "Segoe UI"
@@ -247,6 +249,8 @@ class Overlay:
         self.escala = args.escala or self.cfg.get("escala", 1.0)
         self.dicas_on = not args.sem_dicas and self.cfg.get("dicas", True)
         self.ao_vivo = not (args.repetir or args.demo)
+        self.eventos = Eventos()                 # sobrevive às reconexões (a sessão é refeita a cada uma)
+        self._eventos_avisados: set = set()
         self.sessao = self._nova_sessao()
         self.cats = self.sessao.dados["categorias_alerta"]
         self.fonte = None
@@ -289,12 +293,14 @@ class Overlay:
         self.w_pa, self.cv_pa = None, None            # o painel do boss mora no topo do meter
         self.w_me, self.cv_me = (None, None) if sem_meter else self._janela("meter", int(400 * e), int(420 * e))
         self.w_bo, self.cv_bo = (None, None) if sem_borda else self._janela("borda", self.sw, self.sh, fixo=True)
+        self.w_ev, self.cv_ev = self._janela("eventos", int(300 * e), int(170 * e))
         # um cadeado em cada janela; qualquer um trava ou destrava todas
         if self.w_me:
             self._cadeado(self.w_me, canto="base")     # cadeado no rodapé do painel
             self._cadeado(self.w_me, canto="base", tipo="engrenagem")   # configurações, ao lado
         # o do alerta só aparece destravado: travado, ele ficaria solto em cima do personagem
         self._cadeado(self.w_al, so_aberto=bool(self.w_me or self.w_pa))
+        self._cadeado(self.w_ev, so_aberto=True)
         self._reposicionar()
         self._aplicar_trava()
         self.root.report_callback_exception = self._erro
@@ -321,7 +327,7 @@ class Overlay:
         s = Sessao(carregar_mecanicas(), pre_aviso=not a.sem_pre_aviso,
                    burst=not a.sem_burst and c.get("burst", True),
                    papel_fixo=a.papel or c.get("papel"), classe_fixa=a.classe or c.get("classe"),
-                   antecipar=a.antecipar)
+                   antecipar=a.antecipar, eventos=self.eventos)
         if "centro_antes" in c:
             s.centro_antes = float(c["centro_antes"])
         return s
@@ -505,6 +511,8 @@ class Overlay:
             return bx + (bw - w) // 2, by + int(bh * 0.36 - h / 2)
         if nome == "painel":        # direita, abaixo da lista de objetivos
             return bx + bw - w - int(30 * e), by + int(bh * 0.42)
+        if nome == "eventos":       # direita, abaixo do minimapa
+            return bx + bw - w - int(24 * e), by + int(bh * 0.30)
         if nome == "meter":         # embaixo à esquerda, acima do chat
             return bx + int(20 * e), by + int(bh * 0.77) - h
         return bx, by
@@ -545,7 +553,7 @@ class Overlay:
                 processo_em_foco() in self.pids | {os.getpid()}
         if visivel == (not self.escondido):
             return
-        todas = [j for j in (self.w_al, self.w_pa, self.w_me, self.w_bo) if j] + [c[0] for c in self.cadeados]
+        todas = [j for j in (self.w_al, self.w_pa, self.w_me, self.w_bo, self.w_ev) if j] + [c[0] for c in self.cadeados]
         if not visivel:
             for j in todas:
                 j.withdraw()
@@ -697,7 +705,7 @@ class Overlay:
 
     def _reafirmar(self) -> None:
         self._seguir_jogo()
-        for j in (self.w_al, self.w_pa, self.w_me, self.w_bo, *(c[0] for c in self.cadeados)):
+        for j in (self.w_al, self.w_pa, self.w_me, self.w_bo, self.w_ev, *(c[0] for c in self.cadeados)):
             if j and not self.escondido:
                 por_cima(j)
         if self.travado:
@@ -735,6 +743,7 @@ class Overlay:
         if self.cv_bo:
             self._desenhar_borda(st, agora)
         self._sons(st, agora)
+        self._desenhar_eventos(agora)
         self.root.after(50, self._quadro)
 
     def _cor_acao(self, tipo: str) -> str:
@@ -1006,6 +1015,66 @@ class Overlay:
         for d in desenhos:
             d()
         cv.tag_lower("moldura")
+
+    # ---------- eventos de campo ----------
+    def _lista_eventos(self, agora: float) -> list[dict]:
+        if not self.cfg.get("eventos", True):
+            return []
+        aviso = float(self.cfg.get("eventos_aviso_min", 5)) * 60
+        return self.eventos.estado(agora, janela=aviso, desligados=set(self.cfg.get("eventos_desligados", [])))[:3]
+
+    def _desenhar_eventos(self, agora: float) -> None:
+        """Cartões dos eventos: "Festival Shugo · 5 min" antes, "aberto · 3:40" durante. Avisa com voz uma vez."""
+        cv, e = self.cv_ev, self.escala
+        cv.delete("dyn")
+        lista = self._lista_eventos(agora)
+        self._avisar_eventos(lista, agora)
+        W = int(cv.winfo_width())
+        h, gap = 46 * e, 6 * e
+        f_n, f_s, f_t = (FONTE, int(10 * e), "bold"), (FONTE, int(8 * e)), (FONTE, int(13 * e), "bold")
+        for i, ev in enumerate(lista):
+            y0 = i * (h + gap)
+            aberto = ev["estado"] == "aberto"
+            cor = NIVEL["info"] if aberto else EVENTO
+            ret_arredondado(cv, 1, y0 + 1, W - 1, y0 + h - 1, 9 * e, fill=CARTAO, outline=CARTAO_BORDA, width=1, tags="dyn")
+            cx, cy = 22 * e, y0 + h / 2
+            ret_arredondado(cv, cx - 14 * e, cy - 14 * e, cx + 14 * e, cy + 14 * e, 7 * e,
+                            fill=misturar(cor, CARTAO, 0.18), outline="", tags="dyn")
+            self._icone(cv, "burst", cx, cy, 18 * e, cor)
+            cv.create_text(44 * e, y0 + 16 * e, text=nome_evento(ev, idioma.atual()), anchor="w", fill=TEXTO, font=f_n, tags="dyn")
+            if aberto:
+                sub = t("aberto") + (f" · {t('fase', n=ev['fase'])}" if ev.get("fase") else "")
+                restam = max(0, int(ev["restam"]))
+                valor = f"{restam // 60}:{restam % 60:02d}"
+            else:
+                inicio_pc = ev["inicio"] - self.eventos.atraso
+                sub = t("comeca_as", h=time.strftime("%H:%M", time.localtime(inicio_pc)))
+                faltam = max(0, ev["faltam"])
+                valor = t("em_min", m=math.ceil(faltam / 60)) if faltam >= 60 else f"{int(faltam)} s"
+            cv.create_text(44 * e, y0 + 32 * e, text=sub, anchor="w", fill="#8d8aa0", font=f_s, tags="dyn")
+            cv.create_text(W - 12 * e, cy, text=valor, anchor="e", fill=cor, font=f_t, tags="dyn")
+            if not aberto:                       # barrinha: quanto da espera já passou
+                frac = 1 - max(0.0, ev["faltam"]) / max(1.0, float(self.cfg.get("eventos_aviso_min", 5)) * 60)
+                cv.create_rectangle(10 * e, y0 + h - 4 * e, 10 * e + (W - 20 * e) * frac, y0 + h - 2 * e,
+                                    fill=cor, outline="", tags="dyn")
+        cv.tag_lower("moldura")
+
+    def _avisar_eventos(self, lista: list[dict], agora: float) -> None:
+        if self.modo_som == "mudo" or not self.cfg.get("eventos_voz", True):
+            return
+        aviso = int(self.cfg.get("eventos_aviso_min", 5))
+        for ev in lista:
+            if ev["estado"] == "em_breve":
+                chave, fala = (ev["chave"], round(ev["inicio"]), "antes"), f"evento_{aviso}"
+            elif ev["faltam"] > -60:                 # acabou de abrir (não avisa evento que já estava aberto)
+                chave, fala = (ev["chave"], round(ev["inicio"]), "abriu"), "evento_agora"
+            else:
+                continue
+            if chave in self._eventos_avisados:
+                continue
+            self._eventos_avisados.add(chave)
+            if not (self.voz and self.voz.falar(fala)):
+                tocar("sino")
 
     def _criar_brilho(self) -> None:
         """Brilho vermelho nas bordas: faixas cada vez mais ralas, para parecer um degradê."""

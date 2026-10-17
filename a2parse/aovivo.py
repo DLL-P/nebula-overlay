@@ -23,6 +23,7 @@ from .alertas import Alerta, MotorAlertas, boss_por_npc, carregar_dicas
 from .analise import Analise
 from .classes import NOME as NOME_CLASSE, PAPEL, DetectorClasse, classe_do_pc
 from .decoders import Leitor
+from .eventos import Eventos
 from .meter import Medidor
 from .roteiro import Previsor, carregar as carregar_roteiros, medidor_atordoamento
 
@@ -155,12 +156,15 @@ class Sessao:
     nomes: dict[int, str] = field(default_factory=dict)
     odyle: tuple[int, int] | None = None   # energia Odyle: (restante, recarga), mostrada como "0 (+35)"
     zona_com_boss: bool = False         # algum boss apareceu desde a última troca de zona (usado pela gravação)
+    eventos: Eventos | None = None      # eventos de campo (Festival Shugo...); o overlay passa o mesmo entre conexões
     ultimo_ts: float = 0.0
 
     def __post_init__(self) -> None:
         self.npcs = carregar_npcs()
         self.classe = DetectorClasse()
         self.medidor = Medidor()
+        if self.eventos is None:
+            self.eventos = Eventos()
         if self.roteiros is None:
             self.roteiros = carregar_roteiros()
         self.dicas = carregar_dicas() if self.com_dicas else {}
@@ -250,7 +254,8 @@ class Sessao:
                 m = fichas.get(p.no)
                 if m is not None:
                     # o mesmo filtro dos alertas: o leque é só do tank, o ENGAJE só de quem bate de perto
-                    passos = passos_completos(m, False, self.meu_papel, ALCANCE.get(self.minha_classe or ""))
+                    passos = passos_completos(m, False, self.meu_papel, ALCANCE.get(self.minha_classe or ""),
+                                              self.minha_classe)
                     if not passos:
                         continue
                     texto, tipo = passos[0]["texto"], passos[0].get("tipo", tipo)
@@ -323,6 +328,9 @@ class Sessao:
                 if b.previsor:
                     b.previsor.atordoamento(ts, r[1], r[2])
             return
+        if op in (0x6000, 0x6001):
+            self.eventos.mensagem(op, bytes(payload))
+            return
         if op == 0x3641:
             r = ler_spawn_completo(payload)
             if r:
@@ -333,6 +341,9 @@ class Sessao:
         if not resultado or resultado[0] != "ok":
             return
         c = resultado[1]
+        if op == 0x3600:
+            self.eventos.relogio(ts, c["horario_servidor"])
+            return
         if op in (0x610B, 0x610C):
             from .decoders import ODYLE
             for t in c["tickets"]:

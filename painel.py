@@ -154,7 +154,7 @@ class Inicio:
 # ---------------- configurações ----------------
 
 class Configuracoes:
-    ABAS = ("aba_geral", "aba_alertas", "aba_ferramentas", "aba_sobre")
+    ABAS = ("aba_geral", "aba_alertas", "aba_eventos", "aba_ferramentas", "aba_sobre")
 
     def __init__(self, ov, perto_do_meter: bool) -> None:
         self.ov = ov
@@ -325,6 +325,32 @@ class Configuracoes:
         self.ov.cfg["papel"] = papel or None
         self.ov.sessao.papel_fixo = papel or None
         self.ov.salvar_cfg(forcar=True)
+
+    def _aba_eventos(self, c) -> None:
+        from a2parse.eventos import nome as nome_evento
+        self._caixa(c, t("eventos_ligar"), "eventos")
+        self._titulo(c, t("eventos_antes"))
+        v_av = tk.IntVar(value=int(self.ov.cfg.get("eventos_aviso_min", 5)))
+
+        def aviso():
+            self.ov.cfg["eventos_aviso_min"] = v_av.get()
+            self.ov.salvar_cfg(forcar=True)
+        self._radios(c, v_av, [(10, t("em_min", m=10)), (5, t("em_min", m=5)), (1, t("em_min", m=1))], aviso, lado=True)
+        self._caixa(c, t("eventos_voz"), "eventos_voz")
+        self._titulo(c, t("eventos_quais"))
+        desligados = set(self.ov.cfg.get("eventos_desligados", []))
+        for ev in self.ov.eventos.definicoes:
+            var = tk.BooleanVar(value=ev["chave"] not in desligados)
+
+            def mudou(chave=ev["chave"], var=var):
+                lista = set(self.ov.cfg.get("eventos_desligados", []))
+                (lista.discard if var.get() else lista.add)(chave)
+                self.ov.cfg["eventos_desligados"] = sorted(lista)
+                self.ov.salvar_cfg(forcar=True)
+            tk.Checkbutton(c, text=nome_evento(ev, idioma.atual()), variable=var, command=mudou, bg=CARTAO, fg=TEXTO,
+                           selectcolor=BORDA, activebackground=CARTAO, activeforeground=TEXTO, font=(FONTE, 10),
+                           anchor="w").pack(fill="x", padx=(6, 0))
+        self._nota(c, t("eventos_nota"))
 
     def _aba_ferramentas(self, c) -> None:
         for chave, acao in (("aprender", lambda: self.ov.ferramenta("roteiros")),

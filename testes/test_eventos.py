@@ -1,0 +1,69 @@
+"""Eventos de campo: pacotes 0x6000/0x6001 (bytes reais de 2026-10-16) e agenda."""
+
+import datetime as dt
+import os
+import struct
+import sys
+import unittest
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from a2parse.eventos import Eventos, ler_evento, ler_lista, proximo_inicio  # noqa: E402
+
+# 0x6001 recebido às 02:00:05: evento 110301 abre (fase 1) às 02:00:01, fase até 02:03:01
+ABRIU = bytes.fromhex("03 dd dd 06 01 64 67 96 47 a1 01 00 00 64 67 96 47 a1 01 00 00 84 26 99 47 a1 01 00 00")
+SHUGO = {"chave": "shugo", "nome": {"pt": "Festival Shugo"}, "ids": [110301], "agenda": {"tipo": "hora", "minuto": 0},
+         "duracao_min": 8}
+
+
+def ts(texto: str) -> float:
+    return dt.datetime.fromisoformat(texto).replace(tzinfo=dt.timezone.utc).timestamp()
+
+
+class TestPacotes(unittest.TestCase):
+    def test_evento_abrindo(self):
+        r = ler_evento(ABRIU)
+        self.assertEqual((r["tipo"], r["evento"], r["fase"]), (3, 110301, 1))
+        self.assertAlmostEqual(r["fim_fase"] - r["inicio"], 180.0, places=1)
+
+    def test_lixo_nao_vira_evento(self):
+        self.assertIsNone(ler_evento(b"\x03\x01\x01" + b"\x00" * 24))
+        self.assertEqual(ler_lista(b"\x00"), [])
+
+    def test_lista_com_um_registro(self):
+        self.assertEqual(ler_lista(b"\x01" + ABRIU[1:])[0]["evento"], 110301)
+
+
+class TestAgenda(unittest.TestCase):
+    def test_hora_em_hora(self):
+        self.assertEqual(proximo_inicio(SHUGO, ts("2026-10-17T01:57:00")), ts("2026-10-17T02:00:00"))
+        self.assertEqual(proximo_inicio(SHUGO, ts("2026-10-17T02:00:00")), ts("2026-10-17T03:00:00"))
+
+    def test_horarios_fixos_com_fuso_e_dias(self):
+        ev = {"agenda": {"tipo": "horarios", "horas": ["21:00"], "dias": [1], "utc": "-03:00"}}   # terça, 21:00 de Brasília
+        # 2026-10-17 é sábado: a próxima terça é 20/10, 21:00 em -03:00 = 00:00 UTC de 21/10
+        self.assertEqual(proximo_inicio(ev, ts("2026-10-17T12:00:00")), ts("2026-10-21T00:00:00"))
+
+    def test_em_breve_aberto_pelo_servidor_e_desligado(self):
+        e = Eventos(definicoes=[SHUGO])
+        r = ler_evento(ABRIU)
+        antes = e.estado(r["inicio"] - 120, janela=300)
+        self.assertEqual([(x["chave"], x["estado"]) for x in antes], [("shugo", "em_breve")])
+        self.assertAlmostEqual(antes[0]["faltam"], 120, delta=2)      # a agenda conta da hora cheia; o servidor abre ~1,6 s depois
+        self.assertEqual(e.estado(r["inicio"] - 900, janela=300), [])      # longe demais: nada
+        e.mensagem(0x6001, ABRIU)
+        agora = e.estado(r["inicio"] + 30)
+        self.assertEqual(agora[0]["estado"], "aberto")
+        self.assertAlmostEqual(agora[0]["restam"], 150, places=0)
+        self.assertEqual(e.estado(r["inicio"] + 30, desligados={"shugo"}), [])
+
+    def test_relogio_do_servidor(self):
+        e = Eventos(definicoes=[SHUGO])
+        e.relogio(1000.0, 1_792_000_008_000)                       # servidor 8 s à frente... de um PC parado em 1970
+        self.assertGreater(e.atraso, 1e9)
+        e.relogio(ts("2026-10-17T01:59:52"), int(ts("2026-10-17T02:00:00") * 1000))
+        self.assertEqual(e.estado(ts("2026-10-17T01:59:52"), janela=60)[0]["faltam"], 0)
+
+
+if __name__ == "__main__":
+    unittest.main()

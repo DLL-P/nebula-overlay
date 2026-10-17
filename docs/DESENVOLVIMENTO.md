@@ -34,12 +34,14 @@ Documentos\Nebula Overlay). A variável `NEBULA_OVERLAY_PASTA` troca esse lugar 
 | `a2parse/roteiro.py` | roteiro aprendido e previsão (cadeia de skills, fases por HP, atordoamento, ciclos) |
 | `a2parse/meter.py` | painel de dano |
 | `a2parse/classes.py` | classe e papel |
+| `a2parse/eventos.py` | eventos de campo: pacotes 0x6000/0x6001 e agenda |
 | `a2parse/idioma.py` | textos da interface em pt/en/es e tradução dos alertas |
 | `a2parse/caminhos.py` | pasta do programa e pasta do usuário |
 | `a2parse/atualizar.py`, `versao.py` | atualização automática pelas versões do GitHub |
 | `mecanicas/mecanicas.json` | mecânicas de cada boss (o conhecimento do app) |
 | `mecanicas/roteiros.json` | linha do tempo aprendida que vai junto com o app |
 | `mecanicas/traducoes.json` | textos dos alertas em inglês e espanhol |
+| `mecanicas/eventos.json` | agenda dos eventos de campo (IDs do servidor, regra de horário, duração, nome em pt/en/es) |
 | `dados/dicas_classes.json` | dica de cada classe por tipo de ação |
 
 ### Dados do jogo
@@ -63,6 +65,7 @@ Cada masmorra tem bosses; cada boss tem `ids` (código do mob por dificuldade) e
 | `status` | `{"texto", "tipo", "em": "boss" ou "alvo", "de", "ate"}`: a faixa abaixo do alerta |
 | `papeis`, `por_papel` | quem vê o alerta e texto trocado por papel (tank, healer, dps, suporte) |
 | `so_perto` | só para classes corpo a corpo (ex.: ENGAJE) |
+| `classes`, `por_classe` | quem vê o alerta pela classe e texto trocado por classe (ex.: fase vermelha do Thamon só para dano físico) |
 | `dica_tipo`, `dicas` | outra chave da tabela de dicas, ou dica fixa por classe |
 | `burst` | janelas `segurar` / `soltar` |
 | `voz`, `voz_curta` | fala trocada / chave da palavra de ordem |

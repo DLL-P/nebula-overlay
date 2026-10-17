@@ -6,6 +6,7 @@ Overlay de mecânicas para o **Aion 2**: avisa o que o boss vai fazer, um pouco 
 - **Linha do tempo do boss.** Mostra as próximas mecânicas com o tempo até cada uma: rotação aprendida das runs, fases por HP e barra de atordoamento. As mais confiáveis sobem para o centro da tela 5 s antes.
 - **Painel do boss e do grupo.** HP do boss, atordoamento, dano e DPS de cada jogador com o símbolo da classe e a energia Odyle.
 - **Feito para a sua classe e papel.** Tank, healer, suporte e dps veem alertas diferentes; quem bate de longe não recebe "ENGAJE".
+- **Eventos de campo.** Avisa antes do Festival Shugo e dos outros eventos ("Festival Shugo · 5 min") e mostra quanto falta para fechar; o horário exato vem do servidor.
 - **Três idiomas.** Português, English, Español (interface, alertas e voz).
 - **Atualiza sozinho.** Cada melhoria publicada aqui chega no seu app.
 

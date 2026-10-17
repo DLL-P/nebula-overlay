@@ -50,6 +50,7 @@ O resultado é mais uma sequência de mensagens no mesmo formato, até 3 níveis
 | 0xE005 | medidor de atordoamento | barra roxa e ATORDOADO (seção 6) |
 | 0x610B / 0x610C | tickets de conteúdo | energia Odyle (seção 7) |
 | 0x382A | buff/debuff aplicado | status em jogadores |
+| 0x6000 / 0x6001 | eventos de campo | cartão de eventos (seção 10) |
 
 A lista completa de nomes fica em `opcodes.json`.
 
@@ -198,3 +199,12 @@ A energia Odyle é o ticket **60000001**. O rodapé mostra "restante (+recarga)"
 
 O servidor manda a cada 10 s, com 18 bytes: `u16 | i64 relógio em ms (+10 000 por heartbeat) | i64 horário
 do servidor (ms desde 1970)`. Como só o sentido servidor → cliente é lido, o ping não sai daqui.
+
+## 10. 0x6000 / 0x6001 eventos de campo
+
+- **0x6001** (a cada troca de fase de um evento): `u8 tipo (3) | varint evento | u8 fase | i64 início | i64 início da fase | i64 fim da fase` (ms desde 1970, relógio do servidor; 29 bytes).
+- **0x6000** (ao entrar numa zona): `varint quantidade | registros`. Nas capturas veio vazio (`00`); o formato dos registros é suposto igual ao do 0x6001, sem o `tipo`, e só é aceito se os horários fizerem sentido.
+
+Nas capturas de 2026-10-16, às 02:00 e às 23:00, os IDs 110101, 110201 … 110901 (9 eventos, provavelmente o Festival Shugo em 9 regiões)
+abriram às HH:00:01 na fase 1 (até HH:03:01), passaram à fase 2 às HH:03:02 e fecharam entre HH:05:57 e HH:08:14.
+O servidor só manda o evento quando ele abre; o aviso antecipado vem da agenda em `mecanicas/eventos.json`.

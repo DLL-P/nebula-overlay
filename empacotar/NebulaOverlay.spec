@@ -15,6 +15,7 @@ dados = [
     (p("mecanicas", "mecanicas.json"), "mecanicas"),
     (p("mecanicas", "roteiros.json"), "mecanicas"),
     (p("mecanicas", "traducoes.json"), "mecanicas"),
+    (p("mecanicas", "eventos.json"), "mecanicas"),
 ]
 
 a = Analysis(
