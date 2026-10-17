@@ -408,6 +408,12 @@ class Sessao:
             b.visto = ts
             if b.motor:
                 self.alertas += b.motor.preparo(ts, c["skill"], c["alvo"])
+        elif op in (0x3802, 0x3809) and c["conjurador"] not in self.nomes and c["conjurador"] != self.eu:
+            # objetos que o boss cria (raios, poças, chakrams) lançam skills da faixa dele: valem para o boss da luta
+            b = self.boss_atual()
+            if b and b.motor and b.motor.conhece(c["skill"]):
+                f = b.motor.skill if op == 0x3802 else b.motor.preparo
+                self.alertas += f(ts, c["skill"], c["alvo"])
         elif op == 0x3642 and c["entidade"] in self.bosses:
             b = self.bosses[c["entidade"]]
             b.morto = True

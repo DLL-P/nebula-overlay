@@ -1234,43 +1234,55 @@
    "1606030": {
     "proxima": "1606020",
     "apos": 3.7,
-    "chance": 1.0,
-    "vezes": 2
-   },
-   "1606010": {
-    "proxima": "siliator-of-deceit-linhas",
-    "apos": 4.6,
-    "chance": 0.5,
-    "vezes": 2
+    "chance": 0.75,
+    "vezes": 3
    },
    "siliator-of-deceit-linhas": {
     "proxima": "1606050",
     "apos": 3.3,
-    "chance": 1.0,
+    "chance": 0.67,
     "vezes": 2
    },
    "1606054": {
     "proxima": "siliator-of-deceit-leque-de-chakrams",
-    "apos": 3.94,
-    "chance": 0.67,
-    "vezes": 2
+    "apos": 3.95,
+    "chance": 0.8,
+    "vezes": 4
    },
    "siliator-of-deceit-leque-de-chakrams": {
     "proxima": "1606061",
     "apos": 1.27,
     "chance": 1.0,
-    "vezes": 2
+    "vezes": 4
    },
    "1606061": {
     "proxima": "1606070",
     "apos": 1.87,
     "chance": 1.0,
+    "vezes": 4
+   },
+   "1606070": {
+    "proxima": "1606050",
+    "apos": 3.3,
+    "chance": 0.5,
+    "vezes": 2
+   },
+   "1606096": {
+    "proxima": "1606090",
+    "apos": 1.55,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1606030|1606020": {
+    "proxima": "1606050",
+    "apos": 3.35,
+    "chance": 0.67,
     "vezes": 2
    },
    "1606010|siliator-of-deceit-linhas": {
     "proxima": "1606050",
     "apos": 3.3,
-    "chance": 1.0,
+    "chance": 0.67,
     "vezes": 2
    },
    "siliator-of-deceit-linhas|1606050": {
@@ -1279,24 +1291,51 @@
     "chance": 1.0,
     "vezes": 2
    },
+   "1606050|1606010": {
+    "proxima": "1606030",
+    "apos": 3.6,
+    "chance": 0.67,
+    "vezes": 2
+   },
    "1606054|siliator-of-deceit-leque-de-chakrams": {
     "proxima": "1606061",
     "apos": 1.27,
     "chance": 1.0,
-    "vezes": 2
+    "vezes": 4
    },
    "siliator-of-deceit-leque-de-chakrams|1606061": {
     "proxima": "1606070",
     "apos": 1.87,
     "chance": 1.0,
+    "vezes": 4
+   },
+   "1606061|1606070": {
+    "proxima": "1606050",
+    "apos": 3.3,
+    "chance": 0.5,
+    "vezes": 2
+   },
+   "1606010|1606030": {
+    "proxima": "1606020",
+    "apos": 3.7,
+    "chance": 1.0,
     "vezes": 2
    }
   },
-  "fases_hp": [],
+  "fases_hp": [
+   {
+    "no": "siliator-of-deceit-leque-de-chakrams",
+    "vez": 2,
+    "hp": 35.5,
+    "variacao": 3.2
+   }
+  ],
   "ciclos": {
-   "1606054": 34.83
+   "1606054": 34.56,
+   "siliator-of-deceit-leque-de-chakrams": 33.8,
+   "1606070": 33.8
   },
-  "runs": 1,
+  "runs": 2,
   "precisao_centro": 0.0,
   "previsoes_testadas": 0
  },
@@ -1305,14 +1344,20 @@
    "ruthilis-of-pain-faixa-vermelha": {
     "proxima": "1606401",
     "apos": 3.5,
-    "chance": 0.67,
+    "chance": 0.6,
+    "vezes": 3
+   },
+   "1606410": {
+    "proxima": "1606401",
+    "apos": 3.85,
+    "chance": 1.0,
     "vezes": 2
    },
    "1606401": {
-    "proxima": "ruthilis-of-pain-arena-vermelha",
-    "apos": 6.25,
-    "chance": 0.67,
-    "vezes": 2
+    "proxima": "1606390",
+    "apos": 5.65,
+    "chance": 0.5,
+    "vezes": 3
    },
    "ruthilis-of-pain-arena-vermelha": {
     "proxima": "1606390",
@@ -1322,19 +1367,31 @@
    },
    "1606390": {
     "proxima": "1606371",
-    "apos": 3.5,
-    "chance": 1.0,
-    "vezes": 3
+    "apos": 3.53,
+    "chance": 0.8,
+    "vezes": 4
    },
    "1606371": {
     "proxima": "1606370",
-    "apos": 4.4,
-    "chance": 0.67,
+    "apos": 4.85,
+    "chance": 0.75,
+    "vezes": 3
+   },
+   "ruthilis-of-pain-atordoado": {
+    "proxima": "ruthilis-of-pain-onda-radial",
+    "apos": 6.3,
+    "chance": 1.0,
     "vezes": 2
    },
    "ruthilis-of-pain-onda-radial": {
     "proxima": "ruthilis-of-pain-faixa-vermelha",
     "apos": 5.05,
+    "chance": 1.0,
+    "vezes": 3
+   },
+   "ruthilis-of-pain-faixa-vermelha|1606410": {
+    "proxima": "1606401",
+    "apos": 3.85,
     "chance": 1.0,
     "vezes": 2
    },
@@ -1352,20 +1409,45 @@
    },
    "1606390|1606371": {
     "proxima": "1606370",
-    "apos": 4.4,
-    "chance": 0.67,
+    "apos": 4.85,
+    "chance": 0.75,
+    "vezes": 3
+   },
+   "ruthilis-of-pain-atordoado|ruthilis-of-pain-onda-radial": {
+    "proxima": "ruthilis-of-pain-faixa-vermelha",
+    "apos": 5.05,
+    "chance": 1.0,
     "vezes": 2
    },
    "ruthilis-of-pain-onda-radial|ruthilis-of-pain-faixa-vermelha": {
     "proxima": "1606401",
     "apos": 3.5,
     "chance": 1.0,
+    "vezes": 3
+   },
+   "ruthilis-of-pain-faixa-vermelha|1606401": {
+    "proxima": "1606390",
+    "apos": 5.65,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1606401|1606390": {
+    "proxima": "1606371",
+    "apos": 4.03,
+    "chance": 0.67,
     "vezes": 2
    }
   },
-  "fases_hp": [],
+  "fases_hp": [
+   {
+    "no": "ruthilis-of-pain-faixa-vermelha",
+    "vez": 1,
+    "hp": 99.7,
+    "variacao": 0.2
+   }
+  ],
   "ciclos": {},
-  "runs": 1,
+  "runs": 2,
   "precisao_centro": 0.0,
   "previsoes_testadas": 0
  },
@@ -2196,6 +2278,564 @@
   "fases_hp": [],
   "ciclos": {},
   "runs": 1,
+  "precisao_centro": 0.0,
+  "previsoes_testadas": 0
+ },
+ "Tiere": {
+  "cadeia": {
+   "1604480": {
+    "proxima": "1604482",
+    "apos": 2.9,
+    "chance": 1.0,
+    "vezes": 4
+   },
+   "1604460": {
+    "proxima": "1604482",
+    "apos": 4.05,
+    "chance": 1.0,
+    "vezes": 4
+   },
+   "1604503": {
+    "proxima": "1604482",
+    "apos": 4.2,
+    "chance": 1.0,
+    "vezes": 5
+   },
+   "1604470": {
+    "proxima": "1604482",
+    "apos": 3.6,
+    "chance": 1.0,
+    "vezes": 4
+   },
+   "1604450": {
+    "proxima": "1604482",
+    "apos": 2.85,
+    "chance": 1.0,
+    "vezes": 4
+   },
+   "1604440": {
+    "proxima": "1604482",
+    "apos": 2.57,
+    "chance": 0.67,
+    "vezes": 2
+   },
+   "1604500": {
+    "proxima": "1604482",
+    "apos": 4.65,
+    "chance": 1.0,
+    "vezes": 3
+   },
+   "1604510": {
+    "proxima": "1604482",
+    "apos": 3.93,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1604532": {
+    "proxima": "1604522",
+    "apos": 0.08,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1604522": {
+    "proxima": "1604482",
+    "apos": 1.12,
+    "chance": 1.0,
+    "vezes": 16
+   },
+   "1604504": {
+    "proxima": "1604482",
+    "apos": 4.28,
+    "chance": 0.67,
+    "vezes": 2
+   },
+   "1604520": {
+    "proxima": "1604522",
+    "apos": 0.25,
+    "chance": 1.0,
+    "vezes": 3
+   },
+   "1604490": {
+    "proxima": "1604482",
+    "apos": 4.58,
+    "chance": 1.0,
+    "vezes": 4
+   },
+   "tiere-atordoado": {
+    "proxima": "1604482",
+    "apos": 6.25,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1604480|1604482": {
+    "proxima": "1604460",
+    "apos": 0.47,
+    "chance": 0.5,
+    "vezes": 2
+   },
+   "1604482|1604460": {
+    "proxima": "1604482",
+    "apos": 4.05,
+    "chance": 1.0,
+    "vezes": 4
+   },
+   "1604460|1604482": {
+    "proxima": "1604503",
+    "apos": 0.13,
+    "chance": 0.5,
+    "vezes": 2
+   },
+   "1604482|1604503": {
+    "proxima": "1604482",
+    "apos": 4.2,
+    "chance": 1.0,
+    "vezes": 5
+   },
+   "1604482|1604470": {
+    "proxima": "1604482",
+    "apos": 3.6,
+    "chance": 1.0,
+    "vezes": 4
+   },
+   "1604470|1604482": {
+    "proxima": "1604450",
+    "apos": 0.4,
+    "chance": 1.0,
+    "vezes": 4
+   },
+   "1604482|1604450": {
+    "proxima": "1604482",
+    "apos": 2.85,
+    "chance": 1.0,
+    "vezes": 4
+   },
+   "1604450|1604482": {
+    "proxima": "1604440",
+    "apos": 0.48,
+    "chance": 0.5,
+    "vezes": 2
+   },
+   "1604482|1604440": {
+    "proxima": "1604482",
+    "apos": 2.57,
+    "chance": 0.67,
+    "vezes": 2
+   },
+   "1604482|1604500": {
+    "proxima": "1604482",
+    "apos": 4.65,
+    "chance": 1.0,
+    "vezes": 3
+   },
+   "1604500|1604482": {
+    "proxima": "1604510",
+    "apos": 0.48,
+    "chance": 0.67,
+    "vezes": 2
+   },
+   "1604482|1604510": {
+    "proxima": "1604482",
+    "apos": 3.93,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1604510|1604482": {
+    "proxima": "1604532",
+    "apos": 0.27,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1604482|1604532": {
+    "proxima": "1604522",
+    "apos": 0.08,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1604532|1604522": {
+    "proxima": "1604482",
+    "apos": 1.3,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1604522|1604482": {
+    "proxima": "1604522",
+    "apos": 0.35,
+    "chance": 0.69,
+    "vezes": 11
+   },
+   "1604482|1604522": {
+    "proxima": "1604482",
+    "apos": 0.75,
+    "chance": 1.0,
+    "vezes": 11
+   },
+   "1604482|1604504": {
+    "proxima": "1604482",
+    "apos": 4.28,
+    "chance": 0.67,
+    "vezes": 2
+   },
+   "1604482|1604520": {
+    "proxima": "1604522",
+    "apos": 0.25,
+    "chance": 1.0,
+    "vezes": 3
+   },
+   "1604520|1604522": {
+    "proxima": "1604482",
+    "apos": 1.45,
+    "chance": 1.0,
+    "vezes": 3
+   },
+   "1604482|1604490": {
+    "proxima": "1604482",
+    "apos": 4.58,
+    "chance": 1.0,
+    "vezes": 4
+   },
+   "1604490|1604482": {
+    "proxima": "1604490",
+    "apos": 0.57,
+    "chance": 0.5,
+    "vezes": 2
+   },
+   "1604482|tiere-atordoado": {
+    "proxima": "1604482",
+    "apos": 6.25,
+    "chance": 1.0,
+    "vezes": 2
+   }
+  },
+  "fases_hp": [],
+  "ciclos": {
+   "1604480": 51.35
+  },
+  "runs": 2,
+  "precisao_centro": 0.0,
+  "previsoes_testadas": 0
+ },
+ "Thamon": {
+  "cadeia": {
+   "1604680": {
+    "proxima": "1604685",
+    "apos": 3.25,
+    "chance": 0.75,
+    "vezes": 3
+   },
+   "1604740": {
+    "proxima": "1604650",
+    "apos": 2.9,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1604670": {
+    "proxima": "1604650",
+    "apos": 2.38,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1604720": {
+    "proxima": "1604790",
+    "apos": 4.65,
+    "chance": 1.0,
+    "vezes": 3
+   },
+   "1604790": {
+    "proxima": "1604760",
+    "apos": 4.25,
+    "chance": 1.0,
+    "vezes": 3
+   },
+   "1604760": {
+    "proxima": "1604780",
+    "apos": 0.4,
+    "chance": 0.5,
+    "vezes": 2
+   },
+   "1604780": {
+    "proxima": "1604650",
+    "apos": 3.95,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1604685": {
+    "proxima": "1604650",
+    "apos": 3.4,
+    "chance": 0.67,
+    "vezes": 2
+   },
+   "1604770": {
+    "proxima": "1604650",
+    "apos": 3.75,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1604670|1604650": {
+    "proxima": "1604720",
+    "apos": 4.15,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1604650|1604720": {
+    "proxima": "1604790",
+    "apos": 4.65,
+    "chance": 1.0,
+    "vezes": 3
+   },
+   "1604720|1604790": {
+    "proxima": "1604760",
+    "apos": 4.25,
+    "chance": 1.0,
+    "vezes": 3
+   },
+   "1604790|1604760": {
+    "proxima": "1604780",
+    "apos": 0.4,
+    "chance": 0.67,
+    "vezes": 2
+   },
+   "1604760|1604780": {
+    "proxima": "1604650",
+    "apos": 3.95,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1604780|1604650": {
+    "proxima": "1604750",
+    "apos": 3.55,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1604650|1604680": {
+    "proxima": "1604685",
+    "apos": 3.25,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1604680|1604685": {
+    "proxima": "1604650",
+    "apos": 3.4,
+    "chance": 0.67,
+    "vezes": 2
+   },
+   "1604760|1604770": {
+    "proxima": "1604650",
+    "apos": 3.75,
+    "chance": 1.0,
+    "vezes": 2
+   }
+  },
+  "fases_hp": [],
+  "ciclos": {},
+  "runs": 2,
+  "precisao_centro": 0.0,
+  "previsoes_testadas": 0
+ },
+ "Vakron": {
+  "cadeia": {
+   "1604380": {
+    "proxima": "1604350",
+    "apos": 2.15,
+    "chance": 0.6,
+    "vezes": 3
+   },
+   "1604372": {
+    "proxima": "1604381",
+    "apos": 0.0,
+    "chance": 0.67,
+    "vezes": 4
+   },
+   "1604381": {
+    "proxima": "1604400",
+    "apos": 1.1,
+    "chance": 0.5,
+    "vezes": 2
+   },
+   "1604400": {
+    "proxima": "1604340",
+    "apos": 4.2,
+    "chance": 0.88,
+    "vezes": 7
+   },
+   "1604340": {
+    "proxima": "1604410",
+    "apos": 4.6,
+    "chance": 0.71,
+    "vezes": 5
+   },
+   "1604410": {
+    "proxima": "1604370",
+    "apos": 4.7,
+    "chance": 0.71,
+    "vezes": 5
+   },
+   "1604370": {
+    "proxima": "1604350",
+    "apos": 4.25,
+    "chance": 1.0,
+    "vezes": 5
+   },
+   "1604360": {
+    "proxima": "1604430",
+    "apos": 4.55,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "vakron-atordoado": {
+    "proxima": "1604390",
+    "apos": 5.07,
+    "chance": 0.5,
+    "vezes": 2
+   },
+   "1604390": {
+    "proxima": "1604401",
+    "apos": 12.05,
+    "chance": 0.5,
+    "vezes": 2
+   },
+   "1604401": {
+    "proxima": "1604420",
+    "apos": 4.65,
+    "chance": 1.0,
+    "vezes": 4
+   },
+   "1604420": {
+    "proxima": "vakron-prisao-de-pedra-lodestone",
+    "apos": 6.7,
+    "chance": 1.0,
+    "vezes": 4
+   },
+   "vakron-prisao-de-pedra-lodestone": {
+    "proxima": "1604400",
+    "apos": 5.6,
+    "chance": 0.5,
+    "vezes": 2
+   },
+   "1604371": {
+    "proxima": "1604350",
+    "apos": 4.25,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1604380|1604350": {
+    "proxima": "1604372",
+    "apos": 2.65,
+    "chance": 1.0,
+    "vezes": 3
+   },
+   "1604350|1604372": {
+    "proxima": "1604381",
+    "apos": 0.0,
+    "chance": 1.0,
+    "vezes": 3
+   },
+   "1604372|1604381": {
+    "proxima": "1604400",
+    "apos": 1.1,
+    "chance": 0.5,
+    "vezes": 2
+   },
+   "1604400|1604340": {
+    "proxima": "1604410",
+    "apos": 4.6,
+    "chance": 0.8,
+    "vezes": 4
+   },
+   "1604340|1604410": {
+    "proxima": "1604370",
+    "apos": 4.7,
+    "chance": 0.8,
+    "vezes": 4
+   },
+   "1604410|1604370": {
+    "proxima": "1604350",
+    "apos": 4.25,
+    "chance": 1.0,
+    "vezes": 5
+   },
+   "1604350|1604360": {
+    "proxima": "1604430",
+    "apos": 4.55,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1604430|vakron-atordoado": {
+    "proxima": "1604390",
+    "apos": 5.07,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "vakron-atordoado|1604390": {
+    "proxima": "1604401",
+    "apos": 12.05,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1604390|1604401": {
+    "proxima": "1604420",
+    "apos": 4.65,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1604401|1604420": {
+    "proxima": "vakron-prisao-de-pedra-lodestone",
+    "apos": 6.7,
+    "chance": 1.0,
+    "vezes": 4
+   },
+   "1604420|vakron-prisao-de-pedra-lodestone": {
+    "proxima": "1604400",
+    "apos": 5.6,
+    "chance": 0.5,
+    "vezes": 2
+   },
+   "vakron-prisao-de-pedra-lodestone|1604400": {
+    "proxima": "1604340",
+    "apos": 4.2,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1604350|1604390": {
+    "proxima": "1604400",
+    "apos": 12.0,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1604390|1604400": {
+    "proxima": "1604340",
+    "apos": 4.2,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1604371|1604350": {
+    "proxima": "1604400",
+    "apos": 3.7,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1604350|1604400": {
+    "proxima": "1604340",
+    "apos": 4.2,
+    "chance": 1.0,
+    "vezes": 2
+   }
+  },
+  "fases_hp": [
+   {
+    "no": "vakron-prisao-de-pedra-lodestone",
+    "vez": 1,
+    "hp": 61.9,
+    "variacao": 2.9
+   },
+   {
+    "no": "vakron-prisao-de-pedra-lodestone",
+    "vez": 2,
+    "hp": 19.3,
+    "variacao": 2.1
+   }
+  ],
+  "ciclos": {},
+  "runs": 2,
   "precisao_centro": 0.0,
   "previsoes_testadas": 0
  }

@@ -562,7 +562,15 @@
   "Golpes seguidos em volta dele por ~2 s (4 × ~6 mil): saia e volte depois": "Repeated hits around him for ~2 s (4 × ~6k): get out and come back after",
   "fio em 2 jogadores; o golpe pesado vem em seguida (aviso próprio)": "tether on 2 players; the heavy hit comes next (own warning)",
   "Golpe dividido por quem está no círculo (sozinho: até 91 mil); fique fora das faixas das cópias e com vida cheia": "Hit split among those in the circle (alone: up to 91k); stay out of the copies' lanes and at full HP",
-  "tentáculos enraízam; o sopro em cone vem em ~4 s": "tentacles root; the cone breath comes in ~4 s"
+  "tentáculos enraízam; o sopro em cone vem em ~4 s": "tentacles root; the cone breath comes in ~4 s",
+  "linhas laranja saem dele pela arena": "orange lines spread from him across the arena",
+  "FEIXES: FORA DAS LINHAS": "BEAMS: STAY OFF THE LINES",
+  "os feixes batem até ~8 s depois; o último mata na hora": "beams hit for up to ~8 s; the last one kills instantly",
+  "chakrams saem; olhe o caminho de volta até ele": "chakrams fly out; watch their path back to him",
+  "RETORNO DOS CHAKRAMS": "CHAKRAMS RETURNING",
+  "voltam para ele agora: saia do caminho": "coming back to him now: get out of the path",
+  "SAI DOS QUADRADOS LARANJA": "LEAVE THE ORANGE SQUARES",
+  "Raios caem nos quadrados laranja (~13 mil): saia deles": "Lightning strikes the orange squares (~13k): get out of them"
  },
  "es": {
   "3 ACÚMULOS: AFASTA": "3 CARGAS: ALÉJATE",
@@ -1126,6 +1134,14 @@
   "Golpes seguidos em volta dele por ~2 s (4 × ~6 mil): saia e volte depois": "Golpes seguidos a su alrededor durante ~2 s (4 × ~6 mil): sal y vuelve después",
   "fio em 2 jogadores; o golpe pesado vem em seguida (aviso próprio)": "hilo en 2 jugadores; el golpe pesado viene después (aviso propio)",
   "Golpe dividido por quem está no círculo (sozinho: até 91 mil); fique fora das faixas das cópias e com vida cheia": "Golpe dividido entre quienes están en el círculo (solo: hasta 91 mil); fuera de las franjas de las copias y con vida llena",
-  "tentáculos enraízam; o sopro em cone vem em ~4 s": "los tentáculos enraízan; el soplido en cono llega en ~4 s"
+  "tentáculos enraízam; o sopro em cone vem em ~4 s": "los tentáculos enraízan; el soplido en cono llega en ~4 s",
+  "linhas laranja saem dele pela arena": "líneas naranjas salen de él por la arena",
+  "FEIXES: FORA DAS LINHAS": "RAYOS: FUERA DE LAS LÍNEAS",
+  "os feixes batem até ~8 s depois; o último mata na hora": "los rayos golpean hasta ~8 s después; el último mata al instante",
+  "chakrams saem; olhe o caminho de volta até ele": "salen los chakrams; mira el camino de vuelta hacia él",
+  "RETORNO DOS CHAKRAMS": "REGRESO DE LOS CHAKRAMS",
+  "voltam para ele agora: saia do caminho": "vuelven hacia él ahora: sal del camino",
+  "SAI DOS QUADRADOS LARANJA": "SAL DE LOS CUADROS NARANJAS",
+  "Raios caem nos quadrados laranja (~13 mil): saia deles": "Caen rayos en los cuadros naranjas (~13 mil): sal de ellos"
  }
 }

@@ -4181,8 +4181,23 @@
               "confianca_skill": "media",
               "observado": {
                 "fonte": "captura + vídeo 2026-10-17 10:34 (Transcendência)",
-                "nota": "1606060 (preparo 2,0 s, 65%) solta 10 chakrams (1606061) e o retorno (1606070) vem +3,15 s depois; a cada ~35 s"
-              }
+                "nota": "retorno (1606071, objeto 2920394) bate ~4,2 s depois do cast em 2 a 4 jogadores (até 8,7 mil); matou 1 nesta run"
+              },
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "OLHA O RETORNO",
+                  "sub": "chakrams saem; olhe o caminho de volta até ele",
+                  "tipo": "sair"
+                },
+                {
+                  "t": 3.0,
+                  "texto": "RETORNO DOS CHAKRAMS",
+                  "sub": "voltam para ele agora: saia do caminho",
+                  "tipo": "sair",
+                  "contagem": 1.2
+                }
+              ]
             },
             {
               "id": "siliator-of-deceit-linhas",
@@ -4200,13 +4215,29 @@
                   "1606100": 2.0
                 }
               },
-              "wipe": false,
+              "wipe": true,
               "confianca": "media",
               "confianca_skill": "media",
               "observado": {
-                "fonte": "captura + vídeo 2026-10-17 10:34 (Transcendência)",
-                "nota": "1606100 a cada ~59 s, preparo 2,0 s; o 1606050 no tank vem +3,3 s depois"
-              }
+                "fonte": "captura + vídeo 2026-10-17 18:08 (Transcendência, Estágio 1)",
+                "nota": "nas duas runs os feixes (1606110, objeto 2920395) bateram de 6,5 a 10,3 s depois do preparo, e o último deu 29 milhões (instantâneo). Matou 3 jogadores nesta run"
+              },
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "SAI DAS LINHAS",
+                  "sub": "linhas laranja saem dele pela arena",
+                  "tipo": "sair"
+                },
+                {
+                  "t": 2.5,
+                  "texto": "FEIXES: FORA DAS LINHAS",
+                  "sub": "os feixes batem até ~8 s depois; o último mata na hora",
+                  "tipo": "sair",
+                  "contagem": 6.0,
+                  "contagem_voz": true
+                }
+              ]
             },
             {
               "id": "siliator-of-deceit-atordoado",
@@ -4331,16 +4362,28 @@
             {
               "nome": "Chão eletrificado",
               "sinal": "Raios atingem partes da arena e eletrificam o chão por bastante tempo",
-              "acao": "Não fique nas áreas eletrificadas; a área segura diminui",
-              "alerta": null,
+              "acao": "Raios caem nos quadrados laranja (~13 mil): saia deles",
+              "alerta": "SAI DOS QUADRADOS LARANJA",
               "gatilho": {
                 "tipo": "skill",
-                "skill_id": null
+                "skill_ids": [
+                  1606430,
+                  1606431
+                ],
+                "preparo_s": {
+                  "1606430": 1.65
+                },
+                "supressao_s": 4
               },
               "wipe": false,
               "confianca": "alta",
-              "acao_tipo": "atencao",
-              "id": "ruthilis-of-pain-chao-eletrificado"
+              "acao_tipo": "sair",
+              "id": "ruthilis-of-pain-chao-eletrificado",
+              "confianca_skill": "alta",
+              "observado": {
+                "fonte": "captura + vídeo 2026-10-17 18:08 (Transcendência, Estágio 1)",
+                "nota": "1606430 (preparo 1,65 s, ~55%) cria os raios (objeto 2920482): cada onda 1606431 bate ~1,4 s depois em 2 a 4 jogadores (12–13,6 mil) e se repete a cada ~20 s. Matou 2 nesta run"
+              }
             },
             {
               "nome": "Onda radial",

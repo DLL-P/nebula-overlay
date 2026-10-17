@@ -313,6 +313,18 @@ class MotorAlertas:
             self._disparar(i, m, base, alvo, criada=t, precursora=True)
         return self.avancar(t)
 
+    def conhece(self, skill_id: int) -> bool:
+        """A skill aparece no gatilho de alguma mecânica deste boss (para aceitar casts dos objetos dele)."""
+        if not hasattr(self, "_conhecidas"):
+            ids: set[int] = set()
+            for m in self.boss["mecanicas"]:
+                g = m.get("gatilho") or {}
+                if g.get("tipo") == "skill":
+                    ids.update(g.get("skill_ids") or ([g["skill_id"]] if g.get("skill_id") else []))
+                    ids.update(int(s) for s in (g.get("preparo_s") or {}))
+            self._conhecidas = ids
+        return skill_id in self._conhecidas
+
     def dano_em_voce(self, t: float, skill_id: int) -> list[Alerta]:
         """Você tomou dano de uma skill (0x3804/0x3805): dispara mecânicas {"tipo": "dano_em_voce"}.
 
