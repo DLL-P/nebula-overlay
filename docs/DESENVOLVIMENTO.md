@@ -34,6 +34,7 @@ Documentos\Nebula Overlay). A variável `NEBULA_OVERLAY_PASTA` troca esse lugar 
 | `a2parse/roteiro.py` | roteiro aprendido e previsão (cadeia de skills, fases por HP, atordoamento, ciclos) |
 | `a2parse/meter.py` | painel de dano |
 | `a2parse/classes.py` | classe e papel |
+| `a2parse/contribuicao.py` | pacote de contribuição: os dados da luta de uma captura, sem nomes (`run.json`) |
 | `a2parse/grupo.py` | GS e CP de cada jogador do grupo (0x9702 / 0x970B) |
 | `a2parse/eventos.py` | eventos de campo: pacotes 0x6000/0x6001 e agenda |
 | `a2parse/idioma.py` | carrega os idiomas e traduz a interface e os alertas |
@@ -125,3 +126,16 @@ Gera `dist/NebulaOverlay/`, e com o [Inno Setup 6](https://jrsoftware.org/isinfo
 O idioma aparece na engrenagem sem mexer em código. Texto da interface que faltar sai em inglês; alerta sem tradução
 sai em português; frase de voz que faltar vira bipe. Para testar sem gerar o app, ponha o arquivo em
 `Documentos/Nebula Overlay/idiomas`. O teste `test_cada_idioma_tem_todos_os_textos` lista o que falta.
+
+## Pacote de contribuição (`nebula-run/1`)
+
+A janela Contribuir (engrenagem → Ferramentas) chama `a2parse/contribuicao.empacotar`, que gera um `.zip` com
+`relato.json` (texto, vídeo, idioma, versão) e `run.json`:
+
+- `voce` (classe e papel) e `jogadores` (`J1`, `J2`... com a classe; invocações contam para o dono);
+- `bosses`: nome, código do mob, masmorra, início e fim (s desde o começo da captura), se morreu, `hp` (`[t, %]`),
+  `atordoamento` (`[t, atual, máximo]`), `casts` (`t`, `skill`, `alvo` = `boss`/`voce`/`J1`.../`outro`, `preparo_s`),
+  `golpes` por skill (acertos, maior golpe, jogadores por vez) e `dano` por jogador.
+
+Nada de nome, chat, servidor ou ID de entidade (o teste `test_run_sem_nomes` confere). Os endereços de envio ficam em
+`a2parse/versao.py` (`FORMULARIO_URL`, `DISCORD_URL`); vazios, o botão Enviar abre o guia de contribuição.

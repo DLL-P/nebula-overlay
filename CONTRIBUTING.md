@@ -3,6 +3,19 @@
 Toda ajuda é bem-vinda, e você não precisa saber programar. O mapeamento de verdade (ligar cada skill à mecânica, medir
 tempos, escrever os alertas) é feito pelo mantenedor; o que mais ajuda é **material das lutas**.
 
+## O jeito mais fácil: pelo próprio app
+
+Engrenagem → **Ferramentas → Contribuir com o projeto**. Escolha a run gravada, escreva o que aconteceu (e o link do
+vídeo, se tiver), marque a autorização e clique em **Gerar pacote**. O app monta um `.zip` pequeno na pasta
+`contribuicoes` (dentro de Documentos/Nebula Overlay) com:
+
+- `run.json`: só os dados da luta (bosses, skills com horário e preparo, HP, atordoamento, dano por jogador). **Sem
+  nomes, sem chat, sem servidor**: os jogadores viram "voce", "J1", "J2"...;
+- `relato.json`: o seu texto e o link do vídeo.
+
+Esse pacote pode ser mandado por qualquer canal, porque não identifica ninguém. A captura completa só entra se você
+marcar a opção (ela tem nomes e chat: mande só por canal privado).
+
 ## O que você pode mandar
 
 | Tipo | Como | Onde |
