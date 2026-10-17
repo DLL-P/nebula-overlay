@@ -174,3 +174,9 @@ def numero(v: float) -> str:
     else:
         return f"{v:.0f}"
     return s.replace(".", ",") if _meta(_atual[0]).get("virgula_decimal") else s
+
+
+def decimal(v: float, casas: int = 1) -> str:
+    """1.25 → "1,3" em português, "1.3" em inglês."""
+    s = f"{v:.{casas}f}"
+    return s.replace(".", ",") if _meta(_atual[0]).get("virgula_decimal") else s

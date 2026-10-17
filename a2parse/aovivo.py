@@ -22,8 +22,10 @@ from dataclasses import dataclass, field
 from .alertas import Alerta, MotorAlertas, boss_por_npc, carregar_dicas
 from .analise import Analise
 from .classes import NOME as NOME_CLASSE, PAPEL, DetectorClasse, classe_do_pc
+from . import controle as cc
 from .decoders import Leitor
 from .eventos import Eventos
+from .latencia import Latencia
 from .meter import Medidor
 from .roteiro import Previsor, carregar as carregar_roteiros, medidor_atordoamento
 
@@ -147,6 +149,7 @@ class Sessao:
     antecipar: float = 0.8              # s: passos previstos aparecem antes (pedido do usuário: entre 0,5 e 1 s)
     centro_antes: float = 5.0           # s: previsões confiáveis sobem para o centro com essa antecedência (0 desliga)
     roteiros: dict | None = None        # mecanicas/roteiros.json (roteiros.py); None = carrega do disco
+    controle: bool = False              # avisos de controle em você (ATORDOADO 2s + dica da classe); opcional
     alertas: list[Alerta] = field(default_factory=list)
     bosses: dict[int, BossVivo] = field(default_factory=dict)
     eu: int | None = None
@@ -163,11 +166,14 @@ class Sessao:
         self.npcs = carregar_npcs()
         self.classe = DetectorClasse()
         self.medidor = Medidor()
+        self.latencia = Latencia()
         if self.eventos is None:
             self.eventos = Eventos()
         if self.roteiros is None:
             self.roteiros = carregar_roteiros()
         self.dicas = carregar_dicas() if self.com_dicas else {}
+        self.avisos_controle = cc.AvisosControle()
+        self.dados.setdefault("categorias_alerta", {}).setdefault("controle", dict(cc.CATEGORIA))
         self.analise = Analise(observador=self._observar)
         from collections import deque
         self.analise.eventos_dano = deque(maxlen=2000)   # ao vivo não precisa guardar a sessão inteira
@@ -175,6 +181,7 @@ class Sessao:
     # ---------- entrada ----------
     def segmento(self, seg) -> None:
         self.analise.processar_segmento(seg)
+        self.latencia.segmento(seg, self.analise.fluxos)
 
     @property
     def minha_classe(self) -> str | None:
@@ -221,6 +228,7 @@ class Sessao:
             "centro": centro,
             "atordoamento": b.atordoamento if b else None,
             "odyle": self.odyle,
+            "latencia": self.latencia.estado(agora),
             "status": status,
             "cartoes": cartoes,
             "breve": breve[0] if breve else None,
@@ -314,6 +322,11 @@ class Sessao:
                 for b in self.bosses.values():
                     if b.motor:
                         b.motor.eu = self.eu
+                self.avisos_controle.limpar()
+            return
+        if op in (0x382A, 0x382C, 0x3816):
+            if self.controle:
+                self._controle(ts, op, bytes(payload))
             return
         if op == 0x3645:
             r = ler_nome(payload)
@@ -343,6 +356,7 @@ class Sessao:
         c = resultado[1]
         if op == 0x3600:
             self.eventos.relogio(ts, c["horario_servidor"])
+            self.latencia.relogio(ts, c["horario_servidor"])
             return
         if op in (0x610B, 0x610C):
             from .decoders import ODYLE
@@ -382,6 +396,25 @@ class Sessao:
                 b.motor.ativas.clear()
             self.medidor.morte(ts, c["entidade"])
         self.tick(ts)
+
+    def _controle(self, ts: float, op: int, p: bytes) -> None:
+        """Controle em você: um cartão por vez, com a contagem; some quando o efeito sai (no tempo ou quebrado)."""
+        av = self.avisos_controle
+        if op == 0x382C:
+            for c in av.remocao(ts, cc.ler_remocao(p), self.eu):
+                self._encerrar_controle(ts, f"controle-{c.inst}")
+            return
+        novo = av.efeito(ts, cc.ler_efeito(p), self.eu) if op == 0x382A else av.movimento(ts, cc.ler_movimento(p), self.eu)
+        if novo is None:
+            return
+        self._encerrar_controle(ts, None)                  # o controle novo substitui o anterior na tela
+        self.alertas.append(cc.alerta(novo, self.dicas.get(self.minha_classe or "", {}).get("controle", "")))
+
+    def _encerrar_controle(self, ts: float, id_: str | None) -> None:
+        """Encurta o cartão de controle (id_ None = todos) para sair da tela agora."""
+        for a in self.alertas:
+            if a.mecanica == "controle" and (id_ is None or a.id == id_) and a.t <= ts < a.t + a.duracao:
+                a.contagem = max(0.01, ts - a.t)
 
     def _spawn(self, ts: float, ent: int, mob: int) -> None:
         b = boss_por_npc(self.dados, mob)

@@ -105,6 +105,38 @@ class TestAtualizar(unittest.TestCase):
         with self.assertRaises(ValueError):
             atualizar.baixar(info)
 
+    def test_endereco_do_download_conferido_por_partes(self):
+        base = f"https://github.com/{atualizar.REPO}/releases/download/v2026.10.17.5/"
+        self.assertTrue(atualizar._do_repositorio(base + "NebulaOverlay-Setup.exe"))
+        for ruim in (base.replace("https", "http") + "x.exe",
+                     base + "../../../../outro/repo/releases/download/v1/x.exe",
+                     base + "%2e%2e/x.exe",
+                     base + "x.exe?redirect=https://exemplo.com",
+                     f"https://github.com.exemplo.com/{atualizar.REPO}/releases/download/v1/x.exe",
+                     f"https://github.com/{atualizar.REPO}-falso/releases/download/v1/x.exe"):
+            self.assertFalse(atualizar._do_repositorio(ruim), ruim)
+
+
+class TestPlaca(unittest.TestCase):
+    """Com e sem acelerador: loopback no proxy local, senão a placa com o IP das conexões do jogo."""
+    LISTA = [{"nome": "NPF_Loopback", "descricao": "Adapter for loopback traffic capture", "ips": ["127.0.0.1"]},
+             {"nome": "NPF_{A}", "descricao": "Intel Ethernet", "ips": ["192.168.1.10"]},
+             {"nome": "NPF_{B}", "descricao": "WireGuard Tunnel", "ips": ["10.6.0.2"]}]
+
+    def test_acelerador_usa_o_loopback(self):
+        import gravar
+        self.assertIn("loopback", gravar.escolher_placa(self.LISTA, {"proxy": "ExitLag.exe", "porta": 51736})["descricao"])
+
+    def test_direto_usa_a_placa_das_conexoes_do_jogo(self):
+        import gravar
+        rota = {"proxy": None, "conexoes": 2, "ips_locais": ["10.6.0.2"]}
+        self.assertEqual(gravar.escolher_placa(self.LISTA, rota)["descricao"], "WireGuard Tunnel")
+
+    def test_placa_forcada_pelo_nome(self):
+        import gravar
+        self.assertEqual(gravar.escolher_placa(self.LISTA, None, "intel")["descricao"], "Intel Ethernet")
+        self.assertIsNone(gravar.escolher_placa(self.LISTA, None, "não existe"))
+
 
 class TestRoteiros(unittest.TestCase):
     def test_junta_o_do_programa_e_o_aprendido_aqui_pelo_numero_de_runs(self):

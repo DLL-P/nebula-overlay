@@ -55,6 +55,7 @@ CLASSE_COR = {"GLADIATOR": "#d9873f", "TEMPLAR": "#5fa8d3", "ASSASSIN": "#b36bff
 CLASSE_SIGLA = {"GLADIATOR": "GLA", "TEMPLAR": "TEM", "ASSASSIN": "ASS", "RANGER": "ARQ", "SORCERER": "MAG",
                 "ELEMENTALIST": "ESP", "CLERIC": "CLÉ", "CHANTER": "ENC", "FIGHTER": "LUT"}
 MOVEIS = ("alertas", "meter", "eventos")
+LATENCIA_COR = {"bom": "#46d18a", "medio": "#f2c53b", "ruim": "#ff4d4d"}
 EVENTO = "#4fd1c5"                       # cor dos eventos de campo (como o cartão do Festival Shugo)
 CARTAO, CARTAO_BORDA, CARTAO_LINHA = "#1a1c25", "#2c2f3d", "#242733"   # cartões no estilo do seu meter
 VOCE = "#7b5cf0"                                                        # sua linha no meter
@@ -234,6 +235,10 @@ def icone(cv: tk.Canvas, tipo: str, cx: float, cy: float, s: float, cor: str) ->
     elif tipo == "debuff":          # gota
         cv.create_polygon(cx, cy - .44 * s, cx + .3 * s, cy + .08 * s, cx + .3 * s, cy + .2 * s, cx, cy + .42 * s,
                           cx - .3 * s, cy + .2 * s, cx - .3 * s, cy + .08 * s, outline=cor, width=w, fill="", smooth=True)
+    elif tipo == "controle":        # cabeça com estrelinhas em volta (controle em você)
+        O(0, .14, .26)
+        for x, y in ((-.32, -.26), (0, -.4), (.32, -.26)):
+            O(x, y, .07, cor)
     else:  # atencao
         cv.create_polygon(cx, cy - .42 * s, cx + .44 * s, cy + .36 * s, cx - .44 * s, cy + .36 * s, outline=cor, width=w, fill="")
         L(0, -.14, 0, .1)
@@ -258,9 +263,10 @@ class Overlay:
         self._sem_jogo_desde: float | None = None
         self._procurando = False               # thread olhando a conexão do jogo
         self._rota: dict | None = None
+        self._rota_conferida = 0.0             # quando a rota foi olhada de novo com a captura ligada
         self._recarregar_roteiros = False
         self._info_atualizacao: dict | None = None
-        self._atualizacao_vista = False
+        self._atualizacao_vista: str | None = None   # versão nova já avisada
         self._download: tuple | None = None
         self.inicio = None
         self._config = None
@@ -298,6 +304,7 @@ class Overlay:
         if self.w_me:
             self._cadeado(self.w_me, canto="base")     # cadeado no rodapé do painel
             self._cadeado(self.w_me, canto="base", tipo="engrenagem")   # configurações, ao lado
+            self._cadeado(self.w_me, canto="base", tipo="atualizar")    # só aparece quando há versão nova
         # o do alerta só aparece destravado: travado, ele ficaria solto em cima do personagem
         self._cadeado(self.w_al, so_aberto=bool(self.w_me or self.w_pa))
         self._cadeado(self.w_ev, so_aberto=True)
@@ -319,15 +326,15 @@ class Overlay:
         self.root.after(50, self._quadro)
         self.root.after(500, self._vigiar_jogo)
         self.root.after(2000, self._reafirmar)
-        if not atualizar_dev() and self.cfg.get("atualizar_auto", True):
-            self.root.after(3000, lambda: self.procurar_atualizacao(mostrar=False, em_segundo_plano=True))
+        if not atualizar_dev():
+            self.root.after(3000, self._procurar_de_tempos_em_tempos)
 
     def _nova_sessao(self) -> Sessao:
         a, c = self.args, self.cfg
         s = Sessao(carregar_mecanicas(), pre_aviso=not a.sem_pre_aviso,
                    burst=not a.sem_burst and c.get("burst", True),
                    papel_fixo=a.papel or c.get("papel"), classe_fixa=a.classe or c.get("classe"),
-                   antecipar=a.antecipar, eventos=self.eventos)
+                   antecipar=a.antecipar, eventos=self.eventos, controle=c.get("controle_em_voce", False))
         if "centro_antes" in c:
             s.centro_antes = float(c["centro_antes"])
         return s
@@ -352,6 +359,7 @@ class Overlay:
         if self.fonte is not None:
             if pids:
                 self._sem_jogo_desde = None
+                self._conferir_rota()
             else:
                 self._sem_jogo_desde = self._sem_jogo_desde or time.monotonic()
                 if time.monotonic() - self._sem_jogo_desde > 15:      # o jogo fechou
@@ -369,22 +377,45 @@ class Overlay:
             if rota.get("conexoes"):
                 self._conectar(rota)
                 return
-        if not self._procurando:                    # o netstat demora: olha a conexão do jogo numa thread
-            self._procurando = True
+        self._olhar_rota()
 
-            def olhar():
-                import gravar
-                try:
-                    self._rota = gravar.rota_do_jogo() or {}
-                finally:
-                    self._procurando = False
-            threading.Thread(target=olhar, daemon=True).start()
+    def _olhar_rota(self) -> None:
+        """O netstat demora: olha a conexão do jogo numa thread (o resultado chega em self._rota)."""
+        if self._procurando:
+            return
+        self._procurando = True
+
+        def olhar():
+            import gravar
+            try:
+                self._rota = gravar.rota_do_jogo() or {}
+            finally:
+                self._procurando = False
+        threading.Thread(target=olhar, daemon=True).start()
+
+    def _conferir_rota(self) -> None:
+        """Ligar ou desligar o acelerador com o jogo aberto faz o jogo reconectar por outro caminho, e a captura
+        ficaria olhando o lugar errado. Com 20 s sem mensagem do jogo, olha a rota de novo e troca a captura."""
+        if not isinstance(self.fonte, FonteAoVivo):
+            return
+        if self._rota is not None:
+            rota, self._rota = self._rota, None
+            if rota.get("conexoes") and chave_rota(rota) != self.fonte.chave_rota:
+                print("A conexão do jogo mudou de caminho: trocando a captura.")
+                self.fonte.parar()
+                self.fonte = None
+                self._conectar(rota)
+            return
+        ultimo = max(self.sessao.ultimo_ts, self.fonte.inicio)
+        if time.time() - ultimo > 20 and time.monotonic() - self._rota_conferida > 20:
+            self._rota_conferida = time.monotonic()
+            self._olhar_rota()
 
     def _conectar(self, rota: dict) -> None:
         from gravar import ErroCaptura
         try:
             fonte = FonteAoVivo(salvar=self.cfg.get("gravar", True) and not self.args.sem_salvar,
-                                sempre=self.args.sempre_gravar, rota=rota)
+                                sempre=self.args.sempre_gravar, rota=rota, forcada=self.cfg.get("placa"))
         except ErroCaptura as e:
             self.erro_captura = e
             self.inicio.status("erro", erro=e)
@@ -417,17 +448,23 @@ class Overlay:
             threading.Thread(target=olhar, daemon=True).start()
             return ""
         erro = olhar()
-        self._atualizacao_vista = False
+        self._atualizacao_vista = None
         self._acompanhar_atualizacao(automatica=False)
         if erro:
             return erro
         return t("nova_versao", v=self._info_atualizacao["versao"]) if self._info_atualizacao else t("em_dia")
 
+    def _procurar_de_tempos_em_tempos(self) -> None:
+        """Ao abrir e depois a cada 6 h (sessões longas também ficam sabendo da versão nova)."""
+        self.procurar_atualizacao(mostrar=False, em_segundo_plano=True)
+        self.root.after(6 * 3600 * 1000, self._procurar_de_tempos_em_tempos)
+
     def _acompanhar_atualizacao(self, automatica: bool = True) -> None:
         info = self._info_atualizacao
-        if info and not self._atualizacao_vista:
-            self._atualizacao_vista = True
+        if info and self._atualizacao_vista != info["versao"]:
+            self._atualizacao_vista = info["versao"]
             self.inicio.nova_versao(info)
+            self._posicionar_cadeados()              # aparece o botão de atualizar no rodapé do painel
             # sozinho só fora do jogo: no meio da masmorra, fica o botão
             if automatica and self.cfg.get("atualizar_auto", True) and self.fonte is None and not self.pids:
                 self.atualizar_agora()
@@ -435,6 +472,7 @@ class Overlay:
             tipo, valor = self._download
             if tipo == "progresso":
                 self.inicio.baixando_atualizacao(f"{t('baixando')} {valor:.0%}")
+                self._redesenhar_botao_atualizar()
             elif tipo == "pronto":
                 self._download = None
                 from a2parse import atualizar
@@ -444,6 +482,12 @@ class Overlay:
             elif tipo == "erro":
                 self._download = None
                 self.inicio.baixando_atualizacao(t("sem_internet", erro=valor))
+                self._redesenhar_botao_atualizar()
+
+    def _redesenhar_botao_atualizar(self) -> None:
+        for _j, cv, _dono, _canto, _so, tipo in self.cadeados:
+            if tipo == "atualizar":
+                self._desenhar_atualizar(cv)
 
     def atualizar_agora(self) -> None:
         info = self._info_atualizacao
@@ -579,7 +623,8 @@ class Overlay:
         cv.pack()
         j.update_idletasks()
         atravessar(j, False)                       # clicável, mas sem roubar o foco do jogo
-        cv.bind("<Button-1>", lambda _e: self._alternar_trava() if tipo == "cadeado" else self.abrir_config())
+        acao = {"cadeado": self._alternar_trava, "engrenagem": self.abrir_config, "atualizar": self.atualizar_agora}[tipo]
+        cv.bind("<Button-1>", lambda _e: acao())
         self.cadeados.append((j, cv, dono, canto, so_aberto, tipo))
 
     def _desenhar_cadeado(self, cv: tk.Canvas) -> None:
@@ -598,17 +643,39 @@ class Overlay:
         self.root.update_idletasks()
         t = self.t_cad
         for j, cv, dono, canto, so_aberto, tipo in self.cadeados:
-            if so_aberto and self.travado:
+            if (so_aberto and self.travado) or (tipo == "atualizar" and not self._info_atualizacao):
                 j.withdraw()
                 continue
             if not self.escondido and j.state() == "withdrawn":
                 j.deiconify()
                 atravessar(j, False)
             y = dono.winfo_y() + 5 if canto == "topo" else dono.winfo_y() + self._altura_conteudo(dono) - t - 5
-            x = dono.winfo_x() + dono.winfo_width() - t - 7 - (t + 5 if tipo == "engrenagem" else 0)
+            x = dono.winfo_x() + dono.winfo_width() - t - 7 - (t + 5) * {"engrenagem": 1, "atualizar": 2}.get(tipo, 0)
             j.geometry(f"{t}x{t}+{x}+{y}")
-            (self._desenhar_engrenagem if tipo == "engrenagem" else self._desenhar_cadeado)(cv)
+            {"engrenagem": self._desenhar_engrenagem, "atualizar": self._desenhar_atualizar}.get(
+                tipo, self._desenhar_cadeado)(cv)
             por_cima(j)
+
+    def _n_botoes_rodape(self) -> int:
+        """Botões no rodapé do painel: cadeado, engrenagem e, com versão nova, o de atualizar."""
+        return 3 if self._info_atualizacao else 2
+
+    def _desenhar_atualizar(self, cv: tk.Canvas) -> None:
+        """Seta para baixo; baixando, um anel com o progresso."""
+        cv.delete("all")
+        t, c = int(cv.cget("width")), int(cv.cget("width")) / 2
+        cor = "#46d18a"
+        ret_arredondado(cv, 1, 1, t - 1, t - 1, t * .25, fill="#14111d", outline=cor, width=1)
+        tipo, valor = self._download or ("", 0.0)
+        if tipo == "progresso":
+            cv.create_oval(t * .2, t * .2, t * .8, t * .8, outline="#3a3650", width=2)
+            if valor:
+                cv.create_arc(t * .2, t * .2, t * .8, t * .8, start=90, extent=-359.9 * valor, style="arc",
+                              outline=cor, width=2)
+            return
+        cv.create_line(c, t * .22, c, t * .64, fill=cor, width=2)
+        cv.create_polygon(c - t * .2, t * .5, c + t * .2, t * .5, c, t * .72, fill=cor, outline="")
+        cv.create_line(t * .26, t * .8, t * .74, t * .8, fill=cor, width=2)
 
     def _desenhar_engrenagem(self, cv: tk.Canvas) -> None:
         import math as _m
@@ -988,25 +1055,28 @@ class Overlay:
                                font=f_s, tags="dyn")
             desenhos.append(jogador)
             y += h + gap
-        # rodapé: você, classe e conexão (o cadeado fica no canto direito, numa janelinha própria)
+        # rodapé: você e classe à esquerda; latência e Odyle à direita, antes dos botões (janelinhas próprias)
         nome_c, papel = idioma.nome_classe(st.get("classe_chave")), idioma.nome_papel(st.get("papel"))
         classe = f"{nome_c} ({papel})" if nome_c else papel
-        rotulo = self.fonte.rotulo if self.fonte else ""
-        quem = " · ".join(x for x in (st.get("eu"), classe, rotulo) if x) or t("procurando")
+        quem = " · ".join(x for x in (st.get("eu"), classe) if x) or t("procurando")
         y += 14 * e
         desenhos.append(lambda y=y, quem=quem: cv.create_text(mg, y, text=quem, anchor="w", fill="#8d8aa0", font=f_s, tags="dyn"))
+        x_d = W - mg - self._n_botoes_rodape() * (self.t_cad + 5) - 6 * e
         if st.get("odyle"):
-            # energia Odyle no rodapé, à esquerda da engrenagem: restante (+recarga)
+            # energia Odyle: restante (+recarga)
             base_, extra = st["odyle"]
             texto_o = f"{base_}" + (f" (+{extra})" if extra else "")
-            x_o = W - mg - 2 * self.t_cad - 16 * e
             img = self._simbolo_classe("ODYLE")
 
-            def odyle(y=y, x_o=x_o, texto_o=texto_o, img=img):
+            def odyle(y=y, x_o=x_d, texto_o=texto_o, img=img):
                 cv.create_text(x_o, y, text=texto_o, anchor="e", fill="#d8c9ff", font=f_s, tags="dyn")
                 if img:
                     cv.create_image(x_o - self._medir(texto_o, f_s) - 4 * e, y, image=img, anchor="e", tags="dyn")
             desenhos.append(odyle)
+            x_d -= self._medir(texto_o, f_s) + (img.width() + 4 * e if img else 0) + 12 * e
+        lat = st.get("latencia") if self.cfg.get("latencia", True) else None
+        if lat:
+            desenhos.append(lambda y=y, x=x_d, lat=lat: self._desenhar_latencia(cv, x, y, lat, f_s))
         altura = y + 14 * e
         if int(altura) != getattr(self, "_alt_meter", None):
             self._alt_meter = int(altura)
@@ -1015,6 +1085,24 @@ class Overlay:
         for d in desenhos:
             d()
         cv.tag_lower("moldura")
+
+    def _desenhar_latencia(self, cv: tk.Canvas, x: float, y: float, lat: dict, fonte: tuple) -> None:
+        """Ping (conexão direta), ±oscilação (com acelerador) ou há quanto tempo o servidor não manda nada,
+        com três barrinhas na cor da qualidade. Ancorado à direita em x."""
+        e = self.escala
+        cor = LATENCIA_COR[lat["nivel"]]
+        ms = lat["ms"]
+        if lat["tipo"] == "parado" and ms >= 1000:
+            texto = t("lat_seg", s=idioma.decimal(ms / 1000))
+        else:
+            texto = t("lat_osc" if lat["tipo"] == "oscilacao" else "lat_ms", ms=ms)
+        cv.create_text(x, y, text=texto, anchor="e", fill=cor if lat["nivel"] != "bom" else "#b9b3c9", font=fonte, tags="dyn")
+        cheias = {"bom": 3, "medio": 2, "ruim": 1}[lat["nivel"]]
+        x0 = x - self._medir(texto, fonte) - 4 * e - 3 * 4 * e
+        for i in range(3):
+            alt = (4 + 3 * i) * e
+            cv.create_rectangle(x0 + i * 4 * e, y + 5 * e - alt, x0 + i * 4 * e + 3 * e, y + 5 * e,
+                                fill=cor if i < cheias else "#3a3650", outline="", tags="dyn")
 
     # ---------- eventos de campo ----------
     def _lista_eventos(self, agora: float) -> list[dict]:
@@ -1186,11 +1274,18 @@ class Gravador:
         self.arquivo, self.fim_previsto = None, None
 
 
+def chave_rota(rota: dict | None) -> tuple:
+    """O que muda a captura: proxy e porta (acelerador) ou nada (direto)."""
+    if rota and rota.get("proxy"):
+        return rota["proxy"], rota.get("porta")
+    return None, tuple((rota or {}).get("ips_locais", ()))
+
+
 class FonteAoVivo:
     """Captura pelo Npcap numa thread; a interface processa os pacotes no seu próprio ritmo."""
     velocidade = 1.0
 
-    def __init__(self, salvar: bool, sempre: bool = False, rota: dict | None = None) -> None:
+    def __init__(self, salvar: bool, sempre: bool = False, rota: dict | None = None, forcada: str | None = None) -> None:
         import gravar as g
         self.g = g
         self.fila: queue.Queue = queue.Queue()
@@ -1199,16 +1294,17 @@ class FonteAoVivo:
         lista = g.placas(w)
         rota = rota if rota is not None else g.rota_do_jogo()
         self.proxy = None
+        self.chave_rota = chave_rota(rota)
+        placa = g.escolher_placa(lista, rota, forcada)
+        if forcada and placa is None:
+            raise g.ErroCaptura("erro_placa_cfg", f"Nenhuma placa com \"{forcada}\" no nome.", placa=forcada)
         if rota and rota.get("proxy"):
             self.proxy = rota["proxy"].replace(".exe", "")
-            placa = next((p for p in lista if "loopback" in (p["descricao"] + p["nome"]).lower()), None)
             if placa is None:
                 raise g.ErroCaptura("erro_loopback", f"O jogo passa pelo {self.proxy}, mas o Npcap não tem a placa "
                                     "de loopback.", proxy=self.proxy)
             filtro = f"tcp port {rota['porta']}"
         else:
-            ip = g.ip_local()
-            placa = next((p for p in lista if ip and ip in p["ips"]), None)
             if placa is None:
                 raise g.ErroCaptura("erro_placa", "Não consegui escolher a placa de rede.")
             filtro = g.FILTRO_PADRAO
@@ -1225,6 +1321,7 @@ class FonteAoVivo:
             raise g.ErroCaptura("erro_abrir", "Filtro inválido: " + texto, erro=texto)
         w.pcap_freecode(C.byref(prog))
         self.w, self.linktype = w, w.pcap_datalink(self.h)
+        self.inicio = time.time()
         self.dumper = None
         self.gravador = None
         if salvar and sempre:

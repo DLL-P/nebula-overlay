@@ -224,7 +224,24 @@ def rota_do_jogo() -> dict | None:
         if ip == "127.0.0.1" and dono is not None and dono not in jogo:
             nome = pids_de("").get(dono, f"PID {dono}")
             return {"proxy": nome, "porta": int(porta), "conexoes": len(ligacoes)}
-    return {"proxy": None, "conexoes": len(ligacoes)}     # conexoes 0: o jogo abriu, mas ainda não conectou
+    # sem acelerador: os IPs locais das conexões do jogo dizem qual placa ele usa (VPN, cabo + Wi-Fi...)
+    ips = sorted({local.rsplit(":", 1)[0] for local, remoto in ligacoes if not remoto.startswith(("127.", "["))})
+    return {"proxy": None, "conexoes": len(ligacoes), "ips_locais": ips}   # conexoes 0: ainda não conectou
+
+
+def escolher_placa(lista: list[dict], rota: dict | None, forcada: str | None = None) -> dict | None:
+    """Placa a gravar: a forçada (parte do nome ou da descrição, "placa" no overlay.json), o loopback quando o
+    jogo passa por um proxy local, a placa com o IP local das conexões do jogo ou, por último, a da rota padrão."""
+    if forcada:
+        alvo = forcada.lower()
+        return next((p for p in lista if alvo in (p["descricao"] + " " + p["nome"]).lower()), None)
+    if rota and rota.get("proxy"):
+        return next((p for p in lista if "loopback" in (p["descricao"] + p["nome"]).lower()), None)
+    for ip in (rota or {}).get("ips_locais", []) + [ip_local()]:
+        placa = next((p for p in lista if ip and ip in p["ips"]), None)
+        if placa:
+            return placa
+    return None
 
 
 # ---------------- detecção do jogo ao vivo ----------------
@@ -294,7 +311,7 @@ def main() -> int:
     if args.placa is not None:
         placa = lista[args.placa]
     elif rota and rota.get("proxy"):
-        placa = next((p for p in lista if "loopback" in (p["descricao"] + p["nome"]).lower()), None)
+        placa = escolher_placa(lista, rota)
         if placa is None:
             sys.exit("O jogo passa por um proxy local, mas o Npcap não tem a placa de loopback. Reinstale o Npcap com "
                      "a opção 'Support loopback traffic' marcada.")
@@ -302,8 +319,7 @@ def main() -> int:
         print(f"O jogo passa pelo {rota['proxy']} (proxy local na porta {rota['porta']}).")
         print("Gravando o loopback, antes do túnel do acelerador, onde o tráfego do jogo vem limpo.\n")
     else:
-        ip = ip_local()
-        placa = next((p for p in lista if ip and ip in p["ips"]), None)
+        placa = escolher_placa(lista, rota)
         if placa is None:
             print("Não consegui escolher a placa sozinho. Rode com --listar e depois --placa N.")
             return 1

@@ -1,0 +1,26 @@
+{
+  "_nota": "Efeitos de controle (ID do efeito no 0x382A) e o tipo que o aviso \"Controle em você\" mostra. Tipos: atordoamento, derrubada, enraizamento, agarrao, puxao, sono, medo, silencio, aereo e controle (genérico, quando o tipo ainda não foi confirmado). Mapeado nas capturas de 2026-10-16 e 2026-10-17: os IDs 1000002xx a 1000008xx são os efeitos comuns que as skills de classe aplicam (os mesmos que outros jogadores aplicam em você no PvP); os outros vêm de bosses. Derrubadas e empurrões chegam junto com o 0x3816 e são reconhecidos mesmo fora desta lista. Confirme no jogo e ajuste à vontade.",
+  "efeitos": {
+    "100000201": {"tipo": "enraizamento", "obs": "Corte no Tornozelo, Flecha de Grilhão, Condenação, Captura (3 s)"},
+    "100000301": {"tipo": "controle", "obs": "Ataque Sigiloso (3 s)"},
+    "100000311": {"tipo": "atordoamento", "obs": "Golpe Destruidor (a especialização fala em Atordoamento), Flecha de Supressão, Armadilha de Explosão (3 s)"},
+    "100000312": {"tipo": "atordoamento", "obs": "Golpe Feroz do Enfraquecimento (3 s)"},
+    "100000321": {"tipo": "derrubada", "obs": "Espada do Massacre, Golpe de Investida, Escudo da Perdição, Corrente de Tormento (3–4 s, com 0x3816)"},
+    "100000801": {"tipo": "controle", "obs": "Golpe da Onda Abrasadora, Golpe Giratório, Ataque Sigiloso (3 s)"},
+    "100000802": {"tipo": "controle", "obs": "Golpe da Onda Abrasadora (3 s)"},
+    "12000001": {"tipo": "controle", "obs": "comum de boss: Urahum 1605110, Duduri 1220250, Fafnir 1607460 (2–3 s)"},
+    "12000171": {"tipo": "controle", "obs": "Pinopi 1607415 (3 s)"},
+    "12000173": {"tipo": "puxao", "obs": "Raur 1504430, puxão de 4 jogadores (3 s)"},
+    "12000301": {"tipo": "derrubada", "obs": "Urahum 1605131, anéis (2 s, com 0x3816)"},
+    "12211002": {"tipo": "agarrao", "obs": "Pinopi 1607620, agarrão (0,9 s)"},
+    "12211011": {"tipo": "derrubada", "obs": "Pinopi 1607560 e 1607620 (2 s, com 0x3816)"},
+    "12272201": {"tipo": "derrubada", "obs": "1607394 (1,5 s, com 0x3816)"},
+    "15044311": {"tipo": "puxao", "obs": "Raur 1504430, puxão de 4 jogadores (3 s)"},
+    "15044711": {"tipo": "derrubada", "obs": "Raur 1504471 (2 s, com 0x3816)"},
+    "16009201": {"tipo": "aereo", "obs": "Auldor, tornados 1600920/1600925/1601020: quem é pego fica suspenso (3 s)"},
+    "16009603": {"tipo": "derrubada", "obs": "Auldor 1600960 e 1601090 (2 s, com 0x3816)"},
+    "16010501": {"tipo": "agarrao", "obs": "Auldor 1601050, agarrar e esmagar (3,2 s)"},
+    "16010502": {"tipo": "agarrao", "obs": "Auldor 1601050, agarrar e esmagar (3 s, com 0x3816)"},
+    "16051103": {"tipo": "derrubada", "obs": "Urahum 1605131/1605090/1605140 (3 s, com 0x3816)"}
+  }
+}

@@ -9,6 +9,7 @@ p = lambda *x: os.path.join(RAIZ, *x)
 dados = [
     (p("dados", "classes"), os.path.join("dados", "classes")),
     (p("dados", "dicas_classes.json"), "dados"),
+    (p("dados", "controles.json"), "dados"),
     (p("dados", "icone.ico"), "dados"),
     (p("dados", "icone.png"), "dados"),
     (p("opcodes.json"), "."),

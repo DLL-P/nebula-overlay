@@ -1135,6 +1135,45 @@
               }
             },
             {
+              "id": "raur-varredura-frontal",
+              "nome": "Varredura frontal",
+              "sinal": "Skill 1504420 (preparo 1,5 s) no alvo do aggro: arco de fogo à frente; acerta quem está do lado (até 4 pessoas)",
+              "acao": "Quem não tem o aggro sai da frente; quem tem vira ele para longe do grupo",
+              "alerta": "VARREDURA: SAI DA FRENTE",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_ids": [
+                  1504420
+                ],
+                "preparo_s": {
+                  "1504420": 1.5
+                }
+              },
+              "acao_tipo": "sair",
+              "wipe": false,
+              "confianca": "media",
+              "confianca_skill": "alta",
+              "por_papel": {
+                "tank": {
+                  "texto": "VIRA ELE PRA FORA",
+                  "sub": "arco de fogo à frente dele"
+                }
+              },
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "VARREDURA: SAI DA FRENTE",
+                  "sub": "arco de fogo à frente dele",
+                  "tipo": "sair"
+                }
+              ],
+              "observado": {
+                "fonte": "capturas 2026-10-16 20:53 e 21:32 + vídeos 20:53:38 e 21:31:26 (grupo sem Templário: o aggro ficou com o Gladiador)",
+                "ritmo": "~31 s",
+                "dano_max": "4.181"
+              }
+            },
+            {
               "id": "guardian-captain-raur-atordoado",
               "nome": "Atordoamento (medidor zerado)",
               "sinal": "O medidor de atordoamento (0xE005) chega a ~0; skill 1000009; o boss fica 5 s parado",
@@ -1200,41 +1239,56 @@
           "mecanicas": [
             {
               "nome": "Sequência de pancadas",
-              "sinal": "Várias pancadas; a última é a mais forte",
-              "acao": "Saia do alcance dele por completo",
+              "sinal": "Skill 1605140 (preparo 1,5 s): anéis laranja crescem em volta dele por ~3 s; o último é o mais forte",
+              "acao": "Saia do alcance dele antes do último anel",
               "alerta": "SAI DO ALCANCE",
               "gatilho": {
                 "tipo": "skill",
-                "skill_id": null
+                "skill_ids": [
+                  1605140
+                ],
+                "preparo_s": {
+                  "1605140": 1.5
+                }
               },
               "wipe": false,
-              "confianca": "media",
+              "confianca": "alta",
               "acao_tipo": "sair",
-              "id": "judge-urahum-sequencia-de-pancadas"
+              "id": "judge-urahum-sequencia-de-pancadas",
+              "confianca_skill": "alta",
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "SAI DO ALCANCE",
+                  "sub": "anéis crescendo: o último é o mais forte",
+                  "tipo": "sair",
+                  "contagem": 3.0
+                }
+              ],
+              "observado": {
+                "fonte": "capturas 2026-10-16 20:53 e 21:32 + vídeos 20:53:38 e 21:31:26 (grupo sem Templário: o aggro ficou com o Gladiador)",
+                "ritmo": "~44 s (62% e 20% na run das 21:32)"
+              }
             },
             {
               "nome": "Debuff de ácido",
               "sinal": "Investida girando ou AoE circular aplicam um debuff",
               "acao": "Quando o debuff acabar, sai uma poça de ácido no seu pé: mova-se",
-              "alerta": "SAI DA POÇA",
-              "gatilho": {
-                "tipo": "buff",
-                "abnormal_id": null
-              },
+              "alerta": null,
+              "gatilho": null,
               "wipe": false,
               "confianca": "media",
               "acao_tipo": "sair",
-              "id": "judge-urahum-debuff-de-acido"
+              "id": "judge-urahum-debuff-de-acido",
+              "coberto_por": "urahum-poca-em-voce",
+              "nota": "Mesma mecânica de urahum-poca-em-voce (que já tem a skill): aqui fica só a descrição dos guias."
             },
             {
               "nome": "Poças roxas",
               "sinal": "Poças roxas/rosa brilhantes que ficam no chão depois das pancadas",
               "acao": "Nunca fique nelas; reposicione depois de cada pancada (elas se acumulam pela arena)",
-              "alerta": "SAI DO ROXO",
-              "gatilho": {
-                "tipo": "skill",
-                "skill_id": null
-              },
+              "alerta": null,
+              "gatilho": null,
               "wipe": false,
               "confianca": "alta",
               "observado": {
@@ -1242,7 +1296,9 @@
                 "nota": "Ficam espalhadas pela arena a luta toda"
               },
               "acao_tipo": "sair",
-              "id": "judge-urahum-pocas-roxas"
+              "id": "judge-urahum-pocas-roxas",
+              "coberto_por": "urahum-poca-em-voce",
+              "nota": "Mesma mecânica de urahum-poca-em-voce (que já tem a skill): aqui fica só a descrição dos guias."
             },
             {
               "nome": "Penas venenosas",
@@ -1273,11 +1329,8 @@
               "nome": "Anéis laranja em sequência",
               "sinal": "Vários anéis laranja se expandindo em volta dele",
               "acao": "Saia do alcance dele por completo (o último anel é o mais forte)",
-              "alerta": "SAI DO ALCANCE",
-              "gatilho": {
-                "tipo": "skill",
-                "skill_id": null
-              },
+              "alerta": null,
+              "gatilho": null,
               "wipe": false,
               "confianca": "alta",
               "observado": {
@@ -1286,7 +1339,9 @@
                 "nota": "3:46–3:54"
               },
               "acao_tipo": "sair",
-              "id": "judge-urahum-aneis-laranja-em-sequencia"
+              "id": "judge-urahum-aneis-laranja-em-sequencia",
+              "coberto_por": "urahum-aneis",
+              "nota": "Mesma mecânica de urahum-aneis (que já tem a skill): aqui fica só a descrição dos guias."
             },
             {
               "nome": "Linhas radiais + explosão roxa",
@@ -1495,6 +1550,111 @@
               "confianca": "alta",
               "observado": {
                 "fonte": "mapear.py + quadros do vídeo 01:40:50 (captura 2026-10-16 01:39)"
+              }
+            },
+            {
+              "id": "urahum-golpe-pesado-em-voce",
+              "nome": "Golpe pesado em quem tem o aggro",
+              "sinal": "Skill 1605080 (preparo 1,0 s) em quem segura o aggro, ~12.400; vem sempre 4,15 s depois da estrela 1605090",
+              "acao": "Defesa ou esquiva no impacto",
+              "alerta": "GOLPE PESADO EM VOCÊ",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_ids": [
+                  1605080
+                ],
+                "preparo_s": {
+                  "1605080": 1.0
+                },
+                "pessoal": true
+              },
+              "acao_tipo": "esquivar",
+              "wipe": false,
+              "confianca": "alta",
+              "confianca_skill": "alta",
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "GOLPE PESADO EM VOCÊ",
+                  "sub": "defesa ou esquiva no impacto",
+                  "tipo": "esquivar"
+                }
+              ],
+              "observado": {
+                "fonte": "capturas 2026-10-16 20:53 e 21:32 + vídeos 20:53:38 e 21:31:26 (grupo sem Templário: o aggro ficou com o Gladiador)",
+                "ritmo": "~42 s; 3/3 depois da 1605090",
+                "dano_max": "12.402"
+              },
+              "nota": "Vem sempre 4,15 s depois da estrela 1605090, mas o aviso sai pelo preparo da própria 1605080: só ele diz em quem vai cair."
+            },
+            {
+              "id": "urahum-golpe-pesado-cura",
+              "nome": "Golpe pesado no alvo (healer)",
+              "sinal": "Skill 1605080 em quem segura o aggro",
+              "acao": "Cura e escudo no alvo do aggro: o golpe tira ~12.400",
+              "alerta": "CURA O ALVO",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_ids": [
+                  1605080
+                ],
+                "preparo_s": {
+                  "1605080": 1.0
+                }
+              },
+              "papeis": [
+                "healer"
+              ],
+              "acao_tipo": "atencao",
+              "wipe": false,
+              "confianca": "alta",
+              "confianca_skill": "alta",
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "CURA O ALVO",
+                  "sub": "golpe de ~12.400 em quem tem o aggro",
+                  "tipo": "atencao"
+                }
+              ],
+              "observado": {
+                "fonte": "capturas 2026-10-16 20:53 e 21:32 + vídeos 20:53:38 e 21:31:26 (grupo sem Templário: o aggro ficou com o Gladiador)"
+              },
+              "nota": "Vem sempre 4,15 s depois da estrela 1605090, mas o aviso sai pelo preparo da própria 1605080: só ele diz em quem vai cair."
+            },
+            {
+              "id": "urahum-golpe-frontal",
+              "nome": "Golpe frontal",
+              "sinal": "Skill 1605100 (preparo 1,0 s) no alvo do aggro; acerta também quem está ao lado dele (2–4 pessoas, ~5.000)",
+              "acao": "Quem não tem o aggro sai da frente dele",
+              "alerta": "GOLPE FRONTAL: SAI DA FRENTE",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_ids": [
+                  1605100
+                ],
+                "preparo_s": {
+                  "1605100": 1.0
+                }
+              },
+              "so_perto": true,
+              "acao_tipo": "sair",
+              "wipe": false,
+              "confianca": "media",
+              "confianca_skill": "alta",
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "GOLPE FRONTAL: SAI DA FRENTE",
+                  "sub": "acerta quem está ao lado do alvo",
+                  "tipo": "sair",
+                  "so_perto": true
+                }
+              ],
+              "observado": {
+                "fonte": "capturas 2026-10-16 20:53 e 21:32 + vídeos 20:53:38 e 21:31:26 (grupo sem Templário: o aggro ficou com o Gladiador)",
+                "ritmo": "abre a luta e a cada ~30 s",
+                "dano_max": "5.080"
               }
             },
             {
@@ -1792,7 +1952,8 @@
               "gatilho": {
                 "tipo": "skill",
                 "skill_ids": [
-                  1601040
+                  1601040,
+                  1601050
                 ]
               },
               "wipe": false,
@@ -1821,7 +1982,8 @@
               "confianca_skill": "media",
               "observado": {
                 "skill": "mapear.py + quadros do vídeo 01:40:50 (captura 2026-10-16 01:39)",
-                "nota_skill": "1601040 acerta um jogador só (até 11 mil); 1601050 vem 0,3 s depois com círculo amarelo"
+                "nota_skill": "1601040 acerta um jogador só (até 11 mil); 1601050 vem 0,3 s depois com círculo amarelo",
+                "variante": "1601050 = 2ª variante do agarrão (39% e 10% na run das 21:32): círculo laranja em volta do agarrado ~4,5 s depois; acertou 3 pessoas perto (até 13.619)"
               }
             },
             {
@@ -3924,7 +4086,10 @@
               "confianca": "alta",
               "acao_tipo": "matar_alvo",
               "pre_aviso_pct": 5,
-              "id": "siliator-of-deceit-chakrams-rastreadores"
+              "id": "siliator-of-deceit-chakrams-rastreadores",
+              "candidatos_skill": {
+                "1606054": "pilares de luz a partir de 69% (preparo 0,5 s, a cada ~35 s): talvez o marcador dos chakrams"
+              }
             },
             {
               "nome": "Leque de chakrams",
@@ -3933,12 +4098,46 @@
               "alerta": "OLHA O RETORNO",
               "gatilho": {
                 "tipo": "skill",
-                "skill_id": null
+                "skill_ids": [
+                  1606060
+                ],
+                "preparo_s": {
+                  "1606060": 2.0
+                }
               },
               "wipe": true,
               "confianca": "alta",
               "acao_tipo": "sair",
-              "id": "siliator-of-deceit-leque-de-chakrams"
+              "id": "siliator-of-deceit-leque-de-chakrams",
+              "confianca_skill": "media",
+              "observado": {
+                "fonte": "captura + vídeo 2026-10-17 10:34 (Transcendência)",
+                "nota": "1606060 (preparo 2,0 s, 65%) solta 10 chakrams (1606061) e o retorno (1606070) vem +3,15 s depois; a cada ~35 s"
+              }
+            },
+            {
+              "id": "siliator-of-deceit-linhas",
+              "nome": "Linhas pela arena",
+              "sinal": "Linhas laranja saem do boss pela arena e viram feixes (skill 1606100)",
+              "acao": "Saia de cima das linhas antes dos feixes",
+              "alerta": "SAI DAS LINHAS",
+              "acao_tipo": "sair",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_ids": [
+                  1606100
+                ],
+                "preparo_s": {
+                  "1606100": 2.0
+                }
+              },
+              "wipe": false,
+              "confianca": "media",
+              "confianca_skill": "media",
+              "observado": {
+                "fonte": "captura + vídeo 2026-10-17 10:34 (Transcendência)",
+                "nota": "1606100 a cada ~59 s, preparo 2,0 s; o 1606050 no tank vem +3,3 s depois"
+              }
             },
             {
               "id": "siliator-of-deceit-atordoado",
@@ -4027,12 +4226,38 @@
               "alerta": "VAI PRO BOSS",
               "gatilho": {
                 "tipo": "skill",
-                "skill_id": null
+                "skill_ids": [
+                  1606440
+                ],
+                "preparo_s": {
+                  "1606440": 2.45
+                }
               },
               "wipe": false,
               "confianca": "media",
               "acao_tipo": "borda",
-              "id": "ruthilis-of-pain-arena-vermelha"
+              "id": "ruthilis-of-pain-arena-vermelha",
+              "confianca_skill": "alta",
+              "observado": {
+                "fonte": "captura + vídeo 2026-10-17 10:34 (Transcendência)",
+                "nota": "1606440 (preparo 2,45 s, a cada ~62 s): a arena fica vermelha com um círculo seguro em volta dela; logo depois o chão fica eletrificado"
+              },
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "VAI PRO BOSS",
+                  "sub": "a arena fica vermelha; o seguro é o círculo em volta dela",
+                  "tipo": "borda",
+                  "contagem": 2.5,
+                  "contagem_voz": true
+                },
+                {
+                  "t": 3.0,
+                  "texto": "FICA FORA DO AZUL",
+                  "sub": "o chão eletrificado fica um tempo",
+                  "tipo": "sair"
+                }
+              ]
             },
             {
               "nome": "Chão eletrificado",
@@ -4055,12 +4280,46 @@
               "alerta": "VAI PRA POSIÇÃO DELA",
               "gatilho": {
                 "tipo": "skill",
-                "skill_id": null
+                "skill_ids": [
+                  1606400
+                ],
+                "preparo_s": {
+                  "1606400": 1.25
+                }
               },
               "wipe": false,
               "confianca": "alta",
               "acao_tipo": "borda",
-              "id": "ruthilis-of-pain-onda-radial"
+              "id": "ruthilis-of-pain-onda-radial",
+              "confianca_skill": "media",
+              "observado": {
+                "fonte": "captura + vídeo 2026-10-17 10:34 (Transcendência)",
+                "nota": "1606400 (preparo 1,25 s, alvo o mais distante) e a onda 1606450 +5 s depois"
+              }
+            },
+            {
+              "id": "ruthilis-of-pain-faixa-vermelha",
+              "nome": "Faixa vermelha",
+              "sinal": "Faixa vermelha no chão e onda de choque (skill 1606450, até ~14 mil de dano)",
+              "acao": "Saia da faixa vermelha antes do golpe",
+              "alerta": "SAI DA FAIXA VERMELHA",
+              "acao_tipo": "sair",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_ids": [
+                  1606450
+                ],
+                "preparo_s": {
+                  "1606450": 2.5
+                }
+              },
+              "wipe": false,
+              "confianca": "media",
+              "confianca_skill": "media",
+              "observado": {
+                "fonte": "captura + vídeo 2026-10-17 10:34 (Transcendência)",
+                "nota": "1606450 a cada ~44 s, preparo 2,5 s; o 1606401 num jogador vem +3,5 s depois"
+              }
             },
             {
               "id": "ruthilis-of-pain-atordoado",
@@ -4140,15 +4399,22 @@
               "acao": "Cada um pega SÓ a sua cor (combinem antes; pegar a cor oposta atordoa e zera). Depois ela pisca o cristal: a ordem das piscadas define a cor da cúpula onde ficar",
               "alerta": "SUA COR / CÚPULA",
               "gatilho": {
-                "tipo": "hp",
-                "pct": 70
+                "tipo": "skill",
+                "skill_ids": [
+                  1801690
+                ]
               },
               "wipe": true,
               "confianca": "alta",
               "nota": "Repete por volta de 40%, com três cores na 2ª vez.",
               "acao_tipo": "pular",
               "pre_aviso_pct": 5,
-              "id": "talisra-of-the-void-orbes-de-cor-cupulas"
+              "id": "talisra-of-the-void-orbes-de-cor-cupulas",
+              "confianca_skill": "media",
+              "observado": {
+                "fonte": "captura + vídeo 2026-10-17 10:34 (Transcendência)",
+                "nota": "Começou aos 60% nesta run (os guias falam em 70%): 1801690 e as cúpulas 1801720/1801730/1801735"
+              }
             },
             {
               "nome": "Orbes de cor (2ª vez)",
@@ -4156,14 +4422,22 @@
               "acao": "Cada um pega SÓ a sua cor (combinem antes; pegar a cor oposta atordoa e zera). Depois ela pisca o cristal: a ordem das piscadas define a cor da cúpula onde ficar",
               "alerta": "SUA COR / CÚPULA",
               "gatilho": {
-                "tipo": "hp",
-                "pct": 40
+                "tipo": "skill",
+                "skill_ids": [
+                  1801697
+                ],
+                "supressao_s": 30
               },
               "wipe": true,
               "confianca": "alta",
               "acao_tipo": "pular",
               "pre_aviso_pct": 5,
-              "id": "talisra-of-the-void-orbes-de-cor-2a-vez"
+              "id": "talisra-of-the-void-orbes-de-cor-2a-vez",
+              "confianca_skill": "media",
+              "observado": {
+                "fonte": "captura + vídeo 2026-10-17 10:34 (Transcendência)",
+                "nota": "Aos 30%: 1801697 cinco vezes a cada 4 s ('To me, shattered souls!'), cúpulas aos 24%"
+              }
             },
             {
               "nome": "Lança branca",
@@ -4187,12 +4461,22 @@
               "alerta": "PULA 2X",
               "gatilho": {
                 "tipo": "skill",
-                "skill_id": null
+                "skill_ids": [
+                  1801770
+                ],
+                "preparo_s": {
+                  "1801770": 1.0
+                }
               },
               "wipe": false,
               "confianca": "alta",
               "acao_tipo": "pular",
-              "id": "talisra-of-the-void-onda-dupla"
+              "id": "talisra-of-the-void-onda-dupla",
+              "confianca_skill": "media",
+              "observado": {
+                "fonte": "captura + vídeo 2026-10-17 10:34 (Transcendência)",
+                "nota": "1801770 (preparo 1,0 s, a cada ~49 s): anel claro sai pela borda da arena"
+              }
             },
             {
               "nome": "Jaula",
@@ -4206,7 +4490,10 @@
               "wipe": false,
               "confianca": "media",
               "acao_tipo": "matar_alvo",
-              "id": "talisra-of-the-void-jaula"
+              "id": "talisra-of-the-void-jaula",
+              "candidatos_skill": {
+                "1801592": "aos 78%: 1801592 no boss e 1801593/94/95 em jogadores ao mesmo tempo (talvez a jaula e as lanças)"
+              }
             },
             {
               "id": "talisra-of-the-void-atordoado",
@@ -4694,16 +4981,52 @@
             {
               "nome": "Giro em avanço",
               "sinal": "Gira o tronco e avança pela arena dando dano em área",
-              "acao": "Saia da linha dele e volte quando parar",
-              "alerta": "SAI DA FRENTE",
+              "acao": "Ele gira e avança por ~5 s: saia da linha e bata pelas costas",
+              "alerta": "GIRO: SAI DO CAMINHO",
               "gatilho": {
                 "tipo": "skill",
-                "skill_id": null
+                "skill_ids": [
+                  1607600
+                ],
+                "preparo_s": {
+                  "1607600": 0.8
+                },
+                "supressao_s": 4
               },
               "wipe": false,
-              "confianca": "media",
+              "confianca": "alta",
               "acao_tipo": "sair",
-              "id": "gatekeeper-pinopi-giro-em-avanco"
+              "id": "gatekeeper-pinopi-giro-em-avanco",
+              "confianca_skill": "alta",
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "GIRO: SAI DO CAMINHO",
+                  "sub": "Ele gira e avança por ~5 s: saia da linha e bata pelas costas",
+                  "tipo": "sair",
+                  "contagem": 5.0
+                }
+              ],
+              "observado": {
+                "fonte": "captura 2026-10-17 00:29 + vídeo 00:29:37 (solo, Gladiador)",
+                "skill": "1607600 + série 1221095 (até 85 golpes de ~1.100)",
+                "ritmo": "por tempo: a cada ~10 s a luta toda",
+                "nota": "Gira o tronco com arcos dourados e avança; os golpes 1221095 são os ticks do giro"
+              },
+              "por_classe": {
+                "RANGER": {
+                  "sub": "de longe: só saia da linha dele"
+                },
+                "SORCERER": {
+                  "sub": "de longe: só saia da linha dele"
+                },
+                "ELEMENTALIST": {
+                  "sub": "de longe: só saia da linha dele"
+                },
+                "CLERIC": {
+                  "sub": "de longe: só saia da linha dele"
+                }
+              }
             },
             {
               "nome": "Garra simples ou dupla",
@@ -4721,31 +5044,135 @@
             },
             {
               "nome": "Pancada dos dois braços",
-              "sinal": "Ergue os dois braços e bate à frente; derruba",
-              "acao": "Saia da área à frente dele",
-              "alerta": "BRAÇOS: SAI",
+              "sinal": "Ergue os braços e marca um leque laranja à frente, apontado para você",
+              "acao": "Leque laranja à frente dele; o golpe vem ~3 s depois",
+              "alerta": "LEQUE: SAI DA FRENTE",
               "gatilho": {
                 "tipo": "skill",
-                "skill_id": null
+                "skill_ids": [
+                  1607570,
+                  1607540
+                ],
+                "preparo_s": {
+                  "1607570": 0.85
+                }
               },
               "wipe": false,
-              "confianca": "media",
+              "confianca": "alta",
               "acao_tipo": "sair",
-              "id": "gatekeeper-pinopi-pancada-dos-dois-bracos"
+              "id": "gatekeeper-pinopi-pancada-dos-dois-bracos",
+              "confianca_skill": "alta",
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "LEQUE: SAI DA FRENTE",
+                  "sub": "Leque laranja à frente dele; o golpe vem ~3 s depois",
+                  "tipo": "sair",
+                  "contagem": 3.0
+                }
+              ],
+              "observado": {
+                "fonte": "captura 2026-10-17 00:29 + vídeo 00:29:37 (solo, Gladiador)",
+                "ritmo": "1607570 por tempo, a cada ~42 s; 1607540 uma vez aos 60% (com debuff)",
+                "dano_max": "1.600"
+              }
             },
             {
               "nome": "Agarrão",
               "sinal": "Às vezes troca a garra por um agarrão seguido de pancada",
-              "acao": "Guarde uma esquiva para o agarrão",
-              "alerta": null,
+              "acao": "Guarde uma esquiva: ele agarra e bate",
+              "alerta": "AGARRÃO: ESQUIVA",
               "gatilho": {
                 "tipo": "skill",
-                "skill_id": null
+                "skill_ids": [
+                  1607620
+                ]
               },
               "wipe": false,
               "confianca": "media",
-              "acao_tipo": "atencao",
-              "id": "gatekeeper-pinopi-agarrao"
+              "acao_tipo": "esquivar",
+              "id": "gatekeeper-pinopi-agarrao",
+              "confianca_skill": "alta",
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "AGARRÃO: ESQUIVA",
+                  "sub": "Guarde uma esquiva: ele agarra e bate",
+                  "tipo": "esquivar"
+                }
+              ],
+              "observado": {
+                "fonte": "captura 2026-10-17 00:29 + vídeo 00:29:37 (solo, Gladiador)",
+                "ritmo": "3× aos 58%, 39% e 13% (a cada ~37 s): HP ou tempo, ainda não dá para separar",
+                "dano_max": "2.300 + debuff 1607620"
+              }
+            },
+            {
+              "id": "pinopi-anel-em-voce",
+              "nome": "Anel no chão em você",
+              "sinal": "Anel laranja embaixo de você; o golpe cai ~3 s depois do cast",
+              "acao": "Saia do anel antes do impacto",
+              "alerta": "ANEL EM VOCÊ: SAI",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_ids": [
+                  1607560
+                ],
+                "preparo_s": {
+                  "1607560": 1.2
+                }
+              },
+              "wipe": false,
+              "confianca": "alta",
+              "confianca_skill": "alta",
+              "acao_tipo": "sair",
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "ANEL EM VOCÊ: SAI",
+                  "sub": "Saia do anel antes do impacto",
+                  "tipo": "sair",
+                  "contagem": 3.0
+                }
+              ],
+              "observado": {
+                "fonte": "captura 2026-10-17 00:29 + vídeo 00:29:37 (solo, Gladiador)",
+                "ritmo": "por tempo: a cada ~22 s (4, 21, 41, 64, 82 s…)",
+                "dano_max": "3.300 (nível 10)"
+              }
+            },
+            {
+              "id": "pinopi-circulos-espalhados",
+              "nome": "Círculos espalhados (45%)",
+              "sinal": "Aviso longo (2,9 s); ~4,5 s depois do cast caem vários círculos laranja em volta de você",
+              "acao": "Vários círculos em volta de você: saia de todos",
+              "alerta": "CÍRCULOS: SAI DE TODOS",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_ids": [
+                  1607580
+                ],
+                "preparo_s": {
+                  "1607580": 2.9
+                }
+              },
+              "wipe": false,
+              "confianca": "media",
+              "confianca_skill": "alta",
+              "acao_tipo": "sair",
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "CÍRCULOS: SAI DE TODOS",
+                  "sub": "Vários círculos em volta de você: saia de todos",
+                  "tipo": "sair",
+                  "contagem": 4.5
+                }
+              ],
+              "observado": {
+                "fonte": "captura 2026-10-17 00:29 + vídeo 00:29:37 (solo, Gladiador)",
+                "ritmo": "1× aos 45% de HP no nível 10"
+              }
             },
             {
               "id": "gatekeeper-pinopi-atordoado",
@@ -4755,7 +5182,7 @@
               "alerta": "ATORDOADO: BURST!",
               "acao_tipo": "burst",
               "wipe": false,
-              "confianca": "media",
+              "confianca": "alta",
               "gatilho": {
                 "tipo": "skill",
                 "skill_ids": [
@@ -4782,12 +5209,16 @@
                 }
               ],
               "observado": {
-                "fonte": "padrão (skill 1000009) de todos os bosses já capturados",
-                "nota": "Ainda não visto neste boss: confirmar numa captura"
+                "fonte": "captura 2026-10-17 00:29 + vídeo 00:29:37 (solo, Gladiador)",
+                "nota": "3 atordoamentos (80%, 52%, 23%); o medidor zera pelo dano, não pelo tempo"
               }
             }
           ],
-          "ordem": 1
+          "ordem": 1,
+          "observado": {
+            "fonte": "captura 2026-10-17 00:29 + vídeo 00:29:37 (solo, Gladiador)",
+            "lutas": "nível 10: 3:23"
+          }
         },
         {
           "nome": "Furious Feruk",
@@ -4843,72 +5274,202 @@
             {
               "nome": "Sangramento",
               "sinal": "As garras aplicam sangramento",
-              "acao": "Limpe com skill ou poção de cura",
+              "acao": "Garrada que aplica debuff; o sangramento (DoT 120001511) tira ~500 a cada 2–3 s",
               "alerta": "LIMPA O SANGRAMENTO",
               "gatilho": {
-                "tipo": "buff",
-                "abnormal_id": null
+                "tipo": "skill",
+                "skill_ids": [
+                  1607640
+                ],
+                "supressao_s": 5
               },
               "wipe": false,
               "confianca": "media",
               "acao_tipo": "debuff",
-              "id": "furious-feruk-sangramento"
+              "id": "furious-feruk-sangramento",
+              "confianca_skill": "alta",
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "LIMPA O SANGRAMENTO",
+                  "sub": "Garrada que aplica debuff; o sangramento (DoT 120001511) tira ~500 a cada 2–3 s",
+                  "tipo": "debuff"
+                }
+              ],
+              "observado": {
+                "fonte": "captura 2026-10-17 00:29 + vídeo 00:29:37 (solo, Gladiador)",
+                "ritmo": "1607640 a cada ~8–20 s; o DoT durou de 30 s a 86 s da luta"
+              }
             },
             {
               "nome": "Corte duplo",
               "sinal": "Golpe básico mais forte, emendado num segundo corte carregado",
-              "acao": "Esquive o segundo corte, o carregado",
-              "alerta": null,
+              "acao": "Corte duplo (1607660 e 1607670 em +0,45 s): o segundo é o carregado",
+              "alerta": "ESQUIVA O 2º CORTE",
               "gatilho": {
                 "tipo": "skill",
-                "skill_id": null
+                "skill_ids": [
+                  1607660
+                ],
+                "preparo_s": {
+                  "1607660": 1.0
+                }
               },
               "wipe": false,
-              "confianca": "media",
-              "acao_tipo": "atencao",
-              "id": "furious-feruk-corte-duplo"
+              "confianca": "alta",
+              "acao_tipo": "esquivar",
+              "id": "furious-feruk-corte-duplo",
+              "confianca_skill": "alta",
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "ESQUIVA O 2º CORTE",
+                  "sub": "Corte duplo (1607660 e 1607670 em +0,45 s): o segundo é o carregado",
+                  "tipo": "esquivar",
+                  "contagem": 0.5
+                }
+              ],
+              "observado": {
+                "fonte": "captura 2026-10-17 00:29 + vídeo 00:29:37 (solo, Gladiador)",
+                "ritmo": "por tempo: a cada ~23 s",
+                "dano_max": "~2.100 cada"
+              }
             },
             {
               "nome": "Corrida frenética",
               "sinal": "Ruge e avança num combo de 4 cortes; não vira durante a corrida",
-              "acao": "Role para o lado depois do rugido",
+              "acao": "Ele brilha vermelho e ~2 s depois avança (1230115, ~4.000): role para o lado",
               "alerta": "RUGIDO: ROLA DE LADO",
               "gatilho": {
                 "tipo": "skill",
-                "skill_id": null
+                "skill_ids": [
+                  1607680
+                ],
+                "preparo_s": {
+                  "1607680": 1.0
+                }
               },
               "wipe": false,
-              "confianca": "media",
+              "confianca": "alta",
               "acao_tipo": "esquivar",
-              "id": "furious-feruk-corrida-frenetica"
+              "id": "furious-feruk-corrida-frenetica",
+              "confianca_skill": "alta",
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "RUGIDO: ROLA DE LADO",
+                  "sub": "Ele brilha vermelho e ~2 s depois avança (1230115, ~4.000): role para o lado",
+                  "tipo": "esquivar",
+                  "contagem": 2.0
+                }
+              ],
+              "observado": {
+                "fonte": "captura 2026-10-17 00:29 + vídeo 00:29:37 (solo, Gladiador)",
+                "ritmo": "2× (67% e 30%), ~60 s de intervalo",
+                "dano_max": "4.135 + 4.000 da investida"
+              }
             },
             {
               "nome": "Frenesi parado",
               "sinal": "O mesmo combo de cortes, feito no lugar",
-              "acao": "Saia do alcance dele por completo",
+              "acao": "Quatro cortes vermelhos em meia-lua logo depois (1230125, ~3.200 cada)",
               "alerta": "SAI DO ALCANCE",
               "gatilho": {
                 "tipo": "skill",
-                "skill_id": null
+                "skill_ids": [
+                  1607720
+                ],
+                "preparo_s": {
+                  "1607720": 1.1
+                }
               },
               "wipe": false,
-              "confianca": "media",
+              "confianca": "alta",
               "acao_tipo": "sair",
-              "id": "furious-feruk-frenesi-parado"
+              "id": "furious-feruk-frenesi-parado",
+              "confianca_skill": "alta",
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "SAI DO ALCANCE",
+                  "sub": "Quatro cortes vermelhos em meia-lua logo depois (1230125, ~3.200 cada)",
+                  "tipo": "sair",
+                  "contagem": 1.5
+                }
+              ],
+              "observado": {
+                "fonte": "captura 2026-10-17 00:29 + vídeo 00:29:37 (solo, Gladiador)",
+                "ritmo": "por tempo: a cada ~30 s (28, 58, 87, 139 s)",
+                "dano_max": "3.220 por corte"
+              }
             },
             {
               "nome": "Uppercut alternado",
               "sinal": "Recua um passo e dá dois uppercuts, um com cada mão",
-              "acao": "Veja de que lado vem antes de esquivar",
+              "acao": "~3 s depois do cast vem o golpe 1230105 (~3.900, corte vermelho à frente)",
               "alerta": "UPPERCUT: OLHA O LADO",
               "gatilho": {
                 "tipo": "skill",
-                "skill_id": null
+                "skill_ids": [
+                  1607700
+                ],
+                "preparo_s": {
+                  "1607700": 1.0
+                }
               },
               "wipe": false,
               "confianca": "media",
               "acao_tipo": "esquivar",
-              "id": "furious-feruk-uppercut-alternado"
+              "id": "furious-feruk-uppercut-alternado",
+              "confianca_skill": "alta",
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "UPPERCUT: OLHA O LADO",
+                  "sub": "~3 s depois do cast vem o golpe 1230105 (~3.900, corte vermelho à frente)",
+                  "tipo": "esquivar",
+                  "contagem": 3.0
+                }
+              ],
+              "observado": {
+                "fonte": "captura 2026-10-17 00:29 + vídeo 00:29:37 (solo, Gladiador)",
+                "ritmo": "3× (90%, 46%, 27%); o 1230105 saiu em 2 delas",
+                "dano_max": "3.857"
+              }
+            },
+            {
+              "id": "feruk-rajada-de-cortes",
+              "nome": "Rajada de cortes",
+              "sinal": "Série de ~10 golpes rápidos em você",
+              "acao": "Série de golpes em você: saia do alcance até acabar",
+              "alerta": "SAI DO ALCANCE",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_ids": [
+                  1607740
+                ],
+                "preparo_s": {
+                  "1607740": 1.3
+                }
+              },
+              "wipe": false,
+              "confianca": "alta",
+              "confianca_skill": "alta",
+              "acao_tipo": "sair",
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "SAI DO ALCANCE",
+                  "sub": "Série de golpes em você: saia do alcance até acabar",
+                  "tipo": "sair",
+                  "contagem": 2.0
+                }
+              ],
+              "observado": {
+                "fonte": "captura 2026-10-17 00:29 + vídeo 00:29:37 (solo, Gladiador)",
+                "ritmo": "por tempo: a cada ~31 s (64, 93, 127 s)",
+                "dano_max": "10 golpes de ~850"
+              }
             },
             {
               "id": "furious-feruk-atordoado",
@@ -4918,7 +5479,7 @@
               "alerta": "ATORDOADO: BURST!",
               "acao_tipo": "burst",
               "wipe": false,
-              "confianca": "media",
+              "confianca": "alta",
               "gatilho": {
                 "tipo": "skill",
                 "skill_ids": [
@@ -4945,12 +5506,16 @@
                 }
               ],
               "observado": {
-                "fonte": "padrão (skill 1000009) de todos os bosses já capturados",
-                "nota": "Ainda não visto neste boss: confirmar numa captura"
+                "fonte": "captura 2026-10-17 00:29 + vídeo 00:29:37 (solo, Gladiador)",
+                "nota": "3 atordoamentos (77%, 46%, 22%)"
               }
             }
           ],
-          "ordem": 2
+          "ordem": 2,
+          "observado": {
+            "fonte": "captura 2026-10-17 00:29 + vídeo 00:29:37 (solo, Gladiador)",
+            "lutas": "nível 10: 2:35"
+          }
         },
         {
           "nome": "Fafnir's Poison Blood",
@@ -5006,16 +5571,34 @@
             {
               "nome": "Orbes de sangue",
               "sinal": "Pula, vira um orbe gigante e dispara orbes menores; alguns viram lacaios ao cair",
-              "acao": "Desvie dos orbes e mate os lacaios que nascerem",
+              "acao": "Sai no começo da luta e perto de 1% (com 4× 1607515 e debuff)",
               "alerta": "DESVIA DOS ORBES",
               "gatilho": {
                 "tipo": "skill",
-                "skill_id": null
+                "skill_ids": [
+                  1607510
+                ],
+                "preparo_s": {
+                  "1607510": 0.7
+                }
               },
               "wipe": false,
-              "confianca": "media",
+              "confianca": "baixa",
               "acao_tipo": "esquivar",
-              "id": "fafnir-s-poison-blood-orbes-de-sangue"
+              "id": "fafnir-s-poison-blood-orbes-de-sangue",
+              "confianca_skill": "alta",
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "DESVIA DOS ORBES",
+                  "sub": "Sai no começo da luta e perto de 1% (com 4× 1607515 e debuff)",
+                  "tipo": "esquivar"
+                }
+              ],
+              "observado": {
+                "fonte": "captura 2026-10-17 00:29 + vídeo 00:29:37 (solo, Gladiador)",
+                "ritmo": "100% e 1%: abertura e fim da luta"
+              }
             },
             {
               "nome": "Rabada com salto",
@@ -5062,44 +5645,108 @@
             {
               "nome": "Rajada de sangue",
               "sinal": "Marca vários pontos no chão e dispara orbes neles",
-              "acao": "Saia dos pontos marcados",
+              "acao": "Golpe marcado em você (~1.600)",
               "alerta": "SAI DAS MARCAS",
               "gatilho": {
                 "tipo": "skill",
-                "skill_id": null
+                "skill_ids": [
+                  1607460
+                ],
+                "preparo_s": {
+                  "1607460": 0.8
+                }
               },
               "wipe": false,
               "confianca": "media",
               "acao_tipo": "sair",
-              "id": "fafnir-s-poison-blood-rajada-de-sangue"
+              "id": "fafnir-s-poison-blood-rajada-de-sangue",
+              "confianca_skill": "alta",
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "SAI DAS MARCAS",
+                  "sub": "Golpe marcado em você (~1.600)",
+                  "tipo": "sair"
+                }
+              ],
+              "observado": {
+                "fonte": "captura 2026-10-17 00:29 + vídeo 00:29:37 (solo, Gladiador)",
+                "ritmo": "2× (57%, 31%), ~34 s"
+              }
             },
             {
               "nome": "Explosão de tentáculos",
               "sinal": "Tentáculos no chão explodem em dois tempos",
-              "acao": "Saia da área e só volte depois da segunda explosão",
+              "acao": "A 1ª explode embaixo de você; a 2ª, num anel grande em volta dele ~4 s depois: saia dos dois",
               "alerta": "TENTÁCULOS: 2 EXPLOSÕES",
               "gatilho": {
                 "tipo": "skill",
-                "skill_id": null
+                "skill_ids": [
+                  1607470
+                ],
+                "preparo_s": {
+                  "1607470": 1.0
+                }
               },
               "wipe": false,
-              "confianca": "media",
+              "confianca": "alta",
               "acao_tipo": "sair",
-              "id": "fafnir-s-poison-blood-explosao-de-tentaculos"
+              "id": "fafnir-s-poison-blood-explosao-de-tentaculos",
+              "confianca_skill": "alta",
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "TENTÁCULOS: 2 EXPLOSÕES",
+                  "sub": "A 1ª explode embaixo de você; a 2ª, num anel grande em volta dele ~4 s depois: saia dos dois",
+                  "tipo": "sair",
+                  "contagem": 4.0
+                }
+              ],
+              "observado": {
+                "fonte": "captura 2026-10-17 00:29 + vídeo 00:29:37 (solo, Gladiador)",
+                "ritmo": "2× (35% e 5%), ~35 s",
+                "dano_max": "1.430"
+              }
             },
             {
               "nome": "Emboscada subterrânea",
               "sinal": "Some debaixo da terra e sai embaixo de você",
-              "acao": "Continue se movendo",
+              "acao": "Rastro escuro no chão até você e saída embaixo: continue se movendo",
               "alerta": "SUMIU: ANDA",
               "gatilho": {
                 "tipo": "skill",
-                "skill_id": null
+                "skill_ids": [
+                  1607500
+                ],
+                "preparo_s": {
+                  "1607500": 0.9
+                },
+                "precursor": {
+                  "ids": [
+                    1607480
+                  ],
+                  "antes": 4.05
+                }
               },
               "wipe": false,
-              "confianca": "media",
+              "confianca": "alta",
               "acao_tipo": "esquivar",
-              "id": "fafnir-s-poison-blood-emboscada-subterranea"
+              "id": "fafnir-s-poison-blood-emboscada-subterranea",
+              "confianca_skill": "alta",
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "SUMIU: ANDA",
+                  "sub": "Rastro escuro no chão até você e saída embaixo: continue se movendo",
+                  "tipo": "esquivar",
+                  "contagem": 1.0
+                }
+              ],
+              "observado": {
+                "fonte": "captura 2026-10-17 00:29 + vídeo 00:29:37 (solo, Gladiador)",
+                "ritmo": "por tempo: a cada ~14 s; vem sempre 4,05 s depois da 1607480 (aviso antecipado)",
+                "dano_max": "1.200 (até 14 golpes)"
+              }
             },
             {
               "nome": "Poças tóxicas",
@@ -5123,7 +5770,7 @@
               "alerta": "ATORDOADO: BURST!",
               "acao_tipo": "burst",
               "wipe": false,
-              "confianca": "media",
+              "confianca": "alta",
               "gatilho": {
                 "tipo": "skill",
                 "skill_ids": [
@@ -5150,13 +5797,17 @@
                 }
               ],
               "observado": {
-                "fonte": "padrão (skill 1000009) de todos os bosses já capturados",
-                "nota": "Ainda não visto neste boss: confirmar numa captura"
+                "fonte": "captura 2026-10-17 00:29 + vídeo 00:29:37 (solo, Gladiador)",
+                "nota": "3 atordoamentos (80%, 51%, 20%)"
               }
             }
           ],
           "ordem": 3,
-          "faixa_skills_candidata": "1601240–1601370 (Tail Swirl, Tail Strike, Spreading Poison, Spew Poison Fluid, Reform Poison Blood) — pelo tema"
+          "faixa_skills_candidata": "1601240–1601370 (Tail Swirl, Tail Strike, Spreading Poison, Spew Poison Fluid, Reform Poison Blood) — pelo tema",
+          "observado": {
+            "fonte": "captura 2026-10-17 00:29 + vídeo 00:29:37 (solo, Gladiador)",
+            "lutas": "nível 2: 1:51"
+          }
         },
         {
           "nome": "Wraith Giselle",
@@ -5212,58 +5863,170 @@
             {
               "nome": "Pancada em área (e espectros)",
               "sinal": "Marca uma área larga embaixo dela e bate; os espectros repetem o golpe",
-              "acao": "Saia de todas as marcas, as dela e as dos espectros",
+              "acao": "Pancada em você (1607405/1607400) e os espectros repetem ~3,5 s depois (1607385)",
               "alerta": "SAI DAS MARCAS",
               "gatilho": {
                 "tipo": "skill",
-                "skill_id": null
+                "skill_ids": [
+                  1607400
+                ],
+                "preparo_s": {
+                  "1607400": 1.05
+                }
               },
               "wipe": false,
-              "confianca": "media",
+              "confianca": "alta",
               "acao_tipo": "sair",
-              "id": "wraith-giselle-pancada-em-area-e-espectros"
+              "id": "wraith-giselle-pancada-em-area-e-espectros",
+              "confianca_skill": "alta",
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "SAI DAS MARCAS",
+                  "sub": "Pancada em você (1607405/1607400) e os espectros repetem ~3,5 s depois (1607385)",
+                  "tipo": "sair",
+                  "contagem": 3.5
+                }
+              ],
+              "observado": {
+                "fonte": "captura 2026-10-17 00:29 + vídeo 00:29:37 (solo, Gladiador)",
+                "ritmo": "a cada ~29 s (5, 28, 56, 90 s)",
+                "dano_max": "1.930"
+              }
             },
             {
               "nome": "Chuva de projéteis",
               "sinal": "Marca vários pontos no chão e faz chover projéteis",
-              "acao": "Saia dos pontos marcados",
+              "acao": "Vários anéis laranja espalhados pela arena ~4 s depois do cast",
               "alerta": "SAI DAS MARCAS",
               "gatilho": {
                 "tipo": "skill",
-                "skill_id": null
+                "skill_ids": [
+                  1607420
+                ],
+                "preparo_s": {
+                  "1607420": 1.1
+                }
               },
               "wipe": false,
-              "confianca": "media",
+              "confianca": "alta",
               "acao_tipo": "sair",
-              "id": "wraith-giselle-chuva-de-projeteis"
+              "id": "wraith-giselle-chuva-de-projeteis",
+              "confianca_skill": "alta",
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "SAI DAS MARCAS",
+                  "sub": "Vários anéis laranja espalhados pela arena ~4 s depois do cast",
+                  "tipo": "sair",
+                  "contagem": 4.0
+                }
+              ],
+              "observado": {
+                "fonte": "captura 2026-10-17 00:29 + vídeo 00:29:37 (solo, Gladiador)",
+                "ritmo": "a cada ~42 s (11, 39, 95 s)",
+                "dano_max": "3.170"
+              }
             },
             {
               "nome": "Invoca espectros",
               "sinal": "Duas cópias dela aparecem, atiram orbes e imitam os golpes",
-              "acao": "Conte com o dobro de marcas e desvie dos orbes",
+              "acao": "Duas cópias aparecem e repetem os golpes dela",
               "alerta": "2 ESPECTROS",
               "gatilho": {
                 "tipo": "skill",
-                "skill_id": null
+                "skill_ids": [
+                  1607430
+                ],
+                "preparo_s": {
+                  "1607430": 1.2
+                }
               },
               "wipe": false,
               "confianca": "media",
               "acao_tipo": "atencao",
-              "id": "wraith-giselle-invoca-espectros"
+              "id": "wraith-giselle-invoca-espectros",
+              "confianca_skill": "alta",
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "2 ESPECTROS",
+                  "sub": "Duas cópias aparecem e repetem os golpes dela",
+                  "tipo": "atencao"
+                }
+              ],
+              "observado": {
+                "fonte": "captura 2026-10-17 00:29 + vídeo 00:29:37 (solo, Gladiador)",
+                "ritmo": "a cada ~29 s"
+              }
             },
             {
               "nome": "Caminhada sombria",
               "sinal": "Ela e os espectros ficam translúcidos e avançam em linha reta, sem virar",
-              "acao": "Saia das linhas de avanço",
+              "acao": "Ela e as cópias avançam em linha (série 1227265) e fecham com um estrondo (1607432) ~3 s depois",
               "alerta": "INVESTIDA: SAI DA LINHA",
               "gatilho": {
                 "tipo": "skill",
-                "skill_id": null
+                "skill_ids": [
+                  1607431
+                ],
+                "supressao_s": 8
               },
               "wipe": false,
-              "confianca": "media",
+              "confianca": "alta",
               "acao_tipo": "esquivar",
-              "id": "wraith-giselle-caminhada-sombria"
+              "id": "wraith-giselle-caminhada-sombria",
+              "confianca_skill": "alta",
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "INVESTIDA: SAI DA LINHA",
+                  "sub": "Ela e as cópias avançam em linha (série 1227265) e fecham com um estrondo (1607432) ~3 s depois",
+                  "tipo": "esquivar",
+                  "contagem": 3.2
+                }
+              ],
+              "observado": {
+                "fonte": "captura 2026-10-17 00:29 + vídeo 00:29:37 (solo, Gladiador)",
+                "ritmo": "por tempo: a cada ~29 s (14, 43, 72, 99 s)",
+                "som": "estrondo alto logo depois da 1607432 (+7,5 dB)",
+                "dano_max": "960 por investida"
+              }
+            },
+            {
+              "id": "giselle-golpe-forte",
+              "nome": "Golpe forte",
+              "sinal": "Skills 1607418 / 1607410 (preparo 1,4 s), as de maior dano da luta",
+              "acao": "Esquive ou bloqueie no impacto",
+              "alerta": "GOLPE FORTE: ESQUIVA",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_ids": [
+                  1607418,
+                  1607410
+                ],
+                "preparo_s": {
+                  "1607418": 1.4,
+                  "1607410": 1.4
+                }
+              },
+              "wipe": false,
+              "confianca": "baixa",
+              "confianca_skill": "alta",
+              "acao_tipo": "esquivar",
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "GOLPE FORTE: ESQUIVA",
+                  "sub": "Esquive ou bloqueie no impacto",
+                  "tipo": "esquivar"
+                }
+              ],
+              "observado": {
+                "fonte": "captura 2026-10-17 00:29 + vídeo 00:29:37 (solo, Gladiador)",
+                "ritmo": "1607418 aos 94% e 77%; 1607410 aos 54% e 12%",
+                "dano_max": "3.170"
+              }
             },
             {
               "id": "wraith-giselle-atordoado",
@@ -5273,7 +6036,7 @@
               "alerta": "ATORDOADO: BURST!",
               "acao_tipo": "burst",
               "wipe": false,
-              "confianca": "media",
+              "confianca": "alta",
               "gatilho": {
                 "tipo": "skill",
                 "skill_ids": [
@@ -5300,12 +6063,16 @@
                 }
               ],
               "observado": {
-                "fonte": "padrão (skill 1000009) de todos os bosses já capturados",
-                "nota": "Ainda não visto neste boss: confirmar numa captura"
+                "fonte": "captura 2026-10-17 00:29 + vídeo 00:29:37 (solo, Gladiador)",
+                "nota": "2 atordoamentos (71%, 35%)"
               }
             }
           ],
-          "ordem": 4
+          "ordem": 4,
+          "observado": {
+            "fonte": "captura 2026-10-17 00:29 + vídeo 00:29:37 (solo, Gladiador)",
+            "lutas": "nível 1: 1:54"
+          }
         },
         {
           "nome": "Fortress Guardian Notun",
@@ -5358,24 +6125,45 @@
             }
           },
           "observado": {
-            "fonte": "captura 2026-10-16 01:39 (Nightmare nível 6, mob 2980175, solo, 3:43)",
-            "ciclo": "~26 s: 1803900 → 1803910/1803920/1803930 (+1,4 s, +3,6 s) → 1803900 → 1803950 (preparo 1,5 s) → 3× 1803955 → 1000009 → 1803970 (preparo 1,8 s)",
-            "sem_ligacao": "1803910 (preparo 1,3 s), 1803970 (preparo 1,8 s, em si mesmo), 1803980 (62%, preparo 1,0 s), 1803940 (4%, preparo 1,7 s): falta o vídeo para saber o telegraph"
+            "fonte": "captura 2026-10-17 00:29 + vídeo 00:29:37 (solo, Gladiador)",
+            "lutas": "nível 7: 4:12 · nível 6: 3:40",
+            "ciclo": "~25 s: 1803910 → 1803920 (+1,4) → 1803930 (+3,6) → 1803950 (+10,8) → 3× 1803955 (+11,9) → atordoamento → 1803970 (~+16)",
+            "fase_hp": "1803980 aos 65%"
           },
           "mecanicas": [
             {
               "nome": "Espetos de espada",
               "sinal": "Lança cinco espadas em leque à frente",
-              "acao": "Dê um passo para o lado e passe entre as espadas",
-              "alerta": "LEQUE: PASSA ENTRE AS ESPADAS",
+              "acao": "Fileira de círculos à frente dele até você (~3 s); o combo segue com 1803920 e 1803930",
+              "alerta": "CÍRCULOS À FRENTE: SAI DE LADO",
               "gatilho": {
                 "tipo": "skill",
-                "skill_id": null
+                "skill_ids": [
+                  1803910
+                ],
+                "preparo_s": {
+                  "1803910": 1.3
+                }
               },
               "wipe": false,
-              "confianca": "media",
-              "acao_tipo": "esquivar",
-              "id": "fortress-guardian-notun-espetos-de-espada"
+              "confianca": "alta",
+              "acao_tipo": "sair",
+              "id": "fortress-guardian-notun-espetos-de-espada",
+              "confianca_skill": "alta",
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "CÍRCULOS À FRENTE: SAI DE LADO",
+                  "sub": "Fileira de círculos à frente dele até você (~3 s); o combo segue com 1803920 e 1803930",
+                  "tipo": "sair",
+                  "contagem": 3.0
+                }
+              ],
+              "observado": {
+                "fonte": "captura 2026-10-17 00:29 + vídeo 00:29:37 (solo, Gladiador)",
+                "ritmo": "por tempo: abre o ciclo de ~25 s",
+                "dano_max": "~1.700 por golpe; você levou 20+ por luta"
+              }
             },
             {
               "nome": "Chuva de espadas",
@@ -5408,16 +6196,36 @@
             {
               "nome": "Rajada de lâminas",
               "sinal": "Espadas cruzam a arena em linha reta, de ponta a ponta",
-              "acao": "Fique fora das faixas",
-              "alerta": "SAI DAS FAIXAS",
+              "acao": "Linhas laranja em X e uma faixa atravessam a arena; as lâminas cortam ~4,5 s depois e o centro explode",
+              "alerta": "LINHAS: SAI DELAS E DO CENTRO",
               "gatilho": {
                 "tipo": "skill",
-                "skill_id": null
+                "skill_ids": [
+                  1803970
+                ],
+                "preparo_s": {
+                  "1803970": 1.8
+                }
               },
-              "wipe": false,
-              "confianca": "media",
-              "acao_tipo": "esquivar",
-              "id": "fortress-guardian-notun-rajada-de-laminas"
+              "wipe": true,
+              "confianca": "alta",
+              "acao_tipo": "sair",
+              "id": "fortress-guardian-notun-rajada-de-laminas",
+              "confianca_skill": "alta",
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "LINHAS: SAI DELAS E DO CENTRO",
+                  "sub": "Linhas laranja em X e uma faixa atravessam a arena; as lâminas cortam ~4,5 s depois e o centro explode",
+                  "tipo": "sair",
+                  "contagem": 4.5
+                }
+              ],
+              "observado": {
+                "fonte": "captura 2026-10-17 00:29 + vídeo 00:29:37 (solo, Gladiador)",
+                "ritmo": "por tempo: a cada ~22–26 s",
+                "dano_max": "9.139 (o maior da luta; acertou em todos os casts)"
+              }
             },
             {
               "nome": "Pancada no chão",
@@ -5435,9 +6243,9 @@
             },
             {
               "nome": "Golpe pesado (skill)",
-              "sinal": "Skill 1803950 com preparo de 1,5 s, o maior golpe da luta; fecha o ciclo de ~26 s e vem seguida de 3× 1803955 (talvez seja a Chuva de espadas: confirmar no vídeo)",
-              "acao": "Saia do lugar ou esquive no impacto",
-              "alerta": "GOLPE PESADO: SAI DO LUGAR",
+              "sinal": "Skill 1803950 (preparo 1,5 s): anel laranja em você aos ~3 s, explosão roxa aos ~4 s; seguem 3× 1803955",
+              "acao": "Anel laranja em volta de você; a explosão roxa vem ~4 s depois",
+              "alerta": "ANEL: SAI",
               "gatilho": {
                 "tipo": "skill",
                 "skill_ids": [
@@ -5448,23 +6256,66 @@
                 }
               },
               "wipe": false,
-              "confianca": "media",
-              "acao_tipo": "esquivar",
+              "confianca": "alta",
+              "acao_tipo": "sair",
               "id": "notun-golpe-pesado",
               "observado": {
-                "fonte": "captura 2026-10-16 01:39 (nível 6)",
-                "nota": "8 casts, um por ciclo; maior golpe 8,4 mil"
+                "fonte": "captura 2026-10-17 00:29 + vídeo 00:29:37 (solo, Gladiador)",
+                "ritmo": "por tempo: a cada ~23–25 s",
+                "dano_max": "7.538"
               },
               "sequencia": [
                 {
                   "t": 0,
-                  "texto": "GOLPE PESADO: SAI DO LUGAR",
-                  "sub": "Saia do lugar ou esquive no impacto",
-                  "tipo": "esquivar",
-                  "contagem": 1.5
+                  "texto": "ANEL: SAI",
+                  "sub": "a explosão vem em ~4 s",
+                  "tipo": "sair",
+                  "contagem": 4.0
                 }
               ],
               "confianca_skill": "alta"
+            },
+            {
+              "id": "notun-espadas-cravadas",
+              "nome": "Espadas cravadas (65%)",
+              "sinal": "Aos 65% (skill 1803980): anéis, explosão rosa e espadas cravadas no chão. Daí em diante elas dão DoT (~1.100 a cada 2 s) e o debuff 1803990",
+              "acao": "Afaste-se das espadas cravadas: perto delas você toma dano contínuo",
+              "alerta": "FASE 2: ESPADAS NO CHÃO",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_ids": [
+                  1803980
+                ],
+                "preparo_s": {
+                  "1803980": 1.0
+                }
+              },
+              "wipe": false,
+              "confianca": "alta",
+              "confianca_skill": "alta",
+              "acao_tipo": "sair",
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "FASE 2: ESPADAS NO CHÃO",
+                  "sub": "Afaste-se das espadas cravadas: perto delas você toma dano contínuo",
+                  "tipo": "sair"
+                }
+              ],
+              "observado": {
+                "fonte": "captura 2026-10-17 00:29 + vídeo 00:29:37 (solo, Gladiador)",
+                "ritmo": "por HP: 65–66% nos níveis 6 e 7",
+                "dano_max": "DoT 120001511 ~1.100/2 s"
+              },
+              "status": [
+                {
+                  "texto": "ESPADAS NO CHÃO",
+                  "tipo": "sair",
+                  "em": "boss",
+                  "de": 0,
+                  "ate": 15.0
+                }
+              ]
             },
             {
               "id": "fortress-guardian-notun-atordoado",
@@ -5501,8 +6352,8 @@
                 }
               ],
               "observado": {
-                "fonte": "captura 2026-10-16 01:39 (nível 6)",
-                "nota": "8 atordoamentos em 3:43, ~3,7 s depois dos 1803955"
+                "fonte": "captura 2026-10-17 00:29 + vídeo 00:29:37 (solo, Gladiador)",
+                "nota": "7–8 atordoamentos por luta, ~3,7 s depois das 1803955; o boss fica 5 s parado"
               }
             }
           ],

@@ -49,7 +49,9 @@ O resultado é mais uma sequência de mensagens no mesmo formato, até 3 níveis
 | 0x3642 | morte | fim da luta |
 | 0xE005 | medidor de atordoamento | barra roxa e ATORDOADO (seção 6) |
 | 0x610B / 0x610C | tickets de conteúdo | energia Odyle (seção 7) |
-| 0x382A | buff/debuff aplicado | status em jogadores |
+| 0x382A | buff/debuff aplicado | status em jogadores; controle em você |
+| 0x382C | buff/debuff removido | fim do controle em você |
+| 0x3816 | movimento forçado | derrubada/empurrão em você |
 | 0x6000 / 0x6001 | eventos de campo | cartão de eventos (seção 10) |
 
 A lista completa de nomes fica em `opcodes.json`.
@@ -148,7 +150,39 @@ Os casts confirmam: `skill // 1.000.000` dá 11 Gladiador, 12 Templário, 13 Ass
 
 ### 0x382A buff/debuff
 
-A skill que aplicou o efeito fica no offset 30 do payload (ex.: `1601020`, o debuff dos tornados do Auldor).
+A skill que aplicou o efeito fica no offset 30 do payload (ex.: `1601020`, o debuff dos tornados do Auldor)
+quando o alvo e a origem têm varints de 2 e 3 bytes. O layout completo (todas as 2.816 mensagens da run de
+2026-10-17 00:29 batem):
+
+```
+varint    alvo
+u8        1
+u8        flags            0x13 = com skill; 0x11 = sem (efeitos do próprio personagem ao entrar na zona)
+varint    instância        sobe a cada efeito; é o que o 0x382C remove
+u32       efeito           skill de classe: skill × 10 + n (11780007 → 117800071); comuns: 1000002x1 a 1000008x1
+i64       duração em ms    −1 = sem fim
+u64       início           ms do relógio do servidor
+varint    origem           quem aplicou
+u8        nível            1 nos bosses; nível da skill nos jogadores
+[flags & 0x02]  u32 skill
+u8
+3×f32     posição
+```
+
+Efeitos de controle já vistos estão em `dados/controles.json` (ex.: `100000321` derrubada, `100000311`
+atordoamento, `100000201` enraizamento; `12211011` derrubada do Pinopi, `16010502` agarrão do Auldor).
+
+### 0x382C buff/debuff removido
+
+`varint alvo | u8 n | n × (u8 0 | varint instância | u8 motivo)`. Motivo 1 = acabou o tempo; 19 = saiu
+antes (quebrado, morte); 7, 16 e 5 também aparecem, sem significado confirmado. Em ~2% das mensagens o item vem com outro prefixo e mais
+dados: o leitor para ali.
+
+### 0x3816 movimento forçado
+
+`varint alvo | varint origem | u32 efeito × 10 + k | 3×f32 posição | u8 4 | u8 1 | u8 1`. Chega ~0,05 s depois
+do 0x382A do mesmo efeito em toda derrubada, empurrão e puxão (93 nas capturas de 2026-10-16/17), então serve
+para reconhecer controle mesmo sem o efeito na tabela.
 
 ## 5. 0x3809 preparo de skill
 

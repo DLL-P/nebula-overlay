@@ -1,142 +1,184 @@
 {
  "Guardian Captain Raur": {
   "cadeia": {
-   "1504420": {
+   "raur-varredura-frontal": {
     "proxima": "raur-circulo",
     "apos": 6.05,
-    "chance": 0.53,
-    "vezes": 10
+    "chance": 0.6,
+    "vezes": 15
    },
    "raur-zona-escudo": {
     "proxima": "1504460",
     "apos": 4.85,
     "chance": 1.0,
-    "vezes": 9
+    "vezes": 13
+   },
+   "1504480": {
+    "proxima": "raur-varredura-frontal",
+    "apos": 5.21,
+    "chance": 1.0,
+    "vezes": 2
    },
    "guardian-captain-raur-puxao-de-4-jogadores": {
     "proxima": "raur-circulo",
     "apos": 2.6,
-    "chance": 0.6,
+    "chance": 0.5,
     "vezes": 3
    },
-   "1504420|guardian-captain-raur-investida-inicial": {
+   "raur-varredura-frontal|guardian-captain-raur-investida-inicial": {
     "proxima": "raur-circulo",
     "apos": 3.95,
     "chance": 1.0,
-    "vezes": 4
+    "vezes": 5
    },
    "raur-circulo|raur-zona-escudo": {
     "proxima": "1504460",
     "apos": 4.85,
     "chance": 1.0,
-    "vezes": 7
+    "vezes": 10
    },
-   "raur-circulo|1504420": {
-    "proxima": "raur-circulo",
-    "apos": 6.13,
-    "chance": 0.5,
-    "vezes": 4
-   },
-   "1504460|raur-transicao": {
-    "proxima": "1504420",
-    "apos": 6.6,
+   "1504460|raur-varredura-frontal": {
+    "proxima": "guardian-captain-raur-investida-inicial",
+    "apos": 5.22,
     "chance": 0.67,
     "vezes": 2
    },
-   "raur-transicao|1504420": {
+   "raur-circulo|raur-varredura-frontal": {
+    "proxima": "raur-circulo",
+    "apos": 6.05,
+    "chance": 0.6,
+    "vezes": 6
+   },
+   "1504480|raur-varredura-frontal": {
+    "proxima": "raur-circulo",
+    "apos": 6.04,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1504460|raur-transicao": {
+    "proxima": "raur-varredura-frontal",
+    "apos": 6.6,
+    "chance": 0.5,
+    "vezes": 2
+   },
+   "raur-transicao|raur-varredura-frontal": {
     "proxima": "guardian-captain-raur-investida-inicial",
     "apos": 5.05,
     "chance": 0.67,
     "vezes": 2
    },
    "raur-circulo|raur-circulo": {
-    "proxima": "1504420",
+    "proxima": "raur-varredura-frontal",
     "apos": 5.65,
     "chance": 0.75,
     "vezes": 3
    },
-   "guardian-captain-raur-investida-inicial|1504420": {
+   "guardian-captain-raur-investida-inicial|raur-varredura-frontal": {
     "proxima": "raur-circulo",
     "apos": 6.05,
     "chance": 1.0,
-    "vezes": 4
+    "vezes": 5
    },
    "guardian-captain-raur-investida-inicial|guardian-captain-raur-puxao-de-4-jogadores": {
     "proxima": "raur-circulo",
     "apos": 2.6,
-    "chance": 0.6,
+    "chance": 0.5,
     "vezes": 3
    },
    "guardian-captain-raur-puxao-de-4-jogadores|raur-circulo": {
-    "proxima": "1504420",
+    "proxima": "raur-varredura-frontal",
     "apos": 3.5,
     "chance": 1.0,
     "vezes": 3
    },
    "1504460|guardian-captain-raur-investida-inicial": {
-    "proxima": "1504420",
+    "proxima": "raur-varredura-frontal",
     "apos": 4.45,
-    "chance": 0.67,
+    "chance": 0.75,
+    "vezes": 3
+   },
+   "raur-circulo|raur-transicao": {
+    "proxima": "raur-circulo",
+    "apos": 8.27,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "raur-transicao|raur-circulo": {
+    "proxima": "raur-varredura-frontal",
+    "apos": 5.72,
+    "chance": 0.5,
     "vezes": 2
    }
   },
   "fases_hp": [],
   "ciclos": {},
-  "runs": 6,
-  "precisao_centro": 0.58,
-  "previsoes_testadas": 12
+  "runs": 8,
+  "precisao_centro": 0.6,
+  "previsoes_testadas": 20
  },
  "Judge Urahum": {
   "cadeia": {
-   "1605080": {
+   "urahum-golpe-pesado-cura": {
     "proxima": "urahum-circulo",
-    "apos": 12.85,
-    "chance": 0.53,
-    "vezes": 8
+    "apos": 12.94,
+    "chance": 0.61,
+    "vezes": 11
    },
-   "1605140": {
+   "judge-urahum-sequencia-de-pancadas": {
     "proxima": "urahum-poca-alvo",
-    "apos": 3.75,
-    "chance": 0.6,
-    "vezes": 6
+    "apos": 3.8,
+    "chance": 0.5,
+    "vezes": 7
    },
    "urahum-aneis": {
     "proxima": "urahum-poca-alvo",
-    "apos": 3.8,
-    "chance": 0.64,
-    "vezes": 7
+    "apos": 3.66,
+    "chance": 0.53,
+    "vezes": 8
    },
-   "1605100|urahum-circulo": {
+   "1605135": {
+    "proxima": "urahum-poca-alvo",
+    "apos": 4.52,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "urahum-golpe-frontal|urahum-circulo": {
     "proxima": "judge-urahum-linhas-radiais-explosao-roxa",
     "apos": 4.4,
     "chance": 1.0,
-    "vezes": 4
-   },
-   "urahum-circulo|judge-urahum-linhas-radiais-explosao-roxa": {
-    "proxima": "1605080",
-    "apos": 4.3,
-    "chance": 0.62,
     "vezes": 5
    },
-   "judge-urahum-linhas-radiais-explosao-roxa|1605080": {
-    "proxima": "urahum-circulo",
-    "apos": 12.85,
-    "chance": 0.67,
+   "urahum-circulo|judge-urahum-linhas-radiais-explosao-roxa": {
+    "proxima": "urahum-golpe-pesado-cura",
+    "apos": 4.23,
+    "chance": 0.55,
     "vezes": 6
    },
-   "1605140|urahum-poca-alvo": {
-    "proxima": "urahum-aneis",
-    "apos": 2.65,
-    "chance": 0.6,
-    "vezes": 3
+   "judge-urahum-linhas-radiais-explosao-roxa|urahum-golpe-pesado-cura": {
+    "proxima": "urahum-circulo",
+    "apos": 12.85,
+    "chance": 0.73,
+    "vezes": 8
    },
-   "urahum-poca-alvo|urahum-transicao": {
-    "proxima": "1605140",
-    "apos": 6.52,
+   "urahum-circulo|judge-urahum-sequencia-de-pancadas": {
+    "proxima": "urahum-poca-alvo",
+    "apos": 3.82,
     "chance": 0.67,
     "vezes": 2
    },
-   "judge-urahum-linhas-radiais-explosao-roxa|1605140": {
+   "judge-urahum-sequencia-de-pancadas|urahum-poca-alvo": {
+    "proxima": "urahum-aneis",
+    "apos": 2.65,
+    "chance": 0.5,
+    "vezes": 3
+   },
+   "urahum-poca-alvo|urahum-transicao": {
+    "proxima": "judge-urahum-sequencia-de-pancadas",
+    "apos": 6.52,
+    "chance": 0.5,
+    "vezes": 2
+   },
+   "judge-urahum-linhas-radiais-explosao-roxa|judge-urahum-sequencia-de-pancadas": {
     "proxima": "urahum-poca-alvo",
     "apos": 5.22,
     "chance": 1.0,
@@ -148,31 +190,31 @@
     "chance": 1.0,
     "vezes": 2
    },
-   "urahum-circulo|1605100": {
+   "urahum-circulo|urahum-golpe-frontal": {
     "proxima": "judge-urahum-linhas-radiais-explosao-roxa",
     "apos": 3.65,
-    "chance": 0.67,
-    "vezes": 2
+    "chance": 0.6,
+    "vezes": 3
    },
-   "1605100|urahum-transicao": {
-    "proxima": "1605140",
+   "urahum-golpe-frontal|urahum-transicao": {
+    "proxima": "judge-urahum-sequencia-de-pancadas",
     "apos": 6.53,
     "chance": 1.0,
     "vezes": 2
    },
-   "urahum-transicao|1605140": {
+   "urahum-transicao|judge-urahum-sequencia-de-pancadas": {
     "proxima": "urahum-poca-alvo",
     "apos": 3.7,
     "chance": 0.75,
     "vezes": 3
    },
-   "1605100|judge-urahum-linhas-radiais-explosao-roxa": {
-    "proxima": "1605080",
+   "urahum-golpe-frontal|judge-urahum-linhas-radiais-explosao-roxa": {
+    "proxima": "urahum-golpe-pesado-cura",
     "apos": 4.16,
     "chance": 1.0,
-    "vezes": 2
+    "vezes": 3
    },
-   "1605140|urahum-transicao": {
+   "judge-urahum-sequencia-de-pancadas|urahum-transicao": {
     "proxima": "urahum-aneis",
     "apos": 6.57,
     "chance": 1.0,
@@ -181,13 +223,13 @@
    "urahum-transicao|urahum-aneis": {
     "proxima": "urahum-poca-alvo",
     "apos": 4.11,
-    "chance": 1.0,
+    "chance": 0.67,
     "vezes": 2
    },
    "urahum-poca-alvo|urahum-circulo": {
     "proxima": "urahum-poca-alvo",
     "apos": 2.9,
-    "chance": 0.67,
+    "chance": 0.5,
     "vezes": 2
    },
    "urahum-circulo|urahum-poca-alvo": {
@@ -196,16 +238,40 @@
     "chance": 0.75,
     "vezes": 3
    },
-   "urahum-poca-alvo|1605080": {
+   "urahum-poca-alvo|urahum-golpe-pesado-cura": {
     "proxima": "urahum-circulo",
-    "apos": 11.98,
+    "apos": 12.95,
+    "chance": 0.75,
+    "vezes": 3
+   },
+   "1605135|urahum-poca-alvo": {
+    "proxima": "urahum-circulo",
+    "apos": 2.15,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "urahum-golpe-frontal|judge-urahum-sequencia-de-pancadas": {
+    "proxima": "urahum-aneis",
+    "apos": 6.85,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "judge-urahum-sequencia-de-pancadas|urahum-aneis": {
+    "proxima": "urahum-transicao",
+    "apos": 0.2,
     "chance": 0.67,
     "vezes": 2
    },
-   "judge-urahum-linhas-radiais-explosao-roxa|urahum-poca-alvo": {
-    "proxima": "1605080",
-    "apos": 1.07,
-    "chance": 0.5,
+   "urahum-aneis|urahum-transicao": {
+    "proxima": "urahum-circulo",
+    "apos": 6.53,
+    "chance": 0.67,
+    "vezes": 2
+   },
+   "urahum-transicao|urahum-circulo": {
+    "proxima": "judge-urahum-linhas-radiais-explosao-roxa",
+    "apos": 4.65,
+    "chance": 1.0,
     "vezes": 2
    },
    "urahum-circulo|urahum-aneis": {
@@ -217,77 +283,71 @@
   },
   "fases_hp": [],
   "ciclos": {},
-  "runs": 6,
+  "runs": 8,
   "precisao_centro": 0.5,
-  "previsoes_testadas": 12
+  "previsoes_testadas": 22
  },
  "Divine Auldor": {
   "cadeia": {
    "1600880": {
     "proxima": "divine-auldor-faixas-laranja-caminho-dos-tornados",
     "apos": 2.35,
-    "chance": 0.87,
-    "vezes": 34
+    "chance": 0.86,
+    "vezes": 43
    },
    "divine-auldor-faixas-laranja-caminho-dos-tornados": {
     "proxima": "divine-auldor-leque-frontal-4-tornados",
     "apos": 2.35,
-    "chance": 0.9,
-    "vezes": 45
-   },
-   "divine-auldor-leque-frontal-4-tornados": {
-    "proxima": "auldor-circulos-jogadores",
-    "apos": 3.55,
-    "chance": 0.51,
-    "vezes": 27
+    "chance": 0.91,
+    "vezes": 61
    },
    "divine-auldor-investida-com-fissura": {
     "proxima": "1600960",
     "apos": 2.2,
-    "chance": 0.58,
-    "vezes": 14
+    "chance": 0.52,
+    "vezes": 16
    },
    "1600940": {
     "proxima": "1600880",
     "apos": 2.2,
-    "chance": 0.55,
-    "vezes": 23
+    "chance": 0.53,
+    "vezes": 31
    },
    "auldor-fase-inicio": {
     "proxima": "auldor-sumico",
     "apos": 3.25,
     "chance": 0.5,
-    "vezes": 6
+    "vezes": 8
    },
    "auldor-sumico": {
     "proxima": "auldor-mergulho-alvo",
     "apos": 11.6,
     "chance": 1.0,
-    "vezes": 12
+    "vezes": 16
    },
    "divine-auldor-agarrar-e-esmagar": {
     "proxima": "auldor-circulos-jogadores",
-    "apos": 7.13,
-    "chance": 0.59,
-    "vezes": 10
+    "apos": 7.2,
+    "chance": 0.58,
+    "vezes": 14
    },
    "auldor-vortice": {
     "proxima": "auldor-sumico",
     "apos": 4.25,
     "chance": 1.0,
-    "vezes": 6
+    "vezes": 8
    },
    "1600870": {
     "proxima": "divine-auldor-faixas-laranja-caminho-dos-tornados",
-    "apos": 3.26,
+    "apos": 3.1,
     "chance": 1.0,
-    "vezes": 7
+    "vezes": 12
    },
    "1600960": {
     "proxima": "1600940",
     "apos": 4.3,
-    "chance": 0.81,
-    "vezes": 13
+    "chance": 0.79,
+    "vezes": 15
    },
    "1600890": {
     "proxima": "divine-auldor-leque-frontal-4-tornados",
@@ -295,65 +355,53 @@
     "chance": 1.0,
     "vezes": 3
    },
-   "1600900": {
-    "proxima": "divine-auldor-faixas-laranja-caminho-dos-tornados",
-    "apos": 0.85,
-    "chance": 0.67,
-    "vezes": 2
-   },
    "1600880|divine-auldor-faixas-laranja-caminho-dos-tornados": {
     "proxima": "divine-auldor-leque-frontal-4-tornados",
     "apos": 2.35,
-    "chance": 0.85,
-    "vezes": 29
-   },
-   "divine-auldor-faixas-laranja-caminho-dos-tornados|divine-auldor-leque-frontal-4-tornados": {
-    "proxima": "auldor-circulos-jogadores",
-    "apos": 3.48,
-    "chance": 0.5,
-    "vezes": 22
+    "chance": 0.88,
+    "vezes": 38
    },
    "auldor-circulos-jogadores|divine-auldor-investida-com-fissura": {
-    "proxima": "1600960",
-    "apos": 2.2,
-    "chance": 0.55,
-    "vezes": 11
+    "proxima": "1600940",
+    "apos": 2.7,
+    "chance": 0.5,
+    "vezes": 13
    },
    "divine-auldor-investida-com-fissura|1600940": {
     "proxima": "1600880",
-    "apos": 2.4,
-    "chance": 0.8,
-    "vezes": 8
+    "apos": 2.28,
+    "chance": 0.67,
+    "vezes": 10
    },
    "1600940|1600880": {
     "proxima": "divine-auldor-faixas-laranja-caminho-dos-tornados",
     "apos": 2.35,
-    "chance": 0.86,
-    "vezes": 19
+    "chance": 0.83,
+    "vezes": 24
    },
    "auldor-fase-inicio|auldor-sumico": {
     "proxima": "auldor-mergulho-alvo",
     "apos": 11.6,
     "chance": 1.0,
-    "vezes": 6
+    "vezes": 8
    },
    "1600940|divine-auldor-atordoado": {
     "proxima": "1600880",
     "apos": 5.08,
-    "chance": 0.8,
+    "chance": 0.67,
     "vezes": 4
    },
    "divine-auldor-atordoado|1600880": {
     "proxima": "divine-auldor-faixas-laranja-caminho-dos-tornados",
     "apos": 2.35,
     "chance": 1.0,
-    "vezes": 6
+    "vezes": 7
    },
    "1600940|divine-auldor-faixas-laranja-caminho-dos-tornados": {
     "proxima": "divine-auldor-leque-frontal-4-tornados",
-    "apos": 2.84,
+    "apos": 2.85,
     "chance": 1.0,
-    "vezes": 3
+    "vezes": 4
    },
    "divine-auldor-leque-frontal-4-tornados|1600880": {
     "proxima": "divine-auldor-atordoado",
@@ -363,75 +411,75 @@
    },
    "1600880|divine-auldor-atordoado": {
     "proxima": "divine-auldor-faixas-laranja-caminho-dos-tornados",
-    "apos": 6.1,
-    "chance": 0.5,
-    "vezes": 2
+    "apos": 6.09,
+    "chance": 0.6,
+    "vezes": 3
    },
    "divine-auldor-atordoado|divine-auldor-faixas-laranja-caminho-dos-tornados": {
     "proxima": "divine-auldor-leque-frontal-4-tornados",
     "apos": 2.34,
-    "chance": 1.0,
+    "chance": 0.67,
     "vezes": 2
    },
    "divine-auldor-leque-frontal-4-tornados|divine-auldor-agarrar-e-esmagar": {
     "proxima": "auldor-circulos-jogadores",
-    "apos": 7.13,
+    "apos": 7.2,
     "chance": 0.67,
-    "vezes": 10
+    "vezes": 14
    },
    "divine-auldor-agarrar-e-esmagar|auldor-circulos-jogadores": {
     "proxima": "divine-auldor-investida-com-fissura",
     "apos": 3.4,
-    "chance": 0.5,
-    "vezes": 5
+    "chance": 0.57,
+    "vezes": 8
    },
    "auldor-fase-inicio|auldor-vortice": {
     "proxima": "auldor-sumico",
     "apos": 4.25,
     "chance": 1.0,
-    "vezes": 6
+    "vezes": 8
    },
    "auldor-vortice|auldor-sumico": {
     "proxima": "auldor-mergulho-alvo",
     "apos": 11.6,
     "chance": 1.0,
-    "vezes": 6
+    "vezes": 8
    },
    "auldor-mergulho-alvo|1600880": {
     "proxima": "divine-auldor-faixas-laranja-caminho-dos-tornados",
     "apos": 2.35,
     "chance": 1.0,
+    "vezes": 3
+   },
+   "divine-auldor-agarrar-e-esmagar|divine-auldor-leque-frontal-4-tornados": {
+    "proxima": "auldor-circulos-jogadores",
+    "apos": 3.53,
+    "chance": 1.0,
     "vezes": 2
    },
    "1600940|1600870": {
     "proxima": "divine-auldor-faixas-laranja-caminho-dos-tornados",
-    "apos": 3.9,
+    "apos": 3.8,
     "chance": 1.0,
-    "vezes": 3
+    "vezes": 7
    },
    "1600870|divine-auldor-faixas-laranja-caminho-dos-tornados": {
     "proxima": "divine-auldor-leque-frontal-4-tornados",
     "apos": 2.35,
     "chance": 1.0,
-    "vezes": 7
+    "vezes": 12
    },
    "divine-auldor-investida-com-fissura|1600960": {
     "proxima": "1600940",
     "apos": 4.3,
-    "chance": 0.93,
-    "vezes": 13
+    "chance": 0.94,
+    "vezes": 15
    },
    "1600960|1600940": {
     "proxima": "1600880",
     "apos": 2.2,
-    "chance": 0.91,
-    "vezes": 10
-   },
-   "auldor-circulos-jogadores|divine-auldor-atordoado": {
-    "proxima": "auldor-fase-inicio",
-    "apos": 5.87,
-    "chance": 0.67,
-    "vezes": 2
+    "chance": 0.92,
+    "vezes": 12
    },
    "divine-auldor-atordoado|auldor-fase-inicio": {
     "proxima": "auldor-sumico",
@@ -449,7 +497,7 @@
     "proxima": "divine-auldor-faixas-laranja-caminho-dos-tornados",
     "apos": 2.35,
     "chance": 1.0,
-    "vezes": 3
+    "vezes": 4
    },
    "divine-auldor-faixas-laranja-caminho-dos-tornados|auldor-fase-inicio": {
     "proxima": "auldor-vortice",
@@ -469,10 +517,22 @@
     "chance": 0.67,
     "vezes": 2
    },
+   "1600960|1600880": {
+    "proxima": "divine-auldor-faixas-laranja-caminho-dos-tornados",
+    "apos": 2.35,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "auldor-mergulho-alvo|divine-auldor-faixas-laranja-caminho-dos-tornados": {
+    "proxima": "divine-auldor-leque-frontal-4-tornados",
+    "apos": 2.34,
+    "chance": 1.0,
+    "vezes": 2
+   },
    "auldor-mergulho-alvo|auldor-circulos-jogadores": {
     "proxima": "divine-auldor-investida-com-fissura",
     "apos": 3.4,
-    "chance": 1.0,
+    "chance": 0.6,
     "vezes": 3
    },
    "1600940|1600890": {
@@ -487,17 +547,11 @@
     "chance": 0.67,
     "vezes": 2
    },
-   "1600940|1600900": {
-    "proxima": "divine-auldor-faixas-laranja-caminho-dos-tornados",
-    "apos": 0.85,
-    "chance": 0.67,
-    "vezes": 2
-   },
    "divine-auldor-leque-frontal-4-tornados|auldor-fase-inicio": {
-    "proxima": "auldor-vortice",
-    "apos": 5.7,
-    "chance": 0.5,
-    "vezes": 2
+    "proxima": "auldor-sumico",
+    "apos": 3.25,
+    "chance": 0.67,
+    "vezes": 4
    },
    "1600900|divine-auldor-faixas-laranja-caminho-dos-tornados": {
     "proxima": "divine-auldor-leque-frontal-4-tornados",
@@ -510,129 +564,895 @@
    {
     "no": "auldor-fase-inicio",
     "vez": 1,
-    "hp": 78.4,
-    "variacao": 3.5
+    "hp": 78.8,
+    "variacao": 3.9
    },
    {
     "no": "auldor-fase-inicio",
     "vez": 2,
     "hp": 32.6,
-    "variacao": 2.2
+    "variacao": 2.3
    }
   ],
   "ciclos": {},
-  "runs": 6,
-  "precisao_centro": 0.82,
-  "previsoes_testadas": 123
+  "runs": 8,
+  "precisao_centro": 0.81,
+  "previsoes_testadas": 164
+ },
+ "Featherstorm Duduri": {
+  "cadeia": {
+   "duduri-bomba-rolante": {
+    "proxima": "1220200",
+    "apos": 1.93,
+    "chance": 1.0,
+    "vezes": 2
+   }
+  },
+  "fases_hp": [],
+  "ciclos": {},
+  "runs": 1,
+  "precisao_centro": 0.0,
+  "previsoes_testadas": 0
+ },
+ "Watchful Raptor Dodori": {
+  "cadeia": {
+   "1239460": {
+    "proxima": "1239430",
+    "apos": 2.82,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1239460|1239430": {
+    "proxima": "1239440",
+    "apos": 3.05,
+    "chance": 1.0,
+    "vezes": 2
+   }
+  },
+  "fases_hp": [],
+  "ciclos": {},
+  "runs": 1,
+  "precisao_centro": 0.0,
+  "previsoes_testadas": 0
+ },
+ "Gatekeeper Pinopi": {
+  "cadeia": {
+   "1607530": {
+    "proxima": "gatekeeper-pinopi-giro-em-avanco",
+    "apos": 3.15,
+    "chance": 0.53,
+    "vezes": 8
+   },
+   "pinopi-anel-em-voce": {
+    "proxima": "1607530",
+    "apos": 1.65,
+    "chance": 1.0,
+    "vezes": 9
+   },
+   "gatekeeper-pinopi-giro-em-avanco": {
+    "proxima": "1221095",
+    "apos": 2.3,
+    "chance": 1.0,
+    "vezes": 17
+   },
+   "gatekeeper-pinopi-atordoado": {
+    "proxima": "gatekeeper-pinopi-giro-em-avanco",
+    "apos": 5.9,
+    "chance": 0.67,
+    "vezes": 2
+   },
+   "1607530|pinopi-anel-em-voce": {
+    "proxima": "1607530",
+    "apos": 1.65,
+    "chance": 1.0,
+    "vezes": 6
+   },
+   "pinopi-anel-em-voce|1607530": {
+    "proxima": "gatekeeper-pinopi-giro-em-avanco",
+    "apos": 3.15,
+    "chance": 0.89,
+    "vezes": 8
+   },
+   "1607530|gatekeeper-pinopi-giro-em-avanco": {
+    "proxima": "1221095",
+    "apos": 2.3,
+    "chance": 1.0,
+    "vezes": 8
+   },
+   "1221095|gatekeeper-pinopi-giro-em-avanco": {
+    "proxima": "1221095",
+    "apos": 2.3,
+    "chance": 1.0,
+    "vezes": 5
+   },
+   "1221095|1607530": {
+    "proxima": "pinopi-anel-em-voce",
+    "apos": 3.55,
+    "chance": 1.0,
+    "vezes": 3
+   },
+   "1221095|gatekeeper-pinopi-atordoado": {
+    "proxima": "gatekeeper-pinopi-giro-em-avanco",
+    "apos": 5.9,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "gatekeeper-pinopi-atordoado|gatekeeper-pinopi-giro-em-avanco": {
+    "proxima": "1221095",
+    "apos": 2.28,
+    "chance": 1.0,
+    "vezes": 2
+   }
+  },
+  "fases_hp": [],
+  "ciclos": {
+   "gatekeeper-pinopi-agarrao": 36.83
+  },
+  "runs": 1,
+  "precisao_centro": 0.0,
+  "previsoes_testadas": 0
+ },
+ "Furious Feruk": {
+  "cadeia": {
+   "furious-feruk-corte-duplo": {
+    "proxima": "1607670",
+    "apos": 0.45,
+    "chance": 1.0,
+    "vezes": 7
+   },
+   "1607670": {
+    "proxima": "1607630",
+    "apos": 3.3,
+    "chance": 0.71,
+    "vezes": 5
+   },
+   "furious-feruk-uppercut-alternado": {
+    "proxima": "1230105",
+    "apos": 2.55,
+    "chance": 0.67,
+    "vezes": 2
+   },
+   "furious-feruk-frenesi-parado": {
+    "proxima": "1230125",
+    "apos": 1.45,
+    "chance": 1.0,
+    "vezes": 4
+   },
+   "1230125": {
+    "proxima": "1607630",
+    "apos": 1.75,
+    "chance": 0.75,
+    "vezes": 3
+   },
+   "furious-feruk-atordoado": {
+    "proxima": "1607630",
+    "apos": 5.02,
+    "chance": 0.67,
+    "vezes": 2
+   },
+   "furious-feruk-corrida-frenetica": {
+    "proxima": "1230115",
+    "apos": 2.54,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "feruk-rajada-de-cortes": {
+    "proxima": "1607630",
+    "apos": 2.4,
+    "chance": 1.0,
+    "vezes": 3
+   },
+   "1607630|furious-feruk-corte-duplo": {
+    "proxima": "1607670",
+    "apos": 0.45,
+    "chance": 1.0,
+    "vezes": 7
+   },
+   "furious-feruk-corte-duplo|1607670": {
+    "proxima": "1607630",
+    "apos": 3.3,
+    "chance": 0.71,
+    "vezes": 5
+   },
+   "1607670|1607630": {
+    "proxima": "furious-feruk-sangramento",
+    "apos": 1.75,
+    "chance": 1.0,
+    "vezes": 4
+   },
+   "1607630|furious-feruk-sangramento": {
+    "proxima": "furious-feruk-uppercut-alternado",
+    "apos": 3.0,
+    "chance": 0.5,
+    "vezes": 2
+   },
+   "furious-feruk-sangramento|furious-feruk-uppercut-alternado": {
+    "proxima": "1230105",
+    "apos": 2.55,
+    "chance": 0.67,
+    "vezes": 2
+   },
+   "1607670|furious-feruk-sangramento": {
+    "proxima": "furious-feruk-frenesi-parado",
+    "apos": 3.1,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "furious-feruk-sangramento|furious-feruk-frenesi-parado": {
+    "proxima": "1230125",
+    "apos": 1.45,
+    "chance": 1.0,
+    "vezes": 4
+   },
+   "furious-feruk-frenesi-parado|1230125": {
+    "proxima": "1607630",
+    "apos": 1.75,
+    "chance": 0.75,
+    "vezes": 3
+   },
+   "furious-feruk-sangramento|furious-feruk-corrida-frenetica": {
+    "proxima": "1230115",
+    "apos": 2.54,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1230125|1607630": {
+    "proxima": "feruk-rajada-de-cortes",
+    "apos": 3.05,
+    "chance": 0.67,
+    "vezes": 2
+   },
+   "1607630|feruk-rajada-de-cortes": {
+    "proxima": "1607630",
+    "apos": 2.4,
+    "chance": 1.0,
+    "vezes": 3
+   },
+   "feruk-rajada-de-cortes|1607630": {
+    "proxima": "furious-feruk-corte-duplo",
+    "apos": 2.75,
+    "chance": 1.0,
+    "vezes": 3
+   }
+  },
+  "fases_hp": [],
+  "ciclos": {},
+  "runs": 1,
+  "precisao_centro": 0.0,
+  "previsoes_testadas": 0
+ },
+ "Fafnir's Poison Blood": {
+  "cadeia": {
+   "1607515": {
+    "proxima": "fafnir-s-poison-blood-orbes-de-sangue",
+    "apos": 0.65,
+    "chance": 0.5,
+    "vezes": 2
+   },
+   "fafnir-s-poison-blood-orbes-de-sangue": {
+    "proxima": "1607515",
+    "apos": 0.1,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1607450": {
+    "proxima": "1607480",
+    "apos": 1.8,
+    "chance": 0.67,
+    "vezes": 2
+   },
+   "1607480": {
+    "proxima": "fafnir-s-poison-blood-emboscada-subterranea",
+    "apos": 4.05,
+    "chance": 0.71,
+    "vezes": 5
+   },
+   "fafnir-s-poison-blood-atordoado": {
+    "proxima": "fafnir-s-poison-blood-emboscada-subterranea",
+    "apos": 6.0,
+    "chance": 0.67,
+    "vezes": 2
+   },
+   "fafnir-s-poison-blood-explosao-de-tentaculos": {
+    "proxima": "1607480",
+    "apos": 3.15,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1607515|fafnir-s-poison-blood-orbes-de-sangue": {
+    "proxima": "1607515",
+    "apos": 0.1,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1607480|fafnir-s-poison-blood-emboscada-subterranea": {
+    "proxima": "fafnir-s-poison-blood-atordoado",
+    "apos": 3.45,
+    "chance": 0.5,
+    "vezes": 2
+   },
+   "fafnir-s-poison-blood-atordoado|fafnir-s-poison-blood-emboscada-subterranea": {
+    "proxima": "fafnir-s-poison-blood-explosao-de-tentaculos",
+    "apos": 5.9,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "fafnir-s-poison-blood-emboscada-subterranea|fafnir-s-poison-blood-explosao-de-tentaculos": {
+    "proxima": "1607480",
+    "apos": 3.15,
+    "chance": 1.0,
+    "vezes": 2
+   }
+  },
+  "fases_hp": [],
+  "ciclos": {
+   "1607450": 28.65
+  },
+  "runs": 1,
+  "precisao_centro": 0.0,
+  "previsoes_testadas": 0
+ },
+ "Wraith Giselle": {
+  "cadeia": {
+   "giselle-golpe-forte": {
+    "proxima": "1607405",
+    "apos": 1.85,
+    "chance": 1.0,
+    "vezes": 4
+   },
+   "1607405": {
+    "proxima": "wraith-giselle-pancada-em-area-e-espectros",
+    "apos": 1.1,
+    "chance": 1.0,
+    "vezes": 4
+   },
+   "wraith-giselle-pancada-em-area-e-espectros": {
+    "proxima": "1607385",
+    "apos": 1.45,
+    "chance": 0.5,
+    "vezes": 2
+   },
+   "1607385": {
+    "proxima": "wraith-giselle-chuva-de-projeteis",
+    "apos": 2.75,
+    "chance": 0.75,
+    "vezes": 3
+   },
+   "wraith-giselle-chuva-de-projeteis": {
+    "proxima": "1607370",
+    "apos": 2.0,
+    "chance": 1.0,
+    "vezes": 3
+   },
+   "wraith-giselle-caminhada-sombria": {
+    "proxima": "wraith-giselle-invoca-espectros",
+    "apos": 1.25,
+    "chance": 0.5,
+    "vezes": 4
+   },
+   "wraith-giselle-invoca-espectros": {
+    "proxima": "1227265",
+    "apos": 2.35,
+    "chance": 1.0,
+    "vezes": 4
+   },
+   "1227265": {
+    "proxima": "wraith-giselle-caminhada-sombria",
+    "apos": 0.35,
+    "chance": 0.5,
+    "vezes": 4
+   },
+   "1607432": {
+    "proxima": "1227265",
+    "apos": 2.33,
+    "chance": 1.0,
+    "vezes": 4
+   },
+   "wraith-giselle-atordoado": {
+    "proxima": "1607370",
+    "apos": 5.03,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1607412": {
+    "proxima": "giselle-golpe-forte",
+    "apos": 1.35,
+    "chance": 0.67,
+    "vezes": 2
+   },
+   "1607394": {
+    "proxima": "1607370",
+    "apos": 1.55,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1607370|giselle-golpe-forte": {
+    "proxima": "1607405",
+    "apos": 1.85,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "giselle-golpe-forte|1607405": {
+    "proxima": "wraith-giselle-pancada-em-area-e-espectros",
+    "apos": 1.1,
+    "chance": 1.0,
+    "vezes": 4
+   },
+   "1607405|wraith-giselle-pancada-em-area-e-espectros": {
+    "proxima": "1607385",
+    "apos": 1.45,
+    "chance": 0.5,
+    "vezes": 2
+   },
+   "wraith-giselle-pancada-em-area-e-espectros|1607385": {
+    "proxima": "wraith-giselle-chuva-de-projeteis",
+    "apos": 2.75,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1607385|wraith-giselle-chuva-de-projeteis": {
+    "proxima": "1607370",
+    "apos": 2.0,
+    "chance": 1.0,
+    "vezes": 3
+   },
+   "wraith-giselle-chuva-de-projeteis|1607370": {
+    "proxima": "wraith-giselle-caminhada-sombria",
+    "apos": 1.9,
+    "chance": 1.0,
+    "vezes": 3
+   },
+   "1607370|wraith-giselle-caminhada-sombria": {
+    "proxima": "wraith-giselle-invoca-espectros",
+    "apos": 1.25,
+    "chance": 1.0,
+    "vezes": 4
+   },
+   "wraith-giselle-caminhada-sombria|wraith-giselle-invoca-espectros": {
+    "proxima": "1227265",
+    "apos": 2.35,
+    "chance": 1.0,
+    "vezes": 4
+   },
+   "wraith-giselle-invoca-espectros|1227265": {
+    "proxima": "wraith-giselle-caminhada-sombria",
+    "apos": 0.35,
+    "chance": 1.0,
+    "vezes": 4
+   },
+   "1227265|wraith-giselle-caminhada-sombria": {
+    "proxima": "1607432",
+    "apos": 1.25,
+    "chance": 1.0,
+    "vezes": 4
+   },
+   "wraith-giselle-caminhada-sombria|1607432": {
+    "proxima": "1227265",
+    "apos": 2.33,
+    "chance": 1.0,
+    "vezes": 4
+   },
+   "1607432|1227265": {
+    "proxima": "1607370",
+    "apos": 0.42,
+    "chance": 1.0,
+    "vezes": 4
+   },
+   "1227265|1607370": {
+    "proxima": "1607412",
+    "apos": 1.95,
+    "chance": 0.5,
+    "vezes": 2
+   },
+   "1607370|1607412": {
+    "proxima": "giselle-golpe-forte",
+    "apos": 1.35,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1607412|giselle-golpe-forte": {
+    "proxima": "1607405",
+    "apos": 1.85,
+    "chance": 1.0,
+    "vezes": 2
+   }
+  },
+  "fases_hp": [],
+  "ciclos": {},
+  "runs": 1,
+  "precisao_centro": 0.0,
+  "previsoes_testadas": 0
  },
  "Fortress Guardian Notun": {
   "cadeia": {
-   "1803910": {
+   "fortress-guardian-notun-espetos-de-espada": {
     "proxima": "1803920",
     "apos": 1.4,
-    "chance": 1.0,
-    "vezes": 9
+    "chance": 0.93,
+    "vezes": 26
    },
    "1803920": {
     "proxima": "1803930",
     "apos": 2.2,
-    "chance": 0.89,
-    "vezes": 8
+    "chance": 0.88,
+    "vezes": 23
    },
    "1803930": {
     "proxima": "1803900",
     "apos": 3.5,
     "chance": 1.0,
-    "vezes": 8
+    "vezes": 23
    },
-   "1803950": {
+   "notun-golpe-pesado": {
     "proxima": "1803955",
     "apos": 1.7,
-    "chance": 0.88,
-    "vezes": 7
+    "chance": 0.93,
+    "vezes": 25
    },
    "1803955": {
     "proxima": "1803900",
     "apos": 0.2,
-    "chance": 0.88,
-    "vezes": 7
+    "chance": 0.93,
+    "vezes": 25
    },
-   "1803970": {
+   "fortress-guardian-notun-rajada-de-laminas": {
     "proxima": "1803900",
     "apos": 1.9,
-    "chance": 0.67,
-    "vezes": 4
+    "chance": 0.9,
+    "vezes": 19
    },
-   "1803900|1803910": {
+   "notun-espadas-cravadas": {
+    "proxima": "fortress-guardian-notun-rajada-de-laminas",
+    "apos": 3.35,
+    "chance": 0.67,
+    "vezes": 2
+   },
+   "1803900|fortress-guardian-notun-espetos-de-espada": {
     "proxima": "1803920",
     "apos": 1.4,
-    "chance": 1.0,
-    "vezes": 9
+    "chance": 0.92,
+    "vezes": 23
    },
-   "1803910|1803920": {
+   "fortress-guardian-notun-espetos-de-espada|1803920": {
     "proxima": "1803930",
     "apos": 2.2,
-    "chance": 0.89,
-    "vezes": 8
+    "chance": 0.88,
+    "vezes": 23
    },
    "1803920|1803930": {
     "proxima": "1803900",
     "apos": 3.5,
     "chance": 1.0,
-    "vezes": 8
+    "vezes": 23
    },
    "1803930|1803900": {
-    "proxima": "1803950",
+    "proxima": "notun-golpe-pesado",
     "apos": 3.7,
-    "chance": 1.0,
-    "vezes": 8
+    "chance": 0.96,
+    "vezes": 22
    },
-   "1803900|1803950": {
+   "1803900|notun-golpe-pesado": {
     "proxima": "1803955",
     "apos": 1.7,
-    "chance": 0.88,
-    "vezes": 7
+    "chance": 0.91,
+    "vezes": 21
    },
-   "1803950|1803955": {
+   "notun-golpe-pesado|1803955": {
     "proxima": "1803900",
     "apos": 0.2,
-    "chance": 0.86,
-    "vezes": 6
+    "chance": 0.92,
+    "vezes": 22
    },
    "1803955|1803900": {
-    "proxima": "1000009",
-    "apos": 2.57,
-    "chance": 0.57,
-    "vezes": 4
+    "proxima": "fortress-guardian-notun-rajada-de-laminas",
+    "apos": 4.0,
+    "chance": 0.56,
+    "vezes": 14
    },
-   "1803900|1803970": {
+   "fortress-guardian-notun-atordoado|fortress-guardian-notun-rajada-de-laminas": {
     "proxima": "1803900",
     "apos": 1.9,
-    "chance": 0.5,
-    "vezes": 2
+    "chance": 1.0,
+    "vezes": 4
    },
-   "1803970|1803900": {
-    "proxima": "1803910",
+   "fortress-guardian-notun-rajada-de-laminas|1803900": {
+    "proxima": "fortress-guardian-notun-espetos-de-espada",
     "apos": 3.5,
+    "chance": 0.79,
+    "vezes": 15
+   },
+   "1803900|fortress-guardian-notun-rajada-de-laminas": {
+    "proxima": "1803900",
+    "apos": 1.9,
+    "chance": 0.87,
+    "vezes": 13
+   },
+   "fortress-guardian-notun-atordoado|notun-golpe-pesado": {
+    "proxima": "1803955",
+    "apos": 1.7,
     "chance": 1.0,
     "vezes": 4
    },
-   "1803900|1000009": {
-    "proxima": "1803970",
-    "apos": 6.85,
-    "chance": 0.5,
+   "1803900|notun-espadas-cravadas": {
+    "proxima": "fortress-guardian-notun-rajada-de-laminas",
+    "apos": 3.35,
+    "chance": 1.0,
     "vezes": 2
    },
-   "1000009|1803970": {
+   "notun-espadas-cravadas|fortress-guardian-notun-rajada-de-laminas": {
     "proxima": "1803900",
     "apos": 1.9,
     "chance": 1.0,
     "vezes": 2
    },
-   "1000009|1803900": {
-    "proxima": "1803910",
+   "fortress-guardian-notun-atordoado|fortress-guardian-notun-espetos-de-espada": {
+    "proxima": "1803920",
+    "apos": 1.4,
+    "chance": 1.0,
+    "vezes": 3
+   },
+   "1803920|fortress-guardian-notun-atordoado": {
+    "proxima": "notun-golpe-pesado",
+    "apos": 7.05,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "fortress-guardian-notun-atordoado|1803955": {
+    "proxima": "1803900",
+    "apos": 4.6,
+    "chance": 1.0,
+    "vezes": 3
+   },
+   "fortress-guardian-notun-atordoado|1803900": {
+    "proxima": "fortress-guardian-notun-espetos-de-espada",
+    "apos": 3.5,
+    "chance": 0.83,
+    "vezes": 5
+   },
+   "1803955|fortress-guardian-notun-atordoado": {
+    "proxima": "1803955",
+    "apos": 0.42,
+    "chance": 1.0,
+    "vezes": 2
+   }
+  },
+  "fases_hp": [
+   {
+    "no": "notun-espadas-cravadas",
+    "vez": 1,
+    "hp": 65.7,
+    "variacao": 3.8
+   }
+  ],
+  "ciclos": {},
+  "runs": 3,
+  "precisao_centro": 0.84,
+  "previsoes_testadas": 45
+ },
+ "Siliator of Deceit": {
+  "cadeia": {
+   "1606030": {
+    "proxima": "1606020",
+    "apos": 3.7,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1606010": {
+    "proxima": "siliator-of-deceit-linhas",
+    "apos": 4.6,
+    "chance": 0.5,
+    "vezes": 2
+   },
+   "siliator-of-deceit-linhas": {
+    "proxima": "1606050",
+    "apos": 3.3,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1606054": {
+    "proxima": "siliator-of-deceit-leque-de-chakrams",
+    "apos": 3.94,
+    "chance": 0.67,
+    "vezes": 2
+   },
+   "siliator-of-deceit-leque-de-chakrams": {
+    "proxima": "1606061",
+    "apos": 1.27,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1606061": {
+    "proxima": "1606070",
+    "apos": 1.87,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1606010|siliator-of-deceit-linhas": {
+    "proxima": "1606050",
+    "apos": 3.3,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "siliator-of-deceit-linhas|1606050": {
+    "proxima": "1606010",
+    "apos": 3.35,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1606054|siliator-of-deceit-leque-de-chakrams": {
+    "proxima": "1606061",
+    "apos": 1.27,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "siliator-of-deceit-leque-de-chakrams|1606061": {
+    "proxima": "1606070",
+    "apos": 1.87,
+    "chance": 1.0,
+    "vezes": 2
+   }
+  },
+  "fases_hp": [],
+  "ciclos": {
+   "1606054": 34.83
+  },
+  "runs": 1,
+  "precisao_centro": 0.0,
+  "previsoes_testadas": 0
+ },
+ "Ruthilis of Pain": {
+  "cadeia": {
+   "ruthilis-of-pain-faixa-vermelha": {
+    "proxima": "1606401",
     "apos": 3.5,
     "chance": 0.67,
+    "vezes": 2
+   },
+   "1606401": {
+    "proxima": "ruthilis-of-pain-arena-vermelha",
+    "apos": 6.25,
+    "chance": 0.67,
+    "vezes": 2
+   },
+   "ruthilis-of-pain-arena-vermelha": {
+    "proxima": "1606390",
+    "apos": 4.15,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1606390": {
+    "proxima": "1606371",
+    "apos": 3.5,
+    "chance": 1.0,
+    "vezes": 3
+   },
+   "1606371": {
+    "proxima": "1606370",
+    "apos": 4.4,
+    "chance": 0.67,
+    "vezes": 2
+   },
+   "ruthilis-of-pain-onda-radial": {
+    "proxima": "ruthilis-of-pain-faixa-vermelha",
+    "apos": 5.05,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1606401|ruthilis-of-pain-arena-vermelha": {
+    "proxima": "1606390",
+    "apos": 4.15,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "ruthilis-of-pain-arena-vermelha|1606390": {
+    "proxima": "1606371",
+    "apos": 3.5,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1606390|1606371": {
+    "proxima": "1606370",
+    "apos": 4.4,
+    "chance": 0.67,
+    "vezes": 2
+   },
+   "ruthilis-of-pain-onda-radial|ruthilis-of-pain-faixa-vermelha": {
+    "proxima": "1606401",
+    "apos": 3.5,
+    "chance": 1.0,
+    "vezes": 2
+   }
+  },
+  "fases_hp": [],
+  "ciclos": {},
+  "runs": 1,
+  "precisao_centro": 0.0,
+  "previsoes_testadas": 0
+ },
+ "Talisra of the Void": {
+  "cadeia": {
+   "1801600": {
+    "proxima": "1801610",
+    "apos": 1.75,
+    "chance": 0.91,
+    "vezes": 10
+   },
+   "1801610": {
+    "proxima": "1801620",
+    "apos": 1.4,
+    "chance": 0.8,
+    "vezes": 8
+   },
+   "1801630": {
+    "proxima": "1801600",
+    "apos": 1.7,
+    "chance": 1.0,
+    "vezes": 4
+   },
+   "1801660": {
+    "proxima": "1801600",
+    "apos": 2.6,
+    "chance": 0.67,
+    "vezes": 2
+   },
+   "1801593": {
+    "proxima": "1801594",
+    "apos": 0.0,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1801594": {
+    "proxima": "1801595",
+    "apos": 0.0,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1801665": {
+    "proxima": "1801692",
+    "apos": 2.65,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1801730": {
+    "proxima": "1801735",
+    "apos": 1.95,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1801596": {
+    "proxima": "1801597",
+    "apos": 0.06,
+    "chance": 1.0,
+    "vezes": 7
+   },
+   "1801600|1801610": {
+    "proxima": "1801620",
+    "apos": 1.4,
+    "chance": 0.8,
+    "vezes": 8
+   },
+   "1801630|1801600": {
+    "proxima": "1801610",
+    "apos": 1.75,
+    "chance": 1.0,
+    "vezes": 4
+   },
+   "1801660|1801600": {
+    "proxima": "1801610",
+    "apos": 1.75,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1801593|1801594": {
+    "proxima": "1801595",
+    "apos": 0.0,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "talisra-of-the-void-onda-dupla|1801596": {
+    "proxima": "1801597",
+    "apos": 0.05,
+    "chance": 1.0,
     "vezes": 2
    }
   },

@@ -14,6 +14,7 @@ import os
 import re
 import subprocess
 import tempfile
+import urllib.parse
 import urllib.request
 
 from .versao import REPO, VERSAO
@@ -47,7 +48,11 @@ def mais_nova() -> dict | None:
 
 
 def _do_repositorio(url: str) -> bool:
-    return url.startswith(f"https://github.com/{REPO}/releases/download/")
+    """Só downloads das versões deste repositório: https, github.com, o caminho certo e nada de "..", "%" ou "?"."""
+    u = urllib.parse.urlsplit(url)
+    return (u.scheme == "https" and u.netloc == "github.com" and not u.query and not u.fragment
+            and u.path.startswith(f"/{REPO}/releases/download/") and ".." not in u.path and "%" not in u.path
+            and url.startswith(f"https://github.com/{REPO}/releases/download/"))
 
 
 def baixar(info: dict, progresso=None) -> str:

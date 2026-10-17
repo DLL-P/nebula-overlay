@@ -267,6 +267,10 @@ class Configuracoes:
         self._titulo(c, t("mostrar"))
         self._caixa(c, t("painel_dano"), "meter")
         self._caixa(c, t("borda"), "borda")
+        self._caixa(c, t("latencia_op"), "latencia")
+        fonte = self.ov.fonte
+        if fonte is not None and hasattr(fonte, "proxy"):
+            self._nota(c, t("latencia_proxy", proxy=fonte.proxy) if fonte.proxy else t("latencia_direta"))
         self._nota(c, t("reiniciar_aviso"))
         _botao(c, t("reiniciar"), self.ov.reiniciar, pequeno=True).pack(anchor="w", padx=(6, 0), pady=(6, 0))
 
@@ -311,6 +315,9 @@ class Configuracoes:
         self._titulo(c, t("mostrar"))
         self._caixa(c, t("dicas"), "dicas", aplicar=lambda v: setattr(self.ov, "dicas_on", v))
         self._caixa(c, t("burst_op"), "burst", aplicar=lambda v: setattr(self.ov.sessao, "burst", v))
+        self._caixa(c, t("controle_op"), "controle_em_voce", padrao=False,
+                    aplicar=lambda v: setattr(self.ov.sessao, "controle", v))
+        self._nota(c, t("controle_nota"))
         self._caixa(c, t("gravar"), "gravar")
         self._nota(c, t("vale_proximo"))
 
@@ -370,8 +377,14 @@ class Configuracoes:
                 estado.config(text=t("aplicando"))
                 self.j.update_idletasks()
                 self.msg_atual = self.ov.procurar_atualizacao(mostrar=True)
-                estado.config(text=self.msg_atual)
-            _botao(c, t("procurar"), procurar, pequeno=True).pack(anchor="w", padx=(6, 0), pady=(4, 0))
+                self.construir()                     # mostra o botão "Atualizar agora" se houver versão nova
+            linha_a = tk.Frame(c, bg=CARTAO)
+            linha_a.pack(fill="x", pady=(4, 0))
+            _botao(linha_a, t("procurar"), procurar, pequeno=True).pack(side="left", padx=(6, 0))
+            if self.ov._info_atualizacao:
+                _botao(linha_a, t("btn_atualizar"), self.ov.atualizar_agora, destaque=True, pequeno=True).pack(
+                    side="left", padx=(8, 0))
+                self._nota(c, t("nova_versao", v=self.ov._info_atualizacao["versao"]), cor="#d8c9ff")
         self._titulo(c, "")
         self._nota(c, t("aviso_legal"))
         linha = tk.Frame(c, bg=CARTAO)

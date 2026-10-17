@@ -11,7 +11,7 @@ import struct
 from dataclasses import dataclass
 from typing import Iterator
 
-FIN, SYN, RST = 0x01, 0x02, 0x04
+FIN, SYN, RST, ACK = 0x01, 0x02, 0x04, 0x10
 
 
 @dataclass(slots=True)
@@ -24,6 +24,7 @@ class SegmentoTCP:
     seq: int
     flags: int
     dados: bytes
+    ack: int = 0              # número de confirmação (vale quando flags tem ACK)
 
     @property
     def fluxo(self) -> tuple[str, int, str, int]:
@@ -146,9 +147,9 @@ def _decodificar(linktype: int, q: bytes, ts: float) -> SegmentoTCP | None:
 
     if fim < t + 20:
         return None
-    sp, dp, seq, _, off, flags = struct.unpack_from(">HHIIBB", q, t)
+    sp, dp, seq, ack, off, flags = struct.unpack_from(">HHIIBB", q, t)
     inicio = t + (off >> 4) * 4
-    return SegmentoTCP(ts, origem, sp, destino, dp, seq, flags, bytes(q[inicio:fim]))
+    return SegmentoTCP(ts, origem, sp, destino, dp, seq, flags, bytes(q[inicio:fim]), ack)
 
 
 _M = 0xFFFFFFFF

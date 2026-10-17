@@ -110,6 +110,8 @@ Gera `dist/NebulaOverlay/`, e com o [Inno Setup 6](https://jrsoftware.org/isinfo
 - O app instalado consulta a versão mais nova ao abrir. Fora do jogo, atualiza sozinho (se "Atualizar sozinho" estiver ligado);
   durante o jogo, mostra o botão. Ele baixa só do próprio repositório, confere o SHA-256 e roda o instalador em modo silencioso,
   que reabre o app.
+- Com versão nova, aparece um botão com seta no rodapé do painel (ao lado da engrenagem) e o "Atualizar agora" na aba Sobre;
+  o app olha de novo a cada 6 horas. Detalhes e a medição da latência: [INSTALADOR_REDE_ATUALIZACAO.md](INSTALADOR_REDE_ATUALIZACAO.md).
 
 ## Acrescentar um idioma
 

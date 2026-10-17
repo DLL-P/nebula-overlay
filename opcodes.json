@@ -22,6 +22,7 @@
  "0x382A": "BuffApply",
  "0x382B": "BuffStateTick",
  "0x382C": "BuffRemove",
+ "0x3816": "ForcedMove",
  "0x3603": "Heartbeat",
  "0x371D": "PlayerHit",
  "0xFFFF": "CompressedBundle",
