@@ -543,7 +543,19 @@
   "FICA FORA DO AZUL": "STAY OUT OF THE BLUE",
   "o chão eletrificado fica um tempo": "the electrified floor lingers",
   "SAI DA FAIXA VERMELHA": "LEAVE THE RED LANE",
-  "Saia da faixa vermelha antes do golpe": "Leave the red lane before the hit"
+  "Saia da faixa vermelha antes do golpe": "Leave the red lane before the hit",
+  "Afaste-se dele antes da explosão (até ~14 mil em cada um)": "Move away from him before the explosion (up to ~14k each)",
+  "Quem tem a bomba sai do grupo": "Whoever has the bomb leaves the group",
+  "BOMBA": "BOMB",
+  "Drones em todo o grupo (até ~18 mil em cada um): defesa e cura prontas": "Drones on the whole group (up to ~18k each): defense and healing ready",
+  "DRONES: DEFESA": "DRONES: DEFENSE",
+  "Ele vai ao centro em instantes: prepare-se para a fase": "He goes to the center shortly: get ready for the phase",
+  "FASE EM BREVE": "PHASE SOON",
+  "a borda acende; depois as cópias cruzam a arena": "the edge lights up; then the copies cross the arena",
+  "CÓPIAS CRUZANDO": "COPIES CROSSING",
+  "desvie das lâminas azuis que saem do centro": "dodge the blue blades coming out of the center",
+  "barra roxa de 240 pontos em 10 s: TODAS as skills de atordoamento agora": "purple bar of 240 points in 10 s: ALL stagger skills now",
+  "golpe pesado num jogador em ~7 s (até 91 mil)": "heavy hit on one player in ~7 s (up to 91k)"
  },
  "es": {
   "3 ACÚMULOS: AFASTA": "3 CARGAS: ALÉJATE",
@@ -1088,6 +1100,18 @@
   "FICA FORA DO AZUL": "QUÉDATE FUERA DEL AZUL",
   "o chão eletrificado fica um tempo": "el suelo electrificado dura un tiempo",
   "SAI DA FAIXA VERMELHA": "SAL DE LA FRANJA ROJA",
-  "Saia da faixa vermelha antes do golpe": "Sal de la franja roja antes del golpe"
+  "Saia da faixa vermelha antes do golpe": "Sal de la franja roja antes del golpe",
+  "Afaste-se dele antes da explosão (até ~14 mil em cada um)": "Aléjate de él antes de la explosión (hasta ~14 mil cada uno)",
+  "Quem tem a bomba sai do grupo": "Quien tiene la bomba sale del grupo",
+  "BOMBA": "BOMBA",
+  "Drones em todo o grupo (até ~18 mil em cada um): defesa e cura prontas": "Drones en todo el grupo (hasta ~18 mil cada uno): defensa y curación listas",
+  "DRONES: DEFESA": "DRONES: DEFENSA",
+  "Ele vai ao centro em instantes: prepare-se para a fase": "Va al centro en breve: prepárate para la fase",
+  "FASE EM BREVE": "FASE PRONTO",
+  "a borda acende; depois as cópias cruzam a arena": "el borde se ilumina; luego las copias cruzan la arena",
+  "CÓPIAS CRUZANDO": "COPIAS CRUZANDO",
+  "desvie das lâminas azuis que saem do centro": "esquiva las cuchillas azules que salen del centro",
+  "barra roxa de 240 pontos em 10 s: TODAS as skills de atordoamento agora": "barra morada de 240 puntos en 10 s: TODAS las skills de aturdimiento ahora",
+  "golpe pesado num jogador em ~7 s (até 91 mil)": "golpe pesado en un jugador en ~7 s (hasta 91 mil)"
  }
 }

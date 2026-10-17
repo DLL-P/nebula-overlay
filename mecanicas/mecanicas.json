@@ -4553,7 +4553,7 @@
         "Estágio 3": 2200,
         "Estágio 4": 2500
       },
-      "geral": "Pontos de todos os inimigos liberam o Atiel (cada boss intermediário vale ~45). Evite as poças roxas. Estágio 2+: Balance Zone onde um elite morre (buffa monstros, dá dano em você).",
+      "geral": "Pontos de todos os inimigos liberam o Atiel (cada boss intermediário vale ~45). Evite as poças roxas. Estágio 2+: Balance Zone onde um elite morre (buffa monstros, dá dano em você). Estágio 2 (runs de 2026-10-17): Gelcos e Nazmun com 7,2 mi de HP; Atiel com 13,7 mi, fases aos ~76% e ~38% (cópias cruzando) e teste de atordoamento de 10 s aos ~15% (240 pontos; falhar = wipe).",
       "bosses": [
         {
           "nome": "Gelcos",
@@ -4580,12 +4580,22 @@
               "alerta": "SAI DO ANEL",
               "gatilho": {
                 "tipo": "skill",
-                "skill_id": null
+                "skill_ids": [
+                  1603260
+                ],
+                "preparo_s": {
+                  "1603260": 1.5
+                }
               },
               "wipe": true,
               "confianca": "alta",
               "acao_tipo": "sair",
-              "id": "gelcos-grande-chicotada"
+              "id": "gelcos-grande-chicotada",
+              "confianca_skill": "media",
+              "observado": {
+                "fonte": "captura + vídeo 2026-10-17 13:09 (Transcendência, Estágio 2)",
+                "nota": "1603260 (preparo 1,5 s) e 14 pulsos 1603270: anel elétrico grande em volta da arena (36% nesta run)"
+              }
             },
             {
               "nome": "Acúmulos elétricos",
@@ -4613,7 +4623,11 @@
               "wipe": false,
               "confianca": "alta",
               "acao_tipo": "espalhar",
-              "id": "gelcos-investida-marcada"
+              "id": "gelcos-investida-marcada",
+              "candidatos_skill": {
+                "1603290": "preparo 0,5 s, a cada ~7 s, alvo jogador",
+                "1603360": "preparo 1,65 s, alvo jogador, vem 7 s depois da 1603290"
+              }
             },
             {
               "nome": "Pancada em 9 linhas",
@@ -4627,7 +4641,36 @@
               "wipe": false,
               "confianca": "alta",
               "acao_tipo": "sair",
-              "id": "gelcos-pancada-em-9-linhas"
+              "id": "gelcos-pancada-em-9-linhas",
+              "candidatos_skill": {
+                "1603250": "preparo 1,29 s, atinge 4 jogadores (~7,7 mil)",
+                "1603280": "atinge até 7 (com invocações), dano baixo"
+              }
+            },
+            {
+              "id": "gelcos-explosao-em-volta",
+              "nome": "Explosão em volta dele",
+              "sinal": "Círculo laranja grande em volta do Gelcos (1603350 com preparo de 1,3 s; 1603355 sem preparo)",
+              "acao": "Afaste-se dele antes da explosão (até ~14 mil em cada um)",
+              "alerta": "SAI DE PERTO",
+              "acao_tipo": "sair",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_ids": [
+                  1603350,
+                  1603355
+                ],
+                "preparo_s": {
+                  "1603350": 1.3
+                }
+              },
+              "confianca": "media",
+              "confianca_skill": "media",
+              "observado": {
+                "fonte": "captura + vídeo 2026-10-17 13:09 (Transcendência, Estágio 2)",
+                "nota": "1603355 aos 56% (2 atingidos) e 1603350 aos 12% (3 atingidos), ~13,7 mil"
+              },
+              "wipe": false
             },
             {
               "id": "gelcos-atordoado",
@@ -4702,13 +4745,26 @@
               "acao": "Detona em ~3 s: o marcado sai do grupo; com vários marcados, todos se espalham",
               "alerta": "MARCADO: SAI",
               "gatilho": {
-                "tipo": "buff",
-                "abnormal_id": null
+                "tipo": "skill",
+                "skill_ids": [
+                  1605610,
+                  1605616
+                ],
+                "preparo_s": {
+                  "1605610": 1.0,
+                  "1605616": 1.0
+                },
+                "pessoal": true
               },
               "wipe": false,
               "confianca": "alta",
               "acao_tipo": "espalhar",
-              "id": "nazmun-explosao-marcada"
+              "id": "nazmun-explosao-marcada",
+              "confianca_skill": "media",
+              "observado": {
+                "fonte": "captura + vídeo 2026-10-17 13:09 (Transcendência, Estágio 2)",
+                "nota": "1605610 (Bomba em Queda) e 1605616: preparo 1,0 s, alvo um jogador; marca no chão em volta dele"
+              }
             },
             {
               "nome": "Lasers giratórios",
@@ -4717,12 +4773,80 @@
               "alerta": "PULA O LASER",
               "gatilho": {
                 "tipo": "skill",
-                "skill_id": null
+                "skill_ids": [
+                  1605650
+                ],
+                "preparo_s": {
+                  "1605650": 1.0
+                }
               },
               "wipe": false,
               "confianca": "alta",
               "acao_tipo": "pular",
-              "id": "nazmun-lasers-giratorios"
+              "id": "nazmun-lasers-giratorios",
+              "confianca_skill": "media",
+              "observado": {
+                "fonte": "captura + vídeo 2026-10-17 13:09 (Transcendência, Estágio 2)",
+                "nota": "1605650 (Dispersão de Laser no cliente, preparo 1,0 s) atinge 4; fios elétricos saem dos dispositivos instalados no começo (1605640, Instalar Armadilha)"
+              }
+            },
+            {
+              "id": "nazmun-bomba-alvo",
+              "nome": "Bomba em queda (alvo)",
+              "sinal": "1605610/1605616 miram um jogador; a marca aparece em volta dele",
+              "acao": "Quem tem a bomba sai do grupo",
+              "alerta": null,
+              "acao_tipo": "sair",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_ids": [
+                  1605610,
+                  1605616
+                ]
+              },
+              "status": [
+                {
+                  "texto": "BOMBA",
+                  "tipo": "sair",
+                  "em": "alvo",
+                  "de": 0,
+                  "ate": 3.0
+                }
+              ],
+              "confianca": "media",
+              "confianca_skill": "media",
+              "observado": {
+                "fonte": "captura + vídeo 2026-10-17 13:09 (Transcendência, Estágio 2)",
+                "nota": "status em quem foi marcado"
+              },
+              "wipe": false
+            },
+            {
+              "id": "nazmun-drones",
+              "nome": "Lançamento de drones",
+              "sinal": "1605670 / 1605673 (preparo 1,4 s): drones caem em todo o grupo",
+              "acao": "Drones em todo o grupo (até ~18 mil em cada um): defesa e cura prontas",
+              "alerta": "DRONES: DEFESA",
+              "acao_tipo": "atencao",
+              "voz_curta": "defesa",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_ids": [
+                  1605670,
+                  1605673
+                ],
+                "preparo_s": {
+                  "1605670": 1.4,
+                  "1605673": 1.4
+                }
+              },
+              "confianca": "media",
+              "confianca_skill": "media",
+              "observado": {
+                "fonte": "captura + vídeo 2026-10-17 13:09 (Transcendência, Estágio 2)",
+                "nota": "4 atingidos; 1605673 aos 32% com até 18 mil; 24 tiros 1605672 depois"
+              },
+              "wipe": false
             },
             {
               "id": "nazmun-atordoado",
@@ -4802,8 +4926,13 @@
               "acao": "Gire pela arena desviando dos leques e quebre o stagger dentro de 10 s",
               "alerta": "STAGGER 10s",
               "gatilho": {
-                "tipo": "hp",
-                "pct": 30
+                "tipo": "skill",
+                "skill_ids": [
+                  1801530
+                ],
+                "preparo_s": {
+                  "1801530": 10.0
+                }
               },
               "wipe": true,
               "confianca": "alta",
@@ -4812,7 +4941,21 @@
               "id": "atiel-morphic-world-stagger-de-10-s",
               "candidatos_skill": {
                 "1801530": "Morphic World (nome igual ao da tabela de skills do jogo; confirmar numa captura (mapear.py mostra como candidato))"
-              }
+              },
+              "confianca_skill": "alta",
+              "observado": {
+                "fonte": "captura + vídeo 2026-10-17 13:09 (Transcendência, Estágio 2)",
+                "nota": "1801530 aos ~15% (preparo 10 s): abre a barra de atordoamento de 240 pontos. Nas tentativas 2 e 3 o grupo chegou a 14 e 11 pontos restantes; o 1801530 sai, o 1801531 vem 2 s depois e todos caem ~4,5 s depois"
+              },
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "STAGGER 10s",
+                  "sub": "barra roxa de 240 pontos em 10 s: TODAS as skills de atordoamento agora",
+                  "tipo": "stagger",
+                  "contagem_voz": true
+                }
+              ]
             },
             {
               "nome": "Corrente (2 jogadores)",
@@ -4820,13 +4963,33 @@
               "acao": "Os ligados correm em direções opostas; o resto empilha no alvo do golpe",
               "alerta": "LIGADOS: SEPARA / RESTO: EMPILHA",
               "gatilho": {
-                "tipo": "buff",
-                "abnormal_id": null
+                "tipo": "skill",
+                "skill_ids": [
+                  1801460
+                ]
               },
               "wipe": false,
               "confianca": "alta",
               "acao_tipo": "empilhar",
-              "id": "atiel-corrente-2-jogadores"
+              "id": "atiel-corrente-2-jogadores",
+              "candidatos_skill": {
+                "1801460": "sem preparo; 1801465/61/68/69 ligam 2 jogadores e o 1801450 (preparo 1,7 s) bate até 91 mil num só, ~6,8 s depois ('You cannot escape from me!' / 'You will be the first to die')"
+              },
+              "confianca_skill": "media",
+              "observado": {
+                "fonte": "captura + vídeo 2026-10-17 13:09 (Transcendência, Estágio 2)",
+                "nota": "1801460 → fio 1801465 em 2 jogadores (+1,1 s) → 1801440 (+4 s) → golpe 1801450 de até 91 mil (+6,8 s)"
+              },
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "LIGADOS: SEPARA / RESTO: EMPILHA",
+                  "sub": "golpe pesado num jogador em ~7 s (até 91 mil)",
+                  "tipo": "empilhar",
+                  "contagem": 6.8,
+                  "contagem_voz": true
+                }
+              ]
             },
             {
               "nome": "Colapso da borda",
@@ -4835,12 +4998,39 @@
               "alerta": "SAI DA BORDA",
               "gatilho": {
                 "tipo": "skill",
-                "skill_id": null
+                "skill_ids": [
+                  1801510,
+                  1801520
+                ],
+                "preparo_s": {
+                  "1801510": 5.0,
+                  "1801520": 5.0
+                }
               },
               "wipe": true,
               "confianca": "media",
               "acao_tipo": "borda",
-              "id": "atiel-colapso-da-borda"
+              "id": "atiel-colapso-da-borda",
+              "confianca_skill": "media",
+              "observado": {
+                "fonte": "captura + vídeo 2026-10-17 13:09 (Transcendência, Estágio 2)",
+                "nota": "1801510 aos ~76% e 1801520 aos ~38% (preparo 5,0 s): a borda acende e lâminas azuis (cópias, mob 2920445/2920446) saem do centro e cruzam a arena em ondas a cada 10 s"
+              },
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "SAI DA BORDA",
+                  "sub": "a borda acende; depois as cópias cruzam a arena",
+                  "tipo": "borda",
+                  "contagem_voz": true
+                },
+                {
+                  "t": 6.0,
+                  "texto": "CÓPIAS CRUZANDO",
+                  "sub": "desvie das lâminas azuis que saem do centro",
+                  "tipo": "esquivar"
+                }
+              ]
             },
             {
               "nome": "Agarrar e esmagar",
@@ -4855,7 +5045,34 @@
               "confianca": "media",
               "nota": "Em 9/set uma skill do Atiel passou a poder ser evitada com Focused Block ou Evasion Stance.",
               "acao_tipo": "atencao",
-              "id": "atiel-agarrar-e-esmagar"
+              "id": "atiel-agarrar-e-esmagar",
+              "candidatos_skill": {
+                "1801400": "preparo 1,0 s, alvo jogador, sem dano; 1801410 0,5 s depois"
+              }
+            },
+            {
+              "id": "atiel-aviso-de-fase",
+              "nome": "Aviso de fase",
+              "sinal": "1801455 (preparo 1,0 s) sempre ~5 s antes de cada fase (aos ~79%, ~39% e ~19%)",
+              "acao": "Ele vai ao centro em instantes: prepare-se para a fase",
+              "alerta": "FASE EM BREVE",
+              "acao_tipo": "atencao",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_ids": [
+                  1801455
+                ],
+                "preparo_s": {
+                  "1801455": 1.0
+                }
+              },
+              "confianca": "alta",
+              "confianca_skill": "alta",
+              "observado": {
+                "fonte": "captura + vídeo 2026-10-17 13:09 (Transcendência, Estágio 2)",
+                "nota": "nas 3 tentativas, 1801455 → preparo da fase 3,8 s depois"
+              },
+              "wipe": false
             },
             {
               "id": "atiel-atordoado",
