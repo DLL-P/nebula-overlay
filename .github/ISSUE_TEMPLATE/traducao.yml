@@ -1,0 +1,27 @@
+name: Tradução / Translation / Traducción
+description: Texto errado ou estranho em algum idioma / Wrong or odd text / Texto incorrecto
+labels: [traducao]
+body:
+  - type: dropdown
+    id: idioma
+    attributes:
+      label: Idioma
+      options: [Português, English, Español]
+    validations:
+      required: true
+  - type: input
+    id: atual
+    attributes:
+      label: Texto atual
+    validations:
+      required: true
+  - type: input
+    id: sugestao
+    attributes:
+      label: Sugestão
+    validations:
+      required: true
+  - type: textarea
+    id: contexto
+    attributes:
+      label: Onde aparece (boss, mecânica, janela)

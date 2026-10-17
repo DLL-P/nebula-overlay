@@ -1,0 +1,35 @@
+name: Mecânica (prints, vídeos, textos)
+description: Uma mecânica nova, errada ou faltando / A new, wrong or missing mechanic / Una mecánica nueva, incorrecta o que falta
+labels: [mecanica]
+body:
+  - type: input
+    id: conteudo
+    attributes:
+      label: Masmorra / modo e boss
+      description: "Ex.: Urugugu Canyon (Conquista) – Divine Auldor; Nightmare – Fortress Guardian Notun (nível 7)"
+    validations:
+      required: true
+  - type: textarea
+    id: descricao
+    attributes:
+      label: O que acontece e o que fazer
+      description: O telegraph, quando aparece (HP, tempo, depois de qual skill), o que mata e como o grupo sobrevive. Se o alerta atual está errado, diga o que ele deveria dizer.
+    validations:
+      required: true
+  - type: textarea
+    id: material
+    attributes:
+      label: Prints e vídeos
+      description: Arraste imagens aqui ou cole links (com o horário do vídeo em que a mecânica acontece). Lembre que issues são públicas.
+  - type: dropdown
+    id: idioma
+    attributes:
+      label: Idioma do seu jogo
+      options: [Português, English, Español, Outro]
+  - type: checkboxes
+    id: consentimento
+    attributes:
+      label: Consentimento
+      options:
+        - label: Autorizo o uso deste material para melhorar o Nebula Overlay, e cortei/borrei nomes ou chat que não quero mostrar.
+          required: true

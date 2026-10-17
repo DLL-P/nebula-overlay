@@ -1,0 +1,27 @@
+# gerados
+__pycache__/
+*.pyc
+build/
+dist/
+
+# seus dados (no app instalado ficam em Documentos\Nebula Overlay)
+capturas/
+relatorios/
+voz/
+overlay.json
+nebula.log*
+mecanicas/usuario.json
+dados_jogo/
+
+# tabelas extraídas do jogo: não entram no repositório
+dados/npcs.json
+dados/skills.json
+dados/skills_pt.json
+dados/especializacoes_pt.json
+dados/dungeons.json
+dados/pc_classes.json
+
+# histórico local das mecânicas e atalhos pessoais
+mecanicas/historico/
+*.bat
+*.mp4

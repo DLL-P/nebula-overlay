@@ -1,0 +1,429 @@
+<title>Overlay de Alertas</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: broadcast replay. Stage (real fight frames + overlay) leads, HP/sync timeline under it, then what we took from WoW/FFXIV boss mods, the visual system, timing rules and the build plan. Dark-first. Overlay colors are fixed on purpose: they sit on top of the game, not the page. */
+:root {
+  --bg: #13111b; --panel: #1c1928; --panel-2: #252135; --line: #34304a;
+  --fg: #ebe6f4; --muted: #9d96b0; --gold: #e0b45a; --gold-soft: #e0b45a26;
+  --font-display: "Chakra Petch", "Segoe UI", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+  --c-azul: #4aa3ff; --c-ambar: #f2a93b; --c-vermelho: #ff4d4d; --c-roxo: #b36bff; --c-verde: #46d18a; --c-cinza: #b9b3c9;
+  --n-info: #46d18a; --n-alerta: #f2c53b; --n-alarme: #ff4d4d;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) { --bg: #f5f3f8; --panel: #ffffff; --panel-2: #efebf5; --line: #d9d3e4; --fg: #1d1a28; --muted: #5d566e; --gold: #94660f; --gold-soft: #94660f1c; color-scheme: light; }
+}
+:root[data-theme="light"] { --bg: #f5f3f8; --panel: #ffffff; --panel-2: #efebf5; --line: #d9d3e4; --fg: #1d1a28; --muted: #5d566e; --gold: #94660f; --gold-soft: #94660f1c; color-scheme: light; }
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 15px; line-height: 1.55;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 26px 64px; }
+.wrap { max-width: 1120px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px; }
+h1, h2, h3 { font-family: var(--font-display); margin: 0; line-height: 1.15; text-wrap: balance; }
+h1 { font-size: clamp(1.8rem, 5vw, 2.5rem); }
+h2 { font-size: 1.45rem; }
+h3 { font-size: 1.05rem; }
+p { margin: 0; max-width: 72ch; }
+.muted { color: var(--muted); }
+.eyebrow { font-family: var(--font-mono); font-size: .74rem; text-transform: uppercase; letter-spacing: .12em; color: var(--gold); }
+section { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+code { font-family: var(--font-mono); font-size: .88em; background: var(--panel-2); padding: 1px 5px; border-radius: 4px; }
+a { color: var(--gold); }
+
+/* ---------- palco ---------- */
+.stage { position: relative; width: 100%; aspect-ratio: 1920 / 772; border-radius: 10px; overflow: hidden; background: #000; container-type: inline-size; border: 1px solid var(--line); }
+.stage img.frame { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.vinheta { position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .2s; box-shadow: inset 0 0 6cqw 1.2cqw var(--n-alarme); }
+.vinheta.on { opacity: .85; animation: pulso .9s ease-in-out infinite; }
+@keyframes pulso { 50% { opacity: .3; } }
+@media (prefers-reduced-motion: reduce) { .vinheta.on, .barra-item.destaque { animation: none !important; } }
+.pilha { position: absolute; left: 50%; transform: translateX(-50%); top: var(--topo, 14%); display: flex; flex-direction: column; align-items: center; gap: .7cqw; font-size: calc(var(--escala, 1) * 1cqw); }
+.card { display: flex; align-items: center; gap: 1.1em; background: #0d0b14e0; border: .25em solid var(--nc); border-radius: 1em; padding: .8em 1.4em .9em 1em; min-width: 24em; color: #fff; box-shadow: 0 0 2.4em -.5em var(--nc); }
+.card svg { width: 4.2em; height: 4.2em; flex: none; color: var(--ac); }
+.card .txt { display: flex; flex-direction: column; gap: .2em; min-width: 0; }
+.card .t1 { font: 700 2.6em/1 var(--font-display); letter-spacing: .03em; color: var(--nc); white-space: nowrap; }
+.card .t2 { font: 500 1.15em/1.2 var(--font-body); color: #e8e4f0; }
+.card .cont { display: flex; align-items: center; gap: .6em; margin-top: .3em; }
+.card .barra { height: .55em; flex: 1; min-width: 10em; background: #ffffff22; border-radius: 1em; overflow: hidden; }
+.card .barra div { height: 100%; background: var(--nc); }
+.card .seg { font: 600 1.25em var(--font-mono); color: #fff; font-variant-numeric: tabular-nums; min-width: 3.2em; text-align: right; }
+.card .seg.urg { color: var(--nc); font-size: 1.6em; }
+.card.secundario { font-size: .6em; opacity: .92; }
+.card.nivel-info { background: transparent; border-color: transparent; box-shadow: none; padding: .2em; min-width: 0; }
+.card.nivel-info .t1 { font-size: 2em; text-shadow: 0 .1em .4em #000, 0 0 .2em #000; }
+.card.nivel-info .t2 { text-shadow: 0 .1em .3em #000; }
+.card.nivel-info svg { width: 3em; height: 3em; }
+.card.pessoal { outline: .3em solid #fff; outline-offset: .2em; }
+.breve { position: absolute; left: 50%; transform: translateX(-50%); top: 6%; font: 600 1.1cqw var(--font-mono); color: #fff; background: #0d0b14cc; border: .15cqw solid var(--n-info); border-radius: 2cqw; padding: .3cqw 1cqw; white-space: nowrap; }
+.barras { position: absolute; right: 1.2%; top: 26%; width: 21cqw; display: flex; flex-direction: column; gap: .45cqw; font-size: 1cqw; }
+.barras .titulo { font: 600 .9em var(--font-mono); color: #e8e4f0; text-transform: uppercase; letter-spacing: .1em; text-shadow: 0 1px 2px #000; }
+.barra-item { position: relative; background: #0d0b14d0; border-radius: .35cqw; overflow: hidden; color: #fff; padding: .4cqw .7cqw .4cqw 2.6cqw; display: flex; justify-content: space-between; gap: .6cqw; align-items: center; min-height: 2.1cqw; }
+.barra-item .fill { position: absolute; inset: 0 auto 0 0; background: var(--bc); opacity: .32; }
+.barra-item svg { position: absolute; left: .5cqw; top: 50%; transform: translateY(-50%); width: 1.6cqw; height: 1.6cqw; color: var(--bc); }
+.barra-item b { position: relative; font: 700 1.05em var(--font-display); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.barra-item span { position: relative; font: 600 .95em var(--font-mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.barra-item.destaque { font-size: 1.3cqw; outline: .15cqw solid var(--bc); animation: pulso 1s ease-in-out infinite; }
+.barra-item.hp .fill { opacity: .15; }
+.relogio { position: absolute; left: 1%; bottom: 3%; font: 600 1.1cqw var(--font-mono); color: #fff; background: #000a; padding: .2cqw .6cqw; border-radius: .3cqw; }
+.legenda-palco { font-size: .85rem; color: var(--muted); }
+
+.controles { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; font-size: .9rem; }
+.controles label { color: var(--muted); }
+.grupo { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+button, select, input[type="text"] { font: inherit; color: var(--fg); background: var(--panel-2); border: 1px solid var(--line); border-radius: 6px; padding: 5px 11px; }
+button { cursor: pointer; }
+button.primary { background: var(--gold); color: var(--bg); border-color: var(--gold); font-weight: 600; min-width: 96px; }
+button:focus-visible, select:focus-visible, input:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+input[type="checkbox"] { accent-color: var(--gold); }
+.timeline { position: relative; height: 96px; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; cursor: pointer; }
+.timeline svg { width: 100%; height: 100%; display: block; }
+.timeline .cursor { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--gold); pointer-events: none; }
+
+.licoes { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
+.licao { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.licao .de { font: 600 .72rem var(--font-mono); color: var(--gold); text-transform: uppercase; letter-spacing: .08em; }
+.licao .aqui { font-size: .88rem; color: var(--muted); border-top: 1px solid var(--line); padding-top: 6px; }
+.licao .aqui b { color: var(--fg); font-weight: 600; }
+.estado { font: 600 .7rem var(--font-mono); text-transform: uppercase; letter-spacing: .08em; padding: 1px 7px; border-radius: 999px; border: 1px solid currentColor; align-self: flex-start; }
+.estado.feito { color: #46d18a; } .estado.prox { color: var(--gold); }
+
+.niveis { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+@media (max-width: 760px) { .niveis { grid-template-columns: minmax(0, 1fr); } }
+.nivel { background: var(--panel); border: 1px solid var(--line); border-top: 4px solid var(--nc); border-radius: 10px; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; }
+.nivel b { font-family: var(--font-display); color: var(--nc); font-size: 1.1rem; }
+.nivel small { color: var(--muted); }
+.cats { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 10px; }
+.cat { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px; display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 10px; align-items: start; }
+.cat svg { width: 40px; height: 40px; color: var(--cc); }
+.cat b { font-family: var(--font-display); color: var(--cc); }
+.cat small { display: block; color: var(--muted); font-size: .8rem; }
+.cat button { margin-top: 6px; font-size: .78rem; padding: 2px 8px; }
+.cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+@media (max-width: 760px) { .cols { grid-template-columns: minmax(0, 1fr); } }
+.box { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.box ul, .box ol { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 5px; }
+.mecs { display: flex; flex-direction: column; gap: 6px; font-size: .88rem; }
+.mecs label { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 8px; align-items: baseline; color: var(--fg); }
+.mecs code { font-size: .75rem; color: var(--muted); }
+.fontes { font-size: .8rem; color: var(--muted); overflow-wrap: anywhere; }
+</style>
+
+<div class="wrap">
+  <header style="display:flex;flex-direction:column;gap:10px">
+    <span class="eyebrow">Plano · alertas de mecânica · v2</span>
+    <h1>Overlay de Alertas</h1>
+    <p class="muted">A luta do Divine Auldor do seu vídeo (Urugugu, Conquista) passa pelo mesmo motor do app em Python, com os mesmos eventos: HP medido quadro a quadro e o instante em que o boss some. Esta versão aplica o que funciona nos boss mods do WoW e do FFXIV. Há duas camadas: barras do que vem aí e um cartão com o que fazer agora. Os níveis são três (info, alerta, alarme), a sequência se resincroniza com o jogo e há voz em português com contagem 3-2-1.</p>
+  </header>
+
+  <section>
+    <div class="stage" id="stage">
+      <img class="frame" id="frame" alt="Quadro da luta contra o Divine Auldor">
+      <div class="vinheta" id="vinheta"></div>
+      <div class="breve" id="breve" hidden></div>
+      <div class="pilha" id="pilha"></div>
+      <div class="barras" id="barras"></div>
+      <div class="relogio" id="relogio">0:00</div>
+    </div>
+    <div class="controles" role="group" aria-label="Controles da prévia">
+      <div class="grupo">
+        <button class="primary" id="play" type="button">Reproduzir</button>
+        <select id="vel" aria-label="Velocidade"><option value="1">1×</option><option value="2" selected>2×</option><option value="4">4×</option></select>
+        <button type="button" id="ir75">Ir para 75%</button>
+        <button type="button" id="ir30">Ir para 30%</button>
+      </div>
+      <div class="grupo">
+        <span><input type="checkbox" id="o-voz"> <label for="o-voz">Voz pt-BR + 3-2-1</label></span>
+        <span><input type="checkbox" id="o-som" checked> <label for="o-som">Sons</label></span>
+        <span><input type="checkbox" id="o-sync" checked> <label for="o-sync">Sync no sumiço</label></span>
+        <span><input type="checkbox" id="o-vin" checked> <label for="o-vin">Borda pulsante (alarme)</label></span>
+        <span><input type="checkbox" id="o-so" > <label for="o-so">Só o que vem (sem instrução)</label></span>
+      </div>
+      <div class="grupo">
+        <label for="o-tam">Tamanho</label>
+        <select id="o-tam"><option value="0.8">P</option><option value="1" selected>M</option><option value="1.25">G</option></select>
+        <label for="o-pos">Posição</label>
+        <select id="o-pos"><option value="14%" selected>Topo</option><option value="34%">Centro</option></select>
+      </div>
+    </div>
+    <div class="timeline" id="timeline" aria-label="Linha do tempo"><svg id="tl" viewBox="0 0 1000 96" preserveAspectRatio="none"></svg><div class="cursor" id="cursor"></div></div>
+    <p class="legenda-palco">Linha dourada: HP do Auldor (lacunas = boss fora da tela). Traços coloridos: alertas emitidos, na cor do nível. Losangos brancos: sumiço detectado; o ajuste de sync aparece ao lado. Traço vermelho: sua morte (~10:03). Desligue "Sync no sumiço" para ver a sequência só pela previsão do HP.</p>
+  </section>
+
+  <section>
+    <span class="eyebrow">O que aprendemos com os boss mods</span>
+    <h2>O que adotamos de cada ferramenta</h2>
+    <div class="licoes">
+      <div class="licao"><span class="de">cactbot (FFXIV)</span><h3>Timeline com sync por janela</h3><p>Cada linha da timeline tem um evento de sync e uma janela <code>antes,depois</code>; se o evento real cai na janela, a timeline pula para a hora certa e o resto anda junto. O teste reporta cada correção em segundos.</p><p class="aqui"><b>Aqui:</b> o passo "SAI DAS FAIXAS" espera o sumiço do boss numa janela. No vídeo as correções foram +1,0 s e +0,5 s, e o círculo e o mergulho caíram no décimo de segundo. <span class="estado feito">feito</span></p></div>
+      <div class="licao"><span class="de">cactbot (FFXIV)</span><h3>Três níveis e texto de ação</h3><p>Info (verde), alerta (amarelo) e alarme (vermelho). Alarme só para wipe provável. O texto diz o que fazer ("saia"), não o nome da habilidade, em frase positiva, com no máximo 2 alertas na tela.</p><p class="aqui"><b>Aqui:</b> todo alerta ganhou nível; cartão principal + 1 secundário; "NÃO PERSIGA" virou "SEGURA POSIÇÃO". <span class="estado feito">feito</span></p></div>
+      <div class="licao"><span class="de">BigWigs (WoW)</span><h3>Barras normais e em destaque</h3><p>Timers longos ficam numa pilha de barras; a 6–20 s do evento a barra muda para a área de destaque, pisca e pode ganhar contagem por voz ("Super Emphasize").</p><p class="aqui"><b>Aqui:</b> lista de próximas com ETA e barra; a menos de 6 s ela cresce e pulsa. Gatilhos de HP mostram "faltam X%". <span class="estado feito">feito</span></p></div>
+      <div class="licao"><span class="de">DBM (WoW)</span><h3>Voz que manda fazer</h3><p>Os pacotes de voz falam a ação ("espalha", "vai pro centro"), nunca o nome da magia, e filtram o que o seu papel não precisa saber. Contagem regressiva falada é opcional.</p><p class="aqui"><b>Aqui:</b> voz em português pelo sintetizador do Windows (app) e do navegador (prévia), com campo <code>voz</code> por passo e "3, 2, 1" onde <code>contagem_voz</code> está ligado. Filtro por papel fica para quando houver mecânicas de tank/healer. <span class="estado feito">voz feita</span></p></div>
+      <div class="licao"><span class="de">WeakAuras (WoW)</span><h3>Gatilho + condição + exibição</h3><p>Tudo é uma "aura": um gatilho, condições que mudam a aparência (ex.: brilho quando faltam X segundos) e um tipo de exibição (ícone, barra, texto). Carrega só na zona/boss certo.</p><p class="aqui"><b>Aqui:</b> o motor só carrega as mecânicas do boss detectado; a aparência escala nos últimos 3 s; cada mecânica tem ID para o usuário desligar ou reescrever em <code>usuario.json</code>. <span class="estado feito">feito</span></p></div>
+      <div class="licao"><span class="de">BigWigs / DBM</span><h3>Flash pessoal</h3><p>"Flash-n-Shake": a tela pisca quando a mecânica é em você (debuff, marca), separado do alerta geral.</p><p class="aqui"><b>Aqui:</b> o cartão ganha moldura branca de "pessoal" quando o alvo for você. Depende de saber o seu ID (pacote 0x3633) e do alvo da skill ou do debuff (0x3802/0x382A). <span class="estado prox">próximo</span></p></div>
+      <div class="licao"><span class="de">Blizzard, WoW Midnight (2026)</span><h3>O limite do "resolver por você"</h3><p>A Blizzard restringiu os addons de combate e lançou timeline e avisos de boss próprios; quase nenhum addon pode mais dizer automaticamente como resolver a mecânica.</p><p class="aqui"><b>Aqui:</b> sinal de onde as empresas traçam a linha. A opção "Só o que vem" mostra a timeline sem instruções, o modo mais conservador. <span class="estado feito">feito</span></p></div>
+      <div class="licao"><span class="de">cactbot · BigWigs</span><h3>Ensaiar fora do jogo</h3><p>O cactbot tem um emulador que roda logs gravados; o BigWigs tem barras de teste para posicionar tudo.</p><p class="aqui"><b>Aqui:</b> esta prévia e o <code>alertas.py video --ensaio --voz</code>, que roda junto com o vídeo; o modo <code>pcap</code> roda sobre capturas e lista as correções de sync. <span class="estado feito">feito</span></p></div>
+    </div>
+  </section>
+
+  <section>
+    <span class="eyebrow">Sistema visual</span>
+    <h2>Gravidade dá o tamanho, ação dá o ícone</h2>
+    <div class="niveis">
+      <div class="nivel" style="--nc:var(--n-info)"><b>Info</b><small>Texto solto, sem caixa, sem som. Para "vem aí" e transições.</small><small>Ex.: FASE DO CÉU</small></div>
+      <div class="nivel" style="--nc:var(--n-alerta)"><b>Alerta</b><small>Cartão amarelo + som da ação. Para o que mata uma pessoa.</small><small>Ex.: SAI DO CÍRCULO</small></div>
+      <div class="nivel" style="--nc:var(--n-alarme)"><b>Alarme</b><small>Cartão vermelho, borda da tela pulsando nos últimos 3 s, voz e contagem. Só para wipe.</small><small>Ex.: EMPILHA NO CÍRCULO</small></div>
+    </div>
+    <div class="cats" id="cats"></div>
+  </section>
+
+  <section class="cols">
+    <div class="box">
+      <h3>Preferências por mecânica (usuario.json)</h3>
+      <p class="muted" style="font-size:.88rem">Desmarque para desligar; o ID é o que vai no arquivo. A prévia aplica na hora.</p>
+      <div class="mecs" id="mecs"></div>
+    </div>
+    <div class="box">
+      <h3>Próximos passos</h3>
+      <ol>
+        <li><b>Sua captura</b> (Wireshark + vídeo): confirma qual pacote marca o sumiço, para sincronizar pelo pacote e não pela barra.</li>
+        <li><b>IDs de skill do boss</b> no <code>0x3802</code>: viram gatilhos e syncs (janela padrão 2,5 s), destravando as mecânicas que hoje dependem de skill.</li>
+        <li><b>Seu ID</b> (<code>0x3633</code>) e o alvo das marcas: liga o alerta pessoal.</li>
+        <li><b>Janela do overlay ao vivo</b> com este HTML.</li>
+      </ol>
+    </div>
+  </section>
+
+  <p class="fontes">Fontes da pesquisa: <a href="https://github.com/OverlayPlugin/cactbot/blob/main/docs/TimelineGuide.md">cactbot TimelineGuide</a> · <a href="https://github.com/OverlayPlugin/cactbot/blob/main/docs/RaidbossGuide.md">cactbot RaidbossGuide</a> · <a href="https://www.curseforge.com/wow/addons/deadly-boss-mods">DBM</a> · <a href="https://noobtoboss.com/?p=6931">BigWigs (guia)</a> · <a href="https://warcraft.wiki.gg/wiki/BigWigs">BigWigs (wiki)</a> · <a href="https://github-wiki-see.page/m/WeakAuras/WeakAuras2/wiki">WeakAuras wiki</a> · <a href="https://www.icy-veins.com/wow/news/essential-addons-you-should-still-use-in-wow-midnight/">Icy Veins, Midnight</a> · <a href="https://seramate.com/news/2026/06/05/dbm-creator-criticizes-boss-timelines-1f160daa">timelines da Blizzard</a> · <a href="https://www.method.gg/method-raid-tools-reminders">MRT Reminders</a></p>
+</div>
+
+<script type="application/json" id="dados">__DADOS__</script>
+<script type="application/json" id="eventos">__EVENTOS__</script>
+<script>
+(() => {
+  const D = JSON.parse(document.getElementById('dados').textContent);
+  const E = JSON.parse(document.getElementById('eventos').textContent);
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const T0 = E.inicio_video_s;
+  const EV = E.eventos.map(([t, tipo, v]) => ({ t: t - T0, tipo, v }));
+  const DUR = 234;
+  const MORTE = 603 - T0;
+  const NIVEL_COR = { info: 'var(--n-info)', alerta: 'var(--n-alerta)', alarme: 'var(--n-alarme)' };
+  const TIPOS_ALARME = new Set(['esconder', 'parar_dano', 'stagger', 'enrage']);
+
+  // ---------- ícones ----------
+  const IC = {
+    empilhar: '<path d="M4 4l7 7M44 4l-7 7M4 44l7-7M44 44l-7-7"/><path d="M11 6v5H6M37 6v5h5M11 42v-5H6M37 42v-5h5"/><circle cx="24" cy="24" r="6" fill="currentColor"/>',
+    espalhar: '<circle cx="24" cy="24" r="4" fill="currentColor"/><path d="M18 18L7 7M30 18L41 7M18 30L7 41M30 30l11 11"/><path d="M7 14V7h7M41 14V7h-7M7 34v7h7M41 34v7h-7"/>',
+    pular: '<ellipse cx="24" cy="38" rx="18" ry="5"/><path d="M24 30V8M15 17l9-9 9 9"/>',
+    esconder: '<rect x="27" y="8" width="10" height="34" rx="2" fill="currentColor" opacity=".35"/><rect x="27" y="8" width="10" height="34" rx="2"/><circle cx="16" cy="18" r="4"/><path d="M16 22v12M10 28h12"/><path d="M4 12l4 2M4 24h5M4 36l4-2"/>',
+    parar_dano: '<path d="M16 4h16l12 12v16L32 44H16L4 32V16z"/><path d="M15 24h18" stroke-width="5"/>',
+    sair: '<circle cx="18" cy="24" r="12" stroke-dasharray="4 3"/><path d="M22 24h22M37 17l7 7-7 7"/>',
+    borda: '<circle cx="24" cy="24" r="19"/><circle cx="24" cy="24" r="3" fill="currentColor"/><path d="M27 24h12M34 19l5 5-5 5"/>',
+    atras: '<path d="M24 6l14 18H10z" fill="currentColor" opacity=".35"/><path d="M24 6l14 18H10z"/><circle cx="24" cy="38" r="5" fill="currentColor"/><path d="M24 24v8"/>',
+    stagger: '<path d="M27 3L12 27h11l-3 18 16-25H25z" fill="currentColor" opacity=".35"/><path d="M27 3L12 27h11l-3 18 16-25H25z"/>',
+    matar_alvo: '<circle cx="24" cy="24" r="15"/><circle cx="24" cy="24" r="4" fill="currentColor"/><path d="M24 2v10M24 36v10M2 24h10M36 24h10"/>',
+    esquivar: '<circle cx="34" cy="24" r="6" fill="currentColor"/><path d="M4 16h16M2 24h20M4 32h16"/>',
+    enrage: '<path d="M24 4c3 8 12 12 12 24a12 12 0 0 1-24 0c0-6 4-9 5-14 2 4 4 5 5 5-1-6 0-11 2-15z" fill="currentColor" opacity=".35"/><path d="M24 4c3 8 12 12 12 24a12 12 0 0 1-24 0c0-6 4-9 5-14 2 4 4 5 5 5-1-6 0-11 2-15z"/>',
+    atencao: '<path d="M24 4l21 38H3z"/><path d="M24 18v12" stroke-width="4"/><circle cx="24" cy="36" r="2.4" fill="currentColor"/>'
+  };
+  const svg = t => `<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[t] || IC.atencao}</svg>`;
+  const COR = { azul: 'var(--c-azul)', ambar: 'var(--c-ambar)', vermelho: 'var(--c-vermelho)', roxo: 'var(--c-roxo)', verde: 'var(--c-verde)', cinza: 'var(--c-cinza)' };
+  const NOME = { empilhar: 'Empilhar', espalhar: 'Espalhar', pular: 'Pular', esconder: 'Cobertura', parar_dano: 'Parar de bater', sair: 'Sair da área', borda: 'Ir para um ponto', atras: 'Ficar atrás', stagger: 'Stagger', matar_alvo: 'Alvo prioritário', esquivar: 'Esquivar / bloquear', enrage: 'Enrage', atencao: 'Atenção' };
+  const corAcao = t => COR[(D.categorias[t] || D.categorias.atencao).cor];
+
+  // ---------- motor (cópia fiel de a2parse/alertas.py) ----------
+  const nivelDe = (tipo, wipe, fase = 'ativo') => fase === 'breve' || tipo === 'atencao' ? 'info' : (TIPOS_ALARME.has(tipo) || wipe ? 'alarme' : 'alerta');
+  const passosDe = m => m.sequencia ? m.sequencia : (m.alerta ? [{ t: 0, texto: m.alerta, sub: m.acao || '', tipo: m.acao_tipo, voz: m.voz }] : []);
+  const pctDe = m => { const g = m.gatilho || {}; if (g.tipo !== 'hp') return null; return g.pct_observado ?? g.pct; };
+  class Motor {
+    constructor(boss, opts) { this.boss = boss; this.o = opts; this.reset(); }
+    reset() { this.disp = new Set(); this.avis = new Set(); this.ativas = []; this.menor = 100; this.ultimo = 100; this.ajustes = []; }
+    hp(t, pct) {
+      if (pct >= 99 && this.menor < 95) this.reset();
+      this.menor = Math.min(this.menor, pct); this.ultimo = pct;
+      const out = [];
+      this.boss.mecanicas.forEach((m, i) => {
+        if (this.o.off.has(m.id)) return;
+        const alvo = pctDe(m); if (alvo == null || this.disp.has(i)) return;
+        if (pct <= alvo + 1) { this.disp.add(i); const ps = passosDe(m); if (ps.length) this.ativas.push({ m, base: t, ps, prox: 0, sinc: new Set() }); }
+        else if (!this.avis.has(i) && pct <= alvo + (m.pre_aviso_pct ?? 5) && passosDe(m).length) {
+          this.avis.add(i); out.push({ t, fase: 'breve', texto: 'EM BREVE: ' + passosDe(m)[0].texto, sub: `em ${alvo}% (agora ${pct.toFixed(0)}%)`, tipo: m.acao_tipo, nivel: 'info', m });
+        }
+      });
+      return out.concat(this.avancar(t));
+    }
+    sync(t, ev) {
+      for (const s of this.ativas) for (let i = 0; i < s.ps.length; i++) {
+        const sy = s.ps[i].sync; if (!sy || sy.evento !== ev || s.sinc.has(i)) continue;
+        const [a, d] = sy.janela || [2.5, 2.5], prev = s.base + s.ps[i].t;
+        if (t >= prev - a && t <= prev + d) { s.base += t - prev; s.sinc.add(i); this.ajustes.push({ t, d: t - prev, nome: s.m.nome }); }
+        break;
+      }
+    }
+    avancar(t) {
+      const out = [];
+      for (const s of this.ativas) while (s.prox < s.ps.length && s.base + s.ps[s.prox].t <= t) {
+        const p = s.ps[s.prox], tipo = p.tipo || s.m.acao_tipo;
+        out.push({ t: s.base + p.t, fase: 'ativo', texto: p.texto, sub: p.sub || '', tipo, contagem: p.contagem, nivel: nivelDe(tipo, s.m.wipe), voz: p.voz, contagemVoz: !!p.contagem_voz, m: s.m, id: s.m.id + '#' + s.prox });
+        s.prox++;
+      }
+      this.ativas = this.ativas.filter(s => s.prox < s.ps.length);
+      return out;
+    }
+    proximos(t) {
+      const l = [];
+      for (const s of this.ativas) for (let i = s.prox; i < s.ps.length; i++) { const eta = s.base + s.ps[i].t - t; if (eta <= 30) l.push({ texto: s.ps[i].texto, tipo: s.ps[i].tipo || s.m.acao_tipo, eta, total: s.ps[i].t - (i ? s.ps[i - 1].t : 0) || 3 }); }
+      this.boss.mecanicas.forEach((m, i) => { if (this.o.off.has(m.id)) return; const a = pctDe(m); if (a != null && !this.disp.has(i) && passosDe(m).length) l.push({ texto: passosDe(m)[0].texto, tipo: m.acao_tipo, hp: a, falta: Math.max(0, this.ultimo - a) }); });
+      return l.sort((x, y) => (x.eta ?? 1e6 + x.falta) - (y.eta ?? 1e6 + y.falta));
+    }
+  }
+
+  // simulação completa até t (determinística, para poder voltar na linha do tempo)
+  const off = new Set();
+  function simular(ate) {
+    const mot = new Motor(D.boss, { off });
+    const emitidos = [], syncs = [];
+    for (const ev of EV) {
+      if (ev.t > ate) break;
+      if (ev.tipo === 'sumico') { if ($('o-sync').checked) { const n = mot.ajustes.length; mot.sync(ev.t, 'sumico'); syncs.push({ t: ev.t, ajuste: mot.ajustes[n] }); } emitidos.push(...mot.avancar(ev.t)); }
+      else emitidos.push(...mot.hp(ev.t, ev.v));
+    }
+    emitidos.push(...mot.avancar(ate));
+    return { mot, emitidos, syncs };
+  }
+
+  // ---------- som e voz ----------
+  let ctx = null;
+  const tom = (f, ini, dur, tipo = 'sine', vol = .18) => {
+    const o = ctx.createOscillator(), g = ctx.createGain(); o.type = tipo; o.frequency.value = f; g.gain.value = 0; o.connect(g); g.connect(ctx.destination);
+    const t = ctx.currentTime + ini; g.gain.linearRampToValueAtTime(vol, t + .01); g.gain.exponentialRampToValueAtTime(.001, t + dur); o.start(t); o.stop(t + dur + .05);
+  };
+  const SONS = {
+    dois_tons_subindo: () => { tom(523, 0, .16); tom(784, .17, .22); }, dois_tons_descendo: () => { tom(784, 0, .16); tom(523, .17, .22); },
+    bipe_curto: () => tom(880, 0, .12, 'square', .08), bipe_curto_duplo: () => { tom(880, 0, .1, 'square', .08); tom(880, .14, .1, 'square', .08); },
+    alarme: () => { for (let i = 0; i < 3; i++) tom(988, i * .18, .12, 'sawtooth', .09); }, tambor: () => { tom(110, 0, .3, 'triangle', .3); tom(110, .32, .3, 'triangle', .3); },
+    sino: () => { tom(1318, 0, .5, 'sine', .14); tom(1975, 0, .4, 'sine', .06); }, clique: () => tom(1500, 0, .05, 'square', .05)
+  };
+  const garantirAudio = () => { try { ctx = ctx || new (window.AudioContext || window.webkitAudioContext)(); } catch { ctx = null; } };
+  const tocar = tipo => { if (!$('o-som').checked || !ctx) return; ((SONS[(D.categorias[tipo] || D.categorias.atencao).som]) || SONS.clique)(); };
+  let vozPt = null;
+  const acharVoz = () => { try { vozPt = speechSynthesis.getVoices().find(v => v.lang && v.lang.toLowerCase().startsWith('pt')) || null; } catch {} };
+  try { acharVoz(); speechSynthesis.onvoiceschanged = acharVoz; } catch {}
+  const falar = txt => { if (!$('o-voz').checked) return false; try { const u = new SpeechSynthesisUtterance(txt); u.lang = 'pt-BR'; if (vozPt) u.voice = vozPt; u.rate = 1.15; speechSynthesis.cancel(); speechSynthesis.speak(u); return true; } catch { return false; } };
+  const falados = new Set();
+
+  // ---------- render ----------
+  const frames = [];
+  for (let i = 1; i <= __NFRAMES__; i++) frames.push(`frames/a_${String(i).padStart(3, '0')}.jpg`);
+  frames.forEach(src => { const im = new Image(); im.src = src; });
+  let t = 0, tocando = false, ultimosIds = new Set();
+  const mmss = s => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
+  const hpEm = s => { let v = null; for (const ev of EV) { if (ev.t > s) break; if (ev.tipo === 'hp') v = ev.v; } return v; };
+  const duracao = a => a.contagem ? a.contagem : (a.fase === 'breve' ? 4 : 3);
+
+  function cardHtml(a, secundario) {
+    const restante = a.contagem ? Math.max(0, a.t + a.contagem - t) : null;
+    const urg = restante != null && restante <= 3;
+    const so = $('o-so').checked;
+    const texto = so && a.fase === 'ativo' ? (a.m.nome.split('(')[0].trim().toUpperCase()) : a.texto;
+    const sub = so ? 'vem aí' : a.sub;
+    return `<div class="card nivel-${a.nivel}${secundario ? ' secundario' : ''}" style="--nc:${NIVEL_COR[a.nivel]};--ac:${corAcao(a.tipo)}">${svg(a.tipo)}<div class="txt"><span class="t1">${esc(texto)}</span><span class="t2">${esc(sub)}</span>${restante != null && a.contagem ? `<div class="cont"><div class="barra"><div style="width:${restante / a.contagem * 100}%"></div></div><span class="seg${urg ? ' urg' : ''}">${restante.toFixed(1)}s</span></div>` : ''}</div></div>`;
+  }
+
+  function render(aoVivo) {
+    const fi = Math.min(frames.length - 1, Math.floor(t / 2));
+    if ($('frame').getAttribute('src') !== frames[fi]) $('frame').src = frames[fi];
+    const hp = hpEm(t);
+    $('relogio').textContent = `vídeo ${mmss(T0 + t)} · HP ${hp == null ? '—' : hp.toFixed(0) + '%'}`;
+    const { mot, emitidos } = simular(t);
+    const vivos = emitidos.filter(a => t < a.t + duracao(a));
+    const breve = vivos.filter(a => a.fase === 'breve').pop();
+    const prio = { alarme: 3, alerta: 2, info: 1 };
+    const ativos = vivos.filter(a => a.fase === 'ativo').sort((x, y) => prio[y.nivel] - prio[x.nivel] || y.t - x.t).slice(0, 2);
+    const pilha = $('pilha');
+    pilha.style.setProperty('--escala', $('o-tam').value); pilha.style.setProperty('--topo', $('o-pos').value);
+    pilha.innerHTML = ativos.map((a, i) => cardHtml(a, i > 0)).join('');
+    const br = $('breve');
+    if (breve && !ativos.length) { br.hidden = false; br.textContent = breve.texto + ' · ' + breve.sub; } else br.hidden = true;
+    const alarmeUrg = ativos.find(a => a.nivel === 'alarme' && (!a.contagem || a.t + a.contagem - t <= 3));
+    $('vinheta').classList.toggle('on', !!(alarmeUrg && $('o-vin').checked));
+    // barras (camadas do BigWigs)
+    const prox = mot.proximos(t).slice(0, 6);
+    $('barras').innerHTML = prox.length ? `<span class="titulo">Próximas</span>` + prox.map(p => {
+      const cor = corAcao(p.tipo);
+      if (p.eta != null) {
+        const frac = Math.max(0, Math.min(1, 1 - p.eta / Math.max(p.total, 1)));
+        return `<div class="barra-item${p.eta <= 6 ? ' destaque' : ''}" style="--bc:${cor}"><div class="fill" style="width:${frac * 100}%"></div>${svg(p.tipo)}<b>${esc($('o-so').checked ? 'FASE' : p.texto)}</b><span>${p.eta.toFixed(1)}s</span></div>`;
+      }
+      return `<div class="barra-item hp" style="--bc:${cor}"><div class="fill" style="width:${Math.max(0, 100 - p.falta * 4)}%"></div>${svg(p.tipo)}<b>${esc(p.texto)}</b><span>${p.hp}% · −${p.falta.toFixed(0)}</span></div>`;
+    }).join('') : '';
+    $('cursor').style.left = (t / DUR * 100) + '%';
+    if (aoVivo) {
+      garantirAudio();
+      for (const a of ativos) {
+        if (ultimosIds.has(a.id)) continue;
+        ultimosIds.add(a.id);
+        if (a.nivel === 'info') continue;
+        const falou = !$('o-so').checked && falar(a.voz || a.texto.toLowerCase());
+        if (!falou) tocar(a.tipo);
+        if (a.contagemVoz && a.contagem && $('o-voz').checked) for (const n of [3, 2, 1]) {
+          const quando = (a.t + a.contagem - n - t) / +$('vel').value * 1000;
+          if (quando > 0) setTimeout(() => { if (tocando) falar(String(n)); }, quando);
+        }
+      }
+    }
+  }
+
+  function desenharTimeline() {
+    const W = 1000, Hh = 96, y = v => 8 + (100 - v) / 100 * (Hh - 16), x = s => s / DUR * W;
+    let d = '', pen = false, prevT = -9;
+    for (const ev of EV) { if (ev.tipo !== 'hp') continue; const gap = ev.t - prevT > 1.2; d += (pen && !gap ? 'L' : 'M') + x(ev.t).toFixed(1) + ' ' + y(ev.v).toFixed(1); pen = true; prevT = ev.t; }
+    const { emitidos, syncs } = simular(DUR);
+    let m = '';
+    for (const a of emitidos) m += `<line x1="${x(a.t)}" x2="${x(a.t)}" y1="0" y2="${Hh}" stroke="${NIVEL_COR[a.nivel]}" stroke-width="${a.fase === 'breve' ? 1 : 2.5}" opacity="${a.fase === 'breve' ? .5 : .9}"/>`;
+    for (const s of syncs) { const cx = x(s.t); m += `<path d="M${cx} 6l5 6-5 6-5-6z" fill="#fff"/>`; if (s.ajuste) m += `<text x="${cx + 8}" y="17" fill="#fff" font-size="11" font-family="IBM Plex Mono, monospace">sync ${s.ajuste.d >= 0 ? '+' : ''}${s.ajuste.d.toFixed(1)}s</text>`; }
+    m += `<line x1="${x(MORTE)}" x2="${x(MORTE)}" y1="0" y2="${Hh}" stroke="#ff4d4d" stroke-width="3"/>`;
+    $('tl').innerHTML = m + `<path d="${d}" fill="none" stroke="#e0b45a" stroke-width="2.5" vector-effect="non-scaling-stroke"/>`;
+  }
+
+  // sistema visual
+  $('cats').innerHTML = Object.entries(D.categorias).map(([k, c]) =>
+    `<div class="cat" style="--cc:${COR[c.cor]}">${svg(k)}<div><b>${NOME[k] || k}</b><small>som: ${esc(c.som.replace(/_/g, ' '))}</small><button type="button" data-som="${k}">Ouvir</button></div></div>`).join('');
+  $('cats').addEventListener('click', ev => { const b = ev.target.closest('[data-som]'); if (!b) return; garantirAudio(); const prev = $('o-som').checked; $('o-som').checked = true; tocar(b.dataset.som); $('o-som').checked = prev; });
+
+  // preferências
+  $('mecs').innerHTML = D.boss.mecanicas.map(m => `<label><input type="checkbox" data-id="${esc(m.id)}" checked><span>${esc(m.nome)} <code>${esc(m.id)}</code></span></label>`).join('');
+  $('mecs').addEventListener('change', ev => { const c = ev.target.closest('[data-id]'); if (!c) return; c.checked ? off.delete(c.dataset.id) : off.add(c.dataset.id); desenharTimeline(); render(false); });
+
+  // controles
+  let ultimo = null;
+  function laco(ts) {
+    if (!tocando) return;
+    if (ultimo != null) t += (ts - ultimo) / 1000 * +$('vel').value;
+    ultimo = ts;
+    if (t >= DUR) { t = DUR; tocando = false; $('play').textContent = 'Reproduzir'; }
+    render(true);
+    if (tocando) requestAnimationFrame(laco);
+  }
+  $('play').addEventListener('click', () => {
+    garantirAudio(); tocando = !tocando; ultimo = null;
+    if (tocando && t >= DUR) t = 0;
+    $('play').textContent = tocando ? 'Pausar' : 'Reproduzir';
+    if (tocando) requestAnimationFrame(laco); else { try { speechSynthesis.cancel(); } catch {} }
+  });
+  const ir = s => { t = Math.max(0, Math.min(DUR, s)); ultimosIds = new Set(simular(t).emitidos.map(a => a.id)); render(false); };
+  const primeiroDisparo = pct => { const ev = EV.find(e => e.tipo === 'hp' && e.v <= pct + 1); return ev ? ev.t : 0; };
+  $('ir75').addEventListener('click', () => ir(primeiroDisparo(75) - 7));
+  $('ir30').addEventListener('click', () => ir(primeiroDisparo(30) - 4));
+  $('timeline').addEventListener('click', ev => { const r = ev.currentTarget.getBoundingClientRect(); ir((ev.clientX - r.left) / r.width * DUR); });
+  ['o-vin', 'o-so', 'o-tam', 'o-pos'].forEach(id => $(id).addEventListener('change', () => render(false)));
+  $('o-sync').addEventListener('change', () => { desenharTimeline(); render(false); });
+
+  desenharTimeline();
+  ir(primeiroDisparo(75) + 8.5);
+})();
+</script>

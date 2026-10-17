@@ -1,0 +1,289 @@
+<title>Fichas de Mecânicas</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: field manual. Sticky dungeon tabs, then one card per boss; each mechanic is a row "cue → action" with the alert callout in gold, trigger chip and a WIPE stripe. Dark-first like the game UI. */
+:root {
+  --bg: #13111b; --panel: #1c1928; --panel-2: #252135; --line: #34304a;
+  --fg: #ebe6f4; --muted: #9d96b0;
+  --gold: #e0b45a; --gold-soft: #e0b45a26; --violet: #a46ad0; --violet-soft: #a46ad02e;
+  --ok: #6cc59a; --warn: #e6a04b; --bad: #e2706a; --bad-soft: #e2706a24;
+  --font-display: "Chakra Petch", "Segoe UI", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg: #f5f3f8; --panel: #ffffff; --panel-2: #efebf5; --line: #d9d3e4; --fg: #1d1a28; --muted: #5d566e;
+    --gold: #94660f; --gold-soft: #94660f1c; --violet: #7537a0; --violet-soft: #7537a01c;
+    --ok: #2b8a5c; --warn: #a8610f; --bad: #b8433d; --bad-soft: #b8433d18; color-scheme: light;
+  }
+}
+:root[data-theme="light"] {
+  --bg: #f5f3f8; --panel: #ffffff; --panel-2: #efebf5; --line: #d9d3e4; --fg: #1d1a28; --muted: #5d566e;
+  --gold: #94660f; --gold-soft: #94660f1c; --violet: #7537a0; --violet-soft: #7537a01c;
+  --ok: #2b8a5c; --warn: #a8610f; --bad: #b8433d; --bad-soft: #b8433d18; color-scheme: light;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 15px; line-height: 1.55;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 28px 64px;
+}
+.wrap { max-width: 980px; margin: 0 auto; display: flex; flex-direction: column; gap: 22px; }
+h1, h2, h3 { font-family: var(--font-display); margin: 0; line-height: 1.15; text-wrap: balance; }
+h1 { font-size: clamp(1.8rem, 5vw, 2.5rem); }
+h2 { font-size: 1.45rem; }
+h3 { font-size: 1.15rem; }
+p { margin: 0; max-width: 70ch; }
+.muted { color: var(--muted); }
+.eyebrow { font-family: var(--font-mono); font-size: .74rem; text-transform: uppercase; letter-spacing: .12em; color: var(--gold); }
+header { display: flex; flex-direction: column; gap: 10px; }
+.tools { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; font-size: .9rem; }
+.tools label { color: var(--muted); }
+input[type="text"], input[type="search"] { font: inherit; color: var(--fg); background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 6px 10px; }
+input:focus-visible, button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+#cp { width: 90px; font-family: var(--font-mono); }
+#busca { width: min(260px, 100%); }
+.check { display: flex; gap: 6px; align-items: center; }
+input[type="checkbox"] { accent-color: var(--gold); }
+
+.tabs { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); padding-block: 8px; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: thin; border-bottom: 1px solid var(--line); }
+.tab { font: 500 .88rem var(--font-body); color: var(--muted); background: var(--panel); border: 1px solid var(--line); border-radius: 999px; padding: 6px 13px; cursor: pointer; white-space: nowrap; }
+.tab[aria-selected="true"] { color: var(--bg); background: var(--gold); border-color: var(--gold); font-weight: 600; }
+.tab small { opacity: .75; margin-left: 4px; }
+
+.dungeon-head { display: flex; flex-direction: column; gap: 6px; }
+.modes { display: flex; gap: 6px; flex-wrap: wrap; }
+.mode { font-family: var(--font-mono); font-size: .76rem; border: 1px solid var(--line); border-radius: 4px; padding: 2px 8px; color: var(--muted); }
+.mode b { color: var(--fg); font-weight: 500; }
+.mode.reach { border-color: var(--ok); }
+.mode.reach b { color: var(--ok); }
+.geral { border-left: 3px solid var(--violet); background: var(--panel); padding: 10px 14px; border-radius: 0 8px 8px 0; font-size: .92rem; }
+
+.boss { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.boss-top { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: baseline; justify-content: space-between; padding: 14px 16px 10px; border-bottom: 1px solid var(--line); }
+.boss-top .role { font-family: var(--font-mono); font-size: .74rem; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; margin-left: 8px; }
+.bench { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: .84rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.bench b { color: var(--fg); font-family: var(--font-mono); font-weight: 500; }
+.bench .cpok { color: var(--ok); }
+.bench .cplow { color: var(--warn); }
+.mechs { list-style: none; margin: 0; padding: 0; }
+.mech { display: grid; grid-template-columns: 4px minmax(0, 1fr); border-bottom: 1px solid var(--line); }
+.mech:last-child { border-bottom: 0; }
+.mech .stripe { background: transparent; }
+.mech.wipe .stripe { background: var(--bad); }
+.mech-body { padding: 12px 16px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.mech-title { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; }
+.mech-title h4 { margin: 0; font: 600 1rem var(--font-body); }
+.chip { font-family: var(--font-mono); font-size: .72rem; border-radius: 4px; padding: 1px 7px; border: 1px solid var(--line); color: var(--muted); white-space: nowrap; }
+.chip.hp { color: var(--violet); border-color: var(--violet); background: var(--violet-soft); }
+.chip.wipe { color: var(--bad); border-color: var(--bad); background: var(--bad-soft); font-weight: 600; }
+.chip.conf-media { color: var(--warn); border-color: var(--warn); }
+.cue-act { display: grid; grid-template-columns: 74px minmax(0, 1fr); gap: 2px 10px; font-size: .92rem; }
+.cue-act dt { color: var(--muted); font-size: .8rem; padding-top: 2px; }
+.cue-act dd { margin: 0; }
+.alert { align-self: flex-start; font: 700 .86rem var(--font-display); letter-spacing: .04em; color: var(--gold); background: var(--gold-soft); border: 1px solid var(--gold); border-radius: 6px; padding: 3px 10px; }
+.note { font-size: .84rem; color: var(--muted); }
+.empty { padding: 30px 16px; text-align: center; color: var(--muted); }
+
+.section { display: flex; flex-direction: column; gap: 14px; }
+.explain { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+@media (max-width: 680px) { .explain { grid-template-columns: minmax(0, 1fr); } .cue-act { grid-template-columns: minmax(0, 1fr); } .cue-act dt { padding-top: 6px; } }
+.box { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.box ul { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 4px; }
+.rota { margin: 0; padding: 12px 16px 12px 36px; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; display: flex; flex-direction: column; gap: 4px; font-size: .9rem; }
+.rota li::marker { color: var(--gold); font-family: var(--font-mono); font-weight: 500; }
+.seq { display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--gold); color: var(--bg); font: 700 .8rem var(--font-mono); margin-right: 8px; vertical-align: 2px; }
+.chip.enrage { color: var(--bad); border-color: var(--bad); }
+.chip.video { color: var(--ok); border-color: var(--ok); }
+.obs { font-size: .84rem; color: var(--ok); font-family: var(--font-mono); }
+.videobox { background: var(--panel); border: 1px solid var(--ok); border-radius: 10px; padding: 12px 16px; display: flex; flex-direction: column; gap: 6px; font-size: .9rem; }
+.videobox table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }
+.videobox th, .videobox td { text-align: left; padding: 3px 8px 3px 0; border-bottom: 1px solid var(--line); }
+.videobox th { font: 500 .72rem var(--font-mono); color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+.videobox .tw { overflow-x: auto; }
+.risco { border: 1px solid var(--line); border-left: 4px solid var(--warn); background: var(--panel); border-radius: 0 10px 10px 0; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+.risco summary { cursor: pointer; font: 600 1.05rem var(--font-display); list-style: none; display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+.risco summary::-webkit-details-marker { display: none; }
+.risco summary .nivel { font: 600 .74rem var(--font-mono); color: var(--warn); border: 1px solid var(--warn); border-radius: 999px; padding: 1px 9px; }
+.risco summary .abrir { font: 400 .8rem var(--font-body); color: var(--muted); }
+.risco[open] summary .abrir { display: none; }
+.risco .cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 10px; }
+@media (max-width: 680px) { .risco .cols { grid-template-columns: minmax(0, 1fr); } }
+.risco h4 { margin: 0 0 4px; font: 600 .95rem var(--font-body); }
+.risco ul, .risco ol { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 4px; font-size: .9rem; }
+.sources { font-size: .84rem; overflow-wrap: anywhere; }
+.sources a { color: var(--gold); }
+</style>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Aion 2 · Expedição e Transcendência</span>
+    <h1>Fichas de Mecânicas</h1>
+    <p class="muted">A rota de cada masmorra e todos os bosses na ordem em que aparecem, subchefes incluídos. Para cada mecânica: o sinal visual, o que fazer e o texto do alerta. As faixas vermelhas marcam as mecânicas que causam wipe. Os números de referência (tempo mediano de kill e CP de entrada, que é o percentil 25 de quem mata) vêm do aionflex.gg, região Global.</p>
+    <div class="tools">
+      <label for="cp">Seu CP</label><input id="cp" type="text" inputmode="numeric" value="91500">
+      <input id="busca" type="search" placeholder="Buscar mecânica ou boss" aria-label="Buscar mecânica ou boss">
+      <span class="check"><input id="sowipe" type="checkbox"><label for="sowipe">Só as que causam wipe</label></span>
+    </div>
+  </header>
+
+  <details class="risco" id="risco">
+    <summary>Risco de ban <span class="nivel">baixo, não zero</span><span class="abrir">abrir</span></summary>
+    <p>A política oficial do AION2 (revisão de 17/09/2026) pune com banimento da conta integrada (todos os jogos da NC) o uso de programas que contornam medidas técnicas de proteção ou atrapalham a operação normal, como os que permitem ações impossíveis para um jogador comum. Na mesma faixa estão criar ou distribuir programas não autorizados e modificar o cliente ou o servidor. Nenhuma regra cita meters, captura de pacotes ou overlays pelo nome, e a NC decide caso a caso.</p>
+    <div class="cols">
+      <div>
+        <h4>O que pesa a favor</h4>
+        <ul>
+          <li>Em dezembro de 2025 a NC anunciou que está desenvolvendo um meter pessoal oficial (Coreia), e não tratou meters como trapaça.</li>
+          <li>Milhares de lutas são enviadas por meters passivos ao aionflex e ao abysslogs, e não há relato público de ban por isso.</li>
+          <li>As ondas de ban divulgadas (mais de 700 mil contas) são por macro, bot, gold farming e RMT.</li>
+          <li>Ler o tráfego que já chega ao seu PC não contorna proteção nem cria ação impossível.</li>
+        </ul>
+      </div>
+      <div>
+        <h4>O que pesa contra</h4>
+        <ul>
+          <li>"Programa não autorizado" é amplo, e a punição é a mais pesada da tabela.</li>
+          <li>A tabela também pune <em>criar</em> programa não autorizado, não só usar.</li>
+          <li>A comunidade relata que o anti-cheat escaneia os processos abertos junto com o jogo.</li>
+          <li>Alertas de mecânica dão vantagem, coisa que a NC pode interpretar como injusta.</li>
+        </ul>
+      </div>
+    </div>
+    <h4>Regras do projeto para continuar só lendo</h4>
+    <ol>
+      <li>Só captura passiva com o Npcap. Nunca ler nem escrever na memória do jogo, injetar DLL, interceptar DirectX ou mexer em arquivos do cliente.</li>
+      <li>O overlay é uma janela própria do Windows, sempre por cima e com o mouse atravessando. Nada é desenhado dentro do jogo.</li>
+      <li>Zero automação: o programa nunca envia tecla, clique ou pacote. O alerta avisa, e quem desvia é você.</li>
+      <li>Só mostrar o que o jogo já mostra na tela (barra de cast, HP do boss, debuff em você), só que antes e mais visível. Nada de informação escondida.</li>
+      <li>Só PvE e só uso pessoal, sem distribuir o programa.</li>
+    </ol>
+  </details>
+
+  <nav class="tabs" id="tabs" role="tablist" aria-label="Masmorras"></nav>
+  <main class="section" id="conteudo"></main>
+
+  <section class="explain">
+    <div class="box">
+      <h3>Como ler</h3>
+      <ul>
+        <li><span class="chip hp">HP 75%</span> a mecânica começa quando o boss cruza esse percentual; o alerta pode disparar sozinho pelo pacote de HP.</li>
+        <li><span class="chip">skill a mapear</span> precisa da captura para descobrir o ID da skill (pacote 0x3802).</li>
+        <li><span class="chip">debuff a mapear</span> precisa da captura para descobrir o ID do debuff (pacote 0x382A).</li>
+        <li><span class="chip conf-media">conferir</span> as fontes divergem ou são vagas.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>Antes de confiar</h3>
+      <ul>
+        <li>Vários guias foram escritos para os servidores coreano e taiwanês. Patches mudam mecânicas e percentuais.</li>
+        <li>Os nomes das mecânicas são descritivos; o jogo pode usar outros.</li>
+        <li>O próximo passo é gravar uma luta de cada boss: a captura confirma o ID de cada skill e o tempo real entre o início do cast e o golpe.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="box sources" id="fontes"></section>
+</div>
+
+<script type="application/json" id="dados">__DATA__</script>
+<script>
+(() => {
+  const D = JSON.parse(document.getElementById('dados').textContent);
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const store = { get(k, d) { try { return localStorage.getItem(k) ?? d; } catch { return d; } }, set(k, v) { try { localStorage.setItem(k, v); } catch {} } };
+
+  let atual = +store.get('fichas.aba', 0) || 0;
+  if (atual >= D.masmorras.length) atual = 0;
+  $('cp').value = store.get('fichas.cp', '91500');
+
+  // aceita "91500", "91.500", "91,5K" e "91.5K"
+  const cpNum = s => {
+    let t = String(s).trim().toUpperCase().replace(/\s/g, '');
+    const k = t.endsWith('K');
+    if (k) t = t.slice(0, -1);
+    if (!k && /^\d{1,3}([.,]\d{3})+$/.test(t)) t = t.replace(/[.,]/g, '');
+    else t = t.replace(',', '.');
+    const v = parseFloat(t);
+    return isNaN(v) ? NaN : k ? v * 1000 : v;
+  };
+  const meuCP = () => cpNum($('cp').value);
+
+  function gatilho(g) {
+    if (!g) return '';
+    if (g.tipo === 'hp') return `<span class="chip hp">HP ${g.pct}%</span>`;
+    if (g.tipo === 'skill') return `<span class="chip">skill a mapear</span>`;
+    if (g.tipo === 'buff') return `<span class="chip">debuff a mapear</span>`;
+    if (g.tipo === 'fase') return `<span class="chip">após: ${esc(g.depois_de)}</span>`;
+    if (g.tipo === 'enrage') return `<span class="chip enrage">enrage${g.segundos ? ' ' + Math.floor(g.segundos / 60) + ':' + String(g.segundos % 60).padStart(2, '0') : ''}</span>`;
+    return '';
+  }
+
+  function bench(b) {
+    const ref = b.referencia_aionflex;
+    if (!ref) return '';
+    const cp = meuCP();
+    return '<div class="bench">' + Object.entries(ref).map(([modo, r]) => {
+      const ent = cpNum(r.cp_entrada);
+      const cls = isNaN(cp) || !cp ? '' : cp >= ent ? 'cpok' : 'cplow';
+      return `<span>${esc(modo)}: kill <b>${esc(r.kill_mediano)}</b> · CP entrada <b class="${cls}">${esc(r.cp_entrada)}</b></span>`;
+    }).join('') + '</div>';
+  }
+
+  function renderTabs() {
+    $('tabs').innerHTML = D.masmorras.map((m, i) =>
+      `<button class="tab" role="tab" aria-selected="${i === atual}" data-i="${i}">${esc(m.nome)}<small>${m.tipo === 'Transcendência' ? 'Transc.' : ''}</small></button>`).join('');
+  }
+
+  function render() {
+    const termo = $('busca').value.trim().toLowerCase();
+    const soWipe = $('sowipe').checked;
+    const lista = termo ? D.masmorras : [D.masmorras[atual]];
+    const partes = [];
+    for (const m of lista) {
+      const bosses = m.bosses.map(b => {
+        const mechs = b.mecanicas.filter(x => (!soWipe || x.wipe) &&
+          (!termo || [b.nome, x.nome, x.sinal, x.acao, x.alerta].join(' ').toLowerCase().includes(termo)));
+        return { b, mechs };
+      }).filter(x => x.mechs.length);
+      if (!bosses.length) continue;
+      const modos = Object.entries(m.modos).map(([k, v]) =>
+        `<span class="mode">${esc(k)} <b>iLvl ${v}</b></span>`).join('');
+      partes.push(`<div class="dungeon-head"><h2>${esc(m.nome)}</h2><div class="modes"><span class="mode">${esc(m.tipo)}</span>${modos}</div></div>`);
+      if (m.ordem && !soWipe && !termo) partes.push(`<ol class="rota">${m.ordem.map(p => `<li>${esc(p)}</li>`).join('')}</ol>`);
+      if (m.geral && !soWipe) partes.push(`<div class="geral">${esc(m.geral)}</div>`);
+      if (m.video && !soWipe && !termo) partes.push(`<div class="videobox"><h3>Confirmado no seu vídeo</h3><p class="muted">${esc(m.video.modo)}. ${esc(m.video.marcadores_barra_hp || '')}</p><div class="tw"><table><thead><tr><th>Boss</th><th>Luta no vídeo</th><th>Duração</th><th>Mediana aionflex</th></tr></thead><tbody>${m.video.lutas.map(l => `<tr><td>${esc(l.boss)}</td><td>${esc(l.inicio)}–${esc(l.fim)}</td><td>${esc(l.duracao)}</td><td>${esc(l.mediana_aionflex)}</td></tr>${l.nota ? `<tr><td colspan="4" class="muted">${esc(l.nota)}</td></tr>` : ''}`).join('')}</tbody></table></div></div>`);
+      for (const { b, mechs } of bosses) {
+        partes.push(`<article class="boss"><div class="boss-top"><h3><span class="seq">${b.ordem ?? ''}</span>${esc(b.nome)}<span class="role">${esc(b.papel)}</span></h3>${bench(b)}</div><ul class="mechs">` +
+          mechs.map(x => `<li class="mech${x.wipe ? ' wipe' : ''}"><span class="stripe"></span><div class="mech-body">
+            <div class="mech-title"><h4>${esc(x.nome)}</h4>${x.wipe ? '<span class="chip wipe">WIPE</span>' : ''}${gatilho(x.gatilho)}${x.observado ? '<span class="chip video">visto no vídeo</span>' : x.confianca === 'media' ? '<span class="chip conf-media">conferir</span>' : ''}</div>
+            <dl class="cue-act"><dt>Sinal</dt><dd>${esc(x.sinal)}</dd><dt>O que fazer</dt><dd>${esc(x.acao)}</dd></dl>
+            ${x.alerta ? `<span class="alert">${esc(x.alerta)}</span>` : ''}
+            ${x.nota ? `<p class="note">${esc(x.nota)}</p>` : ''}
+            ${x.observado ? `<p class="obs">▶ ${[x.observado.hp_pct != null ? 'HP ' + x.observado.hp_pct + '%' : '', x.observado.hp_travado_s ? 'HP travado ' + x.observado.hp_travado_s + ' s' : '', x.observado.fora_da_tela_s ? 'fora da tela ' + x.observado.fora_da_tela_s + ' s' : '', x.observado.circulo_ate_mergulho_s ? 'círculo → mergulho ' + x.observado.circulo_ate_mergulho_s + ' s' : '', x.observado.linha_do_tempo || '', x.observado.nota || ''].filter(Boolean).map(esc).join(' · ')}</p>` : ''}
+          </div></li>`).join('') + '</ul></article>');
+      }
+    }
+    $('conteudo').innerHTML = partes.join('') || '<div class="empty">Nenhuma mecânica encontrada com esse filtro.</div>';
+    $('tabs').style.display = termo ? 'none' : '';
+  }
+
+  $('fontes').innerHTML = '<h3>Fontes</h3><p>' + D.fontes.map(u => `<a href="${esc(u)}" target="_blank" rel="noopener">${esc(u.replace(/^https?:\/\//, ''))}</a>`).join(' · ') + '</p><p class="muted">' + esc(D.aviso) + '</p>';
+
+  $('tabs').addEventListener('click', e => {
+    const t = e.target.closest('.tab'); if (!t) return;
+    atual = +t.dataset.i; store.set('fichas.aba', atual); renderTabs(); render();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  $('busca').addEventListener('input', render);
+  $('sowipe').addEventListener('change', render);
+  $('cp').addEventListener('input', () => { store.set('fichas.cp', $('cp').value); render(); });
+  renderTabs(); render();
+})();
+</script>

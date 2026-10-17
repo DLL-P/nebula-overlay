@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Como contribuir / How to contribute / Cómo contribuir
+    url: https://github.com/DLL-P/nebula-overlay/blob/main/CONTRIBUTING.md
+    about: O que mandar e como (prints, vídeos, textos, capturas, traduções).

@@ -1,0 +1,43 @@
+name: Captura de run / dados de outro programa
+description: Ofereça uma captura do Nebula Overlay ou dados de outra ferramenta (envio privado) / Offer a capture (private transfer)
+labels: [captura]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Não anexe o arquivo .pcap aqui: issues são públicas.** Ele contém nomes de personagens (o seu e os do grupo), servidor e o chat que chegou durante a gravação.
+        Descreva o que você tem; o mantenedor combina um envio privado. Só dados de luta (IDs de skill, tempos, HP) entram no projeto, e a captura nunca é publicada.
+        **Do not attach .pcap files here (issues are public).** / **No adjuntes .pcap aquí (las issues son públicas).**
+  - type: input
+    id: conteudo
+    attributes:
+      label: Masmorra / modo, dificuldade e bosses
+    validations:
+      required: true
+  - type: dropdown
+    id: tipo
+    attributes:
+      label: O que você tem
+      multiple: true
+      options:
+        - Captura do Nebula Overlay (.pcap)
+        - Vídeo da mesma run
+        - Dados de outro programa de leitura (log de luta, linha do tempo, tabela)
+    validations:
+      required: true
+  - type: input
+    id: classe
+    attributes:
+      label: Sua classe e a composição do grupo (opcional)
+  - type: textarea
+    id: notas
+    attributes:
+      label: Observações
+      description: Wipes, mecânicas que você quer ver mapeadas, horário de início do vídeo, de qual programa vieram os dados...
+  - type: checkboxes
+    id: consentimento
+    attributes:
+      label: Consentimento
+      options:
+        - label: Autorizo o uso destes dados para melhorar o Nebula Overlay. Sei que a captura não será publicada e que posso pedir a exclusão nesta issue.
+          required: true

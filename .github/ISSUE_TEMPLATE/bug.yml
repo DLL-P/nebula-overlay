@@ -1,0 +1,25 @@
+name: Problema / Bug / Error
+description: Algo não funcionou / Something went wrong / Algo falló
+labels: [bug]
+body:
+  - type: textarea
+    id: oque
+    attributes:
+      label: O que aconteceu e o que você esperava
+    validations:
+      required: true
+  - type: input
+    id: versao
+    attributes:
+      label: Versão (engrenagem → Sobre)
+  - type: dropdown
+    id: conexao
+    attributes:
+      label: Conexão
+      options: [Direta, ExitLag, Outro acelerador]
+  - type: textarea
+    id: log
+    attributes:
+      label: nebula.log
+      description: Cole o final do arquivo Documentos\Nebula Overlay\nebula.log (confira se não tem nada que você não queira mostrar).
+      render: text

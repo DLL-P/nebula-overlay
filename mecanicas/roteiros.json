@@ -1,0 +1,645 @@
+{
+ "Guardian Captain Raur": {
+  "cadeia": {
+   "1504420": {
+    "proxima": "raur-circulo",
+    "apos": 6.05,
+    "chance": 0.53,
+    "vezes": 10
+   },
+   "raur-zona-escudo": {
+    "proxima": "1504460",
+    "apos": 4.85,
+    "chance": 1.0,
+    "vezes": 9
+   },
+   "guardian-captain-raur-puxao-de-4-jogadores": {
+    "proxima": "raur-circulo",
+    "apos": 2.6,
+    "chance": 0.6,
+    "vezes": 3
+   },
+   "1504420|guardian-captain-raur-investida-inicial": {
+    "proxima": "raur-circulo",
+    "apos": 3.95,
+    "chance": 1.0,
+    "vezes": 4
+   },
+   "raur-circulo|raur-zona-escudo": {
+    "proxima": "1504460",
+    "apos": 4.85,
+    "chance": 1.0,
+    "vezes": 7
+   },
+   "raur-circulo|1504420": {
+    "proxima": "raur-circulo",
+    "apos": 6.13,
+    "chance": 0.5,
+    "vezes": 4
+   },
+   "1504460|raur-transicao": {
+    "proxima": "1504420",
+    "apos": 6.6,
+    "chance": 0.67,
+    "vezes": 2
+   },
+   "raur-transicao|1504420": {
+    "proxima": "guardian-captain-raur-investida-inicial",
+    "apos": 5.05,
+    "chance": 0.67,
+    "vezes": 2
+   },
+   "raur-circulo|raur-circulo": {
+    "proxima": "1504420",
+    "apos": 5.65,
+    "chance": 0.75,
+    "vezes": 3
+   },
+   "guardian-captain-raur-investida-inicial|1504420": {
+    "proxima": "raur-circulo",
+    "apos": 6.05,
+    "chance": 1.0,
+    "vezes": 4
+   },
+   "guardian-captain-raur-investida-inicial|guardian-captain-raur-puxao-de-4-jogadores": {
+    "proxima": "raur-circulo",
+    "apos": 2.6,
+    "chance": 0.6,
+    "vezes": 3
+   },
+   "guardian-captain-raur-puxao-de-4-jogadores|raur-circulo": {
+    "proxima": "1504420",
+    "apos": 3.5,
+    "chance": 1.0,
+    "vezes": 3
+   },
+   "1504460|guardian-captain-raur-investida-inicial": {
+    "proxima": "1504420",
+    "apos": 4.45,
+    "chance": 0.67,
+    "vezes": 2
+   }
+  },
+  "fases_hp": [],
+  "ciclos": {},
+  "runs": 6,
+  "precisao_centro": 0.58,
+  "previsoes_testadas": 12
+ },
+ "Judge Urahum": {
+  "cadeia": {
+   "1605080": {
+    "proxima": "urahum-circulo",
+    "apos": 12.85,
+    "chance": 0.53,
+    "vezes": 8
+   },
+   "1605140": {
+    "proxima": "urahum-poca-alvo",
+    "apos": 3.75,
+    "chance": 0.6,
+    "vezes": 6
+   },
+   "urahum-aneis": {
+    "proxima": "urahum-poca-alvo",
+    "apos": 3.8,
+    "chance": 0.64,
+    "vezes": 7
+   },
+   "1605100|urahum-circulo": {
+    "proxima": "judge-urahum-linhas-radiais-explosao-roxa",
+    "apos": 4.4,
+    "chance": 1.0,
+    "vezes": 4
+   },
+   "urahum-circulo|judge-urahum-linhas-radiais-explosao-roxa": {
+    "proxima": "1605080",
+    "apos": 4.3,
+    "chance": 0.62,
+    "vezes": 5
+   },
+   "judge-urahum-linhas-radiais-explosao-roxa|1605080": {
+    "proxima": "urahum-circulo",
+    "apos": 12.85,
+    "chance": 0.67,
+    "vezes": 6
+   },
+   "1605140|urahum-poca-alvo": {
+    "proxima": "urahum-aneis",
+    "apos": 2.65,
+    "chance": 0.6,
+    "vezes": 3
+   },
+   "urahum-poca-alvo|urahum-transicao": {
+    "proxima": "1605140",
+    "apos": 6.52,
+    "chance": 0.67,
+    "vezes": 2
+   },
+   "judge-urahum-linhas-radiais-explosao-roxa|1605140": {
+    "proxima": "urahum-poca-alvo",
+    "apos": 5.22,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "urahum-aneis|urahum-circulo": {
+    "proxima": "judge-urahum-linhas-radiais-explosao-roxa",
+    "apos": 4.27,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "urahum-circulo|1605100": {
+    "proxima": "judge-urahum-linhas-radiais-explosao-roxa",
+    "apos": 3.65,
+    "chance": 0.67,
+    "vezes": 2
+   },
+   "1605100|urahum-transicao": {
+    "proxima": "1605140",
+    "apos": 6.53,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "urahum-transicao|1605140": {
+    "proxima": "urahum-poca-alvo",
+    "apos": 3.7,
+    "chance": 0.75,
+    "vezes": 3
+   },
+   "1605100|judge-urahum-linhas-radiais-explosao-roxa": {
+    "proxima": "1605080",
+    "apos": 4.16,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1605140|urahum-transicao": {
+    "proxima": "urahum-aneis",
+    "apos": 6.57,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "urahum-transicao|urahum-aneis": {
+    "proxima": "urahum-poca-alvo",
+    "apos": 4.11,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "urahum-poca-alvo|urahum-circulo": {
+    "proxima": "urahum-poca-alvo",
+    "apos": 2.9,
+    "chance": 0.67,
+    "vezes": 2
+   },
+   "urahum-circulo|urahum-poca-alvo": {
+    "proxima": "judge-urahum-linhas-radiais-explosao-roxa",
+    "apos": 1.4,
+    "chance": 0.75,
+    "vezes": 3
+   },
+   "urahum-poca-alvo|1605080": {
+    "proxima": "urahum-circulo",
+    "apos": 11.98,
+    "chance": 0.67,
+    "vezes": 2
+   },
+   "judge-urahum-linhas-radiais-explosao-roxa|urahum-poca-alvo": {
+    "proxima": "1605080",
+    "apos": 1.07,
+    "chance": 0.5,
+    "vezes": 2
+   },
+   "urahum-circulo|urahum-aneis": {
+    "proxima": "urahum-poca-alvo",
+    "apos": 2.95,
+    "chance": 1.0,
+    "vezes": 2
+   }
+  },
+  "fases_hp": [],
+  "ciclos": {},
+  "runs": 6,
+  "precisao_centro": 0.5,
+  "previsoes_testadas": 12
+ },
+ "Divine Auldor": {
+  "cadeia": {
+   "1600880": {
+    "proxima": "divine-auldor-faixas-laranja-caminho-dos-tornados",
+    "apos": 2.35,
+    "chance": 0.87,
+    "vezes": 34
+   },
+   "divine-auldor-faixas-laranja-caminho-dos-tornados": {
+    "proxima": "divine-auldor-leque-frontal-4-tornados",
+    "apos": 2.35,
+    "chance": 0.9,
+    "vezes": 45
+   },
+   "divine-auldor-leque-frontal-4-tornados": {
+    "proxima": "auldor-circulos-jogadores",
+    "apos": 3.55,
+    "chance": 0.51,
+    "vezes": 27
+   },
+   "divine-auldor-investida-com-fissura": {
+    "proxima": "1600960",
+    "apos": 2.2,
+    "chance": 0.58,
+    "vezes": 14
+   },
+   "1600940": {
+    "proxima": "1600880",
+    "apos": 2.2,
+    "chance": 0.55,
+    "vezes": 23
+   },
+   "auldor-fase-inicio": {
+    "proxima": "auldor-sumico",
+    "apos": 3.25,
+    "chance": 0.5,
+    "vezes": 6
+   },
+   "auldor-sumico": {
+    "proxima": "auldor-mergulho-alvo",
+    "apos": 11.6,
+    "chance": 1.0,
+    "vezes": 12
+   },
+   "divine-auldor-agarrar-e-esmagar": {
+    "proxima": "auldor-circulos-jogadores",
+    "apos": 7.13,
+    "chance": 0.59,
+    "vezes": 10
+   },
+   "auldor-vortice": {
+    "proxima": "auldor-sumico",
+    "apos": 4.25,
+    "chance": 1.0,
+    "vezes": 6
+   },
+   "1600870": {
+    "proxima": "divine-auldor-faixas-laranja-caminho-dos-tornados",
+    "apos": 3.26,
+    "chance": 1.0,
+    "vezes": 7
+   },
+   "1600960": {
+    "proxima": "1600940",
+    "apos": 4.3,
+    "chance": 0.81,
+    "vezes": 13
+   },
+   "1600890": {
+    "proxima": "divine-auldor-leque-frontal-4-tornados",
+    "apos": 2.1,
+    "chance": 1.0,
+    "vezes": 3
+   },
+   "1600900": {
+    "proxima": "divine-auldor-faixas-laranja-caminho-dos-tornados",
+    "apos": 0.85,
+    "chance": 0.67,
+    "vezes": 2
+   },
+   "1600880|divine-auldor-faixas-laranja-caminho-dos-tornados": {
+    "proxima": "divine-auldor-leque-frontal-4-tornados",
+    "apos": 2.35,
+    "chance": 0.85,
+    "vezes": 29
+   },
+   "divine-auldor-faixas-laranja-caminho-dos-tornados|divine-auldor-leque-frontal-4-tornados": {
+    "proxima": "auldor-circulos-jogadores",
+    "apos": 3.48,
+    "chance": 0.5,
+    "vezes": 22
+   },
+   "auldor-circulos-jogadores|divine-auldor-investida-com-fissura": {
+    "proxima": "1600960",
+    "apos": 2.2,
+    "chance": 0.55,
+    "vezes": 11
+   },
+   "divine-auldor-investida-com-fissura|1600940": {
+    "proxima": "1600880",
+    "apos": 2.4,
+    "chance": 0.8,
+    "vezes": 8
+   },
+   "1600940|1600880": {
+    "proxima": "divine-auldor-faixas-laranja-caminho-dos-tornados",
+    "apos": 2.35,
+    "chance": 0.86,
+    "vezes": 19
+   },
+   "auldor-fase-inicio|auldor-sumico": {
+    "proxima": "auldor-mergulho-alvo",
+    "apos": 11.6,
+    "chance": 1.0,
+    "vezes": 6
+   },
+   "1600940|divine-auldor-atordoado": {
+    "proxima": "1600880",
+    "apos": 5.08,
+    "chance": 0.8,
+    "vezes": 4
+   },
+   "divine-auldor-atordoado|1600880": {
+    "proxima": "divine-auldor-faixas-laranja-caminho-dos-tornados",
+    "apos": 2.35,
+    "chance": 1.0,
+    "vezes": 6
+   },
+   "1600940|divine-auldor-faixas-laranja-caminho-dos-tornados": {
+    "proxima": "divine-auldor-leque-frontal-4-tornados",
+    "apos": 2.84,
+    "chance": 1.0,
+    "vezes": 3
+   },
+   "divine-auldor-leque-frontal-4-tornados|1600880": {
+    "proxima": "divine-auldor-atordoado",
+    "apos": 0.81,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1600880|divine-auldor-atordoado": {
+    "proxima": "divine-auldor-faixas-laranja-caminho-dos-tornados",
+    "apos": 6.1,
+    "chance": 0.5,
+    "vezes": 2
+   },
+   "divine-auldor-atordoado|divine-auldor-faixas-laranja-caminho-dos-tornados": {
+    "proxima": "divine-auldor-leque-frontal-4-tornados",
+    "apos": 2.34,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "divine-auldor-leque-frontal-4-tornados|divine-auldor-agarrar-e-esmagar": {
+    "proxima": "auldor-circulos-jogadores",
+    "apos": 7.13,
+    "chance": 0.67,
+    "vezes": 10
+   },
+   "divine-auldor-agarrar-e-esmagar|auldor-circulos-jogadores": {
+    "proxima": "divine-auldor-investida-com-fissura",
+    "apos": 3.4,
+    "chance": 0.5,
+    "vezes": 5
+   },
+   "auldor-fase-inicio|auldor-vortice": {
+    "proxima": "auldor-sumico",
+    "apos": 4.25,
+    "chance": 1.0,
+    "vezes": 6
+   },
+   "auldor-vortice|auldor-sumico": {
+    "proxima": "auldor-mergulho-alvo",
+    "apos": 11.6,
+    "chance": 1.0,
+    "vezes": 6
+   },
+   "auldor-mergulho-alvo|1600880": {
+    "proxima": "divine-auldor-faixas-laranja-caminho-dos-tornados",
+    "apos": 2.35,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1600940|1600870": {
+    "proxima": "divine-auldor-faixas-laranja-caminho-dos-tornados",
+    "apos": 3.9,
+    "chance": 1.0,
+    "vezes": 3
+   },
+   "1600870|divine-auldor-faixas-laranja-caminho-dos-tornados": {
+    "proxima": "divine-auldor-leque-frontal-4-tornados",
+    "apos": 2.35,
+    "chance": 1.0,
+    "vezes": 7
+   },
+   "divine-auldor-investida-com-fissura|1600960": {
+    "proxima": "1600940",
+    "apos": 4.3,
+    "chance": 0.93,
+    "vezes": 13
+   },
+   "1600960|1600940": {
+    "proxima": "1600880",
+    "apos": 2.2,
+    "chance": 0.91,
+    "vezes": 10
+   },
+   "auldor-circulos-jogadores|divine-auldor-atordoado": {
+    "proxima": "auldor-fase-inicio",
+    "apos": 5.87,
+    "chance": 0.67,
+    "vezes": 2
+   },
+   "divine-auldor-atordoado|auldor-fase-inicio": {
+    "proxima": "auldor-sumico",
+    "apos": 3.25,
+    "chance": 0.75,
+    "vezes": 3
+   },
+   "divine-auldor-atordoado|divine-auldor-leque-frontal-4-tornados": {
+    "proxima": "auldor-circulos-jogadores",
+    "apos": 3.62,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "divine-auldor-agarrar-e-esmagar|1600880": {
+    "proxima": "divine-auldor-faixas-laranja-caminho-dos-tornados",
+    "apos": 2.35,
+    "chance": 1.0,
+    "vezes": 3
+   },
+   "divine-auldor-faixas-laranja-caminho-dos-tornados|auldor-fase-inicio": {
+    "proxima": "auldor-vortice",
+    "apos": 5.7,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "auldor-mergulho-alvo|divine-auldor-leque-frontal-4-tornados": {
+    "proxima": "auldor-circulos-jogadores",
+    "apos": 3.68,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "divine-auldor-atordoado|divine-auldor-investida-com-fissura": {
+    "proxima": "1600960",
+    "apos": 2.2,
+    "chance": 0.67,
+    "vezes": 2
+   },
+   "auldor-mergulho-alvo|auldor-circulos-jogadores": {
+    "proxima": "divine-auldor-investida-com-fissura",
+    "apos": 3.4,
+    "chance": 1.0,
+    "vezes": 3
+   },
+   "1600940|1600890": {
+    "proxima": "divine-auldor-leque-frontal-4-tornados",
+    "apos": 2.1,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1600890|divine-auldor-leque-frontal-4-tornados": {
+    "proxima": "divine-auldor-agarrar-e-esmagar",
+    "apos": 2.25,
+    "chance": 0.67,
+    "vezes": 2
+   },
+   "1600940|1600900": {
+    "proxima": "divine-auldor-faixas-laranja-caminho-dos-tornados",
+    "apos": 0.85,
+    "chance": 0.67,
+    "vezes": 2
+   },
+   "divine-auldor-leque-frontal-4-tornados|auldor-fase-inicio": {
+    "proxima": "auldor-vortice",
+    "apos": 5.7,
+    "chance": 0.5,
+    "vezes": 2
+   },
+   "1600900|divine-auldor-faixas-laranja-caminho-dos-tornados": {
+    "proxima": "divine-auldor-leque-frontal-4-tornados",
+    "apos": 2.85,
+    "chance": 1.0,
+    "vezes": 2
+   }
+  },
+  "fases_hp": [
+   {
+    "no": "auldor-fase-inicio",
+    "vez": 1,
+    "hp": 78.4,
+    "variacao": 3.5
+   },
+   {
+    "no": "auldor-fase-inicio",
+    "vez": 2,
+    "hp": 32.6,
+    "variacao": 2.2
+   }
+  ],
+  "ciclos": {},
+  "runs": 6,
+  "precisao_centro": 0.82,
+  "previsoes_testadas": 123
+ },
+ "Fortress Guardian Notun": {
+  "cadeia": {
+   "1803910": {
+    "proxima": "1803920",
+    "apos": 1.4,
+    "chance": 1.0,
+    "vezes": 9
+   },
+   "1803920": {
+    "proxima": "1803930",
+    "apos": 2.2,
+    "chance": 0.89,
+    "vezes": 8
+   },
+   "1803930": {
+    "proxima": "1803900",
+    "apos": 3.5,
+    "chance": 1.0,
+    "vezes": 8
+   },
+   "1803950": {
+    "proxima": "1803955",
+    "apos": 1.7,
+    "chance": 0.88,
+    "vezes": 7
+   },
+   "1803955": {
+    "proxima": "1803900",
+    "apos": 0.2,
+    "chance": 0.88,
+    "vezes": 7
+   },
+   "1803970": {
+    "proxima": "1803900",
+    "apos": 1.9,
+    "chance": 0.67,
+    "vezes": 4
+   },
+   "1803900|1803910": {
+    "proxima": "1803920",
+    "apos": 1.4,
+    "chance": 1.0,
+    "vezes": 9
+   },
+   "1803910|1803920": {
+    "proxima": "1803930",
+    "apos": 2.2,
+    "chance": 0.89,
+    "vezes": 8
+   },
+   "1803920|1803930": {
+    "proxima": "1803900",
+    "apos": 3.5,
+    "chance": 1.0,
+    "vezes": 8
+   },
+   "1803930|1803900": {
+    "proxima": "1803950",
+    "apos": 3.7,
+    "chance": 1.0,
+    "vezes": 8
+   },
+   "1803900|1803950": {
+    "proxima": "1803955",
+    "apos": 1.7,
+    "chance": 0.88,
+    "vezes": 7
+   },
+   "1803950|1803955": {
+    "proxima": "1803900",
+    "apos": 0.2,
+    "chance": 0.86,
+    "vezes": 6
+   },
+   "1803955|1803900": {
+    "proxima": "1000009",
+    "apos": 2.57,
+    "chance": 0.57,
+    "vezes": 4
+   },
+   "1803900|1803970": {
+    "proxima": "1803900",
+    "apos": 1.9,
+    "chance": 0.5,
+    "vezes": 2
+   },
+   "1803970|1803900": {
+    "proxima": "1803910",
+    "apos": 3.5,
+    "chance": 1.0,
+    "vezes": 4
+   },
+   "1803900|1000009": {
+    "proxima": "1803970",
+    "apos": 6.85,
+    "chance": 0.5,
+    "vezes": 2
+   },
+   "1000009|1803970": {
+    "proxima": "1803900",
+    "apos": 1.9,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1000009|1803900": {
+    "proxima": "1803910",
+    "apos": 3.5,
+    "chance": 0.67,
+    "vezes": 2
+   }
+  },
+  "fases_hp": [],
+  "ciclos": {},
+  "runs": 1,
+  "precisao_centro": 0.0,
+  "previsoes_testadas": 0
+ }
+}
