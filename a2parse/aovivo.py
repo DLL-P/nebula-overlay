@@ -385,6 +385,10 @@ class Sessao:
             self.classe.skill(c["skill"])
         if op in (0x3804, 0x3805):
             self.medidor.dano(ts, c, self.bosses, lambda e: e in self.nomes or e == self.eu)
+            if self.eu is not None and c.get("alvo") == self.eu and c.get("origem") != self.eu:
+                b = self.boss_atual()               # poças e zonas são NPCs à parte: vale o boss da luta
+                if b and b.motor:
+                    self.alertas += b.motor.dano_em_voce(ts, c.get("skill", 0))
         if op == 0x8D00 and c["entidade"] in self.bosses:
             b = self.bosses[c["entidade"]]
             b.hp, b.max_hp, b.visto = c["hp"], max(b.max_hp, c["hp"]), ts

@@ -230,6 +230,14 @@ class TestMotor(unittest.TestCase):
                        "CHANTER", "FIGHTER"):
             self.assertIn(classe, carregar_dicas())
 
+    def test_poca_eletrica_pelo_dano_em_voce(self):
+        """A poça do Gelcos é um NPC à parte que mira a si mesmo: o aviso vem do dano que você toma."""
+        m = MotorAlertas(boss(DADOS, "Gelcos"), modo_skills=True, eu=7)
+        self.assertEqual([a.texto for a in m.dano_em_voce(10.0, 1603310)], ["SAI DA POÇA"])
+        self.assertEqual(m.dano_em_voce(11.0, 1603310), [])                  # supressão de 3 s
+        self.assertEqual([a.texto for a in m.dano_em_voce(14.0, 1603310)], ["SAI DA POÇA"])
+        self.assertEqual(m.dano_em_voce(20.0, 1603250), [])                  # outra skill: nada
+
     def test_engaje_depois_da_poca(self):
         u = boss(DADOS, "Judge Urahum")
         gla = MotorAlertas(u, modo_skills=True, eu=7, classe="GLADIATOR")

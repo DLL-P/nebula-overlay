@@ -313,6 +313,22 @@ class MotorAlertas:
             self._disparar(i, m, base, alvo, criada=t, precursora=True)
         return self.avancar(t)
 
+    def dano_em_voce(self, t: float, skill_id: int) -> list[Alerta]:
+        """Você tomou dano de uma skill (0x3804/0x3805): dispara mecânicas {"tipo": "dano_em_voce"}.
+
+        Serve para o que o boss deixa no chão e só se vê quando já está em cima (poças, zonas): o NPC da poça
+        não é o boss e o cast dele mira a si mesmo, mas o dano em você diz exatamente que você pisou nela.
+        """
+        for i, m in enumerate(self.boss["mecanicas"]):
+            g = m.get("gatilho") or {}
+            if g.get("tipo") != "dano_em_voce" or skill_id not in (g.get("skill_ids") or []) or not self._ativa(m):
+                continue
+            ultimo = self.disparadas.get(i)
+            if ultimo is not None and t - ultimo < g.get("supressao_s", 3.0):
+                continue
+            self._disparar(i, m, t, self.eu)
+        return self.avancar(t)
+
     def skill(self, t: float, skill_id: int, alvo: int | None = None) -> list[Alerta]:
         """O boss iniciou uma skill (0x3802): dispara mecânicas mapeadas e serve de sync.
 

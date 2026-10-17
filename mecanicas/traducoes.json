@@ -555,7 +555,13 @@
   "CÓPIAS CRUZANDO": "COPIES CROSSING",
   "desvie das lâminas azuis que saem do centro": "dodge the blue blades coming out of the center",
   "barra roxa de 240 pontos em 10 s: TODAS as skills de atordoamento agora": "purple bar of 240 points in 10 s: ALL stagger skills now",
-  "golpe pesado num jogador em ~7 s (até 91 mil)": "heavy hit on one player in ~7 s (up to 91k)"
+  "golpe pesado num jogador em ~7 s (até 91 mil)": "heavy hit on one player in ~7 s (up to 91k)",
+  "Você está numa poça elétrica (~4 a 6 mil por toque): saia agora": "You are in an electric puddle (~4–6k per tick): get out now",
+  "A poça cai onde você está: leve para a borda, longe do grupo e de onde se luta": "The puddle drops where you stand: take it to the edge, away from the group and the fight",
+  "linhas laranja cruzam a arena: saia de cima delas já (batem em ~1 s)": "orange lines cross the arena: get off them now (they hit in ~1 s)",
+  "Golpes seguidos em volta dele por ~2 s (4 × ~6 mil): saia e volte depois": "Repeated hits around him for ~2 s (4 × ~6k): get out and come back after",
+  "fio em 2 jogadores; o golpe pesado vem em seguida (aviso próprio)": "tether on 2 players; the heavy hit comes next (own warning)",
+  "Golpe dividido por quem está no círculo (sozinho: até 91 mil); fique fora das faixas das cópias e com vida cheia": "Hit split among those in the circle (alone: up to 91k); stay out of the copies' lanes and at full HP"
  },
  "es": {
   "3 ACÚMULOS: AFASTA": "3 CARGAS: ALÉJATE",
@@ -1112,6 +1118,12 @@
   "CÓPIAS CRUZANDO": "COPIAS CRUZANDO",
   "desvie das lâminas azuis que saem do centro": "esquiva las cuchillas azules que salen del centro",
   "barra roxa de 240 pontos em 10 s: TODAS as skills de atordoamento agora": "barra morada de 240 puntos en 10 s: TODAS las skills de aturdimiento ahora",
-  "golpe pesado num jogador em ~7 s (até 91 mil)": "golpe pesado en un jugador en ~7 s (hasta 91 mil)"
+  "golpe pesado num jogador em ~7 s (até 91 mil)": "golpe pesado en un jugador en ~7 s (hasta 91 mil)",
+  "Você está numa poça elétrica (~4 a 6 mil por toque): saia agora": "Estás en un charco eléctrico (~4–6 mil por toque): sal ya",
+  "A poça cai onde você está: leve para a borda, longe do grupo e de onde se luta": "El charco cae donde estás: llévalo al borde, lejos del grupo y de la pelea",
+  "linhas laranja cruzam a arena: saia de cima delas já (batem em ~1 s)": "líneas naranjas cruzan la arena: sal de ellas ya (golpean en ~1 s)",
+  "Golpes seguidos em volta dele por ~2 s (4 × ~6 mil): saia e volte depois": "Golpes seguidos a su alrededor durante ~2 s (4 × ~6 mil): sal y vuelve después",
+  "fio em 2 jogadores; o golpe pesado vem em seguida (aviso próprio)": "hilo en 2 jugadores; el golpe pesado viene después (aviso propio)",
+  "Golpe dividido por quem está no círculo (sozinho: até 91 mil); fique fora das faixas das cópias e com vida cheia": "Golpe dividido entre quienes están en el círculo (solo: hasta 91 mil); fuera de las franjas de las copias y con vida llena"
  }
 }

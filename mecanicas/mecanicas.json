@@ -4553,7 +4553,7 @@
         "Estágio 3": 2200,
         "Estágio 4": 2500
       },
-      "geral": "Pontos de todos os inimigos liberam o Atiel (cada boss intermediário vale ~45). Evite as poças roxas. Estágio 2+: Balance Zone onde um elite morre (buffa monstros, dá dano em você). Estágio 2 (runs de 2026-10-17): Gelcos e Nazmun com 7,2 mi de HP; Atiel com 13,7 mi, fases aos ~76% e ~38% (cópias cruzando) e teste de atordoamento de 10 s aos ~15% (240 pontos; falhar = wipe).",
+      "geral": "Pontos de todos os inimigos liberam o Atiel (cada boss intermediário vale ~45). Evite as poças roxas. Estágio 2+: Balance Zone onde um elite morre (buffa monstros, dá dano em você). Estágio 2 (runs de 2026-10-17): Gelcos e Nazmun com 7,2 mi de HP; Atiel com 13,7 mi, fases aos ~76% e ~38% (cópias cruzando) e teste de atordoamento de 10 s aos ~15% (240 pontos; falhar = wipe). Run completa das 15:16: Atiel morto; mortes do grupo no laser do Nazmun (4) e nas poças/linhas do Gelcos.",
       "bosses": [
         {
           "nome": "Gelcos",
@@ -4623,11 +4623,7 @@
               "wipe": false,
               "confianca": "alta",
               "acao_tipo": "espalhar",
-              "id": "gelcos-investida-marcada",
-              "candidatos_skill": {
-                "1603290": "preparo 0,5 s, a cada ~7 s, alvo jogador",
-                "1603360": "preparo 1,65 s, alvo jogador, vem 7 s depois da 1603290"
-              }
+              "id": "gelcos-investida-marcada"
             },
             {
               "nome": "Pancada em 9 linhas",
@@ -4636,15 +4632,28 @@
               "alerta": "FAIXA SEGURA",
               "gatilho": {
                 "tipo": "skill",
-                "skill_id": null
+                "skill_ids": [
+                  1603354
+                ],
+                "supressao_s": 3
               },
               "wipe": false,
               "confianca": "alta",
               "acao_tipo": "sair",
               "id": "gelcos-pancada-em-9-linhas",
-              "candidatos_skill": {
-                "1603250": "preparo 1,29 s, atinge 4 jogadores (~7,7 mil)",
-                "1603280": "atinge até 7 (com invocações), dano baixo"
+              "confianca_skill": "alta",
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "FAIXA SEGURA",
+                  "sub": "linhas laranja cruzam a arena: saia de cima delas já (batem em ~1 s)",
+                  "tipo": "sair",
+                  "contagem": 1.2
+                }
+              ],
+              "observado": {
+                "fonte": "captura + vídeo 2026-10-17 15:10 (Transcendência, Estágio 2, run completa)",
+                "nota": "1603354: 2 cópias (2920369) traçam as linhas laranja e batem 1,2 s depois (1603351, ~5 mil); a 2ª morte do Gelcos veio delas + poça"
               }
             },
             {
@@ -4669,6 +4678,78 @@
               "observado": {
                 "fonte": "captura + vídeo 2026-10-17 13:09 (Transcendência, Estágio 2)",
                 "nota": "1603355 aos 56% (2 atingidos) e 1603350 aos 12% (3 atingidos), ~13,7 mil"
+              },
+              "wipe": false
+            },
+            {
+              "id": "gelcos-poca-eletrica-em-voce",
+              "nome": "Poça elétrica (você em cima)",
+              "sinal": "Você toma dano da 1603310 (poça elétrica azul, NPC 2920361, que fica no chão a luta toda)",
+              "acao": "Você está numa poça elétrica (~4 a 6 mil por toque): saia agora",
+              "alerta": "SAI DA POÇA",
+              "acao_tipo": "sair",
+              "gatilho": {
+                "tipo": "dano_em_voce",
+                "skill_ids": [
+                  1603310
+                ],
+                "supressao_s": 3
+              },
+              "confianca": "alta",
+              "confianca_skill": "alta",
+              "observado": {
+                "fonte": "captura + vídeo 2026-10-17 15:10 (Transcendência, Estágio 2, run completa)",
+                "nota": "as duas mortes do Gelcos tiveram 4 e 1 toques da poça no fim; 39 toques no grupo"
+              },
+              "wipe": false
+            },
+            {
+              "id": "gelcos-poca-alvo",
+              "nome": "Poça elétrica cai no alvo",
+              "sinal": "1603290 (preparo 0,5 s) mira um jogador; ~1 s depois nasce uma poça elétrica (2920361) no lugar",
+              "acao": "A poça cai onde você está: leve para a borda, longe do grupo e de onde se luta",
+              "alerta": "POÇA EM VOCÊ: SAI",
+              "acao_tipo": "sair",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_ids": [
+                  1603290
+                ],
+                "preparo_s": {
+                  "1603290": 0.5
+                },
+                "pessoal": true,
+                "supressao_s": 3
+              },
+              "confianca": "media",
+              "confianca_skill": "media",
+              "observado": {
+                "fonte": "captura + vídeo 2026-10-17 15:10 (Transcendência, Estágio 2, run completa)",
+                "nota": "a cada ~7 s; as poças se acumulam pela arena"
+              },
+              "wipe": false
+            },
+            {
+              "id": "gelcos-golpes-em-volta",
+              "nome": "Golpes seguidos em volta dele",
+              "sinal": "1603250 (preparo 1,3 s): ~2 s de golpes em área em volta do Gelcos, 4 acertos de ~6 mil",
+              "acao": "Golpes seguidos em volta dele por ~2 s (4 × ~6 mil): saia e volte depois",
+              "alerta": "SAI DE PERTO",
+              "acao_tipo": "sair",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_ids": [
+                  1603250
+                ],
+                "preparo_s": {
+                  "1603250": 1.3
+                }
+              },
+              "confianca": "alta",
+              "confianca_skill": "alta",
+              "observado": {
+                "fonte": "captura + vídeo 2026-10-17 15:10 (Transcendência, Estágio 2, run completa)",
+                "nota": "matou 2 jogadores e entrou na 1ª morte sua (4 acertos em 2 s)"
               },
               "wipe": false
             },
@@ -4945,7 +5026,7 @@
               "confianca_skill": "alta",
               "observado": {
                 "fonte": "captura + vídeo 2026-10-17 13:09 (Transcendência, Estágio 2)",
-                "nota": "1801530 aos ~15% (preparo 10 s): abre a barra de atordoamento de 240 pontos. Nas tentativas 2 e 3 o grupo chegou a 14 e 11 pontos restantes; o 1801530 sai, o 1801531 vem 2 s depois e todos caem ~4,5 s depois"
+                "nota": "1801530 aos ~15% (preparo 10 s): abre a barra de atordoamento de 240 pontos. Nas tentativas 2 e 3 o grupo chegou a 14 e 11 pontos restantes; o 1801530 sai, o 1801531 vem 2 s depois e todos caem ~4,5 s depois. Run das 15:16: barra quebrada aos 6,9 s (10/240) e o Atiel morreu"
               },
               "sequencia": [
                 {
@@ -4984,10 +5065,8 @@
                 {
                   "t": 0,
                   "texto": "LIGADOS: SEPARA / RESTO: EMPILHA",
-                  "sub": "golpe pesado num jogador em ~7 s (até 91 mil)",
-                  "tipo": "empilhar",
-                  "contagem": 6.8,
-                  "contagem_voz": true
+                  "sub": "fio em 2 jogadores; o golpe pesado vem em seguida (aviso próprio)",
+                  "tipo": "empilhar"
                 }
               ]
             },
@@ -5071,6 +5150,30 @@
               "observado": {
                 "fonte": "captura + vídeo 2026-10-17 13:09 (Transcendência, Estágio 2)",
                 "nota": "nas 3 tentativas, 1801455 → preparo da fase 3,8 s depois"
+              },
+              "wipe": false
+            },
+            {
+              "id": "atiel-golpe-dividido",
+              "nome": "Golpe pesado dividido",
+              "sinal": "1801450 (preparo 1,7 s, 'You will be the first to die'): golpe dividido entre quem está no círculo laranja",
+              "acao": "Golpe dividido por quem está no círculo (sozinho: até 91 mil); fique fora das faixas das cópias e com vida cheia",
+              "alerta": "EMPILHA NO CÍRCULO",
+              "acao_tipo": "empilhar",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_ids": [
+                  1801450
+                ],
+                "preparo_s": {
+                  "1801450": 1.7
+                }
+              },
+              "confianca": "alta",
+              "confianca_skill": "alta",
+              "observado": {
+                "fonte": "captura + vídeo 2026-10-17 15:10 (Transcendência, Estágio 2, run completa)",
+                "nota": "run das 13:18: 91 mil num jogador só; run das 15:16: 14,6 mil em cada um empilhado. Sua morte: duas lâminas das cópias (1801480) + o golpe, no círculo dentro de uma faixa"
               },
               "wipe": false
             },

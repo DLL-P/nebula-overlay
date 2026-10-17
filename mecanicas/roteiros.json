@@ -1464,69 +1464,111 @@
  },
  "Gelcos": {
   "cadeia": {
-   "1603240": {
-    "proxima": "1603354",
-    "apos": 3.62,
+   "1603230": {
+    "proxima": "1603331",
+    "apos": 1.95,
     "chance": 0.67,
+    "vezes": 2
+   },
+   "1603240": {
+    "proxima": "gelcos-pancada-em-9-linhas",
+    "apos": 3.62,
+    "chance": 0.5,
     "vezes": 2
    },
    "1603331": {
     "proxima": "1603330",
     "apos": 1.55,
-    "chance": 0.67,
-    "vezes": 2
+    "chance": 0.8,
+    "vezes": 4
    },
    "1603330": {
     "proxima": "1603290",
     "apos": 3.5,
     "chance": 1.0,
-    "vezes": 3
+    "vezes": 5
    },
    "1603290": {
     "proxima": "1603340",
     "apos": 3.05,
     "chance": 0.5,
-    "vezes": 3
+    "vezes": 5
    },
    "1603340": {
     "proxima": "1603290",
     "apos": 3.5,
-    "chance": 0.67,
-    "vezes": 2
+    "chance": 0.6,
+    "vezes": 3
    },
    "1603280": {
-    "proxima": "1603250",
-    "apos": 3.27,
-    "chance": 0.67,
+    "proxima": "gelcos-golpes-em-volta",
+    "apos": 2.65,
+    "chance": 0.8,
+    "vezes": 4
+   },
+   "gelcos-golpes-em-volta": {
+    "proxima": "1603270",
+    "apos": 5.45,
+    "chance": 0.75,
+    "vezes": 3
+   },
+   "gelcos-explosao-em-volta": {
+    "proxima": "1603331",
+    "apos": 1.95,
+    "chance": 0.5,
     "vezes": 2
+   },
+   "1603270": {
+    "proxima": "gelcos-grande-chicotada",
+    "apos": 0.25,
+    "chance": 0.6,
+    "vezes": 3
+   },
+   "gelcos-grande-chicotada": {
+    "proxima": "1603270",
+    "apos": 2.45,
+    "chance": 1.0,
+    "vezes": 3
    },
    "1603330|1603290": {
     "proxima": "1603340",
     "apos": 3.05,
     "chance": 1.0,
-    "vezes": 3
+    "vezes": 5
    },
    "1603290|1603340": {
     "proxima": "1603290",
     "apos": 3.5,
-    "chance": 0.67,
-    "vezes": 2
+    "chance": 0.6,
+    "vezes": 3
    },
    "1603340|1603290": {
     "proxima": "1603360",
     "apos": 3.7,
-    "chance": 1.0,
+    "chance": 0.67,
     "vezes": 2
    },
    "1603290|1603360": {
     "proxima": "1603280",
     "apos": 3.45,
-    "chance": 0.67,
+    "chance": 0.5,
     "vezes": 2
    },
    "1603360|1603280": {
-    "proxima": "1603250",
+    "proxima": "gelcos-golpes-em-volta",
     "apos": 3.27,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1603280|gelcos-golpes-em-volta": {
+    "proxima": "1603270",
+    "apos": 5.45,
+    "chance": 0.75,
+    "vezes": 3
+   },
+   "gelcos-explosao-em-volta|1603331": {
+    "proxima": "1603330",
+    "apos": 1.55,
     "chance": 1.0,
     "vezes": 2
    },
@@ -1534,67 +1576,125 @@
     "proxima": "1603290",
     "apos": 3.5,
     "chance": 1.0,
+    "vezes": 4
+   },
+   "1603340|gelcos-pancada-em-9-linhas": {
+    "proxima": "1603290",
+    "apos": 2.35,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "gelcos-golpes-em-volta|1603270": {
+    "proxima": "gelcos-grande-chicotada",
+    "apos": 0.25,
+    "chance": 1.0,
+    "vezes": 3
+   },
+   "1603270|gelcos-grande-chicotada": {
+    "proxima": "1603270",
+    "apos": 2.45,
+    "chance": 1.0,
+    "vezes": 3
+   },
+   "gelcos-grande-chicotada|1603270": {
+    "proxima": "1603240",
+    "apos": 5.13,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1603230|1603331": {
+    "proxima": "1603330",
+    "apos": 3.02,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1603360|gelcos-explosao-em-volta": {
+    "proxima": "1603280",
+    "apos": 2.22,
+    "chance": 0.67,
     "vezes": 2
    }
   },
   "fases_hp": [],
   "ciclos": {
-   "1603331": 43.8,
-   "1603330": 43.8,
-   "1603340": 43.8
+   "1603331": 44.3
   },
-  "runs": 1,
+  "runs": 2,
   "precisao_centro": 0.0,
   "previsoes_testadas": 0
  },
  "Nazmun": {
   "cadeia": {
-   "1605660": {
-    "proxima": "1605620",
-    "apos": 3.67,
+   "1605640": {
+    "proxima": "1605660",
+    "apos": 2.8,
     "chance": 1.0,
     "vezes": 2
    },
-   "1605620": {
-    "proxima": "1605630",
-    "apos": 4.75,
-    "chance": 0.5,
-    "vezes": 3
+   "1605660": {
+    "proxima": "1605620",
+    "apos": 2.95,
+    "chance": 1.0,
+    "vezes": 5
    },
    "nazmun-drones": {
     "proxima": "1605672",
     "apos": 1.85,
     "chance": 1.0,
-    "vezes": 4
+    "vezes": 8
    },
    "1605672": {
     "proxima": "1605671",
     "apos": 0.0,
     "chance": 0.55,
-    "vezes": 6
+    "vezes": 12
    },
    "nazmun-atordoado": {
     "proxima": "1605672",
-    "apos": 1.12,
+    "apos": 1.4,
     "chance": 0.67,
+    "vezes": 4
+   },
+   "1605640|1605660": {
+    "proxima": "1605620",
+    "apos": 3.67,
+    "chance": 1.0,
     "vezes": 2
    },
    "1605660|1605620": {
-    "proxima": "1605630",
-    "apos": 4.78,
+    "proxima": "nazmun-bomba-alvo",
+    "apos": 5.9,
+    "chance": 0.6,
+    "vezes": 3
+   },
+   "1605672|nazmun-lasers-giratorios": {
+    "proxima": "1605672",
+    "apos": 0.35,
     "chance": 1.0,
+    "vezes": 3
+   },
+   "nazmun-lasers-giratorios|1605672": {
+    "proxima": "nazmun-atordoado",
+    "apos": 0.65,
+    "chance": 0.67,
     "vezes": 2
    },
    "1605672|nazmun-atordoado": {
     "proxima": "1605672",
-    "apos": 1.12,
+    "apos": 1.4,
     "chance": 1.0,
-    "vezes": 2
+    "vezes": 4
    },
    "nazmun-atordoado|1605672": {
     "proxima": "1605671",
     "apos": 0.0,
     "chance": 1.0,
+    "vezes": 4
+   },
+   "1605620|1605600": {
+    "proxima": "nazmun-bomba-alvo",
+    "apos": 3.95,
+    "chance": 0.67,
     "vezes": 2
    },
    "1605630|nazmun-drones": {
@@ -1603,19 +1703,56 @@
     "chance": 1.0,
     "vezes": 2
    },
+   "1605672|1605620": {
+    "proxima": "1605672",
+    "apos": 1.7,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1605620|1605672": {
+    "proxima": "1605671",
+    "apos": 0.0,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "nazmun-atordoado|nazmun-drones": {
+    "proxima": "1605672",
+    "apos": 2.42,
+    "chance": 1.0,
+    "vezes": 2
+   },
    "1605671|1605672": {
     "proxima": "1605671",
     "apos": 0.0,
+    "chance": 1.0,
+    "vezes": 4
+   },
+   "1605671|nazmun-lasers-giratorios": {
+    "proxima": "nazmun-bomba-alvo",
+    "apos": 4.45,
+    "chance": 0.67,
+    "vezes": 2
+   },
+   "1605620|nazmun-bomba-alvo": {
+    "proxima": "1605620",
+    "apos": 1.4,
+    "chance": 0.67,
+    "vezes": 2
+   },
+   "nazmun-lasers-giratorios|nazmun-drones": {
+    "proxima": "1605672",
+    "apos": 1.9,
     "chance": 1.0,
     "vezes": 2
    }
   },
   "fases_hp": [],
   "ciclos": {
-   "nazmun-atordoado": 40.15,
-   "1001450": 40.15
+   "nazmun-atordoado": 41.03,
+   "1001450": 41.03,
+   "nazmun-drones": 32.58
   },
-  "runs": 1,
+  "runs": 2,
   "precisao_centro": 0.0,
   "previsoes_testadas": 0
  },
@@ -1624,62 +1761,62 @@
    "1801490": {
     "proxima": "1801430",
     "apos": 1.15,
-    "chance": 0.5,
-    "vezes": 12
+    "chance": 0.53,
+    "vezes": 18
    },
    "1801500": {
     "proxima": "1801430",
     "apos": 4.55,
-    "chance": 0.88,
+    "chance": 0.58,
     "vezes": 7
    },
    "atiel-corrente-2-jogadores": {
     "proxima": "1801465",
-    "apos": 2.15,
-    "chance": 0.9,
-    "vezes": 9
+    "apos": 2.1,
+    "chance": 0.93,
+    "vezes": 13
    },
    "1801465": {
     "proxima": "1801461",
     "apos": 0.1,
-    "chance": 0.94,
-    "vezes": 32
+    "chance": 0.83,
+    "vezes": 49
    },
    "1801461": {
     "proxima": "1801468",
     "apos": 0.0,
     "chance": 1.0,
-    "vezes": 36
+    "vezes": 59
    },
    "1801468": {
     "proxima": "1801469",
     "apos": 0.1,
-    "chance": 0.94,
-    "vezes": 34
+    "chance": 0.92,
+    "vezes": 54
    },
    "1801440": {
     "proxima": "1801465",
     "apos": 0.15,
-    "chance": 0.7,
-    "vezes": 7
+    "chance": 0.57,
+    "vezes": 8
    },
    "1801400": {
     "proxima": "1801410",
     "apos": 0.45,
     "chance": 1.0,
-    "vezes": 13
+    "vezes": 19
    },
    "1801540": {
     "proxima": "atiel-colapso-da-borda",
     "apos": 0.0,
     "chance": 0.5,
-    "vezes": 5
+    "vezes": 7
    },
    "atiel-colapso-da-borda": {
     "proxima": "1801540",
     "apos": 2.1,
     "chance": 1.0,
-    "vezes": 5
+    "vezes": 7
    },
    "atiel-morphic-world-stagger-de-10-s": {
     "proxima": "1801531",
@@ -1696,13 +1833,13 @@
    "1000007|1801490": {
     "proxima": "1801500",
     "apos": 1.15,
-    "chance": 0.67,
+    "chance": 0.5,
     "vezes": 2
    },
    "1801490|1801500": {
     "proxima": "1801430",
     "apos": 4.55,
-    "chance": 0.86,
+    "chance": 0.55,
     "vezes": 6
    },
    "1801500|1801430": {
@@ -1710,6 +1847,12 @@
     "apos": 4.8,
     "chance": 0.71,
     "vezes": 5
+   },
+   "1801420|1801430": {
+    "proxima": "1801470",
+    "apos": 4.38,
+    "chance": 0.5,
+    "vezes": 2
    },
    "1801430|1801490": {
     "proxima": "1801420",
@@ -1719,81 +1862,87 @@
    },
    "1801420|atiel-corrente-2-jogadores": {
     "proxima": "1801465",
-    "apos": 2.15,
+    "apos": 2.1,
     "chance": 1.0,
-    "vezes": 2
+    "vezes": 3
    },
    "atiel-corrente-2-jogadores|1801465": {
     "proxima": "1801461",
     "apos": 0.1,
-    "chance": 1.0,
-    "vezes": 9
+    "chance": 0.92,
+    "vezes": 12
    },
    "1801465|1801461": {
     "proxima": "1801468",
     "apos": 0.0,
     "chance": 1.0,
-    "vezes": 32
+    "vezes": 49
    },
    "1801461|1801468": {
     "proxima": "1801469",
     "apos": 0.1,
-    "chance": 0.94,
-    "vezes": 34
+    "chance": 0.92,
+    "vezes": 54
+   },
+   "1801468|1801469": {
+    "proxima": "1801465",
+    "apos": 0.84,
+    "chance": 0.52,
+    "vezes": 28
    },
    "1801469|1801465": {
     "proxima": "1801461",
-    "apos": 0.08,
-    "chance": 0.86,
-    "vezes": 12
+    "apos": 0.05,
+    "chance": 0.76,
+    "vezes": 22
    },
    "1801469|1801440": {
     "proxima": "1801465",
     "apos": 0.15,
-    "chance": 0.88,
-    "vezes": 7
+    "chance": 0.89,
+    "vezes": 8
    },
    "1801420|1801400": {
     "proxima": "1801410",
     "apos": 0.45,
     "chance": 1.0,
-    "vezes": 8
+    "vezes": 11
    },
    "1801410|1801490": {
     "proxima": "1801430",
     "apos": 1.15,
     "chance": 1.0,
-    "vezes": 2
+    "vezes": 3
    },
    "atiel-aviso-de-fase|1801540": {
     "proxima": "atiel-colapso-da-borda",
-    "apos": 0.0,
+    "apos": 0.03,
     "chance": 1.0,
-    "vezes": 3
+    "vezes": 4
    },
    "1801540|atiel-colapso-da-borda": {
     "proxima": "1801540",
     "apos": 2.1,
     "chance": 1.0,
-    "vezes": 5
+    "vezes": 7
    },
    "atiel-colapso-da-borda|1801540": {
     "proxima": "1801490",
-    "apos": 5.7,
-    "chance": 1.0,
-    "vezes": 5
+    "apos": 5.47,
+    "chance": 0.86,
+    "vezes": 6
    },
    "1801540|1801490": {
     "proxima": "1801430",
     "apos": 1.15,
-    "chance": 0.8,
-    "vezes": 4
+    "chance": 0.83,
+    "vezes": 5
    },
    "1801430|1801470": {
     "proxima": "1801420",
-    "apos": 3.02,
+    "apos": 2.71,
     "chance": 0.67,
-    "vezes": 6
+    "vezes": 8
    },
    "1801470|atiel-corrente-2-jogadores": {
     "proxima": "1801465",
@@ -1805,25 +1954,31 @@
     "proxima": "1801461",
     "apos": 0.1,
     "chance": 1.0,
-    "vezes": 7
+    "vezes": 8
    },
    "1801469|1801461": {
     "proxima": "1801468",
     "apos": 0.0,
     "chance": 1.0,
-    "vezes": 3
+    "vezes": 4
+   },
+   "atiel-golpe-dividido|1801470": {
+    "proxima": "1801430",
+    "apos": 3.21,
+    "chance": 1.0,
+    "vezes": 2
    },
    "1801420|1801470": {
     "proxima": "1801490",
-    "apos": 4.1,
-    "chance": 0.6,
-    "vezes": 3
+    "apos": 3.6,
+    "chance": 0.67,
+    "vezes": 4
    },
    "1801470|1801490": {
     "proxima": "1801430",
     "apos": 1.15,
-    "chance": 0.67,
-    "vezes": 2
+    "chance": 0.75,
+    "vezes": 3
    },
    "1801410|atiel-corrente-2-jogadores": {
     "proxima": "1801465",
@@ -1831,13 +1986,7 @@
     "chance": 1.0,
     "vezes": 2
    },
-   "1801469|1801450": {
-    "proxima": "1801490",
-    "apos": 4.95,
-    "chance": 0.75,
-    "vezes": 3
-   },
-   "1801450|1801490": {
+   "atiel-golpe-dividido|1801490": {
     "proxima": "1801430",
     "apos": 1.15,
     "chance": 0.5,
@@ -1845,32 +1994,56 @@
    },
    "1801420|atiel-aviso-de-fase": {
     "proxima": "1801470",
-    "apos": 1.3,
-    "chance": 0.67,
-    "vezes": 2
+    "apos": 1.55,
+    "chance": 0.75,
+    "vezes": 3
    },
    "1801470|1801400": {
     "proxima": "1801410",
     "apos": 0.45,
     "chance": 1.0,
-    "vezes": 2
+    "vezes": 3
+   },
+   "1801465|1801440": {
+    "proxima": "1801461",
+    "apos": 0.05,
+    "chance": 1.0,
+    "vezes": 3
+   },
+   "1801440|1801461": {
+    "proxima": "1801468",
+    "apos": 0.0,
+    "chance": 1.0,
+    "vezes": 3
    },
    "1801469|1801470": {
-    "proxima": "1801450",
+    "proxima": "atiel-golpe-dividido",
     "apos": 0.37,
     "chance": 0.67,
     "vezes": 2
    },
+   "atiel-golpe-dividido|1801465": {
+    "proxima": "1801461",
+    "apos": 0.1,
+    "chance": 1.0,
+    "vezes": 3
+   },
    "1801410|1801470": {
     "proxima": "1801430",
-    "apos": 1.9,
-    "chance": 0.75,
-    "vezes": 3
+    "apos": 1.83,
+    "chance": 0.67,
+    "vezes": 4
    },
    "1801430|1801400": {
     "proxima": "1801410",
     "apos": 0.45,
     "chance": 1.0,
+    "vezes": 3
+   },
+   "1801430|atiel-corrente-2-jogadores": {
+    "proxima": "1801465",
+    "apos": 2.0,
+    "chance": 0.67,
     "vezes": 2
    },
    "1801470|1801465": {
@@ -1879,22 +2052,58 @@
     "chance": 1.0,
     "vezes": 2
    },
+   "1801465|1801469": {
+    "proxima": "1801490",
+    "apos": 1.35,
+    "chance": 0.8,
+    "vezes": 4
+   },
+   "1801469|1801490": {
+    "proxima": "1801500",
+    "apos": 1.15,
+    "chance": 0.5,
+    "vezes": 2
+   },
    "atiel-aviso-de-fase|1801470": {
     "proxima": "1801540",
-    "apos": 7.47,
+    "apos": 7.2,
     "chance": 1.0,
-    "vezes": 2
+    "vezes": 3
    },
    "1801470|1801540": {
     "proxima": "atiel-colapso-da-borda",
-    "apos": 0.03,
+    "apos": 0.0,
     "chance": 1.0,
-    "vezes": 2
+    "vezes": 3
    },
    "1801410|1801430": {
     "proxima": "1801420",
     "apos": 4.8,
+    "chance": 0.6,
+    "vezes": 3
+   },
+   "1801469|1801480": {
+    "proxima": "1801465",
+    "apos": 0.33,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1801480|1801465": {
+    "proxima": "1801461",
+    "apos": 0.1,
     "chance": 0.67,
+    "vezes": 2
+   },
+   "1801420|1801480": {
+    "proxima": "1801400",
+    "apos": 4.32,
+    "chance": 0.67,
+    "vezes": 2
+   },
+   "1801480|1801400": {
+    "proxima": "1801410",
+    "apos": 0.45,
+    "chance": 1.0,
     "vezes": 2
    },
    "1801480|atiel-morphic-world-stagger-de-10-s": {
@@ -1906,6 +2115,80 @@
    "atiel-morphic-world-stagger-de-10-s|1801531": {
     "proxima": "1000007",
     "apos": 14.65,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1801410|atiel-aviso-de-fase": {
+    "proxima": "1801540",
+    "apos": 8.78,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1801480|1801420": {
+    "proxima": "1801490",
+    "apos": 4.68,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1801468|1801461": {
+    "proxima": "1801468",
+    "apos": 0.0,
+    "chance": 1.0,
+    "vezes": 2
+   }
+  },
+  "fases_hp": [],
+  "ciclos": {},
+  "runs": 2,
+  "precisao_centro": 0.0,
+  "previsoes_testadas": 0
+ },
+ "Predator Saraswati": {
+  "cadeia": {},
+  "fases_hp": [],
+  "ciclos": {},
+  "runs": 1,
+  "precisao_centro": 0.0,
+  "previsoes_testadas": 0
+ },
+ "Phantasmal Lakshmi": {
+  "cadeia": {
+   "1605920": {
+    "proxima": "1605900",
+    "apos": 1.15,
+    "chance": 0.75,
+    "vezes": 3
+   },
+   "1605900|1605920": {
+    "proxima": "1605900",
+    "apos": 1.15,
+    "chance": 1.0,
+    "vezes": 3
+   }
+  },
+  "fases_hp": [],
+  "ciclos": {},
+  "runs": 1,
+  "precisao_centro": 0.0,
+  "previsoes_testadas": 0
+ },
+ "Transcendent Bakarma": {
+  "cadeia": {
+   "9668": {
+    "proxima": "transcendent-bakarma-atordoado",
+    "apos": 14.35,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "transcendent-bakarma-atordoado": {
+    "proxima": "9746",
+    "apos": 0.05,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "9668|transcendent-bakarma-atordoado": {
+    "proxima": "9746",
+    "apos": 0.05,
     "chance": 1.0,
     "vezes": 2
    }
