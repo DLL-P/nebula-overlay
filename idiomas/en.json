@@ -141,7 +141,8 @@
   "contrib_erro": "Couldn't build the package: {erro}",
   "contrib_enviar": "Send",
   "contrib_falta_consentimento": "Check the permission box to build the package.",
-  "contrib_vazio": "Pick a run or write a report."
+  "contrib_vazio": "Pick a run or write a report.",
+  "gravar_tudo": "Also record outside dungeons (field events; bigger files)"
  },
  "classes": {
   "GLADIATOR": "Gladiator",

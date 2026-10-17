@@ -141,7 +141,8 @@
   "contrib_erro": "Não consegui gerar o pacote: {erro}",
   "contrib_enviar": "Enviar",
   "contrib_falta_consentimento": "Marque a autorização para gerar o pacote.",
-  "contrib_vazio": "Escolha uma run ou escreva um relato."
+  "contrib_vazio": "Escolha uma run ou escreva um relato.",
+  "gravar_tudo": "Gravar também fora de masmorra (eventos de campo; arquivos maiores)"
  },
  "classes": {
   "GLADIATOR": "Gladiador",

@@ -320,6 +320,7 @@ class Configuracoes:
                     aplicar=lambda v: setattr(self.ov.sessao, "controle", v))
         self._nota(c, t("controle_nota"))
         self._caixa(c, t("gravar"), "gravar")
+        self._caixa(c, t("gravar_tudo"), "gravar_tudo", padrao=False)
         self._nota(c, t("vale_proximo"))
 
     def _classe(self, chave: str) -> None:

@@ -3,12 +3,50 @@
  "eventos": [
   {
    "chave": "shugo",
-   "nome": {"pt": "Festival Shugo", "en": "Shugo Festival", "es": "Festival Shugo"},
-   "ids": [110101, 110201, 110301, 110401, 110501, 110601, 110701, 110801, 110901],
-   "agenda": {"tipo": "hora", "minuto": 0},
+   "nome": {
+    "pt": "Festival Shugo",
+    "en": "Shugo Festival",
+    "es": "Festival Shugo"
+   },
+   "ids": [
+    110101,
+    110201,
+    110301,
+    110401,
+    110501,
+    110601,
+    110701,
+    110801,
+    110901
+   ],
+   "agenda": {
+    "tipo": "hora",
+    "minuto": 0
+   },
    "duracao_min": 8,
    "confianca": "media",
    "observado": "Capturas de 2026-10-16 às 02:00 e 23:00: os 9 IDs abrem às HH:00:01 (fase 1 até HH:03), passam à fase 2 às HH:03:02 e fecham entre HH:05:57 e HH:08:14. Hora em hora como o Festival Shugo; falta confirmar no jogo que são ele (um ID por região)."
+  },
+  {
+   "chave": "invasao-dimensional",
+   "nome": {
+    "pt": "Invasão Dimensional",
+    "en": "Dimensional Invasion",
+    "es": "Invasión Dimensional"
+   },
+   "ids": [],
+   "agenda": {
+    "tipo": "hora",
+    "minuto": 30
+   },
+   "duracao_min": 13,
+   "confianca": "media",
+   "observado": "Toda hora em :30 (fontes), 3 min de preparação + 10 min de evento; sorteia Beritra Air Raid, Accursed Sword ou Incursion of the Spirits. Entrada por Verteron/Altgard, nível 45+, até 20 jogadores. IDs do servidor ainda não vistos numa captura.",
+   "fontes": [
+    "https://aion2data.com/dimensional-invasion",
+    "https://allthings.how/aion-2-dimensional-invasion-how-to-earn-points-and-claim-rewards/",
+    "https://metabot.gg/en/aion-2/events/dimensional-invasion"
+   ]
   }
  ]
 }

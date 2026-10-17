@@ -416,7 +416,8 @@ class Overlay:
         from gravar import ErroCaptura
         try:
             fonte = FonteAoVivo(salvar=self.cfg.get("gravar", True) and not self.args.sem_salvar,
-                                sempre=self.args.sempre_gravar, rota=rota, forcada=self.cfg.get("placa"))
+                                sempre=self.args.sempre_gravar or self.cfg.get("gravar_tudo", False), rota=rota,
+                                forcada=self.cfg.get("placa"))
         except ErroCaptura as e:
             self.erro_captura = e
             self.inicio.status("erro", erro=e)

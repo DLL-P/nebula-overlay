@@ -7469,6 +7469,109 @@
         "Salas 1, 2 e 3: mate todos e pegue os 2 orbes de cada sala",
         "Sala do boss: Featherstorm Duduri e Watchful Raptor Dodori juntos; alterne o alvo para o stagger"
       ]
+    },
+    {
+      "nome": "Beritra Air Raid",
+      "tipo": "Evento de campo (Invasão Dimensional)",
+      "modos": {
+        "Padrão": 0
+      },
+      "geral": "Evento de campo da Invasão Dimensional (toda hora em :30, 10 min). Ondas de Drakan Armed Air Raider, Drakan Air Raid Infantry, Drakan Air Raid Warmage, Air Raid Rover e Ferocious Racon; o boss Air Raiders Captain Tetrata surge no centro perto do fim. Pontos por dano e abates; o ranking define quantas cartas de recompensa você vira (chave diária).",
+      "fontes": [
+        "vídeo 2026-10-17 19:32 (Beritra Air Raid, ~20 jogadores)",
+        "https://aion2data.com/dimensional-invasion",
+        "https://allthings.how/aion-2-dimensional-invasion-how-to-earn-points-and-claim-rewards/",
+        "https://metabot.gg/en/aion-2/events/dimensional-invasion"
+      ],
+      "ordem": [
+        "Ondas de Drakan e Racons (pontos por abate e dano)",
+        "Air Raiders Captain Tetrata no centro, no fim do tempo"
+      ],
+      "bosses": [
+        {
+          "nome": "Air Raiders Captain Tetrata",
+          "papel": "final",
+          "ids": {},
+          "ordem": 1,
+          "mecanicas": [
+            {
+              "id": "tetrata-circulo-laranja",
+              "nome": "Círculo laranja em volta dele",
+              "sinal": "Círculo laranja grande no chão em volta do Tetrata",
+              "acao": "Saia do círculo antes do golpe",
+              "alerta": "SAI DO CÍRCULO",
+              "acao_tipo": "sair",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_id": null
+              },
+              "wipe": false,
+              "confianca": "media",
+              "observado": {
+                "fonte": "vídeo 2026-10-17 19:32 (Beritra Air Raid, ~20 jogadores)",
+                "nota": "Visto no vídeo; falta a captura para o código do boss e os IDs das skills (o alerta só dispara com eles)."
+              }
+            },
+            {
+              "id": "tetrata-chuva-de-laminas",
+              "nome": "Chuva de lâminas",
+              "sinal": "Lâminas verdes caem do céu espalhadas pela arena",
+              "acao": "Continue se movendo",
+              "alerta": "ANDA",
+              "acao_tipo": "esquivar",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_id": null
+              },
+              "wipe": false,
+              "confianca": "baixa",
+              "observado": {
+                "fonte": "vídeo 2026-10-17 19:32 (Beritra Air Raid, ~20 jogadores)",
+                "nota": "Visto no vídeo; falta a captura para o código do boss e os IDs das skills (o alerta só dispara com eles)."
+              }
+            },
+            {
+              "id": "air-raiders-captain-tetrata-atordoado",
+              "nome": "Atordoamento (medidor zerado)",
+              "sinal": "O medidor de atordoamento (0xE005) chega a ~0; skill 1000009; o boss fica 5 s parado",
+              "acao": "Use as skills fortes: o boss não ataca e toma mais dano",
+              "alerta": "ATORDOADO: BURST!",
+              "acao_tipo": "burst",
+              "wipe": false,
+              "confianca": "alta",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_ids": [
+                  1000009
+                ],
+                "supressao_s": 3
+              },
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "ATORDOADO: BURST!",
+                  "sub": "o boss fica 5 s parado e toma mais dano",
+                  "tipo": "burst",
+                  "contagem": 5.0
+                }
+              ],
+              "status": [
+                {
+                  "texto": "ATORDOADO",
+                  "tipo": "burst",
+                  "em": "boss",
+                  "de": 0,
+                  "ate": 5.0
+                }
+              ],
+              "observado": {
+                "fonte": "runs de 2026-10-16 (01:39, 11:21, 17:11, 19:59)",
+                "nota": "Raur, Urahum, Auldor e Notun: 5,0 s até o medidor recarregar"
+              }
+            }
+          ]
+        }
+      ]
     }
   ],
   "fontes": [
