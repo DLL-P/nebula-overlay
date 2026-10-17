@@ -75,7 +75,7 @@ def rodar_video(dados: dict, args) -> list[Alerta]:
     mz = masmorra(dados, args.masmorra)
     if "video" not in mz:
         sys.exit(f"{mz['nome']} não tem curva de vídeo registrada no mecanicas.json.")
-    curva = args.curva or os.path.join(RAIZ, "mecanicas", "historico", "urugugu_2026-10-16_hp.txt")
+    curva = args.curva or os.path.join(RAIZ, "testes", "dados", "urugugu_hp.txt")
     motores: dict[str, MotorAlertas] = {}
     saida: list[Alerta] = []
     for ev in eventos_video(curva, mz["video"]["lutas"]):
