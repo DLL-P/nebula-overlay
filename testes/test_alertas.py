@@ -207,6 +207,29 @@ class TestMotor(unittest.TestCase):
         self.assertIn("ENGAJE", [a.texto for a in gla.skill(1.0, 1600970, 1) + gla.avancar(5)])
         self.assertNotIn("ENGAJE", [a.texto for a in sor.skill(1.0, 1600970, 1) + sor.avancar(5)])
 
+    def test_cor_do_thamon_por_tipo_de_dano(self):
+        b = boss(DADOS, "Thamon")
+        texto = lambda classe: [a.texto for a in MotorAlertas(b, modo_skills=True, classe=classe).hp(0, 94)]
+        self.assertEqual(texto("RANGER"), ["VERMELHO: PARA DE BATER"])          # físico, mesmo de longe
+        self.assertEqual(texto("GLADIATOR"), ["VERMELHO: PARA DE BATER"])
+        self.assertEqual(texto("SORCERER"), ["ROXO: PARA DE BATER"])
+        self.assertEqual(texto(None), ["VERMELHO: FÍSICO PARA / ROXO: MÁGICO PARA"])
+        verm = dict(next(m for m in b["mecanicas"] if m["id"] == "thamon-fase-vermelha"))
+        verm["gatilho"] = {"tipo": "skill", "skill_ids": [42]}
+        so = lambda classe: [a.texto for a in MotorAlertas({"nome": "X", "mecanicas": [verm]}, classe=classe).skill(1.0, 42)]
+        self.assertEqual(so("RANGER"), ["VERMELHO: PARA DE BATER"])
+        self.assertEqual(so("ELEMENTALIST"), [])
+
+    def test_prisao_de_pedra_do_vakron_com_dica_do_arqueiro(self):
+        from a2parse.alertas import carregar_dicas
+        m = MotorAlertas(boss(DADOS, "Vakron"), modo_skills=True, classe="RANGER", dicas=carregar_dicas())
+        a = m.skill(1.0, 1604425, 1)
+        self.assertEqual([x.texto for x in a], ["QUEBRA A PEDRA VERMELHA"])
+        self.assertIn("Flecha Certeira", a[0].dica)
+        for classe in ("GLADIATOR", "TEMPLAR", "ASSASSIN", "RANGER", "SORCERER", "ELEMENTALIST", "CLERIC",
+                       "CHANTER", "FIGHTER"):
+            self.assertIn(classe, carregar_dicas())
+
     def test_engaje_depois_da_poca(self):
         u = boss(DADOS, "Judge Urahum")
         gla = MotorAlertas(u, modo_skills=True, eu=7, classe="GLADIATOR")

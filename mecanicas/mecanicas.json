@@ -212,7 +212,8 @@
               "cp_entrada": "15K"
             }
           },
-          "ordem": 2
+          "ordem": 2,
+          "faixa_skills_candidata": "1605610–1605670 (Bomb Drop, Ultra Laser, Laser Bombardment, Drone Strike) — só pelo tema dos lasers"
         },
         {
           "nome": "Ultimate Berk",
@@ -256,7 +257,10 @@
               "nota": "Repete uma vez entre 33% e 25%. Quem estiver exposto morre na hora.",
               "acao_tipo": "esconder",
               "pre_aviso_pct": 5,
-              "id": "ultimate-berk-wave-of-fury-pedras"
+              "id": "ultimate-berk-wave-of-fury-pedras",
+              "candidatos_skill": {
+                "1800050": "Wave of Fury (nome igual ao da tabela de skills do jogo; confirmar numa captura (mapear.py mostra como candidato))"
+              }
             },
             {
               "nome": "Wave of Fury (2ª vez)",
@@ -272,7 +276,10 @@
               "nota": "Uma fonte dá 'entre 25% e 33%'; usei 30% como gatilho.",
               "acao_tipo": "esconder",
               "pre_aviso_pct": 5,
-              "id": "ultimate-berk-wave-of-fury-2a-vez"
+              "id": "ultimate-berk-wave-of-fury-2a-vez",
+              "candidatos_skill": {
+                "1800050": "Wave of Fury (nome igual ao da tabela de skills do jogo; confirmar numa captura (mapear.py mostra como candidato))"
+              }
             },
             {
               "nome": "Extinction for Eternity (stagger)",
@@ -287,7 +294,10 @@
               "confianca": "alta",
               "acao_tipo": "stagger",
               "pre_aviso_pct": 5,
-              "id": "ultimate-berk-extinction-for-eternity-stagger"
+              "id": "ultimate-berk-extinction-for-eternity-stagger",
+              "candidatos_skill": {
+                "1800140": "Extinction for Eternity (nome igual ao da tabela de skills do jogo; confirmar numa captura (mapear.py mostra como candidato))"
+              }
             },
             {
               "nome": "Pedras caindo",
@@ -315,7 +325,10 @@
               "wipe": false,
               "confianca": "alta",
               "acao_tipo": "esquivar",
-              "id": "ultimate-berk-berk-whirl"
+              "id": "ultimate-berk-berk-whirl",
+              "candidatos_skill": {
+                "1800120": "Chroma Whirl (só pelo tema: giro) (nome igual ao da tabela de skills do jogo; confirmar numa captura (mapear.py mostra como candidato))"
+              }
             },
             {
               "nome": "Pancada + golpe duplo",
@@ -428,7 +441,8 @@
               }
             }
           ],
-          "ordem": 3
+          "ordem": 3,
+          "faixa_skills_candidata": "1800030–1800142 (Rush, Roar of Fury, Wave of Fury, Drana Wave, Wrathful Blade, Chroma Whirl/Storm, Extinction for Eternity, Pillar)"
         }
       ],
       "ordem": [
@@ -2159,7 +2173,7 @@
         "Exploração": 1400,
         "Conquista": 1400
       },
-      "geral": "Olhar de Vakron: acumula ao andar fora das arenas; com 3 acúmulos você fica preso em espinhos. Limpe na Fog Spiritstone (fonte).",
+      "geral": "Olhar de Vakron (Thorn Root): acumula fora das arenas e continua acumulando nas lutas; com 3 acúmulos você fica preso em espinhos tomando dano até morrer. Aliados batem na prisão para soltar. Limpe na Fog Spiritstone (pilar com orbe brilhante); arenas e algumas correntes de vento também zeram.",
       "bosses": [
         {
           "nome": "Tiere",
@@ -2170,13 +2184,17 @@
             ],
             "Conquista": [
               2300810
+            ],
+            "Outro modo (a confirmar)": [
+              2320810,
+              2300580
             ]
           },
           "mecanicas": [
             {
               "nome": "Zona de veneno + flor",
-              "sinal": "Por volta de 75% ela vai ao centro; veneno cobre tudo menos um círculo pequeno",
-              "acao": "Pise na flor que nasce para limpar e reagrupe",
+              "sinal": "Por volta de 75% ela vai ao centro e invoca flores (Rafflésia); névoa verde cobre a arena menos um círculo pequeno",
+              "acao": "Quebre ou pise na flor para limpar o veneno; depois todos juntos no círculo verde, girando devagar no mesmo sentido",
               "alerta": "PISA NA FLOR",
               "gatilho": {
                 "tipo": "hp",
@@ -2186,7 +2204,32 @@
               "confianca": "alta",
               "acao_tipo": "matar_alvo",
               "pre_aviso_pct": 5,
-              "id": "tiere-zona-de-veneno-flor"
+              "id": "tiere-zona-de-veneno-flor",
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "PISA NA FLOR",
+                  "sub": "a flor limpa o veneno",
+                  "tipo": "matar_alvo"
+                },
+                {
+                  "t": 4,
+                  "texto": "EMPILHA E GIRA JUNTO",
+                  "sub": "no círculo verde; desvie dos saltos dela",
+                  "tipo": "empilhar"
+                }
+              ],
+              "nota": "Fontes divergem na ordem: quebrar a Rafflésia e entrar no verde (inven) ou pisar na flor (gamesfuze). Espalhar aqui deixa a névoa cobrir tudo e pode dar wipe. O passo 2 em +4 s é estimado.",
+              "fontes": [
+                "https://gamesfuze.com/guides/aion-2-vakron-sky-island-trial-guide-normal-hard/",
+                "https://allthings.how/?p=244700",
+                "https://allthings.how/?p=247417",
+                "https://www.inven.co.kr/board/aion2/6493/216"
+              ],
+              "candidatos_skill": {
+                "1604280": "Deadly Poison Swamp",
+                "1604290": "Surging Deadly Poison Swamp (nome da skill na tabela de skills do jogo; ainda não visto numa captura)"
+              }
             },
             {
               "nome": "Nuvem venenosa",
@@ -2216,16 +2259,33 @@
             {
               "nome": "Salto + investida",
               "sinal": "Pouso derruba quem está colado; depois investe no tank",
-              "acao": "Afaste-se quando ela preparar a investida",
-              "alerta": null,
+              "acao": "Saia do ponto de pouso; quando ela preparar a investida no tank, afaste-se",
+              "alerta": "SALTO: SAI DO POUSO",
               "gatilho": {
                 "tipo": "skill",
                 "skill_id": null
               },
               "wipe": false,
               "confianca": "alta",
-              "acao_tipo": "atencao",
+              "acao_tipo": "esquivar",
               "id": "tiere-salto-investida"
+            },
+            {
+              "id": "tiere-linhas-e-circulos",
+              "nome": "Linhas e círculos pequenos",
+              "sinal": "Ataques em linha e círculos pequenos de veneno entre os saltos",
+              "acao": "Não atravesse veneno que já está no chão",
+              "alerta": null,
+              "gatilho": {
+                "tipo": "skill",
+                "skill_id": null
+              },
+              "wipe": false,
+              "confianca": "media",
+              "acao_tipo": "atencao",
+              "fontes": [
+                "https://gamesfuze.com/guides/aion-2-vakron-sky-island-trial-guide-normal-hard/"
+              ]
             },
             {
               "id": "tiere-atordoado",
@@ -2277,7 +2337,8 @@
               "cp_entrada": "67K"
             }
           },
-          "ordem": 1
+          "ordem": 1,
+          "faixa_skills_candidata": "1604060–1604290 (Deadly Poison Swamp 1604280/1604290; o resto aparece como Attack)"
         },
         {
           "nome": "Thamon",
@@ -2288,23 +2349,160 @@
             ],
             "Conquista": [
               2300811
+            ],
+            "Outro modo (a confirmar)": [
+              2320811,
+              2300581
             ]
           },
           "mecanicas": [
             {
+              "id": "thamon-absorcao-vermelha-roxa",
               "nome": "Absorção vermelha/roxa",
-              "sinal": "A partir de ~95%: vermelho absorve físico, roxo absorve mágico, por ~10 s",
-              "acao": "Vermelho: corpo a corpo para de bater. Roxo: casters param. Bater na cor errada cura o boss",
+              "sinal": "A partir de ~95%: de tempos em tempos ele fica vermelho (aviso \"붉게 달아오른다\") ou roxo (\"보랏빛 솟구친다\") por 8–10 s. Vermelho: o dano físico o cura. Roxo: o dano mágico o cura",
+              "acao": "Vermelho: quem dá dano físico para (Arqueiro também). Roxo: quem dá dano mágico para. Bater na cor errada cura o boss",
               "alerta": "VERMELHO: FÍSICO PARA / ROXO: MÁGICO PARA",
               "gatilho": {
-                "tipo": "buff",
-                "abnormal_id": null
+                "tipo": "hp",
+                "pct": 95
+              },
+              "pre_aviso_pct": 0,
+              "por_classe": {
+                "GLADIATOR": {
+                  "texto": "VERMELHO: PARA DE BATER",
+                  "sub": "seu dano é físico: no vermelho ele se cura. Roxo: pode bater"
+                },
+                "TEMPLAR": {
+                  "texto": "VERMELHO: PARA DE BATER",
+                  "sub": "seu dano é físico: no vermelho ele se cura. Roxo: pode bater"
+                },
+                "ASSASSIN": {
+                  "texto": "VERMELHO: PARA DE BATER",
+                  "sub": "seu dano é físico: no vermelho ele se cura. Roxo: pode bater"
+                },
+                "RANGER": {
+                  "texto": "VERMELHO: PARA DE BATER",
+                  "sub": "seu dano é físico: no vermelho ele se cura. Roxo: pode bater"
+                },
+                "CHANTER": {
+                  "texto": "VERMELHO: PARA DE BATER",
+                  "sub": "seu dano é físico: no vermelho ele se cura. Roxo: pode bater"
+                },
+                "FIGHTER": {
+                  "texto": "VERMELHO: PARA DE BATER",
+                  "sub": "seu dano é físico: no vermelho ele se cura. Roxo: pode bater"
+                },
+                "SORCERER": {
+                  "texto": "ROXO: PARA DE BATER",
+                  "sub": "seu dano é mágico: no roxo ele se cura. Vermelho: pode bater"
+                },
+                "ELEMENTALIST": {
+                  "texto": "ROXO: PARA DE BATER",
+                  "sub": "seu dano é mágico: no roxo ele se cura. Vermelho: pode bater"
+                },
+                "CLERIC": {
+                  "texto": "ROXO: PARA DE BATER",
+                  "sub": "seu dano é mágico: no roxo ele se cura. Vermelho: pode bater"
+                }
               },
               "wipe": false,
               "confianca": "alta",
-              "nota": "Começa por volta de 95% de HP e dura ~10 s cada vez.",
               "acao_tipo": "parar_dano",
-              "id": "thamon-absorcao-vermelha-roxa"
+              "nota": "Aviso único quando as cores começam (~95%). Cada troca de cor só vira alerta quando o ID dela for mapeado (ver thamon-fase-vermelha e thamon-fase-roxa). Dano físico: Gladiador, Templário, Assassino, Arqueiro, Encantador e Lutador. Mágico: Mago, Espiritualista e Clérigo. Encantador e Clérigo são os menos certos: conferir no jogo.",
+              "fontes": [
+                "https://gamesfuze.com/guides/aion-2-vakron-sky-island-trial-guide-normal-hard/",
+                "https://selphie1999gaming.com/game-guides/aion-2/vakron-sky-island-expedition-in-aion-2/",
+                "https://www.inven.co.kr/board/aion2/6493/216"
+              ]
+            },
+            {
+              "id": "thamon-fase-vermelha",
+              "nome": "Fase vermelha (cura com dano físico)",
+              "sinal": "Brilho vermelho/laranja com colunas de fogo; aviso \"붉게 달아오른다\" (fica vermelho em brasa)",
+              "acao": "Dano físico cura o boss: pare de bater até o vermelho sumir",
+              "alerta": "VERMELHO: PARA DE BATER",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_id": null
+              },
+              "classes": [
+                "GLADIATOR",
+                "TEMPLAR",
+                "ASSASSIN",
+                "RANGER",
+                "CHANTER",
+                "FIGHTER"
+              ],
+              "wipe": false,
+              "confianca": "alta",
+              "acao_tipo": "parar_dano",
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "VERMELHO: PARA DE BATER",
+                  "sub": "dano físico cura o boss",
+                  "tipo": "parar_dano",
+                  "contagem": 8.0
+                }
+              ],
+              "status": [
+                {
+                  "texto": "VERMELHO",
+                  "tipo": "parar_dano",
+                  "em": "boss",
+                  "de": 0,
+                  "ate": 8.0
+                }
+              ],
+              "nota": "Duração: 8 s (selphie) ou ~10 s (gamesfuze). Falta o ID da skill/buff que liga a fase (captura). Dano físico: Gladiador, Templário, Assassino, Arqueiro, Encantador e Lutador. Mágico: Mago, Espiritualista e Clérigo. Encantador e Clérigo são os menos certos: conferir no jogo.",
+              "fontes": [
+                "https://gamesfuze.com/guides/aion-2-vakron-sky-island-trial-guide-normal-hard/",
+                "https://selphie1999gaming.com/game-guides/aion-2/vakron-sky-island-expedition-in-aion-2/",
+                "https://www.inven.co.kr/board/aion2/6493/216"
+              ]
+            },
+            {
+              "id": "thamon-fase-roxa",
+              "nome": "Fase roxa (cura com dano mágico)",
+              "sinal": "Brilho roxo; aviso \"보랏빛 솟구친다\" (energia roxa sobe)",
+              "acao": "Dano mágico cura o boss: pare de bater até o roxo sumir",
+              "alerta": "ROXO: PARA DE BATER",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_id": null
+              },
+              "classes": [
+                "SORCERER",
+                "ELEMENTALIST",
+                "CLERIC"
+              ],
+              "wipe": false,
+              "confianca": "alta",
+              "acao_tipo": "parar_dano",
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "ROXO: PARA DE BATER",
+                  "sub": "dano mágico cura o boss",
+                  "tipo": "parar_dano",
+                  "contagem": 8.0
+                }
+              ],
+              "status": [
+                {
+                  "texto": "ROXO",
+                  "tipo": "parar_dano",
+                  "em": "boss",
+                  "de": 0,
+                  "ate": 8.0
+                }
+              ],
+              "nota": "Duração: 8 s (selphie) ou ~10 s (gamesfuze). Falta o ID da skill/buff que liga a fase (captura). Dano físico: Gladiador, Templário, Assassino, Arqueiro, Encantador e Lutador. Mágico: Mago, Espiritualista e Clérigo. Encantador e Clérigo são os menos certos: conferir no jogo.",
+              "fontes": [
+                "https://gamesfuze.com/guides/aion-2-vakron-sky-island-trial-guide-normal-hard/",
+                "https://selphie1999gaming.com/game-guides/aion-2/vakron-sky-island-expedition-in-aion-2/",
+                "https://www.inven.co.kr/board/aion2/6493/216"
+              ]
             },
             {
               "nome": "Círculos de petrificação",
@@ -2333,6 +2531,44 @@
               "confianca": "alta",
               "acao_tipo": "matar_alvo",
               "id": "thamon-golpe-nos-petrificados"
+            },
+            {
+              "id": "thamon-salto-no-alvo",
+              "nome": "Salto no alvo (mata)",
+              "sinal": "Depois de uma investida ou de um combo de chutes, mira um jogador, pula e cai em cima dele",
+              "acao": "Afaste-se dele e continue andando",
+              "alerta": "SALTO: AFASTA",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_id": null
+              },
+              "wipe": true,
+              "confianca": "media",
+              "acao_tipo": "sair",
+              "nota": "Fonte única (inven, texto marcado como gerado por IA): mata na hora.",
+              "fontes": [
+                "https://www.inven.co.kr/board/aion2/6493/216"
+              ]
+            },
+            {
+              "id": "thamon-onda-de-choque",
+              "nome": "Pisão + onda de choque",
+              "sinal": "Ele pisa e marca um círculo grande; círculos menores caem antes e a onda de choque vem por último",
+              "acao": "Desvie dos círculos pequenos e pule a onda grande",
+              "alerta": "PULA A ONDA",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_id": null
+              },
+              "wipe": false,
+              "confianca": "alta",
+              "acao_tipo": "pular",
+              "nota": "Pedra que acerta petrifica (pode passar de 200 mil de dano); petrificado toma o golpe seguinte em cheio.",
+              "fontes": [
+                "https://allthings.how/?p=247417",
+                "https://selphie1999gaming.com/game-guides/aion-2/vakron-sky-island-expedition-in-aion-2/",
+                "https://www.inven.co.kr/board/aion2/6493/216"
+              ]
             },
             {
               "id": "thamon-atordoado",
@@ -2395,6 +2631,10 @@
             ],
             "Exploração": [
               2310812
+            ],
+            "Outro modo (a confirmar)": [
+              2320812,
+              2300582
             ]
           },
           "referencia_aionflex": {
@@ -2411,7 +2651,7 @@
             {
               "nome": "Surging Thorn (anéis + linhas + explosão)",
               "sinal": "Chão vermelho; três ondas de anéis e linhas saindo do centro",
-              "acao": "Pule cada onda, fique entre as linhas vermelhas e, na explosão final, pule e aperte Espaço de novo para planar por cima",
+              "acao": "Pule as 3 primeiras ondas, fique entre as linhas e, na 4ª (Fúria da Terra, a mais forte), pule e plane por cima",
               "alerta": "PULA E PLANA",
               "gatilho": {
                 "tipo": "hp",
@@ -2422,12 +2662,21 @@
               "nota": "Repete aos ~35%. Pule quando a explosão final for cair, não logo após as AoEs anteriores.",
               "acao_tipo": "pular",
               "pre_aviso_pct": 5,
-              "id": "vakron-surging-thorn-aneis-linhas-explosao"
+              "id": "vakron-surging-thorn-aneis-linhas-explosao",
+              "candidatos_skill": {
+                "1604390": "Surging Thorn (nome da skill na tabela de skills do jogo; ainda não visto numa captura)"
+              },
+              "fontes": [
+                "https://gamesfuze.com/guides/aion-2-vakron-sky-island-trial-guide-normal-hard/",
+                "https://allthings.how/?p=244700",
+                "https://allthings.how/?p=247417",
+                "https://www.inven.co.kr/board/aion2/6493/216"
+              ]
             },
             {
               "nome": "Surging Thorn (2ª vez)",
               "sinal": "Chão vermelho; três ondas de anéis e linhas saindo do centro",
-              "acao": "Pule cada onda, fique entre as linhas vermelhas e, na explosão final, pule e aperte Espaço de novo para planar por cima",
+              "acao": "Pule as 3 primeiras ondas, fique entre as linhas e, na 4ª (Fúria da Terra, a mais forte), pule e plane por cima",
               "alerta": "PULA E PLANA",
               "gatilho": {
                 "tipo": "hp",
@@ -2437,25 +2686,56 @@
               "confianca": "alta",
               "acao_tipo": "pular",
               "pre_aviso_pct": 5,
-              "id": "vakron-surging-thorn-2a-vez"
+              "id": "vakron-surging-thorn-2a-vez",
+              "candidatos_skill": {
+                "1604390": "Surging Thorn (nome da skill na tabela de skills do jogo; ainda não visto numa captura)"
+              },
+              "fontes": [
+                "https://gamesfuze.com/guides/aion-2-vakron-sky-island-trial-guide-normal-hard/",
+                "https://allthings.how/?p=244700",
+                "https://allthings.how/?p=247417",
+                "https://www.inven.co.kr/board/aion2/6493/216"
+              ]
             },
             {
               "nome": "Prisão de pedra (Lodestone)",
-              "sinal": "Ele puxa todos para o centro; uma rocha fica avermelhada/destacada",
-              "acao": "Todos batem na rocha destacada e saem pela abertura antes do fim do cast; bater no boss pode causar wipe",
+              "sinal": "Puxa todos para o centro e ergue rochas em volta; uma rocha (Vakron Cloaked Rock) brilha vermelha",
+              "acao": "Pare de bater no boss: todos quebram a pedra vermelha e saem pela abertura (ou ficam atrás dela) antes do fim do cast",
               "alerta": "QUEBRA A PEDRA VERMELHA",
               "gatilho": {
                 "tipo": "skill",
-                "skill_id": null
+                "skill_ids": [
+                  1604425
+                ],
+                "supressao_s": 8
               },
               "wipe": true,
               "confianca": "alta",
-              "acao_tipo": "esconder",
-              "id": "vakron-prisao-de-pedra-lodestone"
+              "acao_tipo": "matar_alvo",
+              "id": "vakron-prisao-de-pedra-lodestone",
+              "confianca_skill": "media",
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "QUEBRA A PEDRA VERMELHA",
+                  "sub": "pare de bater no boss e saia pela abertura",
+                  "tipo": "matar_alvo"
+                }
+              ],
+              "observado": {
+                "fonte": "tabela de skills do jogo",
+                "nota": "1604425 = Lodestone Prison; nome da skill na tabela de skills do jogo; ainda não visto numa captura"
+              },
+              "fontes": [
+                "https://gamesfuze.com/guides/aion-2-vakron-sky-island-trial-guide-normal-hard/",
+                "https://allthings.how/?p=244700",
+                "https://allthings.how/?p=247417",
+                "https://www.inven.co.kr/board/aion2/6493/216"
+              ]
             },
             {
               "nome": "Semente / prisão de espinhos",
-              "sinal": "Ele anuncia e marca um jogador (semente)",
+              "sinal": "Anel amarelo de mira em um jogador (semente); quando acaba, ele fica preso em espinhos, e quem estiver na área também",
               "acao": "O marcado se afasta, mas fica perto o bastante para ser liberado; os outros quebram a prisão (cura não basta)",
               "alerta": "MARCADO: AFASTA",
               "gatilho": {
@@ -2465,7 +2745,75 @@
               "wipe": false,
               "confianca": "alta",
               "acao_tipo": "espalhar",
-              "id": "vakron-semente-prisao-de-espinhos"
+              "id": "vakron-semente-prisao-de-espinhos",
+              "fontes": [
+                "https://gamesfuze.com/guides/aion-2-vakron-sky-island-trial-guide-normal-hard/",
+                "https://allthings.how/?p=244700",
+                "https://www.inven.co.kr/board/aion2/6493/216"
+              ]
+            },
+            {
+              "id": "vakron-prisao-de-espinhos-aliado",
+              "nome": "Aliado preso nos espinhos",
+              "sinal": "Um jogador fica preso em espinhos tomando dano contínuo",
+              "acao": "Todos batem nos espinhos até soltar (leva vários golpes); o healer segura a vida dele",
+              "alerta": "QUEBRA OS ESPINHOS",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_id": null
+              },
+              "wipe": true,
+              "confianca": "alta",
+              "acao_tipo": "matar_alvo",
+              "por_papel": {
+                "healer": {
+                  "texto": "CURA O PRESO",
+                  "sub": "o grupo quebra os espinhos; segure a vida dele"
+                }
+              },
+              "fontes": [
+                "https://gamesfuze.com/guides/aion-2-vakron-sky-island-trial-guide-normal-hard/",
+                "https://allthings.how/?p=244700",
+                "https://www.inven.co.kr/board/aion2/6493/216"
+              ]
+            },
+            {
+              "id": "vakron-linhas-vermelhas",
+              "nome": "Linhas vermelhas no chão (abaixo de 50%)",
+              "sinal": "Abaixo de 50% aparecem faixas vermelhas retas no chão; dois acertos podem matar",
+              "acao": "Não pise nas faixas, principalmente quando cair junto de outra mecânica",
+              "alerta": "FAIXAS VERMELHAS: NÃO PISA",
+              "gatilho": {
+                "tipo": "hp",
+                "pct": 50
+              },
+              "pre_aviso_pct": 0,
+              "wipe": false,
+              "confianca": "baixa",
+              "acao_tipo": "sair",
+              "nota": "Fonte única (inven, texto marcado como gerado por IA); pode ser só do modo Provação.",
+              "fontes": [
+                "https://www.inven.co.kr/board/aion2/6493/216"
+              ]
+            },
+            {
+              "id": "vakron-enrage",
+              "nome": "Timer / enrage (Conquista)",
+              "sinal": "Timer abaixo da barra de HP; ao zerar (~5 min) o grupo morre",
+              "acao": "Guarde o burst para antes do fim do timer",
+              "alerta": "ENRAGE",
+              "gatilho": {
+                "tipo": "enrage",
+                "segundos": 300
+              },
+              "wipe": true,
+              "confianca": "media",
+              "acao_tipo": "enrage",
+              "nota": "~5 min segundo duas fontes; o kill mediano na Conquista é 3:25. Na Exploração (1:29) não chega a disparar.",
+              "fontes": [
+                "https://allthings.how/?p=244700",
+                "https://allthings.how/?p=247417"
+              ]
             },
             {
               "id": "vakron-atordoado",
@@ -2507,14 +2855,23 @@
               }
             }
           ],
-          "ordem": 3
+          "ordem": 3,
+          "faixa_skills_candidata": "1604390–1604520 (Surging Thorn, Lodestone Prison; o resto aparece como Attack)"
         }
       ],
       "ordem": [
-        "Tiere",
+        "Tiere (Root Hill → ninho da Tiere); depois quebre a parede de pedra e suba pelas correntes de vento",
+        "Odyle Stone Spirit (elite) bloqueia a caverna: mate para seguir",
         "Thamon",
-        "Leve as 4 esferas às estátuas do elemento correspondente",
-        "Vakron (com timer). No caminho: limpe o Olhar de Vakron na Fog Spiritstone antes de 3 acúmulos"
+        "Seção aérea: leve os 4 elementos (Fogo, Água, Terra, Vento) aos altares certos; cuidado com os lasers giratórios",
+        "Vakron (timer abaixo da barra de HP; enrage ~5 min na Conquista). Faça o bind no Kibelisk antes"
+      ],
+      "fontes": [
+        "https://gamesfuze.com/guides/aion-2-vakron-sky-island-trial-guide-normal-hard/",
+        "https://allthings.how/?p=244700",
+        "https://allthings.how/?p=247417",
+        "https://selphie1999gaming.com/game-guides/aion-2/vakron-sky-island-expedition-in-aion-2/",
+        "https://www.inven.co.kr/board/aion2/6493/216"
       ]
     },
     {
@@ -2571,7 +2928,10 @@
               "confianca": "alta",
               "acao_tipo": "espalhar",
               "pre_aviso_pct": 5,
-              "id": "red-spark-ignus-anel-blazing-speed"
+              "id": "red-spark-ignus-anel-blazing-speed",
+              "candidatos_skill": {
+                "1600810": "Blazing Speed (nome igual ao da tabela de skills do jogo; confirmar numa captura (mapear.py mostra como candidato))"
+              }
             },
             {
               "nome": "Três círculos rápidos",
@@ -2655,7 +3015,8 @@
               }
             }
           ],
-          "ordem": 1
+          "ordem": 1,
+          "faixa_skills_candidata": "1600780–1600865 (Flame Smite, Fireball, Flame Rock, Blazing Speed, Flame Eruption, Flame Bomb, Burning Earth, Flame Zone)"
         },
         {
           "nome": "Black Smoke Murute",
@@ -2912,7 +3273,10 @@
               "nota": "Só na Conquista Hard. No Hard, os clones da borda começam aos 75% em vez de 25%.",
               "acao_tipo": "borda",
               "pre_aviso_pct": 5,
-              "id": "kromede-s-desire-blazing-judgment-so-hard"
+              "id": "kromede-s-desire-blazing-judgment-so-hard",
+              "candidatos_skill": {
+                "1801180": "Blazing Judgment (nome igual ao da tabela de skills do jogo; confirmar numa captura (mapear.py mostra como candidato))"
+              }
             },
             {
               "nome": "Investida no mais distante",
@@ -2982,7 +3346,8 @@
               }
             }
           ],
-          "ordem": 3
+          "ordem": 3,
+          "faixa_skills_candidata": "1801030–1801192 (Blade Tornado, Mark of Death, Rain of Hatred, Demon Flame, Blazing Judgment, Flame of Desire)"
         }
       ],
       "ordem": [
@@ -3028,7 +3393,10 @@
               "nota": "Repete aos ~25%.",
               "acao_tipo": "matar_alvo",
               "pre_aviso_pct": 5,
-              "id": "watchdog-kwapo-thunder-cry"
+              "id": "watchdog-kwapo-thunder-cry",
+              "candidatos_skill": {
+                "1606910": "Thunder Cry (nome igual ao da tabela de skills do jogo; confirmar numa captura (mapear.py mostra como candidato))"
+              }
             },
             {
               "nome": "Thunder Cry (2ª vez)",
@@ -3043,7 +3411,10 @@
               "confianca": "alta",
               "acao_tipo": "matar_alvo",
               "pre_aviso_pct": 5,
-              "id": "watchdog-kwapo-thunder-cry-2a-vez"
+              "id": "watchdog-kwapo-thunder-cry-2a-vez",
+              "candidatos_skill": {
+                "1606910": "Thunder Cry (nome igual ao da tabela de skills do jogo; confirmar numa captura (mapear.py mostra como candidato))"
+              }
             },
             {
               "nome": "Anel dos orbes",
@@ -3254,7 +3625,10 @@
               "nota": "Repete aos ~30%.",
               "acao_tipo": "sair",
               "pre_aviso_pct": 5,
-              "id": "necromancer-duanka-soul-caller"
+              "id": "necromancer-duanka-soul-caller",
+              "candidatos_skill": {
+                "1607050": "Soul Caller (nome igual ao da tabela de skills do jogo; confirmar numa captura (mapear.py mostra como candidato))"
+              }
             },
             {
               "nome": "Soul Caller (2ª)",
@@ -3269,7 +3643,10 @@
               "confianca": "alta",
               "acao_tipo": "sair",
               "pre_aviso_pct": 5,
-              "id": "necromancer-duanka-soul-caller-2a"
+              "id": "necromancer-duanka-soul-caller-2a",
+              "candidatos_skill": {
+                "1607050": "Soul Caller (nome igual ao da tabela de skills do jogo; confirmar numa captura (mapear.py mostra como candidato))"
+              }
             },
             {
               "nome": "Buraco negro (dividir)",
@@ -3335,7 +3712,8 @@
               "cp_entrada": "90K"
             }
           },
-          "ordem": 3
+          "ordem": 3,
+          "faixa_skills_candidata": "160702x–160705x (Mau Necromancy, Soul Caller)"
         },
         {
           "nome": "Ferocious Horn Nuakum",
@@ -4010,7 +4388,8 @@
               "cp_entrada": "77K"
             }
           },
-          "ordem": 1
+          "ordem": 1,
+          "faixa_skills_candidata": "1601790–1601855 (Electric Discharge, Bolt, Forward Surge, Judgment, Stranglehold) — só pelo tema elétrico"
         },
         {
           "nome": "Nazmun",
@@ -4143,7 +4522,10 @@
               "confianca": "alta",
               "acao_tipo": "stagger",
               "pre_aviso_pct": 5,
-              "id": "atiel-morphic-world-stagger-de-10-s"
+              "id": "atiel-morphic-world-stagger-de-10-s",
+              "candidatos_skill": {
+                "1801530": "Morphic World (nome igual ao da tabela de skills do jogo; confirmar numa captura (mapear.py mostra como candidato))"
+              }
             },
             {
               "nome": "Corrente (2 jogadores)",
@@ -4773,7 +5155,8 @@
               }
             }
           ],
-          "ordem": 3
+          "ordem": 3,
+          "faixa_skills_candidata": "1601240–1601370 (Tail Swirl, Tail Strike, Spreading Poison, Spew Poison Fluid, Reform Poison Blood) — pelo tema"
         },
         {
           "nome": "Wraith Giselle",
@@ -5827,7 +6210,11 @@
     "https://selphie1999gaming.com/game-guides/aion-2/aion-2-ascension-trial-how-to-clear-the-sanctum-of-loathing/",
     "https://metabot.gg/en/aion-2/dungeons/sanctum-of-loathing",
     "https://gamesfuze.com/guides/aion-2-ascension-trial-guide/",
-    "https://elitegrindlab.com/aion-2/dungeons/sanctum-of-loathing/"
+    "https://elitegrindlab.com/aion-2/dungeons/sanctum-of-loathing/",
+    "https://selphie1999gaming.com/game-guides/aion-2/vakron-sky-island-expedition-in-aion-2/",
+    "https://www.inven.co.kr/board/aion2/6493/216",
+    "https://allthings.how/?p=244700",
+    "https://allthings.how/?p=247417"
   ],
   "categorias_alerta": {
     "empilhar": {

@@ -126,8 +126,9 @@ def passos_de(m: dict) -> list[dict]:
 BURST = {"segurar": ("SEGURA O BURST", "segurar_burst"), "soltar": ("BURST AGORA", "burst")}
 
 
-def passos_completos(m: dict, burst: bool = True, papel: str | None = None, alcance: str | None = None) -> list[dict]:
-    """Passos da mecânica + janelas de burst, já filtrados e reescritos para o seu papel e alcance."""
+def passos_completos(m: dict, burst: bool = True, papel: str | None = None, alcance: str | None = None,
+                     classe: str | None = None) -> list[dict]:
+    """Passos da mecânica + janelas de burst, já filtrados e reescritos para o seu papel, alcance e classe."""
     passos = []
     for p in passos_de(m):
         papeis = p.get("papeis") or m.get("papeis")
@@ -135,7 +136,13 @@ def passos_completos(m: dict, burst: bool = True, papel: str | None = None, alca
             continue
         if alcance == "longe" and (p.get("so_perto") or m.get("so_perto")):
             continue                      # ENGAJE e afins: quem bate de longe segue contribuindo
+        classes = p.get("classes") or m.get("classes")
+        if classe and classes and classe not in classes:
+            continue                      # ex.: o vermelho do Thamon só para quem dá dano físico
         troca = (p.get("por_papel") or {}).get(papel or "") or (m.get("por_papel") or {}).get(papel or "")
+        if troca:
+            p = dict(p, **troca)
+        troca = (p.get("por_classe") or {}).get(classe or "") or (m.get("por_classe") or {}).get(classe or "")
         passos.append(dict(p, **troca) if troca else p)
     if burst:
         for b in m.get("burst", []):
@@ -407,7 +414,7 @@ class MotorAlertas:
                   precursora: bool = False) -> None:
         self.disparadas[i] = t
         from .classes import ALCANCE
-        passos = passos_completos(m, self.burst, self.papel, ALCANCE.get(self.classe or ""))
+        passos = passos_completos(m, self.burst, self.papel, ALCANCE.get(self.classe or ""), self.classe)
         seq = Sequencia(m, t, passos, criada=t if criada is None else criada, precursora=precursora,
                         criada_por_precursora=precursora)
         if passos:

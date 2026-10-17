@@ -55,7 +55,23 @@ def mapeadas(dados: dict, boss: str) -> dict[int, str]:
                 for p in m.get("sequencia", []):
                     for s in (p.get("sync") or {}).get("ids", []):
                         saida.setdefault(s, m.get("id", m["nome"]) + " (sync)")
+                for s in m.get("candidatos_skill", {}):
+                    saida.setdefault(int(s), m.get("id", m["nome"]) + " (candidato?)")
     return saida
+
+
+def nomes_de_skill() -> dict[int, str]:
+    """Nome da skill no cliente (tabela opcional dados_jogo/skills_pt.json); vazio se não houver."""
+    import json
+    from a2parse.caminhos import dados_jogo
+    caminho = dados_jogo("skills_pt.json")
+    if not caminho:
+        return {}
+    try:
+        with open(caminho, encoding="utf-8") as f:
+            return {int(k): v for k, v in json.load(f).items() if v not in ("Ataque", "Ataque Básico")}
+    except (OSError, ValueError):
+        return {}
 
 
 def main() -> int:
@@ -121,6 +137,7 @@ def main() -> int:
         return antes[-1] if antes else None
 
     saida_json: dict = {}
+    nomes = nomes_de_skill()
     for ent, b in sessao.bosses.items():
         if args.boss and args.boss.lower() not in b.nome.lower():
             continue
@@ -132,7 +149,8 @@ def main() -> int:
             continue
         ja = mapeadas(dados, b.nome)
         print(f"\n━━ {b.nome} (entidade {ent}) ━━  {len(lista)} casts, {len(set(s for _, s, _ in lista))} skills")
-        print("  skill       ×  1º cast            interv.   HP 1º   alvo          jogadores/cast  maior golpe  preparo      mapeada")
+        print("  skill       ×  1º cast            interv.   HP 1º   alvo          jogadores/cast  maior golpe  preparo      "
+              "mapeada" + ("  · nome no cliente" if nomes else ""))
         sugestao = {}
         por_skill: dict[int, list] = defaultdict(list)
         for ts, s, alvo in lista:
@@ -166,7 +184,7 @@ def main() -> int:
             print(f"  {s:<10} {len(ocorr):>3}  {quando(tempos[0]):<18} {interv:>6}  "
                   f"{(f'{hp:.0f}%' if hp is not None else '—'):>6}   {alvo_txt:<12} "
                   f"{(f'{median(atingidos):.0f}' if atingidos else '—'):>8}      {maior:>10,}  {prep:<11}  "
-                  f"{ja.get(s, '')}".replace(",", "."))
+                  f"{ja.get(s, '')}".replace(",", ".") + (f"  · {nomes[s]}" if s in nomes else ""))
         if sugestao:
             print("  preparo estável (use em \"preparo_s\"): " + json_curto(sugestao))
         # pares que se repetem: A sempre seguida de B
