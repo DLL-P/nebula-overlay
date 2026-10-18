@@ -37,10 +37,6 @@ Os alertas estão mapeados para os bosses de 8 masmorras (Krao Cave, Draupnir, U
 Ferocious Horn Den, Shattered Arkanis, Deus Research Base). A Urugugu está completa, com alertas por skill, preparo antecipado e
 linha do tempo aprendida; as outras ainda dependem de mais runs mapeadas. Quer ajudar? Veja [como contribuir](CONTRIBUTING.md).
 
-## Apoiar
-
-O Nebula Overlay é e vai continuar gratuito. Contribuições com runs, prints, vídeos e traduções são o que mais ajuda.
-
 ## Vozes
 
 As palavras de ordem vêm no instalador, em português, inglês e espanhol, geradas com o Piper (vozes de licença livre;
@@ -84,3 +80,19 @@ juego en ventana o ventana sin bordes. En el juego, mantén **Alt** para hacer c
 Proyecto de fans, gratuito y no oficial, sin vínculo con NCSOFT. Solo **lee** el tráfico de red que ya llega a tu PC (no lee memoria, no
 inyecta nada, no envía nada al servidor, no automatiza teclas). Aun así, los términos del juego prohíben programas de terceros:
 **úsalo bajo tu propio riesgo**.
+
+---
+
+## Apoiar · Support · Apoyar
+
+O Nebula Overlay é um projeto sem fins lucrativos: gratuito, sem anúncios e sem nada pago dentro do app, e vai continuar assim.
+Se ele te ajuda e você quiser reconhecer o tempo e o trabalho dedicados à comunidade, doações são bem-vindas. São totalmente
+opcionais e não liberam nada a mais. Contribuir com runs, prints, vídeos e traduções ajuda tanto quanto.
+
+Nebula Overlay is a non-profit project: free, no ads and nothing paid inside the app, and it will stay that way. If it helps you and
+you'd like to recognize the time and work put into it for the community, donations are welcome. They are fully optional and unlock
+nothing extra. Contributing runs, screenshots, videos and translations helps just as much.
+
+Nebula Overlay es un proyecto sin fines de lucro: gratuito, sin anuncios y sin nada de pago dentro de la app, y seguirá así. Si te
+ayuda y quieres reconocer el tiempo y el trabajo dedicados a la comunidad, las donaciones son bienvenidas. Son totalmente opcionales
+y no desbloquean nada extra. Contribuir con runs, capturas, videos y traducciones ayuda igual.
