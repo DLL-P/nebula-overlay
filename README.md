@@ -89,16 +89,21 @@ O Nebula Overlay é um projeto sem fins lucrativos: gratuito, sem anúncios e se
 Se ele te ajuda e você quiser reconhecer o tempo e o trabalho dedicados à comunidade, doações são bem-vindas. São totalmente
 opcionais e não liberam nada a mais. Contribuir com runs, prints, vídeos e traduções ajuda tanto quanto.
 
-**Doar:** [livepix.gg/dellabeats](https://livepix.gg/dellabeats) (Pix, cartão e outros meios; também pelo botão "Apoiar" na engrenagem).
+**Doar:** [livepix.gg/dellabeats](https://livepix.gg/dellabeats), por Pix ou cartão de crédito, sem precisar criar conta. Também pelo botão
+"Apoiar o desenvolvedor" na engrenagem.
 
 Nebula Overlay is a non-profit project: free, no ads and nothing paid inside the app, and it will stay that way. If it helps you and
 you'd like to recognize the time and work put into it for the community, donations are welcome. They are fully optional and unlock
 nothing extra. Contributing runs, screenshots, videos and translations helps just as much.
 
-**Donate:** [livepix.gg/dellabeats](https://livepix.gg/dellabeats) (also from the "Support" button in the gear).
+**Donate:** [livepix.gg/dellabeats](https://livepix.gg/dellabeats), no account needed. It accepts international payments and credit cards
+from other countries. The page is in Portuguese: type a name, an optional message and the amount (in Brazilian reais, R$), press
+**Continuar** and choose the payment method. Also from the "Support the developer" button in the gear.
 
 Nebula Overlay es un proyecto sin fines de lucro: gratuito, sin anuncios y sin nada de pago dentro de la app, y seguirá así. Si te
 ayuda y quieres reconocer el tiempo y el trabajo dedicados a la comunidad, las donaciones son bienvenidas. Son totalmente opcionales
 y no desbloquean nada extra. Contribuir con runs, capturas, videos y traducciones ayuda igual.
 
-**Donar:** [livepix.gg/dellabeats](https://livepix.gg/dellabeats) (también desde el botón "Apoyar" en el engranaje).
+**Donar:** [livepix.gg/dellabeats](https://livepix.gg/dellabeats), sin crear cuenta. Acepta pagos internacionales y tarjetas de crédito de
+otros países. La página está en portugués: escribe un nombre, un mensaje opcional y el monto (en reales brasileños, R$), pulsa
+**Continuar** y elige la forma de pago. También desde el botón "Apoyar al desarrollador" en el engranaje.
