@@ -233,8 +233,10 @@ A energia Odyle é o ticket **60000001**. O rodapé mostra "restante (+recarga)"
 
 ## 9. 0x3603 heartbeat
 
-O servidor manda a cada 10 s, com 18 bytes: `u16 | i64 relógio em ms (+10 000 por heartbeat) | i64 horário
-do servidor (ms desde 1970)`. Como só o sentido servidor → cliente é lido, o ping não sai daqui.
+É a resposta ao eco do cliente, a cada 10 s, com 18 bytes: `u16 | i64 relógio em ms (+10 000 por heartbeat) | i64
+horário do servidor (ms desde 1970)`. O cliente manda antes um pacote de 12 bytes (cifrado; o tamanho não muda) e o
+0x3603 chega logo depois: o tempo entre os dois é o ping até o servidor, com ou sem acelerador (~70 ms com ExitLag
+nas capturas de 2026-10-16). O `a2parse/latencia.py` mede assim, sem enviar nada.
 
 ## 10. 0x6000 / 0x6001 eventos de campo
 

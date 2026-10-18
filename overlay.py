@@ -61,6 +61,22 @@ EVENTO = "#4fd1c5"                       # cor dos eventos de campo (como o cart
 CARTAO, CARTAO_BORDA, CARTAO_LINHA = "#1a1c25", "#2c2f3d", "#242733"   # cartões no estilo do seu meter
 VOCE = "#7b5cf0"                                                        # sua linha no meter
 FONTE = "Segoe UI"
+FONTE_MEDIA = "Segoe UI Semibold"        # texto pequeno: o Segoe UI regular em 8–9 pt fica fino e falhado no fundo escuro
+_SEMIBOLD: list[bool] = []               # preenchido quando a janela Tk existe
+
+
+def fonte(pt: float, peso: str = "normal") -> tuple:
+    """Fonte do overlay. Tamanho arredondado (int() cortava 8,8 pt para 8), mínimo de 7 pt, e texto pequeno sem
+    negrito sai em Semibold, que fica nítido em letras pequenas."""
+    tam = max(7, int(pt + 0.5))
+    if peso == "normal":
+        if not _SEMIBOLD:
+            try:
+                _SEMIBOLD.append(FONTE_MEDIA in tkfont.families())
+            except tk.TclError:
+                return (FONTE, tam)
+        return (FONTE_MEDIA, tam) if _SEMIBOLD[0] and tam <= 12 else (FONTE, tam)
+    return (FONTE, tam, peso)
 
 
 # ---------------- Windows ----------------
@@ -746,7 +762,7 @@ class Overlay:
                 cv.create_rectangle(0, 0, w, h, fill="#e0b45a", outline="", stipple="gray25", tags="moldura")
                 cv.create_rectangle(2, 2, w - 2, h - 2, outline="#e0b45a", dash=(6, 4), width=2, tags="moldura")
                 cv.create_text(10, h - 10, text=t("arraste", nome=t("janela_" + nome)), anchor="w",
-                               fill="#e0b45a", font=(FONTE, int(9 * self.escala), "bold"), tags="moldura")
+                               fill="#e0b45a", font=fonte(9 * self.escala, "bold"), tags="moldura")
                 cv.tag_lower("moldura")
             atravessar(j, self.travado)
         self._posicionar_cadeados()
@@ -887,12 +903,12 @@ class Overlay:
         if c:
             cor = self._cor_acao(c["tipo"])
             self._linha(cv, W / 2, y + 14 * e, c["tipo"], t("em_s", s=f"{max(0.0, c['eta']):.0f}", texto=tr(c["texto"])),
-                        (FONTE, int(15 * e), "bold"), cor, 24 * e, "" if c["exata"] else t("previsto"), (FONTE, int(9 * e)))
+                        fonte(15 * e, "bold"), cor, 24 * e, "" if c["exata"] else t("previsto"), fonte(9 * e))
             y += 38 * e
         if st["breve"] and not st["cartoes"] and not c:
             a = st["breve"]
-            self._linha(cv, W / 2, y + 14 * e, a.tipo, tr(a.texto), (FONTE, int(13 * e), "bold"), NIVEL["info"], 22 * e,
-                        tr(a.sub), (FONTE, int(10 * e)))
+            self._linha(cv, W / 2, y + 14 * e, a.tipo, tr(a.texto), fonte(13 * e, "bold"), NIVEL["info"], 22 * e,
+                        tr(a.sub), fonte(10 * e))
             y += 36 * e
         for i, a in enumerate(st["cartoes"]):
             y = (self._principal if i == 0 else self._secundario)(a, W / 2, y, agora) + 8 * e
@@ -902,13 +918,13 @@ class Overlay:
     def _faixa_status(self, lista: list[dict], W: float, y: float) -> None:
         """Status do boss e dos jogadores, lado a lado: ícone, texto, segundos e barrinha de duração."""
         cv, e = self.cv_al, self.escala
-        f_t, f_s = (FONTE, int(12 * e), "bold"), (FONTE, int(10 * e), "bold")
+        f_t, f_s = fonte(12 * e, "bold"), fonte(10 * e, "bold")
         ic, gap, sep = 18 * e, 6 * e, 22 * e
         itens = []
         for s in lista:
             nome = t("voce") if s.get("voce") else (s["nome"] or t("jogador"))
             texto = tr(s["texto"]) + (f" → {nome}" if s["em"] == "alvo" else "")
-            seg = f"{max(0.0, s['restante']):.1f}s"
+            seg = f"{idioma.decimal(max(0.0, s['restante']))}s"
             larg = ic + gap + self._medir(texto, f_t) + gap + self._medir(seg, f_s)
             itens.append((s, texto, seg, larg))
         x = W / 2 - (sum(i[3] for i in itens) + sep * (len(itens) - 1)) / 2
@@ -932,23 +948,23 @@ class Overlay:
             restante = max(0.0, a.t + a.contagem - agora)
             tam = int((60 if restante <= 3 else 50) * e)
             numero = str(math.ceil(restante)) if restante > 0 else "!"
-            self._texto(self.cv_al, cx, y + 44 * e, numero, (FONTE, tam, "bold"), cor, borda=3)
+            self._texto(self.cv_al, cx, y + 44 * e, numero, fonte(tam, "bold"), cor, borda=3)
             y += 92 * e
-        self._linha(self.cv_al, cx, y + 16 * e, a.tipo, tr(a.texto), (FONTE, int(22 * e), "bold"), cor, 34 * e)
+        self._linha(self.cv_al, cx, y + 16 * e, a.tipo, tr(a.texto), fonte(22 * e, "bold"), cor, 34 * e)
         y += 34 * e
         if a.sub:
-            self._texto(self.cv_al, cx, y + 10 * e, tr(a.sub), (FONTE, int(11 * e)), TEXTO, borda=1)
+            self._texto(self.cv_al, cx, y + 10 * e, tr(a.sub), fonte(11 * e), TEXTO, borda=1)
             y += 22 * e
         if a.dica and self.dicas_on:
-            self._texto(self.cv_al, cx, y + 10 * e, f"▸ {tr(a.dica)}", (FONTE, int(11 * e), "bold"), DICA, borda=1)
+            self._texto(self.cv_al, cx, y + 10 * e, f"▸ {tr(a.dica)}", fonte(11 * e, "bold"), DICA, borda=1)
             y += 22 * e
         return y
 
     def _secundario(self, a: Alerta, cx: float, y: float, agora: float) -> float:
         e = self.escala
-        extra = f"{max(0.0, a.t + a.contagem - agora):.1f}s" if a.contagem else ""
-        self._linha(self.cv_al, cx, y + 12 * e, a.tipo, tr(a.texto), (FONTE, int(14 * e), "bold"), NIVEL.get(a.nivel, TEXTO),
-                    22 * e, extra, (FONTE, int(11 * e), "bold"))
+        extra = f"{idioma.decimal(max(0.0, a.t + a.contagem - agora))}s" if a.contagem else ""
+        self._linha(self.cv_al, cx, y + 12 * e, a.tipo, tr(a.texto), fonte(14 * e, "bold"), NIVEL.get(a.nivel, TEXTO),
+                    22 * e, extra, fonte(11 * e, "bold"))
         return y + 24 * e
 
     def _simbolo_classe(self, chave: str):
@@ -980,7 +996,7 @@ class Overlay:
         cv.delete("dyn")
         W = int(cv.winfo_width())
         mg = 10 * e
-        f_t, f_n, f_s, f_d = (FONTE, int(10 * e), "bold"), (FONTE, int(9 * e), "bold"), (FONTE, int(8 * e)), (FONTE, int(10 * e), "bold")
+        f_t, f_n, f_s, f_d = fonte(10 * e, "bold"), fonte(9 * e, "bold"), fonte(9 * e), fonte(10 * e, "bold")
         st = self._st or {}
         b = st.get("boss") if st.get("jogo") else None
         proximas = [p for p in (st.get("linha") or []) if p["eta"] <= 30][:4]
@@ -994,14 +1010,14 @@ class Overlay:
         tempo = ""
         if m and (not b or m["boss"] == b.nome):
             tempo = f"{int(m['duracao'] // 60)}:{int(m['duracao'] % 60):02d}" + ("" if m["ativa"] else t("ultima"))
-        direita = f"{b.pct:.1f}%" if b else (f"{numero(m['dps_total'])}/s" if m else "")
+        direita = f"{idioma.decimal(b.pct)}%" if b else (f"{numero(m['dps_total'])}/s" if m else "")
 
         def cab(y=y, nome=nome, ativo=ativo, tempo=tempo, direita=direita):
             cv.create_oval(mg, y - 4 * e, mg + 8 * e, y + 4 * e, fill=NIVEL["alerta"] if ativo else "#6b6880", outline="", tags="dyn")
             cv.create_text(mg + 14 * e, y, text=nome, anchor="w", fill=TEXTO, font=f_t, tags="dyn")
             if tempo:
-                cv.create_text(mg + 22 * e + self._medir(nome, f_t), y, text=tempo, anchor="w", fill="#8d8aa0", font=f_t, tags="dyn")
-            cv.create_text(W - mg, y, text=direita, anchor="e", fill=TEXTO if b else "#8d8aa0", font=f_t if b else f_s, tags="dyn")
+                cv.create_text(mg + 22 * e + self._medir(nome, f_t), y, text=tempo, anchor="w", fill="#a8a4bc", font=f_t, tags="dyn")
+            cv.create_text(W - mg, y, text=direita, anchor="e", fill=TEXTO if b else "#a8a4bc", font=f_t if b else f_s, tags="dyn")
         desenhos.append(cab)
         y += 12 * e
         if b:
@@ -1027,10 +1043,10 @@ class Overlay:
             confiavel = p["confianca"] >= 0.75
             cor = self._cor_acao(p["tipo"]) if confiavel else misturar(self._cor_acao(p["tipo"]), CARTAO, 0.55)
             perto = p["eta"] <= 6 and confiavel
-            lado = ("" if p["exata"] else "~") + (f"{p['eta']:.1f}s" if p["eta"] >= 0.5 else t("agora"))
+            lado = ("" if p["exata"] else "~") + (f"{idioma.decimal(p['eta'])}s" if p["eta"] >= 0.5 else t("agora"))
             frac = max(0.0, min(1.0, 1 - p["eta"] / 30))
             yy = y + 11 * e
-            cor_txt = (cor if perto else TEXTO) if confiavel else "#8d8aa0"
+            cor_txt = (cor if perto else TEXTO) if confiavel else "#a8a4bc"
 
             def prox(yy=yy, p=p, cor=cor, perto=perto, lado=lado, frac=frac, cor_txt=cor_txt):
                 cv.create_rectangle(mg, yy - 10 * e, W - mg, yy + 10 * e, fill=CARTAO_LINHA, outline=cor if perto else "", tags="dyn")
@@ -1044,14 +1060,14 @@ class Overlay:
         y += 6 * e
         # jogadores
         perfis = (st.get("perfis") or {}) if self.cfg.get("perfis", True) else {}
-        f_p = (FONTE, max(6, int(7 * e)))
+        f_p = fonte(7 * e)
 
         def cp_gs(p: dict) -> str:
             return " · ".join(x for x in ((f"CP {numero(p['cp'])}" if p.get("cp") else ""),
                                          (f"GS {p['gs']}" if p.get("gs") else "")) if x)
         if not linhas:
             msg = t("aguardando_boss") if not b else t("aguardando_golpe")
-            desenhos.append(lambda y=y, msg=msg: cv.create_text(mg, y + h / 2, text=msg, anchor="w", fill="#8d8aa0", font=f_n, tags="dyn"))
+            desenhos.append(lambda y=y, msg=msg: cv.create_text(mg, y + h / 2, text=msg, anchor="w", fill="#a8a4bc", font=f_n, tags="dyn"))
             y += h + gap
             # fora da luta: o grupo com CP e GS (ou só você, sem grupo)
             eu_p = perfis.get(st.get("eu") or "")
@@ -1079,7 +1095,7 @@ class Overlay:
                         cv.create_text(x + self._medir(nome, f_n) + 5 * e, meio, text=t("eu"), anchor="w", fill="#c9b8ff",
                                        font=f_s, tags="dyn")
                     cv.create_text(W - mg - 6 * e, meio, text=f"GS {p['gs']}" if p.get("gs") else "", anchor="e",
-                                   fill="#8d8aa0", font=f_s, tags="dyn")
+                                   fill="#a8a4bc", font=f_s, tags="dyn")
                     cv.create_text(W - mg - 62 * e, meio, text=f"CP {numero(p['cp'])}", anchor="e", fill=TEXTO, font=f_d, tags="dyn")
                 desenhos.append(membro)
                 y += h2 + gap
@@ -1111,7 +1127,7 @@ class Overlay:
                 if l["voce"]:
                     cv.create_text(x, meio, text=t("eu"), anchor="w", fill="#c9b8ff", font=f_s, tags="dyn")
                     x += self._medir(t("eu"), f_s) + 5 * e
-                cv.create_text(x, meio, text=numero(l["dano"]), anchor="w", fill="#8d8aa0", font=f_s, tags="dyn")
+                cv.create_text(x, meio, text=numero(l["dano"]), anchor="w", fill="#a8a4bc", font=f_s, tags="dyn")
                 x += self._medir(numero(l["dano"]), f_s) + 6 * e
                 for st_txt in l["status"][:2]:      # mecânica em cima do jogador: POÇA, MERGULHO, AGARRADO
                     st_txt = tr(st_txt)
@@ -1121,7 +1137,7 @@ class Overlay:
                     x += lw + 4 * e
                 meio = y0 + h / 2                # DPS e % continuam no meio da barra
                 cv.create_text(W - mg - 52 * e, meio, text=numero(l["dps"]), anchor="e", fill=TEXTO, font=f_d, tags="dyn")
-                cv.create_text(W - mg - 6 * e, meio, text=f"{l['pct']:.1f}%".replace(".", ","), anchor="e", fill="#8d8aa0",
+                cv.create_text(W - mg - 6 * e, meio, text=f"{idioma.decimal(l['pct'])}%", anchor="e", fill="#a8a4bc",
                                font=f_s, tags="dyn")
             desenhos.append(jogador)
             y += h + gap
@@ -1130,7 +1146,7 @@ class Overlay:
         classe = f"{nome_c} ({papel})" if nome_c else papel
         quem = " · ".join(x for x in (st.get("eu"), classe) if x) or t("procurando")
         y += 14 * e
-        desenhos.append(lambda y=y, quem=quem: cv.create_text(mg, y, text=quem, anchor="w", fill="#8d8aa0", font=f_s, tags="dyn"))
+        desenhos.append(lambda y=y, quem=quem: cv.create_text(mg, y, text=quem, anchor="w", fill="#a8a4bc", font=f_s, tags="dyn"))
         x_d = W - mg - self._n_botoes_rodape() * (self.t_cad + 5) - 6 * e
         if st.get("odyle"):
             # energia Odyle: restante (+recarga)
@@ -1157,15 +1173,15 @@ class Overlay:
         cv.tag_lower("moldura")
 
     def _desenhar_latencia(self, cv: tk.Canvas, x: float, y: float, lat: dict, fonte: tuple) -> None:
-        """Ping (conexão direta), ±oscilação (com acelerador) ou há quanto tempo o servidor não manda nada,
-        com três barrinhas na cor da qualidade. Ancorado à direita em x."""
+        """Tempo de resposta do servidor (ou há quanto tempo ele não manda nada), com três barrinhas na cor da
+        qualidade. Ancorado à direita em x."""
         e = self.escala
         cor = LATENCIA_COR[lat["nivel"]]
         ms = lat["ms"]
         if lat["tipo"] == "parado" and ms >= 1000:
             texto = t("lat_seg", s=idioma.decimal(ms / 1000))
         else:
-            texto = t("lat_osc" if lat["tipo"] == "oscilacao" else "lat_ms", ms=ms)
+            texto = t("lat_ms", ms=ms)
         cv.create_text(x, y, text=texto, anchor="e", fill=cor if lat["nivel"] != "bom" else "#b9b3c9", font=fonte, tags="dyn")
         cheias = {"bom": 3, "medio": 2, "ruim": 1}[lat["nivel"]]
         x0 = x - self._medir(texto, fonte) - 4 * e - 3 * 4 * e
@@ -1189,7 +1205,7 @@ class Overlay:
         self._avisar_eventos(lista, agora)
         W = int(cv.winfo_width())
         h, gap = 46 * e, 6 * e
-        f_n, f_s, f_t = (FONTE, int(10 * e), "bold"), (FONTE, int(8 * e)), (FONTE, int(13 * e), "bold")
+        f_n, f_s, f_t = fonte(10 * e, "bold"), fonte(9 * e), fonte(13 * e, "bold")
         for i, ev in enumerate(lista):
             y0 = i * (h + gap)
             aberto = ev["estado"] == "aberto"
@@ -1209,7 +1225,7 @@ class Overlay:
                 sub = t("comeca_as", h=time.strftime("%H:%M", time.localtime(inicio_pc)))
                 faltam = max(0, ev["faltam"])
                 valor = t("em_min", m=math.ceil(faltam / 60)) if faltam >= 60 else f"{int(faltam)} s"
-            cv.create_text(44 * e, y0 + 32 * e, text=sub, anchor="w", fill="#8d8aa0", font=f_s, tags="dyn")
+            cv.create_text(44 * e, y0 + 32 * e, text=sub, anchor="w", fill="#a8a4bc", font=f_s, tags="dyn")
             cv.create_text(W - 12 * e, cy, text=valor, anchor="e", fill=cor, font=f_t, tags="dyn")
             if not aberto:                       # barrinha: quanto da espera já passou
                 frac = 1 - max(0.0, ev["faltam"]) / max(1.0, float(self.cfg.get("eventos_aviso_min", 5)) * 60)

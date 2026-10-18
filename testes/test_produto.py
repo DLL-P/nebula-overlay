@@ -92,6 +92,9 @@ class TestIdioma(unittest.TestCase):
         self.assertEqual(idioma.numero(12345), "12,3k")
         idioma.definir("en")
         self.assertEqual(idioma.numero(1234567), "1.23M")
+        self.assertEqual(idioma.decimal(76.34), "76.3")
+        idioma.definir("pt")
+        self.assertEqual(idioma.decimal(76.34), "76,3")
 
 
 class TestAtualizar(unittest.TestCase):

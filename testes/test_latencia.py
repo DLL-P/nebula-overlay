@@ -1,4 +1,4 @@
-"""Latência só lendo o tráfego: ping pelos ACKs (conexão direta), oscilação pelo horário do servidor (acelerador)."""
+"""Tempo de resposta do servidor só lendo o tráfego: eco do jogo (com e sem acelerador), ACKs do TCP (direto)."""
 
 import os
 import sys
@@ -67,30 +67,49 @@ class TestPing(unittest.TestCase):
         self.assertEqual(self.l.estado(52.3)["nivel"], "ruim")
 
 
-class TestAcelerador(unittest.TestCase):
-    def test_loopback_mostra_a_oscilacao_e_nao_o_rtt_do_proxy(self):
-        l, f = Latencia(), _fluxos(PROXY, JOGO)
-        for i in range(60):
-            ts = 1000 + i * 0.05
-            l.segmento(_seg(ts, JOGO, PROXY, 10 * i, b"x" * 10), f)
-            l.segmento(_seg(ts + 0.0001, PROXY, JOGO, 1, b"", ack=10 * i + 10), f)      # o proxy confirma na hora
-            l.relogio(ts, int((ts - 4.0) * 1000))                                            # relógio 4 s atrasado
-        e = l.estado(1000 + 59 * 0.05)
-        self.assertTrue(l.proxy)
-        self.assertEqual(len(l.rtts), 0)
-        self.assertEqual(e["tipo"], "oscilacao")
-        self.assertLessEqual(e["ms"], 1)                  # o atraso constante de 4 s some: é a diferença dos relógios
+class TestEco(unittest.TestCase):
+    """O cliente manda 12 bytes a cada 10 s e o servidor responde com o 0x3603: vale com e sem acelerador."""
 
-    def test_lag_aparece_como_oscilacao(self):
+    def _sessao_de_ecos(self, servidor, cliente, rtts, tcp_na_hora=False):
+        l, f = Latencia(), _fluxos(servidor, cliente)
+        volta = (*servidor, *cliente)
+        for i, rtt in enumerate(rtts):
+            ts = 100 + 10 * i
+            for k in range(5):                                       # movimento: pacotes de 11 bytes
+                l.segmento(_seg(ts - 0.5 + k * 0.05, cliente, servidor, 1000 * i + 11 * k, b"m" * 11), f)
+            l.segmento(_seg(ts, cliente, servidor, 1000 * i + 500, b"p" * 12), f)
+            if tcp_na_hora:                                          # o proxy local confirma na hora
+                l.segmento(_seg(ts + 0.0001, servidor, cliente, 1, b"", ack=1000 * i + 512), f)
+            l.heartbeat(ts + rtt, volta)
+            for k in range(25):                                      # horário do servidor, sem lag
+                t = ts + rtt + k * 0.04
+                l.relogio(t, int(t * 1000) - 4000)
+        return l, 100 + 10 * (len(rtts) - 1) + rtts[-1] + 0.96
+
+    def test_com_acelerador_mostra_o_tempo_de_resposta_e_nao_o_ack_do_proxy(self):
+        l, agora = self._sessao_de_ecos(PROXY, JOGO, [0.068, 0.071, 0.070], tcp_na_hora=True)
+        e = l.estado(agora)
+        self.assertTrue(l.proxy)
+        self.assertEqual((e["tipo"], e["ms"], e["nivel"]), ("ping", 70, "bom"))
+
+    def test_direto_tambem_usa_o_eco(self):
+        l, agora = self._sessao_de_ecos(SERVIDOR, CLIENTE, [0.120, 0.180, 0.125])
+        self.assertEqual(l.estado(agora)["ms"], 125)                 # mediana: um eco atrasado não pula o número
+        self.assertEqual(l.estado(agora)["nivel"], "medio")
+
+    def test_heartbeat_sem_eco_nao_conta(self):
         l = Latencia()
-        for i in range(100):
-            ts = 2000 + i * 0.05
-            atraso = 0.060 if i >= 80 else 0.0               # nos últimos 1 s, tudo chega 60 ms atrasado
-            l.relogio(ts + atraso, int(ts * 1000) - 4000)
-        e = l.estado(2000 + 99 * 0.05 + 0.06)
-        self.assertEqual(e["tipo"], "oscilacao")
-        self.assertGreaterEqual(e["ms"], 59)
-        self.assertEqual(e["nivel"], "ruim")
+        l.heartbeat(10.0, (*SERVIDOR, *CLIENTE))
+        self.assertEqual(len(l.ecos), 0)
+
+    def test_lag_entre_um_eco_e_outro_soma_no_ping(self):
+        l, agora = self._sessao_de_ecos(PROXY, JOGO, [0.070, 0.070, 0.070])
+        for k in range(25):                                          # agora tudo chega 60 ms atrasado
+            t = agora + k * 0.04
+            l.relogio(t + 0.060, int(t * 1000) - 4000)
+        e = l.estado(agora + 24 * 0.04 + 0.06)
+        self.assertGreaterEqual(e["ms"], 125)
+        self.assertEqual(e["nivel"], "medio")
 
     def test_servidor_parado(self):
         l = Latencia()
@@ -100,6 +119,14 @@ class TestAcelerador(unittest.TestCase):
         self.assertEqual((e["tipo"], e["nivel"]), ("parado", "ruim"))
         self.assertAlmostEqual(e["ms"], 2500, delta=5)
         self.assertIsNone(l.estado(10 + 19 * 0.05 + 60))     # jogo fechado: some do rodapé
+
+    def test_sem_eco_no_loopback_nao_inventa_numero(self):
+        l, f = Latencia(), _fluxos(PROXY, JOGO)
+        for i in range(10):
+            l.segmento(_seg(1 + i * 0.05, JOGO, PROXY, 10 * i, b"x" * 10), f)
+            l.segmento(_seg(1 + i * 0.05 + 0.0001, PROXY, JOGO, 1, b"", ack=10 * i + 10), f)
+            l.relogio(1 + i * 0.05, int((1 + i * 0.05) * 1000))
+        self.assertIsNone(l.estado(1.5))
 
 
 if __name__ == "__main__":

@@ -313,6 +313,9 @@ class Sessao:
         self.mensagens += 1
         self.jogo_visto = True
         self.ultimo_ts = ts
+        if op == 0x3603:                            # resposta ao eco do cliente: o ping
+            self.latencia.heartbeat(ts, fluxo)
+            return
         if op == 0x3633:
             r = ler_eu_completo(payload)
             if r:

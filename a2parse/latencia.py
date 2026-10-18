@@ -1,26 +1,35 @@
-"""Latência com o servidor, medida só olhando o tráfego que já passa pela captura (nada é enviado).
+"""Tempo de resposta do servidor, medido só olhando o tráfego que já passa pela captura (nada é enviado).
 
-- Conexão direta: ping de verdade. É o tempo entre um segmento TCP que o jogo envia e o ACK do servidor que o
-  cobre. Vale o menor dos últimos JANELA_PING s: o ACK pode sair atrasado (junto com o próximo pacote do
-  servidor), mas nunca adiantado. Segmento retransmitido não conta (algoritmo de Karn).
-- Com acelerador (ExitLag e parecidos), a captura fica no loopback: quem confirma o TCP é o proxy local (dá ~0 ms)
-  e o sentido cliente → servidor é cifrado, sem eco para cronometrar. Fica a oscilação: o servidor manda o horário
-  dele (0x3600) a cada 50 ms; chegada − horário = atraso de ida + diferença dos relógios. A diferença dos relógios
-  quase não muda, então o quanto isso sobe acima do mínimo dos últimos JANELA_BASE s é o lag que se sente.
+- Eco do próprio jogo (com e sem acelerador): a cada 10 s o cliente manda um pacote de 12 bytes (cifrado, mas o
+  tamanho não muda) e o servidor responde com o heartbeat 0x3603. O tempo entre os dois é o ping até o servidor do
+  jogo, passando pelo acelerador se houver. Nas capturas com ExitLag deu ~70 ms, estável. Vale a mediana dos
+  últimos ECOS ecos.
+- Entre um eco e outro, um lag repentino aparece pela oscilação: o servidor manda o horário dele (0x3600) a cada
+  50 ms; chegada − horário = atraso de ida + diferença dos relógios. A diferença dos relógios quase não muda, então
+  o quanto isso sobe acima do mínimo dos últimos JANELA_BASE s é atraso a mais. Passando de PICO ms, ele soma no
+  número mostrado.
+- Sem eco ainda (primeiros 10 s) e conexão direta: o tempo entre um segmento TCP do jogo e o ACK do servidor que o
+  cobre (o menor dos últimos JANELA_PING s; retransmissão não conta, algoritmo de Karn). No loopback do acelerador
+  quem confirma o TCP é o proxy local, então isso não vale lá.
 - Mais de PARADO s sem o horário do servidor: mostra há quanto tempo não chega nada.
 """
 
 from __future__ import annotations
 
+import statistics
 from collections import deque
 
 from .captura import ACK, FIN, SYN, _dif
 
-JANELA_PING = 10.0      # s: o ping é o menor RTT nessa janela
+TAM_PING = 12           # bytes do pacote de eco do cliente (a cada 10 s)
+ECOS = 3                # o ping é a mediana dos últimos ecos
+VALIDADE_ECO = 35.0     # s: eco mais velho que isso não vale (o jogo parou de mandar)
+JANELA_PING = 10.0      # s: sem eco, o ping TCP é o menor RTT nessa janela
 JANELA_BASE = 30.0      # s: o menor atraso de ida nessa janela é a referência da oscilação
 JANELA_OSC = 1.0        # s: a oscilação é a mediana do excesso nesse último segundo
+PICO = 25               # ms de atraso a mais que já somam no ping mostrado
 PARADO = 1.0            # s sem o horário do servidor (vem a cada 0,05 s): conexão parada
-LIMITES = {"ping": (80, 150), "oscilacao": (15, 40)}     # ms: até o 1º é bom, até o 2º é médio
+LIMITES = (80, 150)     # ms: até o 1º é bom, até o 2º é médio
 
 
 def _loopback(ip: str) -> bool:
@@ -31,7 +40,9 @@ class Latencia:
     def __init__(self) -> None:
         self.pendentes: dict[tuple, deque] = {}     # fluxo servidor → cliente: (fim do segmento do cliente, ts)
         self.maior_fim: dict[tuple, int] = {}
-        self.rtts: deque = deque()                  # (ts, s)
+        self.ping_enviado: dict[tuple, float] = {}  # fluxo servidor → cliente: quando saiu o último pacote de eco
+        self.ecos: deque = deque(maxlen=ECOS)       # (ts, s)
+        self.rtts: deque = deque()                  # (ts, s): ping TCP
         self.atrasos: deque = deque()               # (ts, ms): chegada − horário do servidor
         self.base: deque = deque()                  # mínimos crescentes do atraso (janela deslizante)
         self.ultimo_relogio = 0.0
@@ -49,7 +60,9 @@ class Latencia:
         f = fluxos.get(volta)
         if f is None or not f.parece_jogo:
             return
-        if _loopback(seg.destino):                   # o servidor é o proxy local: o RTT não diz nada
+        if len(seg.dados) == TAM_PING:
+            self.ping_enviado[volta] = seg.ts
+        if _loopback(seg.destino):                   # o servidor é o proxy local: o RTT do TCP não diz nada
             self.proxy = True
             return
         tam = len(seg.dados) + bool(seg.flags & SYN) + bool(seg.flags & FIN)
@@ -73,6 +86,12 @@ class Latencia:
             while self.rtts and ts - self.rtts[0][0] > JANELA_PING:
                 self.rtts.popleft()
 
+    def heartbeat(self, ts: float, fluxo: tuple) -> None:
+        """Cada 0x3603 (a resposta ao eco), no fluxo servidor → cliente."""
+        enviado = self.ping_enviado.pop(fluxo, None)
+        if enviado is not None and 0.005 < ts - enviado < 2.0:
+            self.ecos.append((ts, ts - enviado))
+
     def relogio(self, ts: float, horario_servidor_ms: int) -> None:
         """Cada 0x3600: horário do servidor em ms desde 1970, `ts` é a chegada (s)."""
         atraso = ts * 1000.0 - horario_servidor_ms
@@ -87,21 +106,28 @@ class Latencia:
             self.base.popleft()
 
     # ---------- saída ----------
+    def oscilacao(self) -> float:
+        """ms de atraso a mais agora (último segundo) que o melhor dos últimos 30 s."""
+        if len(self.atrasos) < 5 or not self.base:
+            return 0.0
+        return max(0.0, statistics.median(a for _, a in self.atrasos) - self.base[0][1])
+
     def estado(self, agora: float) -> dict | None:
-        """{"ms", "tipo": "ping"/"oscilacao"/"parado", "nivel": "bom"/"medio"/"ruim"} ou None (ainda sem medida)."""
+        """{"ms", "tipo": "ping"/"parado", "nivel": "bom"/"medio"/"ruim"} ou None (ainda sem medida)."""
         if self.ultimo_relogio and agora - self.ultimo_relogio > PARADO:
             if agora - self.ultimo_relogio > 30:     # jogo fechado ou captura parada: some
                 return None
             return {"ms": int((agora - self.ultimo_relogio) * 1000), "tipo": "parado", "nivel": "ruim"}
+        ecos = [r for t, r in self.ecos if agora - t <= VALIDADE_ECO]
         rtts = [r for t, r in self.rtts if agora - t <= JANELA_PING]
-        if len(rtts) >= 3 and not self.proxy:
-            return self._nivel("ping", min(rtts) * 1000)
-        if len(self.atrasos) >= 5 and self.base:
-            excessos = sorted(a - self.base[0][1] for _, a in self.atrasos)
-            return self._nivel("oscilacao", excessos[len(excessos) // 2])
-        return None
-
-    @staticmethod
-    def _nivel(tipo: str, ms: float) -> dict:
-        bom, medio = LIMITES[tipo]
-        return {"ms": max(0, round(ms)), "tipo": tipo, "nivel": "bom" if ms <= bom else "medio" if ms <= medio else "ruim"}
+        if ecos:
+            ms = statistics.median(ecos) * 1000
+        elif len(rtts) >= 3 and not self.proxy:
+            ms = min(rtts) * 1000
+        else:
+            return None
+        osc = self.oscilacao()
+        if osc > PICO:                               # lag agora, entre um eco e outro
+            ms += osc
+        return {"ms": max(0, round(ms)), "tipo": "ping",
+                "nivel": "bom" if ms <= LIMITES[0] else "medio" if ms <= LIMITES[1] else "ruim"}

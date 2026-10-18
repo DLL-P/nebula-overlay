@@ -59,16 +59,16 @@ certificados gratuitos para projetos de código aberto (ex.: SignPath Foundation
 
 | Situação | O que aparece | Como |
 |---|---|---|
-| Conexão direta | `42 ms` (ping) | Tempo entre um segmento TCP que o jogo envia e o ACK do servidor que cobre esse segmento, na própria captura. Vale o menor dos últimos 10 s (o ACK pode sair atrasado, junto com o próximo pacote do servidor, mas nunca adiantado). Retransmissões são ignoradas (algoritmo de Karn). |
-| Com acelerador | `±4 ms` (oscilação) | No loopback quem responde o TCP é o proxy local (o RTT dá ~0 ms) e o sentido cliente → servidor é cifrado, então não há eco do protocolo para cronometrar. O que dá para medir é a **oscilação**: o servidor manda o horário dele (0x3600) 20 vezes por segundo; a diferença entre a hora de chegada e esse horário é "atraso de ida + diferença dos relógios". A diferença dos relógios é quase constante, então o quanto o atraso do último segundo (mediana) sobe acima do mínimo dos últimos 30 s é o lag que você sente. Numa captura real com ExitLag deu ±3 a ±9 ms. |
+| Com e sem acelerador | `70 ms` | **Eco do próprio jogo.** A cada 10,000 s o cliente manda um pacote de 12 bytes (cifrado, mas o tamanho é sempre o mesmo) e o servidor responde com o heartbeat 0x3603. O tempo entre os dois é o tempo de resposta do servidor, passando pelo acelerador quando há um. Em 5 capturas com ExitLag: mediana de 69 a 73 ms, mínimo 62 ms. Vale a mediana dos últimos 3 ecos. |
+| Lag entre um eco e outro | o número sobe | O servidor manda o horário dele (0x3600) 20 vezes por segundo; chegada − horário = atraso de ida + diferença dos relógios, que é quase constante. Se o atraso do último segundo passa 25 ms acima do melhor dos últimos 30 s, esse excesso soma no número. |
+| Primeiros 10 s, conexão direta | ping do TCP | Antes do primeiro eco: tempo entre um segmento TCP do jogo e o ACK do servidor que o cobre (o menor dos últimos 10 s; retransmissões não contam). No loopback do acelerador isso não vale, porque quem confirma é o proxy local. |
 | Servidor parado | número em vermelho | Mais de 1 s sem o horário do servidor (que vem a cada 50 ms): mostra há quanto tempo não chega nada. |
 
-Cores: verde até 80 ms de ping (ou 15 ms de oscilação), amarelo até 150 ms (ou 40 ms), vermelho acima.
+Cores: verde até 80 ms, amarelo até 150 ms, vermelho acima.
 
-**Por que não dá o ping absoluto com acelerador.** O túnel do acelerador vai para um servidor dele, não para o
-do jogo, e o que passa no loopback é respondido localmente. O 0x3603 (heartbeat) também não serve: o relógio
-dele sobe exatamente 10 000 ms por mensagem, é do servidor, não um eco do cliente. Medir de verdade exigiria
-mandar algo (um ping), o que a regra do projeto proíbe.
+**Por que o eco é confiável.** O pacote de 12 bytes sai a cada 10,000 s exatos e o 0x3603 chega sempre logo
+depois (em 324 heartbeats de 5 capturas, só 1 ficou sem o pacote de 12 bytes antes). O "relógio" dentro do 0x3603
+sobe exatamente 10 000 ms por mensagem: é o horário de envio do eco, devolvido pelo servidor.
 
 **Onde está no código.** `a2parse/latencia.py` (medição, com testes em `testes/test_latencia.py`), ligado na
 `Sessao` (`a2parse/aovivo.py`); desenho no rodapé do painel, à esquerda da Odyle (`overlay.py`); opção
@@ -99,5 +99,5 @@ atualize com `git pull`.
 
 - Assinatura digital do instalador (ver item 1).
 - Notas da versão no aviso (o texto do commit já vem em `info["notas"]`).
-- Se um dia houver um eco no protocolo (uma mensagem do cliente que o servidor responde na hora), dá para ter o
-  ping absoluto também com acelerador; hoje o sentido cliente → servidor é cifrado.
+- Se um patch mudar o tamanho do pacote de eco (hoje 12 bytes, `TAM_PING` em `a2parse/latencia.py`), o ping some do
+  rodapé até ajustar o número; o teste com captura real avisa.
