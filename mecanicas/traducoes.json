@@ -570,7 +570,14 @@
   "RETORNO DOS CHAKRAMS": "CHAKRAMS RETURNING",
   "voltam para ele agora: saia do caminho": "coming back to him now: get out of the path",
   "SAI DOS QUADRADOS LARANJA": "LEAVE THE ORANGE SQUARES",
-  "Raios caem nos quadrados laranja (~13 mil): saia deles": "Lightning strikes the orange squares (~13k): get out of them"
+  "Raios caem nos quadrados laranja (~13 mil): saia deles": "Lightning strikes the orange squares (~13k): get out of them",
+  "Todos no círculo de quem foi marcado (o nome aparece na tela); sozinho o golpe mata (77 a 112 mil)": "Everyone into the marked player's circle (the name shows on screen); alone, the hit kills (77k to 112k)",
+  "Leve o círculo até o grupo e fique empilhado, mesmo se estiver ligado no fio; sozinho o golpe mata": "Bring the circle to the group and stay stacked, even if you are tethered; alone, the hit kills",
+  "O CÍRCULO É SEU: VÁ PRO GRUPO": "THE CIRCLE IS ON YOU: GO TO THE GROUP",
+  "mesmo ligado no fio: fique com o grupo; o outro ligado se afasta": "even if tethered: stay with the group; the other tethered player moves away",
+  "CÍRCULO": "CIRCLE",
+  "Os ligados correm em direções opostas; o resto empilha no alvo do golpe. Se o círculo cair num ligado, ele fica com o grupo e o outro se afasta": "Tethered players run in opposite directions; the rest stack on the hit's target. If the circle lands on a tethered player, they stay with the group and the other moves away",
+  "fio em 2 jogadores; se o círculo do golpe cair num ligado, ele fica com o grupo": "tether on 2 players; if the hit's circle lands on a tethered player, they stay with the group"
  },
  "es": {
   "3 ACÚMULOS: AFASTA": "3 CARGAS: ALÉJATE",
@@ -1142,6 +1149,13 @@
   "RETORNO DOS CHAKRAMS": "REGRESO DE LOS CHAKRAMS",
   "voltam para ele agora: saia do caminho": "vuelven hacia él ahora: sal del camino",
   "SAI DOS QUADRADOS LARANJA": "SAL DE LOS CUADROS NARANJAS",
-  "Raios caem nos quadrados laranja (~13 mil): saia deles": "Caen rayos en los cuadros naranjas (~13 mil): sal de ellos"
+  "Raios caem nos quadrados laranja (~13 mil): saia deles": "Caen rayos en los cuadros naranjas (~13 mil): sal de ellos",
+  "Todos no círculo de quem foi marcado (o nome aparece na tela); sozinho o golpe mata (77 a 112 mil)": "Todos al círculo del jugador marcado (el nombre aparece en pantalla); solo, el golpe mata (77 mil a 112 mil)",
+  "Leve o círculo até o grupo e fique empilhado, mesmo se estiver ligado no fio; sozinho o golpe mata": "Lleva el círculo al grupo y quédate agrupado, aunque estés unido por el hilo; solo, el golpe mata",
+  "O CÍRCULO É SEU: VÁ PRO GRUPO": "EL CÍRCULO ES TUYO: VE AL GRUPO",
+  "mesmo ligado no fio: fique com o grupo; o outro ligado se afasta": "aunque estés unido: quédate con el grupo; el otro unido se aleja",
+  "CÍRCULO": "CÍRCULO",
+  "Os ligados correm em direções opostas; o resto empilha no alvo do golpe. Se o círculo cair num ligado, ele fica com o grupo e o outro se afasta": "Los unidos corren en direcciones opuestas; el resto se agrupa en el objetivo del golpe. Si el círculo cae en un unido, se queda con el grupo y el otro se aleja",
+  "fio em 2 jogadores; se o círculo do golpe cair num ligado, ele fica com o grupo": "hilo en 2 jugadores; si el círculo del golpe cae en un unido, se queda con el grupo"
  }
 }

@@ -304,6 +304,8 @@ class MotorAlertas:
                 continue
             if g.get("pessoal") and (self.eu is None or alvo != self.eu):
                 continue
+            if g.get("outros") and self.eu is not None and alvo == self.eu:
+                continue                      # a versão "pessoal" da mecânica avisa você
             base = t + float(antes)
             if any(s.mec is m and s.precursora and abs(s.base - base) <= 1.5 for s in self.ativas + self._confirmaveis):
                 continue                      # outra precursora (ex.: a 1600880 das faixas) já avisou
@@ -344,7 +346,8 @@ class MotorAlertas:
     def skill(self, t: float, skill_id: int, alvo: int | None = None) -> list[Alerta]:
         """O boss iniciou uma skill (0x3802): dispara mecânicas mapeadas e serve de sync.
 
-        Mecânicas com "pessoal": true só disparam quando o alvo da skill é você (self.eu).
+        Mecânicas com "pessoal": true só disparam quando o alvo da skill é você (self.eu);
+        com "outros": true, só quando não é (as duas juntas dão um texto para o alvo e outro para o grupo).
         """
         self.comecar(t)
         for i, m in enumerate(self.boss["mecanicas"]):
@@ -367,6 +370,8 @@ class MotorAlertas:
                         st.alvo = alvo
                 continue
             if g.get("pessoal") and (self.eu is None or alvo != self.eu):
+                continue
+            if g.get("outros") and self.eu is not None and alvo == self.eu:
                 continue
             ultimo = self.disparadas.get(i)
             if ultimo is not None and t - ultimo < g.get("supressao_s", 0):

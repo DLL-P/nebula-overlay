@@ -5153,7 +5153,7 @@
             {
               "nome": "Corrente (2 jogadores)",
               "sinal": "Um fio liga dois jogadores enquanto um terceiro leva um golpe pesado",
-              "acao": "Os ligados correm em direções opostas; o resto empilha no alvo do golpe",
+              "acao": "Os ligados correm em direções opostas; o resto empilha no alvo do golpe. Se o círculo cair num ligado, ele fica com o grupo e o outro se afasta",
               "alerta": "LIGADOS: SEPARA / RESTO: EMPILHA",
               "gatilho": {
                 "tipo": "skill",
@@ -5177,7 +5177,7 @@
                 {
                   "t": 0,
                   "texto": "LIGADOS: SEPARA / RESTO: EMPILHA",
-                  "sub": "fio em 2 jogadores; o golpe pesado vem em seguida (aviso próprio)",
+                  "sub": "fio em 2 jogadores; se o círculo do golpe cair num ligado, ele fica com o grupo",
                   "tipo": "empilhar"
                 }
               ]
@@ -5268,8 +5268,8 @@
             {
               "id": "atiel-golpe-dividido",
               "nome": "Golpe pesado dividido",
-              "sinal": "1801450 (preparo 1,7 s, 'You will be the first to die'): golpe dividido entre quem está no círculo laranja",
-              "acao": "Golpe dividido por quem está no círculo (sozinho: até 91 mil); fique fora das faixas das cópias e com vida cheia",
+              "sinal": "1801440 (preparo 1,5 s) marca um jogador; ~3 s depois 1801450 (preparo 1,7 s, 'You will be the first to die') põe o círculo laranja nele e o golpe é dividido entre quem está dentro",
+              "acao": "Todos no círculo de quem foi marcado (o nome aparece na tela); sozinho o golpe mata (77 a 112 mil)",
               "alerta": "EMPILHA NO CÍRCULO",
               "acao_tipo": "empilhar",
               "gatilho": {
@@ -5278,16 +5278,74 @@
                   1801450
                 ],
                 "preparo_s": {
+                  "1801440": 4.35,
                   "1801450": 1.7
-                }
+                },
+                "outros": true
               },
               "confianca": "alta",
               "confianca_skill": "alta",
               "observado": {
-                "fonte": "captura + vídeo 2026-10-17 15:10 (Transcendência, Estágio 2, run completa)",
-                "nota": "run das 13:18: 91 mil num jogador só; run das 15:16: 14,6 mil em cada um empilhado. Sua morte: duas lâminas das cópias (1801480) + o golpe, no círculo dentro de uma faixa"
+                "fonte": "captura 2026-10-17 23:32 + vídeo 23:30 (Deus, Estágio 2: 1 wipe e 1 vitória)",
+                "nota": "1801440 (preparo 1,5 s) e 1801450 miram sempre o mesmo jogador: preparo do 1801440 → cast do 1801450 em 4,3-4,4 s (6 casos) → dano 1,7 s depois. Sozinho no círculo: 77 mil (Remmy) e 112 mil (você, 2 vezes). Nas suas duas mortes você era ao mesmo tempo o ligado do fio e o alvo do círculo; o aviso 'LIGADOS: SEPARA' te mandou para longe do grupo.",
+                "antes": {
+                  "fonte": "captura + vídeo 2026-10-17 15:10 (Transcendência, Estágio 2, run completa)",
+                  "nota": "run das 13:18: 91 mil num jogador só; run das 15:16: 14,6 mil em cada um empilhado. Sua morte: duas lâminas das cópias (1801480) + o golpe, no círculo dentro de uma faixa"
+                }
               },
-              "wipe": false
+              "wipe": false,
+              "status": [
+                {
+                  "texto": "CÍRCULO",
+                  "tipo": "empilhar",
+                  "em": "alvo",
+                  "de": -4.4,
+                  "ate": 1.8
+                }
+              ]
+            },
+            {
+              "id": "atiel-golpe-dividido-em-voce",
+              "nome": "Golpe pesado dividido (em você)",
+              "sinal": "1801440 e depois 1801450 miram você: o círculo laranja está em você",
+              "acao": "Leve o círculo até o grupo e fique empilhado, mesmo se estiver ligado no fio; sozinho o golpe mata",
+              "alerta": "O CÍRCULO É SEU: VÁ PRO GRUPO",
+              "acao_tipo": "empilhar",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_ids": [
+                  1801450
+                ],
+                "preparo_s": {
+                  "1801440": 4.35,
+                  "1801450": 1.7
+                },
+                "pessoal": true
+              },
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "O CÍRCULO É SEU: VÁ PRO GRUPO",
+                  "sub": "mesmo ligado no fio: fique com o grupo; o outro ligado se afasta",
+                  "tipo": "empilhar"
+                }
+              ],
+              "status": [
+                {
+                  "texto": "CÍRCULO",
+                  "tipo": "empilhar",
+                  "em": "alvo",
+                  "de": -4.4,
+                  "ate": 1.8
+                }
+              ],
+              "wipe": false,
+              "confianca": "alta",
+              "confianca_skill": "alta",
+              "observado": {
+                "fonte": "captura 2026-10-17 23:32 + vídeo 23:30 (Deus, Estágio 2: 1 wipe e 1 vitória)",
+                "nota": "1801440 (preparo 1,5 s) e 1801450 miram sempre o mesmo jogador: preparo do 1801440 → cast do 1801450 em 4,3-4,4 s (6 casos) → dano 1,7 s depois. Sozinho no círculo: 77 mil (Remmy) e 112 mil (você, 2 vezes). Nas suas duas mortes você era ao mesmo tempo o ligado do fio e o alvo do círculo; o aviso 'LIGADOS: SEPARA' te mandou para longe do grupo."
+              }
             },
             {
               "id": "atiel-atordoado",

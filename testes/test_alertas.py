@@ -258,6 +258,18 @@ class TestMotor(unittest.TestCase):
         textos = [a.texto for a in m.skill(5.0, 1601030, 15935) + m.avancar(10)]
         self.assertNotIn("O MERGULHO É EM VOCÊ", textos)
 
+    def test_golpe_dividido_do_atiel_avisa_o_alvo_e_o_grupo(self):
+        """1801440 marca o alvo 4,35 s antes do 1801450: o alvo lê um texto, o grupo outro, e o círculo leva o nome."""
+        b = boss(DADOS, "Atiel")
+        m = MotorAlertas(b, modo_skills=True, eu=16160)
+        textos = [a.texto for a in m.preparo(10.0, 1801440, 15935) + m.preparo(12.6, 1801450, 15935) + m.avancar(16)]
+        self.assertEqual(textos, ["EMPILHA NO CÍRCULO"])
+        self.assertIn(("CÍRCULO", 15935), {(s["texto"], s["alvo"]) for s in m.status_ativos(10.1)})
+        m = MotorAlertas(b, modo_skills=True, eu=16160)
+        alertas = m.preparo(10.0, 1801440, 16160) + m.preparo(12.6, 1801450, 16160) + m.avancar(16)
+        self.assertEqual([a.texto for a in alertas], ["O CÍRCULO É SEU: VÁ PRO GRUPO"])
+        self.assertAlmostEqual(alertas[0].contagem, 4.35)
+
     def test_reserva_de_hp_fica_de_fora_no_modo_skills(self):
         m = MotorAlertas(boss(DADOS, "Divine Auldor"), pre_aviso=False, modo_skills=True)
         textos = [a.texto for a in m.hp(0, 100) + m.hp(5, 74) + m.avancar(100)]
