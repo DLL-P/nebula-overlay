@@ -2,6 +2,6 @@
 
 VERSAO = "dev"
 REPO = "DLL-P/nebula-overlay"
-APOIO_URL = ""          # link de apoio ao desenvolvedor (vazio = o botão não aparece)
+APOIO_URL = "https://livepix.gg/dellabeats"   # doação (LivePix); vazio = o botão não aparece
 FORMULARIO_URL = ""     # formulário (privado) para mandar o pacote de contribuição; vazio = abre o guia
 DISCORD_URL = ""        # convite do servidor da comunidade (vazio = o botão não aparece)
