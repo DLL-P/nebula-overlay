@@ -433,7 +433,7 @@ class Overlay:
         try:
             fonte = FonteAoVivo(salvar=self.cfg.get("gravar", True) and not self.args.sem_salvar,
                                 sempre=self.args.sempre_gravar or self.cfg.get("gravar_tudo", False), rota=rota,
-                                forcada=self.cfg.get("placa"))
+                                forcada=self.cfg.get("placa"), sem_npcap=getattr(self.args, "sem_npcap", False) or self.cfg.get("sem_npcap", False))
         except ErroCaptura as e:
             self.erro_captura = e
             self.inicio.status("erro", erro=e)
@@ -446,6 +446,16 @@ class Overlay:
             self.inicio.j.iconify()                  # a janela principal sai da frente do jogo
         except tk.TclError:
             pass
+
+    def abrir_como_admin(self) -> None:
+        """Abre outra cópia do app como administrador (o Windows pergunta) e fecha esta."""
+        import subprocess
+        if getattr(sys, "frozen", False):
+            exe, params = sys.executable, subprocess.list2cmdline(sys.argv[1:])
+        else:
+            exe, params = sys.executable, subprocess.list2cmdline([os.path.abspath(sys.argv[0])] + sys.argv[1:])
+        if C.windll.shell32.ShellExecuteW(None, "runas", exe, params, None, 1) > 32:
+            self.fechar()
 
     def tentar_de_novo(self) -> None:
         self.erro_captura = None
@@ -1306,9 +1316,11 @@ class Gravador:
 
     Guarda sempre os últimos MEMORIA s de pacotes. Quando um boss aparece, abre o arquivo e grava essa
     memória primeiro (entrada na zona, seu personagem, spawns); ao sair da zona espera ESPERA s antes de
-    fechar (morrer e voltar não divide a run em dois arquivos).
+    fechar (morrer e voltar não divide a run em dois arquivos). Um arquivo que passa de LIMITE bytes fecha, e a
+    gravação para até o app reabrir: é sinal de que a captura está pegando mais do que o jogo.
     """
     MEMORIA, ESPERA = 120.0, 60.0
+    LIMITE = 2_000_000_000
 
     def __init__(self, linktype: int, pasta: str | None = None) -> None:
         import collections
@@ -1319,6 +1331,8 @@ class Gravador:
         self.caminho = ""
         self.ativo = False                # ligado pela interface: zona com boss
         self.fim_previsto: float | None = None
+        self.tamanho = 0
+        self.esgotado = False
 
     def _abrir(self) -> None:
         import struct
@@ -1326,6 +1340,7 @@ class Gravador:
         self.caminho = os.path.join(self.pasta or pasta_usuario("capturas"), f"aovivo_{dt.datetime.now():%Y-%m-%d_%H-%M-%S}.pcap")
         self.arquivo = open(self.caminho, "wb")
         self.arquivo.write(struct.pack("<IHHiIII", 0xA1B2C3D4, 2, 4, 0, 0, 65535, self.linktype))
+        self.tamanho = 24
         for p in self.memoria:
             self._escrever(*p)
         print(f"Masmorra: gravando em {os.path.basename(self.caminho)}")
@@ -1334,8 +1349,11 @@ class Gravador:
         import struct
         seg = int(ts)
         self.arquivo.write(struct.pack("<IIII", seg, int((ts - seg) * 1e6), len(dados), tam) + dados)
+        self.tamanho += 16 + len(dados)
 
     def pacote(self, ts: float, dados: bytes, tam: int) -> None:
+        if self.esgotado:
+            return
         self.memoria.append((ts, dados, tam))
         while self.memoria and ts - self.memoria[0][0] > self.MEMORIA:
             self.memoria.popleft()
@@ -1348,7 +1366,12 @@ class Gravador:
             self.fim_previsto = ts + self.ESPERA
         if self.arquivo is not None:
             self._escrever(ts, dados, tam)
-            if self.fim_previsto is not None and ts >= self.fim_previsto:
+            if self.tamanho > self.LIMITE:
+                print(f"Gravação parada: {os.path.basename(self.caminho)} passou de {self.LIMITE // 1_000_000_000} GB "
+                      "(a captura deve estar pegando mais do que o jogo).")
+                self.fechar()
+                self.esgotado, self.memoria = True, type(self.memoria)()
+            elif self.fim_previsto is not None and ts >= self.fim_previsto:
                 self.fechar()
 
     def fechar(self) -> None:
@@ -1366,24 +1389,65 @@ def chave_rota(rota: dict | None) -> tuple:
 
 
 class FonteAoVivo:
-    """Captura pelo Npcap numa thread; a interface processa os pacotes no seu próprio ritmo."""
+    """Captura numa thread; a interface processa os pacotes no seu próprio ritmo.
+
+    Usa o Npcap. Sem ele, e com o app aberto como administrador, captura pelo socket bruto do Windows.
+    """
     velocidade = 1.0
 
-    def __init__(self, salvar: bool, sempre: bool = False, rota: dict | None = None, forcada: str | None = None) -> None:
+    def __init__(self, salvar: bool, sempre: bool = False, rota: dict | None = None, forcada: str | None = None,
+                 sem_npcap: bool = False) -> None:
         import gravar as g
         self.g = g
         self.fila: queue.Queue = queue.Queue()
         self.parado = threading.Event()
-        w = g.carregar_wpcap()
-        lista = g.placas(w)
         rota = rota if rota is not None else g.rota_do_jogo()
-        self.proxy = None
+        self.proxy = rota["proxy"].replace(".exe", "") if rota and rota.get("proxy") else None
         self.chave_rota = chave_rota(rota)
+        self.windows = None
+        try:
+            if sem_npcap:
+                raise g.ErroCaptura("erro_npcap", "Captura pelo Windows pedida (--sem-npcap).")
+            w = g.carregar_wpcap()
+        except g.ErroCaptura as e:
+            if e.chave != "erro_npcap":
+                raise
+            if not g.sou_admin():
+                raise g.ErroCaptura("erro_npcap_admin", "O Npcap não está instalado e o app não está como administrador.")
+            self._abrir_windows(rota)
+        else:
+            self._abrir_npcap(w, rota, forcada)
+        self.inicio = time.time()
+        self.dumper = None
+        self.gravador = None
+        self.sempre = False
+        if salvar:
+            # "gravar tudo" também passa pelo Gravador: só grava depois que mensagens do jogo aparecem nesta captura
+            # (aberta antes de o jogo conectar, ela pode estar na placa errada, com o tráfego do PC inteiro)
+            self.gravador, self.sempre = Gravador(self.linktype), sempre
+            print("Gravação ligada também fora de masmorra: começa quando o jogo aparecer." if sempre else
+                  "Gravação em espera: começa sozinha quando um boss aparecer (masmorra). --sem-salvar desliga.")
+        threading.Thread(target=self._laco_windows if self.windows else self._laco, daemon=True).start()
+
+    def _abrir_windows(self, rota: dict | None) -> None:
+        g = self.g
+        if self.proxy:
+            ip, porta = "127.0.0.1", rota["porta"]
+        else:
+            ip, porta = next(iter((rota or {}).get("ips_locais") or []), None) or g.ip_local(), None
+        if not ip:
+            raise g.ErroCaptura("erro_placa", "Não consegui escolher a placa de rede.")
+        self.windows = g.CapturaWindows(ip, porta)
+        self.linktype = g.CapturaWindows.LINKTYPE
+        print(f"Capturando pelo Windows, sem Npcap: {ip}" + (f" · porta {porta}" if porta else ""))
+
+    def _abrir_npcap(self, w, rota: dict | None, forcada: str | None) -> None:
+        g = self.g
+        lista = g.placas(w)
         placa = g.escolher_placa(lista, rota, forcada)
         if forcada and placa is None:
             raise g.ErroCaptura("erro_placa_cfg", f"Nenhuma placa com \"{forcada}\" no nome.", placa=forcada)
-        if rota and rota.get("proxy"):
-            self.proxy = rota["proxy"].replace(".exe", "")
+        if self.proxy:
             if placa is None:
                 raise g.ErroCaptura("erro_loopback", f"O jogo passa pelo {self.proxy}, mas o Npcap não tem a placa "
                                     "de loopback.", proxy=self.proxy)
@@ -1405,22 +1469,28 @@ class FonteAoVivo:
             raise g.ErroCaptura("erro_abrir", "Filtro inválido: " + texto, erro=texto)
         w.pcap_freecode(C.byref(prog))
         self.w, self.linktype = w, w.pcap_datalink(self.h)
-        self.inicio = time.time()
-        self.dumper = None
-        self.gravador = None
-        if salvar and sempre:
-            arq = os.path.join(pasta_usuario("capturas"), f"aovivo_{dt.datetime.now():%Y-%m-%d_%H-%M-%S}.pcap")
-            self.dumper = w.pcap_dump_open(self.h, arq.encode("mbcs"))
-            print(f"Gravando tudo em {arq} (--sempre-gravar).")
-        elif salvar:
-            self.gravador = Gravador(self.linktype)
-            print("Gravação em espera: começa sozinha quando um boss aparecer (masmorra). --sem-salvar desliga.")
         print(f"Capturando: {placa['descricao'] or placa['nome']} · {filtro}")
-        threading.Thread(target=self._laco, daemon=True).start()
 
     @property
     def rotulo(self) -> str:
-        return t("via", proxy=self.proxy) if self.proxy else t("direto")
+        base = t("via", proxy=self.proxy) if self.proxy else t("direto")
+        return f"{base} · {t('sem_npcap')}" if self.windows else base
+
+    def _laco_windows(self) -> None:
+        while not self.parado.is_set():
+            try:
+                dados = self.windows.ler()
+            except OSError as e:
+                print(f"A captura pelo Windows parou: {e}")
+                break
+            if dados:
+                ts = time.time()
+                if self.gravador:
+                    self.gravador.pacote(ts, dados, len(dados))
+                self.fila.put((ts, dados))
+        if self.gravador:
+            self.gravador.fechar()
+        self.windows.fechar()
 
     def _laco(self) -> None:
         g, w = self.g, self.w
@@ -1449,7 +1519,8 @@ class FonteAoVivo:
 
     def processar(self, sessao: Sessao) -> float:
         if self.gravador:
-            self.gravador.ativo = sessao.zona_com_boss     # a thread de captura liga/desliga a gravação
+            # a thread de captura liga/desliga a gravação; "gravar tudo" espera o jogo aparecer nesta captura
+            self.gravador.ativo = (self.sempre and sessao.jogo_visto) or sessao.zona_com_boss
         for _ in range(5000):
             try:
                 ts, dados = self.fila.get_nowait()
@@ -1553,6 +1624,7 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--sem-borda", action="store_true", help="desliga a borda vermelha piscando nos alarmes")
     ap.add_argument("--sem-salvar", action="store_true", help="ao vivo, não grava a captura em disco")
     ap.add_argument("--sempre-gravar", action="store_true", help="grava tudo, também fora da masmorra")
+    ap.add_argument("--sem-npcap", action="store_true", help="captura pelo Windows mesmo com o Npcap instalado (pede administrador)")
     ap.add_argument("--sem-pre-aviso", action="store_true")
     ap.add_argument("--classe", choices=sorted(NOME_CLASSE), help="força a classe (o padrão é detectar sozinho)")
     ap.add_argument("--papel", choices=["tank", "healer", "dps", "suporte"], help="força o papel (o padrão vem da classe)")

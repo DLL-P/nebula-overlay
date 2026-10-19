@@ -122,8 +122,11 @@ class Inicio:
                  wraplength=360, justify="left", anchor="w").pack(fill="x")
         b = tk.Frame(self.f_erro, bg=CARTAO)
         b.pack(fill="x", pady=(6, 0))
-        if erro.chave in ("erro_npcap", "erro_loopback"):
-            _botao(b, t("btn_npcap"), lambda: abrir(NPCAP_URL), destaque=True, pequeno=True).pack(side="left", padx=(0, 8))
+        if erro.chave == "erro_npcap_admin":
+            _botao(b, t("btn_admin"), self.ov.abrir_como_admin, destaque=True, pequeno=True).pack(side="left", padx=(0, 8))
+        if erro.chave in ("erro_npcap", "erro_loopback", "erro_npcap_admin", "erro_windows"):
+            _botao(b, t("btn_npcap"), lambda: abrir(NPCAP_URL), destaque=erro.chave != "erro_npcap_admin",
+                   pequeno=True).pack(side="left", padx=(0, 8))
         _botao(b, t("btn_tentar"), self.ov.tentar_de_novo, pequeno=True).pack(side="left")
         self.f_erro.pack(fill="x", padx=18, pady=(6, 0))
 

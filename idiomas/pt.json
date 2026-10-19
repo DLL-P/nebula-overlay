@@ -144,7 +144,11 @@
   "gravar_tudo": "Gravar também fora de masmorra (eventos de campo; arquivos maiores)",
   "vozes_windows": "Instalar vozes do Windows",
   "voz_nebula": "Vozes do Nebula (vêm com o app)",
-  "voz_windows": "Vozes do Windows"
+  "voz_windows": "Vozes do Windows",
+  "erro_npcap_admin": "Para ler a conexão do jogo, abra o Nebula Overlay como administrador (captura pelo próprio Windows) ou instale o Npcap.",
+  "erro_windows": "Não consegui capturar pelo Windows ({erro}). Instale o Npcap.",
+  "btn_admin": "Abrir como administrador",
+  "sem_npcap": "sem Npcap"
  },
  "classes": {
   "GLADIATOR": "Gladiador",

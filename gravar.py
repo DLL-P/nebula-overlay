@@ -16,6 +16,7 @@ import ctypes as C
 import datetime as dt
 import json
 import os
+import struct
 import socket
 import sys
 import time
@@ -73,6 +74,67 @@ class ErroCaptura(Exception):
     def __init__(self, chave: str, mensagem: str, **valores) -> None:
         super().__init__(mensagem)
         self.chave, self.valores = chave, valores
+
+
+def sou_admin() -> bool:
+    try:
+        return bool(C.windll.shell32.IsUserAnAdmin())
+    except (AttributeError, OSError):
+        return False
+
+
+class CapturaWindows:
+    """Sem Npcap: o socket bruto do próprio Windows (SIO_RCVALL), que precisa de administrador.
+
+    Fica no IP da placa que o jogo usa ou, com acelerador, no 127.0.0.1 (o mesmo lugar onde o Npcap olharia).
+    RCVALL_IPLEVEL recebe só o tráfego deste PC, sem modo promíscuo. Entrega pacotes IPv4 inteiros (IP cru).
+    """
+    LINKTYPE = 101                       # IP cru, como no pcap
+    RCVALL_IPLEVEL = 3
+    PORTAS_WEB = (80, 443)
+
+    def __init__(self, ip: str, porta: int | None = None) -> None:
+        import socket
+        self.porta = porta
+        try:
+            s = socket.socket(socket.AF_INET, socket.SOCK_RAW, socket.IPPROTO_IP)
+            s.bind((ip, 0))
+            s.setsockopt(socket.IPPROTO_IP, socket.IP_HDRINCL, 1)
+            try:
+                s.ioctl(socket.SIO_RCVALL, self.RCVALL_IPLEVEL)
+            except OSError:
+                s.ioctl(socket.SIO_RCVALL, socket.RCVALL_ON)
+            s.settimeout(0.1)
+        except OSError as e:
+            raise ErroCaptura("erro_windows", f"Não consegui capturar pelo Windows: {e}", erro=str(e))
+        self.s = s
+
+    def aceita(self, d: bytes) -> bool:
+        """TCP sobre IPv4: com acelerador, só a porta do proxy; direto, tudo menos a web (mesmo filtro do Npcap)."""
+        if len(d) < 24 or d[0] >> 4 != 4 or d[9] != 6:
+            return False
+        ihl = (d[0] & 0x0F) * 4
+        if len(d) < ihl + 4:
+            return False
+        origem, destino = struct.unpack_from(">HH", d, ihl)
+        if self.porta is not None:
+            return self.porta in (origem, destino)
+        return origem not in self.PORTAS_WEB and destino not in self.PORTAS_WEB
+
+    def ler(self) -> bytes | None:
+        """O próximo pacote do jogo, ou None (nada em 0,1 s ou pacote de outro programa). OSError: a captura caiu."""
+        import socket
+        try:
+            d = self.s.recv(65535)
+        except socket.timeout:
+            return None
+        return d if self.aceita(d) else None
+
+    def fechar(self) -> None:
+        try:
+            self.s.close()
+        except OSError:
+            pass
 
 
 def carregar_wpcap():

@@ -49,6 +49,20 @@ class TestGravador(unittest.TestCase):
                 g.fechar()
                 self.assertEqual(len(glob.glob(os.path.join(tmp, "capturas", "*.pcap"))), 1)
 
+    def test_arquivo_grande_demais_para_a_gravacao(self):
+        """Captura na placa errada com "gravar tudo" (5 GB em 11 min em 19/10): passou do limite, fecha e para."""
+        with tempfile.TemporaryDirectory() as tmp:
+            g = overlay.Gravador(0, os.path.join(tmp, "capturas"))
+            g.LIMITE = 1000
+            g.ativo = True
+            for t in range(200):
+                g.pacote(float(t), b"x" * 100, 100)
+            arquivos = glob.glob(os.path.join(tmp, "capturas", "*.pcap"))
+            self.assertEqual(len(arquivos), 1)
+            self.assertIsNone(g.arquivo)
+            self.assertTrue(g.esgotado)
+            self.assertLess(os.path.getsize(arquivos[0]), 1000 + 200)
+
 
 if __name__ == "__main__":
     unittest.main()

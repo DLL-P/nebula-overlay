@@ -144,7 +144,11 @@
   "gravar_tudo": "Also record outside dungeons (field events; bigger files)",
   "vozes_windows": "Install Windows voices",
   "voz_nebula": "Nebula voices (included)",
-  "voz_windows": "Windows voices"
+  "voz_windows": "Windows voices",
+  "erro_npcap_admin": "To read the game connection, open Nebula Overlay as administrator (Windows' own capture) or install Npcap.",
+  "erro_windows": "Windows capture failed ({erro}). Install Npcap.",
+  "btn_admin": "Open as administrator",
+  "sem_npcap": "no Npcap"
  },
  "classes": {
   "GLADIATOR": "Gladiator",
