@@ -48,11 +48,16 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--piper", required=True, help="piper.exe")
     ap.add_argument("--modelos", required=True, help="pasta com os .onnx e .onnx.json")
+    ap.add_argument("--faltando", action="store_true", help="só as frases que ainda não têm áudio (o Piper varia a cada geração)")
     args = ap.parse_args()
     for voz, modelo in VOZES.items():
         saida = os.path.join(RAIZ, "voz_padrao", voz)
         os.makedirs(saida, exist_ok=True)
         frases = idioma.frases(voz)
+        if args.faltando:
+            frases = {k: t for k, t in frases.items() if not os.path.exists(os.path.join(saida, f"{k}.wav"))}
+            if not frases:
+                continue
         linhas = "\n".join(json.dumps({"text": t, "output_file": os.path.join(saida, f"{k}.wav")}, ensure_ascii=False)
                            for k, t in frases.items())
         with tempfile.TemporaryDirectory():
