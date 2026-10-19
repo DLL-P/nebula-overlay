@@ -145,6 +145,8 @@ class Inicio:
             _botao(b, t("btn_npcap"), lambda: abrir(NPCAP_URL), destaque=erro.chave != "erro_npcap_admin",
                    pequeno=True).pack(side="left", padx=(0, 8))
         _botao(b, t("btn_tentar"), self.ov.tentar_de_novo, pequeno=True).pack(side="left")
+        _botao(b, t("aba_diagnostico"), lambda: self.ov.abrir_config(perto_do_meter=False, aba="aba_diagnostico"),
+               pequeno=True).pack(side="left", padx=(8, 0))
         self.f_erro.pack(fill="x", padx=18, pady=(6, 0))
 
     # atualização
@@ -174,16 +176,16 @@ class Inicio:
 # ---------------- configurações ----------------
 
 class Configuracoes:
-    ABAS = ("aba_geral", "aba_alertas", "aba_eventos", "aba_ferramentas", "aba_sobre")
+    ABAS = ("aba_geral", "aba_alertas", "aba_eventos", "aba_ferramentas", "aba_diagnostico", "aba_sobre")
 
-    def __init__(self, ov, perto_do_meter: bool) -> None:
+    def __init__(self, ov, perto_do_meter: bool, aba: str | None = None) -> None:
         self.ov = ov
         self.j = tk.Toplevel(ov.root)
         self.j.configure(bg=CARTAO)
         self.j.resizable(False, False)
         self.j.attributes("-topmost", True)
         _icone(self.j)
-        self.aba = "aba_geral"
+        self.aba = aba if aba in self.ABAS else "aba_geral"
         self.msg_voz = ""
         self.msg_atual = ""
         self.construir()
@@ -399,6 +401,45 @@ class Configuracoes:
                             ("abrir_pasta", lambda: abrir(pasta_usuario())),
                             ("contribuir", lambda: Contribuir(self.ov))):
             _botao(c, t(chave), acao).pack(fill="x", pady=3)
+
+    def _aba_diagnostico(self, c) -> None:
+        """"Tudo funcionando?": cada linha com a cor do resultado e, quando há conserto, o botão."""
+        from a2parse import diagnostico
+        e, placas = self.ov.estado_diagnostico()
+        linhas = diagnostico.verificar(e)
+        cores = {"ok": VERDE, "aviso": AMARELO, "erro": VERMELHO, "info": SUAVE}
+        acoes = {"npcap": (t("btn_npcap"), lambda: abrir(NPCAP_URL)),
+                 "admin": (t("btn_admin"), self.ov.abrir_como_admin),
+                 "tentar": (t("btn_tentar"), self._tentar),
+                 "relogio": (t("dg_btn_relogio"), lambda: os.startfile("ms-settings:dateandtime")),
+                 "atualizar": (t("btn_atualizar"), self.ov.atualizar_agora)}
+        self._titulo(c, t("dg_titulo"))
+        for l in linhas:
+            f = tk.Frame(c, bg=CARTAO)
+            f.pack(fill="x", pady=(3, 0))
+            ponto = tk.Canvas(f, width=12, height=12, bg=CARTAO, highlightthickness=0)
+            ponto.create_oval(2, 2, 11, 11, fill=cores[l["nivel"]], outline="")
+            ponto.pack(side="left", anchor="n", padx=(6, 8), pady=(4, 0))
+            if l["acao"] in acoes:
+                rotulo, comando = acoes[l["acao"]]
+                _botao(f, rotulo, comando, destaque=l["nivel"] == "erro", pequeno=True).pack(side="right", anchor="n")
+            tk.Label(f, text=l["texto"], bg=CARTAO, fg=TEXTO, font=(FONTE, 10), wraplength=300, justify="left",
+                     anchor="w").pack(side="left", fill="x", expand=True)
+        estado = self._nota(c, "")
+
+        def copiar():
+            self.j.clipboard_clear()
+            self.j.clipboard_append(diagnostico.texto(e, linhas, VERSAO, placas))
+            estado.config(text=t("dg_copiado"))
+        linha = tk.Frame(c, bg=CARTAO)
+        linha.pack(fill="x", pady=(10, 0))
+        _botao(linha, t("dg_copiar"), copiar, destaque=True, pequeno=True).pack(side="left", padx=(6, 0))
+        _botao(linha, t("dg_conferir"), self.construir, pequeno=True).pack(side="left", padx=(8, 0))
+        self._nota(c, t("dg_nota"))
+
+    def _tentar(self) -> None:
+        self.ov.tentar_de_novo()
+        self.construir()
 
     def _aba_sobre(self, c) -> None:
         tk.Label(c, text="Nebula Overlay", bg=CARTAO, fg=TEXTO, font=(FONTE, 13, "bold"), anchor="w").pack(fill="x")

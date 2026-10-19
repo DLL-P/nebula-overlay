@@ -778,14 +778,55 @@ class Overlay:
         elif self.modo_som == "bipes":
             tocar("alarme")
 
-    def abrir_config(self, perto_do_meter: bool = True) -> None:
+    def abrir_config(self, perto_do_meter: bool = True, aba: str | None = None) -> None:
         """Janela normal (clicável e com foco): ao lado do painel quando aberta pela engrenagem."""
         import painel
         if self._config is not None and self._config.j.winfo_exists():
             self._config.j.deiconify()
             self._config.j.lift()
+            if aba:
+                self._config._ir(aba)
             return
-        self._config = painel.Configuracoes(self, perto_do_meter)
+        self._config = painel.Configuracoes(self, perto_do_meter, aba)
+
+    def estado_diagnostico(self) -> tuple[dict, list[str]]:
+        """Retrato para o "Tudo funcionando?" (a2parse/diagnostico.py) e os nomes das placas de rede."""
+        import gravar
+        pids = self.pids or pids_do_jogo()
+        e: dict = {"admin": gravar.sou_admin(), "jogo_aberto": bool(pids), "tela": (self.sw, self.sh),
+                   "conectado": self.fonte is not None and self.ao_vivo,
+                   "erro": t(self.erro_captura.chave, **self.erro_captura.valores) if self.erro_captura else None,
+                   "nova_versao": (self._info_atualizacao or {}).get("versao")}
+        placas: list[str] = []
+        try:
+            w = gravar.carregar_wpcap()
+            e["npcap"], e["npcap_versao"] = True, w.pcap_lib_version().decode(errors="replace").split(",")[0]
+            placas = [p["descricao"] or p["nome"] for p in gravar.placas(w)]
+            e["loopback"] = any("loopback" in p.lower() for p in placas)
+        except Exception:
+            e["npcap"] = False
+        try:
+            import winreg
+            with winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, r"SYSTEM\CurrentControlSet\Services\npcap\Parameters") as k:
+                e["npcap_so_admin"] = bool(winreg.QueryValueEx(k, "AdminOnly")[0])
+        except OSError:
+            e["npcap_so_admin"] = None
+        if pids:
+            e["janela"] = janela_do_jogo(pids)
+            try:        # o Windows diz se há um jogo em tela cheia exclusiva (QUNS_RUNNING_D3D_FULL_SCREEN = 3)
+                quns = C.c_int()
+                C.windll.shell32.SHQueryUserNotificationState(C.byref(quns))
+                e["tela_exclusiva"] = quns.value == 3
+            except (AttributeError, OSError):
+                pass
+        fonte = self.fonte if isinstance(self.fonte, FonteAoVivo) else None
+        if fonte is not None:
+            e["proxy"] = fonte.proxy
+            e["sem_mensagem_s"] = round(time.time() - max(self.sessao.ultimo_ts, fonte.inicio))
+            e["latencia"] = self.sessao.latencia.estado(time.time())
+        if self.eventos.atraso:                                    # 0 = o servidor ainda não mandou o horário
+            e["relogio_s"] = round(-self.eventos.atraso, 1)       # PC − servidor (inclui o atraso da rede, < 1 s)
+        return e, placas
 
     def _altura_conteudo(self, dono: tk.Toplevel) -> int:
         """O cartão do meter cresce com o número de jogadores: o cadeado acompanha o rodapé."""
