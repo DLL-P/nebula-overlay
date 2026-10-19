@@ -80,5 +80,24 @@ class TestMinijogos(unittest.TestCase):
         self.assertEqual(e.minijogos(ini + 400), [])
 
 
+class TestInvasao(unittest.TestCase):
+    def test_120101_e_a_invasao_dimensional(self):
+        """Captura de 2026-10-19: o 120101 abre às :30:01 (3 min de preparação + 10 min). Vira um cartão só,
+        com o nome da agenda, e não "evento-120101" ao lado do cartão da agenda."""
+        ini = ts("2026-10-19T17:30:01")
+        varint = bytes([0xA5, 0xAA, 0x07])                     # 120101
+        pacote = b"" + varint + b"" + struct.pack("<qqq", int(ini * 1000), int((ini + 180) * 1000),
+                                                          int((ini + 780) * 1000))
+        self.assertEqual(ler_evento(pacote)["evento"], 120101)
+        e = Eventos()
+        e.mensagem(0x6001, pacote)
+        lista = e.estado(ini + 200)
+        invasao = [x for x in lista if x["chave"] == "invasao-dimensional"]
+        self.assertEqual(len(invasao), 1)
+        self.assertEqual((invasao[0]["id"], invasao[0]["fase"]), (120101, 2))
+        self.assertAlmostEqual(invasao[0]["restam"], 580.0, places=1)
+        self.assertFalse(any(x["chave"].startswith("evento-") for x in lista))
+
+
 if __name__ == "__main__":
     unittest.main()

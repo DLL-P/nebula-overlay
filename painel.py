@@ -304,6 +304,7 @@ class Configuracoes:
         self._caixa(c, t("perfis_op"), "perfis")
         self._caixa(c, t("borda"), "borda")
         self._caixa(c, t("latencia_op"), "latencia")
+        self._caixa(c, t("fundo_transparente_op"), "fundo_transparente", padrao=False)
         self._caixa(c, t("fechar_com_jogo"), "fechar_com_jogo")
         fonte = self.ov.fonte
         if fonte is not None and hasattr(fonte, "proxy"):

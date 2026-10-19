@@ -78,6 +78,7 @@
   "painel_dano": "Panel del jefe y del grupo",
   "borda": "Borde rojo en las alarmas",
   "latencia_op": "Latencia con el servidor en el pie del panel",
+  "fundo_transparente_op": "Fondo transparente en el panel de daño y los eventos (solo texto y barras)",
   "latencia_direta": "El número del pie es el tiempo de respuesta del servidor: el juego envía un eco cada 10 s y el servidor responde. El overlay solo lo cronometra; no se envía nada.",
   "latencia_proxy": "El número del pie es el tiempo de respuesta del servidor, pasando por {proxy}: el juego envía un eco cada 10 s y el servidor responde. El overlay solo lo cronometra; no se envía nada.",
   "lat_ms": "{ms} ms",

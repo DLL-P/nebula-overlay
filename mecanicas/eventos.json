@@ -166,19 +166,22 @@
     "en": "Dimensional Invasion",
     "es": "Invasión Dimensional"
    },
-   "ids": [],
+   "ids": [
+    120101
+   ],
    "agenda": {
     "tipo": "hora",
     "minuto": 30
    },
    "duracao_min": 13,
-   "confianca": "media",
-   "observado": "Toda hora em :30 (fontes), 3 min de preparação + 10 min de evento; sorteia Beritra Air Raid, Accursed Sword ou Incursion of the Spirits. Entrada por Verteron/Altgard, nível 45+, até 20 jogadores. IDs do servidor ainda não vistos numa captura.",
+   "confianca": "alta",
+   "observado": "Toda hora em :30: o servidor manda o ID 120101 (0x6001), fase 1 = preparação de 3 min (HH:30:01 a HH:33:01), fase 2 = evento de 10 min (até HH:43:01) (captura 2026-10-19 14:30). Sorteia Beritra Air Raid, Accursed Sword ou Incursion of the Spirits; ainda não se sabe se a variante muda o ID (se aparecer 120201 ou 120301 em outra hora, é a variante). Entrada por Verteron/Altgard, nível 45+, até 20 jogadores.",
    "fontes": [
     "https://aion2data.com/dimensional-invasion",
     "https://allthings.how/aion-2-dimensional-invasion-how-to-earn-points-and-claim-rewards/",
     "https://metabot.gg/en/aion-2/events/dimensional-invasion"
-   ]
+   ],
+   "observado_fonte": "captura 2026-10-19 14:30 (0x6001); variantes e entrada pelas fontes"
   }
  ]
 }

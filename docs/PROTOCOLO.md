@@ -243,8 +243,11 @@ nas capturas de 2026-10-16). O `a2parse/latencia.py` mede assim, sem enviar nada
 - **0x6001** (a cada troca de fase de um evento): `u8 tipo (3) | varint evento | u8 fase | i64 início | i64 início da fase | i64 fim da fase` (ms desde 1970, relógio do servidor; 29 bytes).
 - **0x6000** (ao entrar numa zona): `varint quantidade | registros`. Nas capturas veio vazio (`00`); o formato dos registros é suposto igual ao do 0x6001, sem o `tipo`, e só é aceito se os horários fizerem sentido.
 
-Nas capturas de 2026-10-16, às 02:00 e às 23:00, os IDs 110101, 110201 … 110901 (9 eventos, provavelmente o Festival Shugo em 9 regiões)
-abriram às HH:00:01 na fase 1 (até HH:03:01), passaram à fase 2 às HH:03:02 e fecharam entre HH:05:57 e HH:08:14.
+Nas capturas de 2026-10-16, às 02:00 e às 23:00, os IDs 110101, 110201 … 110901 (os 9 minijogos do Festival Shugo, abertos juntos; ver `minijogos` em `mecanicas/eventos.json`)
+abriram às HH:00:01 na fase 1 (até HH:03:01), passaram à fase 2 às HH:03:02 e fecharam entre HH:05:57 e HH:08:14: cada ID fecha no tempo do seu minijogo (2026-10-19: 110101 = Jump Jump, 175 s; 110901 = Not This Tile?, 195 s; 110601 = Tesouro de Goldrin, 230 s).
+Na captura de 2026-10-19 às 14:30, o ID 120101 (Invasão Dimensional) abriu às HH:30:01 na fase 1 (preparação, até HH:33:01)
+e passou à fase 2 até HH:43:01 (10 min). Ainda não se sabe se a variante sorteada (Beritra Air Raid, Accursed Sword,
+Incursion of the Spirits) muda o ID.
 O servidor só manda o evento quando ele abre; o aviso antecipado vem da agenda em `mecanicas/eventos.json`.
 
 ## 11. 0x9702 / 0x970B grupo: GS e CP

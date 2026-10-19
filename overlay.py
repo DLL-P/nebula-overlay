@@ -106,10 +106,14 @@ def atravessar(janela: tk.Misc, sim: bool = True) -> None:
 
 
 def por_cima(janela: tk.Misc) -> None:
+    """Põe a janela no topo das que ficam sempre por cima. HWND_TOPMOST vai como HWND: passado como int, o
+    Windows 64 bits recebia 0xFFFFFFFF, recusava a chamada e o cadeado ficava atrás da janela arrastada."""
+    import ctypes.wintypes as W
     try:
+        janela.update_idletasks()     # aplica o geometry pendente antes: senão o Tk adota a posição antiga
         u = C.windll.user32
         hwnd = u.GetParent(janela.winfo_id()) or janela.winfo_id()
-        u.SetWindowPos(hwnd, -1, 0, 0, 0, 0, 0x1 | 0x2 | 0x10)   # HWND_TOPMOST, NOSIZE|NOMOVE|NOACTIVATE
+        u.SetWindowPos(W.HWND(hwnd), W.HWND(-1), 0, 0, 0, 0, 0x1 | 0x2 | 0x10)   # TOPMOST, NOSIZE|NOMOVE|NOACTIVATE
     except Exception:
         pass
 
@@ -312,7 +316,7 @@ class Overlay:
         e = self.escala
         self.travado = not args.mover           # cadeado: travado = o clique atravessa; aberto = dá pra arrastar
         self.janelas: dict[str, tuple] = {}     # nome -> (janela, canvas)
-        self.cadeados: list[tuple] = []         # (janela do cadeado, canvas, dona, canto, só quando aberto)
+        self.cadeados: list[tuple] = []         # (janela do cadeado, canvas, dona, canto, discreto, tipo)
         self.t_cad = int(20 * e)                # tamanho do cadeado
         sem_meter = args.sem_meter or not self.cfg.get("meter", True)
         sem_borda = args.sem_borda or not self.cfg.get("borda", True)
@@ -326,9 +330,10 @@ class Overlay:
             self._cadeado(self.w_me, canto="base")     # cadeado no rodapé do painel
             self._cadeado(self.w_me, canto="base", tipo="engrenagem")   # configurações, ao lado
             self._cadeado(self.w_me, canto="base", tipo="atualizar")    # só aparece quando há versão nova
-        # o do alerta só aparece destravado: travado, ele ficaria solto em cima do personagem
-        self._cadeado(self.w_al, so_aberto=bool(self.w_me or self.w_pa))
-        self._cadeado(self.w_ev, so_aberto=True)
+        # sempre visíveis; travados, o dos alertas e o dos eventos ficam mais apagados (o dos alertas fica perto do
+        # personagem) e o dos eventos vai embaixo dos cartões, sem cobrir a contagem
+        self._cadeado(self.w_al, discreto=bool(self.w_me or self.w_pa))
+        self._cadeado(self.w_ev, canto="abaixo", discreto=True)
         self._reposicionar()
         self._aplicar_trava()
         self.root.report_callback_exception = self._erro
@@ -673,7 +678,7 @@ class Overlay:
             atravessar(self.w_bo, True)
 
     # ---------- cadeado: trava e destrava as janelas ----------
-    def _cadeado(self, dono: tk.Toplevel, canto: str = "topo", so_aberto: bool = False, tipo: str = "cadeado") -> None:
+    def _cadeado(self, dono: tk.Toplevel, canto: str = "topo", discreto: bool = False, tipo: str = "cadeado") -> None:
         """Botão pequeno sempre clicável no canto da janela. No jogo: segure Alt para soltar o mouse e clique."""
         t = self.t_cad
         j = tk.Toplevel(self.root)
@@ -687,7 +692,7 @@ class Overlay:
         atravessar(j, False)                       # clicável, mas sem roubar o foco do jogo
         acao = {"cadeado": self._alternar_trava, "engrenagem": self.abrir_config, "atualizar": self.atualizar_agora}[tipo]
         cv.bind("<Button-1>", lambda _e: acao())
-        self.cadeados.append((j, cv, dono, canto, so_aberto, tipo))
+        self.cadeados.append((j, cv, dono, canto, discreto, tipo))
 
     def _desenhar_cadeado(self, cv: tk.Canvas) -> None:
         cv.delete("all")
@@ -704,14 +709,18 @@ class Overlay:
         """Põe cada cadeado no canto da sua janela e na frente dela (clicar numa janela a traz para a frente)."""
         self.root.update_idletasks()
         t = self.t_cad
-        for j, cv, dono, canto, so_aberto, tipo in self.cadeados:
-            if (so_aberto and self.travado) or (tipo == "atualizar" and not self._info_atualizacao):
+        for j, cv, dono, canto, discreto, tipo in self.cadeados:
+            if tipo == "atualizar" and not self._info_atualizacao:
                 j.withdraw()
                 continue
             if not self.escondido and j.state() == "withdrawn":
                 j.deiconify()
                 atravessar(j, False)
-            y = dono.winfo_y() + 5 if canto == "topo" else dono.winfo_y() + self._altura_conteudo(dono) - t - 5
+            alfa = 0.55 if discreto and self.travado else 1.0
+            if float(j.attributes("-alpha")) != alfa:
+                j.attributes("-alpha", alfa)
+            y = dono.winfo_y() + {"topo": 5, "abaixo": self._altura_conteudo(dono) + 4}.get(
+                canto, self._altura_conteudo(dono) - t - 5)
             x = dono.winfo_x() + dono.winfo_width() - t - 7 - (t + 5) * {"engrenagem": 1, "atualizar": 2}.get(tipo, 0)
             j.geometry(f"{t}x{t}+{x}+{y}")
             {"engrenagem": self._desenhar_engrenagem, "atualizar": self._desenhar_atualizar}.get(
@@ -830,6 +839,8 @@ class Overlay:
 
     def _altura_conteudo(self, dono: tk.Toplevel) -> int:
         """O cartão do meter cresce com o número de jogadores: o cadeado acompanha o rodapé."""
+        if dono is self.w_ev:
+            return getattr(self, "_alt_eventos", 0)
         return getattr(self, "_alt_meter", dono.winfo_height()) if dono is self.w_me else dono.winfo_height()
 
     def _alternar_trava(self) -> None:
@@ -879,6 +890,8 @@ class Overlay:
             for j in (self.w_al, self.w_pa, self.w_me, self.w_bo, self.w_ev, *(c[0] for c in self.cadeados)):
                 if j and not self.escondido:
                     por_cima(j)
+            if self._config is not None and self._config.j.winfo_exists():
+                por_cima(self._config.j)          # a engrenagem aberta continua na frente das camadas
             if self.travado:
                 self._posicionar_cadeados()
         except Exception:
@@ -1067,8 +1080,27 @@ class Overlay:
                 self._simbolos[chave] = None
         return self._simbolos[chave]
 
+    def _transparente(self) -> bool:
+        """Fundo transparente (engrenagem): o meter e os eventos sem cartão, só o texto com contorno e as barras."""
+        return bool(self.cfg.get("fundo_transparente", False))
+
+    def _escrever(self, cv, x, y, texto, f, cor, anchor="center") -> None:
+        """Texto do meter e dos eventos: simples sobre o cartão; sem o cartão, com contorno preto para ler no jogo."""
+        if self._transparente():
+            self._texto(cv, x, y, texto, f, cor, anchor=anchor, borda=1)
+        else:
+            cv.create_text(x, y, text=texto, anchor=anchor, fill=cor, font=f, tags="dyn")
+
+    def _barra(self, cv, x0, y0, x1, y1, cor) -> None:
+        """Barra cheia; sem o cartão, com uma borda preta que a separa do jogo."""
+        if self._transparente():
+            cv.create_rectangle(x0 - 1, y0 - 1, x1 + 1, y1 + 1, fill="#000000", outline="", tags="dyn")
+        cv.create_rectangle(x0, y0, x1, y1, fill=cor, outline="", tags="dyn")
+
     def _cartao_fundo(self, cv, W: float, H: float) -> None:
-        """Cartão escuro de cantos arredondados, como o do seu meter."""
+        """Cartão escuro de cantos arredondados, como o do seu meter (some com o fundo transparente)."""
+        if self._transparente():
+            return
         e = self.escala
         ret_arredondado(cv, 1, 1, W - 1, H - 1, 10 * e, fill=CARTAO, outline=CARTAO_BORDA, width=1, tags="dyn")
 
@@ -1082,6 +1114,7 @@ class Overlay:
         cv.delete("dyn")
         W = int(cv.winfo_width())
         mg = 10 * e
+        transp = self._transparente()       # sem cartão: some o fundo das linhas e a barra vira uma faixa embaixo
         f_t, f_n, f_s, f_d = fonte(10 * e, "bold"), fonte(9 * e, "bold"), fonte(9 * e), fonte(10 * e, "bold")
         st = self._st or {}
         b = st.get("boss") if st.get("jogo") else None
@@ -1100,10 +1133,10 @@ class Overlay:
 
         def cab(y=y, nome=nome, ativo=ativo, tempo=tempo, direita=direita):
             cv.create_oval(mg, y - 4 * e, mg + 8 * e, y + 4 * e, fill=NIVEL["alerta"] if ativo else "#6b6880", outline="", tags="dyn")
-            cv.create_text(mg + 14 * e, y, text=nome, anchor="w", fill=TEXTO, font=f_t, tags="dyn")
+            self._escrever(cv, mg + 14 * e, y, nome, f_t, TEXTO, "w")
             if tempo:
-                cv.create_text(mg + 22 * e + self._medir(nome, f_t), y, text=tempo, anchor="w", fill="#a8a4bc", font=f_t, tags="dyn")
-            cv.create_text(W - mg, y, text=direita, anchor="e", fill=TEXTO if b else "#a8a4bc", font=f_t if b else f_s, tags="dyn")
+                self._escrever(cv, mg + 22 * e + self._medir(nome, f_t), y, tempo, f_t, "#a8a4bc", "w")
+            self._escrever(cv, W - mg, y, direita, f_t if b else f_s, TEXTO if b else "#a8a4bc", "e")
         desenhos.append(cab)
         y += 12 * e
         if b:
@@ -1120,8 +1153,7 @@ class Overlay:
                     cv.create_rectangle(mg, y, W - mg - 46 * e, y + 4 * e, fill="#231d33", outline="", tags="dyn")
                     cv.create_rectangle(mg, y, mg + (W - 2 * mg - 46 * e) * cheio, y + 4 * e, fill="#9b6bff", outline="",
                                         tags="dyn")
-                    cv.create_text(W - mg, y + 2 * e, text=t("atord", p=f"{cheio * 100:.0f}"), anchor="e", fill="#9b8fc9",
-                                   font=f_s, tags="dyn")
+                    self._escrever(cv, W - mg, y + 2 * e, t("atord", p=f"{cheio * 100:.0f}"), f_s, "#9b8fc9", "e")
                 desenhos.append(medidor)
                 y += 9 * e
         # próximas mecânicas (antes era o painel do boss)
@@ -1135,12 +1167,14 @@ class Overlay:
             cor_txt = (cor if perto else TEXTO) if confiavel else "#a8a4bc"
 
             def prox(yy=yy, p=p, cor=cor, perto=perto, lado=lado, frac=frac, cor_txt=cor_txt):
-                cv.create_rectangle(mg, yy - 10 * e, W - mg, yy + 10 * e, fill=CARTAO_LINHA, outline=cor if perto else "", tags="dyn")
+                if not transp or perto:
+                    cv.create_rectangle(mg, yy - 10 * e, W - mg, yy + 10 * e, fill="" if transp else CARTAO_LINHA,
+                                        outline=cor if perto else "", tags="dyn")
                 if frac:
-                    cv.create_rectangle(mg, yy + 8 * e, mg + (W - 2 * mg) * frac, yy + 10 * e, fill=cor, outline="", tags="dyn")
+                    self._barra(cv, mg, yy + 8 * e, mg + (W - 2 * mg) * frac, yy + 10 * e, cor)
                 self._icone(cv, p["tipo"], mg + 12 * e, yy, 13 * e, cor)
-                cv.create_text(mg + 24 * e, yy, text=tr(p["texto"]), anchor="w", fill=cor_txt, font=f_n, tags="dyn")
-                cv.create_text(W - mg - 6 * e, yy, text=lado, anchor="e", fill=cor_txt, font=f_n, tags="dyn")
+                self._escrever(cv, mg + 24 * e, yy, tr(p["texto"]), f_n, cor_txt, "w")
+                self._escrever(cv, W - mg - 6 * e, yy, lado, f_n, cor_txt, "e")
             desenhos.append(prox)
             y += 23 * e
         y += 6 * e
@@ -1153,7 +1187,7 @@ class Overlay:
                                          (f"GS {p['gs']}" if p.get("gs") else "")) if x)
         if not linhas:
             msg = t("aguardando_boss") if not b else t("aguardando_golpe")
-            desenhos.append(lambda y=y, msg=msg: cv.create_text(mg, y + h / 2, text=msg, anchor="w", fill="#a8a4bc", font=f_n, tags="dyn"))
+            desenhos.append(lambda y=y, msg=msg: self._escrever(cv, mg, y + h / 2, msg, f_n, "#a8a4bc", "w"))
             y += h + gap
             # fora da luta: o grupo com CP e GS (ou só você, sem grupo)
             eu_p = perfis.get(st.get("eu") or "")
@@ -1167,22 +1201,21 @@ class Overlay:
                     meio = y0 + h2 / 2
                     voce = p["nome"] == st.get("eu")
                     base_cor = CLASSE_COR.get(p.get("classe") or "", "#9d96b0")
-                    cv.create_rectangle(mg, y0, W - mg, y0 + h2, fill=CARTAO_LINHA, outline="", tags="dyn")
-                    cv.create_rectangle(mg, y0 + h2 - 3 * e, mg + (W - 2 * mg) * p["cp"] / maior_cp, y0 + h2,
-                                        fill=misturar(VOCE if voce else base_cor, CARTAO_LINHA, 0.6), outline="", tags="dyn")
+                    if not transp:
+                        cv.create_rectangle(mg, y0, W - mg, y0 + h2, fill=CARTAO_LINHA, outline="", tags="dyn")
+                    self._barra(cv, mg, y0 + h2 - 3 * e, mg + (W - 2 * mg) * p["cp"] / maior_cp, y0 + h2,
+                                (VOCE if voce else base_cor) if transp else misturar(VOCE if voce else base_cor, CARTAO_LINHA, 0.6))
                     cx = mg + 13 * e
                     img = self._simbolo_classe(p.get("classe") or "")
                     if img:
                         cv.create_image(cx, meio, image=img, tags="dyn")
                     x = cx + 14 * e
                     nome = p["nome"] if len(p["nome"]) <= 14 else p["nome"][:13] + "…"
-                    cv.create_text(x, meio, text=nome, anchor="w", fill=TEXTO, font=f_n, tags="dyn")
+                    self._escrever(cv, x, meio, nome, f_n, TEXTO, "w")
                     if voce:
-                        cv.create_text(x + self._medir(nome, f_n) + 5 * e, meio, text=t("eu"), anchor="w", fill="#c9b8ff",
-                                       font=f_s, tags="dyn")
-                    cv.create_text(W - mg - 6 * e, meio, text=f"GS {p['gs']}" if p.get("gs") else "", anchor="e",
-                                   fill="#a8a4bc", font=f_s, tags="dyn")
-                    cv.create_text(W - mg - 62 * e, meio, text=f"CP {numero(p['cp'])}", anchor="e", fill=TEXTO, font=f_d, tags="dyn")
+                        self._escrever(cv, x + self._medir(nome, f_n) + 5 * e, meio, t("eu"), f_s, "#c9b8ff", "w")
+                    self._escrever(cv, W - mg - 6 * e, meio, f"GS {p['gs']}" if p.get("gs") else "", f_s, "#a8a4bc", "e")
+                    self._escrever(cv, W - mg - 62 * e, meio, f"CP {numero(p['cp'])}", f_d, TEXTO, "e")
                 desenhos.append(membro)
                 y += h2 + gap
         topo_pct = linhas[0]["pct"] if linhas else 1.0
@@ -1191,9 +1224,12 @@ class Overlay:
                 meio = y0 + h / 2
                 base_cor = CLASSE_COR.get(l["chave"], "#9d96b0")
                 cor_barra = misturar(VOCE if l["voce"] else base_cor, CARTAO_LINHA, 0.55 if l["voce"] else 0.38)
-                cv.create_rectangle(mg, y0, W - mg, y0 + h, fill=CARTAO_LINHA, outline="", tags="dyn")
-                cv.create_rectangle(mg, y0, mg + (W - 2 * mg) * l["pct"] / max(1.0, topo_pct), y0 + h, fill=cor_barra,
-                                    outline="", tags="dyn")
+                fim = mg + (W - 2 * mg) * l["pct"] / max(1.0, topo_pct)
+                if transp:       # faixa fina na cor da classe embaixo do nome, no lugar da linha inteira
+                    self._barra(cv, mg, y0 + h - 1 * e, fim, y0 + h + 2 * e, VOCE if l["voce"] else base_cor)
+                else:
+                    cv.create_rectangle(mg, y0, W - mg, y0 + h, fill=CARTAO_LINHA, outline="", tags="dyn")
+                    cv.create_rectangle(mg, y0, fim, y0 + h, fill=cor_barra, outline="", tags="dyn")
                 cx = mg + 13 * e
                 img = self._simbolo_classe(l["chave"])
                 if img:      # o símbolo da classe como no jogo (dados/classes)
@@ -1201,19 +1237,19 @@ class Overlay:
                 else:        # sem símbolo (Lutador, ou classe desconhecida): a inicial na cor da classe
                     cv.create_oval(cx - 8 * e, meio - 8 * e, cx + 8 * e, meio + 8 * e, fill=misturar(base_cor, CARTAO, 0.35),
                                    outline=base_cor, width=1, tags="dyn")
-                    cv.create_text(cx, meio, text=CLASSE_SIGLA.get(l["chave"], "?")[0], fill=base_cor, font=f_s, tags="dyn")
+                    self._escrever(cv, cx, meio, CLASSE_SIGLA.get(l["chave"], "?")[0], f_s, base_cor, "center")
                 x = cx + 14 * e
                 nome = l["nome"] if len(l["nome"]) <= 14 else l["nome"][:13] + "…"
                 sub = cp_gs(perfis.get(l["nome"]) or {})
                 if sub:                          # duas linhas: nome em cima, CP · GS embaixo
-                    cv.create_text(x, meio + 7 * e, text=sub, anchor="w", fill="#a29fb6", font=f_p, tags="dyn")
+                    self._escrever(cv, x, meio + 7 * e, sub, f_p, "#a29fb6", "w")
                     meio -= 5 * e
-                cv.create_text(x, meio, text=nome, anchor="w", fill=TEXTO, font=f_n, tags="dyn")
+                self._escrever(cv, x, meio, nome, f_n, TEXTO, "w")
                 x += self._medir(nome, f_n) + 5 * e
                 if l["voce"]:
-                    cv.create_text(x, meio, text=t("eu"), anchor="w", fill="#c9b8ff", font=f_s, tags="dyn")
+                    self._escrever(cv, x, meio, t("eu"), f_s, "#c9b8ff", "w")
                     x += self._medir(t("eu"), f_s) + 5 * e
-                cv.create_text(x, meio, text=numero(l["dano"]), anchor="w", fill="#a8a4bc", font=f_s, tags="dyn")
+                self._escrever(cv, x, meio, numero(l["dano"]), f_s, "#a8a4bc", "w")
                 x += self._medir(numero(l["dano"]), f_s) + 6 * e
                 for st_txt in l["status"][:2]:      # mecânica em cima do jogador: POÇA, MERGULHO, AGARRADO
                     st_txt = tr(st_txt)
@@ -1222,9 +1258,8 @@ class Overlay:
                     cv.create_text(x + lw / 2, meio, text=st_txt, font=f_s, fill="#ffffff", tags="dyn")
                     x += lw + 4 * e
                 meio = y0 + h / 2                # DPS e % continuam no meio da barra
-                cv.create_text(W - mg - 52 * e, meio, text=numero(l["dps"]), anchor="e", fill=TEXTO, font=f_d, tags="dyn")
-                cv.create_text(W - mg - 6 * e, meio, text=f"{idioma.decimal(l['pct'])}%", anchor="e", fill="#a8a4bc",
-                               font=f_s, tags="dyn")
+                self._escrever(cv, W - mg - 52 * e, meio, numero(l["dps"]), f_d, TEXTO, "e")
+                self._escrever(cv, W - mg - 6 * e, meio, f"{idioma.decimal(l['pct'])}%", f_s, "#a8a4bc", "e")
             desenhos.append(jogador)
             y += h + gap
         # rodapé: você e classe à esquerda; latência e Odyle à direita, antes dos botões (janelinhas próprias)
@@ -1232,7 +1267,7 @@ class Overlay:
         classe = f"{nome_c} ({papel})" if nome_c else papel
         quem = " · ".join(x for x in (st.get("eu"), classe) if x) or t("procurando")
         y += 14 * e
-        desenhos.append(lambda y=y, quem=quem: cv.create_text(mg, y, text=quem, anchor="w", fill="#a8a4bc", font=f_s, tags="dyn"))
+        desenhos.append(lambda y=y, quem=quem: self._escrever(cv, mg, y, quem, f_s, "#a8a4bc", "w"))
         x_d = W - mg - self._n_botoes_rodape() * (self.t_cad + 5) - 6 * e
         if st.get("odyle"):
             # energia Odyle: restante (+recarga)
@@ -1241,7 +1276,7 @@ class Overlay:
             img = self._simbolo_classe("ODYLE")
 
             def odyle(y=y, x_o=x_d, texto_o=texto_o, img=img):
-                cv.create_text(x_o, y, text=texto_o, anchor="e", fill="#d8c9ff", font=f_s, tags="dyn")
+                self._escrever(cv, x_o, y, texto_o, f_s, "#d8c9ff", "e")
                 if img:
                     cv.create_image(x_o - self._medir(texto_o, f_s) - 4 * e, y, image=img, anchor="e", tags="dyn")
             desenhos.append(odyle)
@@ -1268,7 +1303,7 @@ class Overlay:
             texto = t("lat_seg", s=idioma.decimal(ms / 1000))
         else:
             texto = t("lat_ms", ms=ms)
-        cv.create_text(x, y, text=texto, anchor="e", fill=cor if lat["nivel"] != "bom" else "#b9b3c9", font=fonte, tags="dyn")
+        self._escrever(cv, x, y, texto, fonte, cor if lat["nivel"] != "bom" else "#b9b3c9", "e")
         cheias = {"bom": 3, "medio": 2, "ruim": 1}[lat["nivel"]]
         x0 = x - self._medir(texto, fonte) - 4 * e - 3 * 4 * e
         for i in range(3):
@@ -1292,16 +1327,22 @@ class Overlay:
         W = int(cv.winfo_width())
         h, gap = 46 * e, 6 * e
         f_n, f_s, f_t = fonte(10 * e, "bold"), fonte(9 * e), fonte(13 * e, "bold")
+        transp = self._transparente()
+        altura = int(len(lista) * (h + gap) - gap) if lista else 0
+        if altura != getattr(self, "_alt_eventos", None):
+            self._alt_eventos = altura
+            self._posicionar_cadeados()      # o cadeado dos eventos fica logo abaixo do último cartão
         for i, ev in enumerate(lista):
             y0 = i * (h + gap)
             aberto = ev["estado"] == "aberto"
             cor = NIVEL["info"] if aberto else EVENTO
-            ret_arredondado(cv, 1, y0 + 1, W - 1, y0 + h - 1, 9 * e, fill=CARTAO, outline=CARTAO_BORDA, width=1, tags="dyn")
             cx, cy = 22 * e, y0 + h / 2
-            ret_arredondado(cv, cx - 14 * e, cy - 14 * e, cx + 14 * e, cy + 14 * e, 7 * e,
-                            fill=misturar(cor, CARTAO, 0.18), outline="", tags="dyn")
+            if not transp:
+                ret_arredondado(cv, 1, y0 + 1, W - 1, y0 + h - 1, 9 * e, fill=CARTAO, outline=CARTAO_BORDA, width=1, tags="dyn")
+                ret_arredondado(cv, cx - 14 * e, cy - 14 * e, cx + 14 * e, cy + 14 * e, 7 * e,
+                                fill=misturar(cor, CARTAO, 0.18), outline="", tags="dyn")
             self._icone(cv, "burst", cx, cy, 18 * e, cor)
-            cv.create_text(44 * e, y0 + 16 * e, text=nome_evento(ev, idioma.atual()), anchor="w", fill=TEXTO, font=f_n, tags="dyn")
+            self._escrever(cv, 44 * e, y0 + 16 * e, nome_evento(ev, idioma.atual()), f_n, TEXTO, "w")
             if aberto:
                 sub = t("aberto") + (f" · {t('fase', n=ev['fase'])}" if ev.get("fase") else "")
                 restam = max(0, int(ev["restam"]))
@@ -1311,12 +1352,11 @@ class Overlay:
                 sub = t("comeca_as", h=time.strftime("%H:%M", time.localtime(inicio_pc)))
                 faltam = max(0, ev["faltam"])
                 valor = t("em_min", m=math.ceil(faltam / 60)) if faltam >= 60 else f"{int(faltam)} s"
-            cv.create_text(44 * e, y0 + 32 * e, text=sub, anchor="w", fill="#a8a4bc", font=f_s, tags="dyn")
-            cv.create_text(W - 12 * e, cy, text=valor, anchor="e", fill=cor, font=f_t, tags="dyn")
+            self._escrever(cv, 44 * e, y0 + 32 * e, sub, f_s, "#a8a4bc", "w")
+            self._escrever(cv, W - 12 * e, cy, valor, f_t, cor, "e")
             if not aberto:                       # barrinha: quanto da espera já passou
                 frac = 1 - max(0.0, ev["faltam"]) / max(1.0, float(self.cfg.get("eventos_aviso_min", 5)) * 60)
-                cv.create_rectangle(10 * e, y0 + h - 4 * e, 10 * e + (W - 20 * e) * frac, y0 + h - 2 * e,
-                                    fill=cor, outline="", tags="dyn")
+                self._barra(cv, 10 * e, y0 + h - 4 * e, 10 * e + (W - 20 * e) * frac, y0 + h - 2 * e, cor)
         cv.tag_lower("moldura")
 
     def _avisar_eventos(self, lista: list[dict], agora: float) -> None:
