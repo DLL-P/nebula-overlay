@@ -169,6 +169,20 @@ class Eventos:
             e["restam"] = e["fim"] - agora
         return lista
 
+    def minijogos(self, agora_pc: float) -> list[dict]:
+        """Minijogos abertos agora (ex.: os 9 do Festival Shugo, um ID cada): [{id, nome, fase, restam, regras}].
+        Fase 1 é a sala de espera; na fase 2 cada um fecha no tempo dele."""
+        agora = agora_pc + self.atraso
+        saida = []
+        for ev, r in self.abertos.items():
+            d = self._definicao(ev) or {}
+            info = (d.get("minijogos") or {}).get(str(ev))
+            if info is None or r["fim_fase"] <= agora:
+                continue
+            saida.append({"id": ev, "evento": d.get("chave"), "nome": info.get("nome", {}), "fase": r["fase"],
+                          "restam": r["fim_fase"] - agora, "regras": info.get("regras", {})})
+        return sorted(saida, key=lambda m: m["restam"])
+
 
 def _periodo(d: dict) -> float:
     return 3600.0 if (d.get("agenda") or {}).get("tipo") == "hora" else 0.0

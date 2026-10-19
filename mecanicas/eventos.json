@@ -24,8 +24,140 @@
     "minuto": 0
    },
    "duracao_min": 8,
-   "confianca": "media",
-   "observado": "Capturas de 2026-10-16 às 02:00 e 23:00: os 9 IDs abrem às HH:00:01 (fase 1 até HH:03), passam à fase 2 às HH:03:02 e fecham entre HH:05:57 e HH:08:14. Hora em hora como o Festival Shugo; falta confirmar no jogo que são ele (um ID por região)."
+   "confianca": "alta",
+   "observado": "Os 9 IDs são os 9 minijogos premiados, abertos ao mesmo tempo (não regiões). Fase 1 (sala de espera, 3 min) abre às HH:00:01; fase 2 começa às HH:03:01 e cada ID fecha no tempo do seu minijogo (captura 2026-10-19 13:00).",
+   "minijogos": {
+    "110101": {
+     "nome": {
+      "pt": "Jump Jump",
+      "en": "Jump Jump",
+      "es": "Jump Jump"
+     },
+     "duracao_s": 175,
+     "confianca": "alta",
+     "regras": {
+      "pt": "Desvie dos lasers e toque nos balões: cada balão dá pontos, cada laser tira.",
+      "en": "Dodge lasers and touch balloons: each balloon scores, each laser costs points.",
+      "es": "Esquiva los láseres y toca los globos: cada globo suma, cada láser resta."
+     }
+    },
+    "110901": {
+     "nome": {
+      "pt": "Not This Tile?",
+      "en": "Not This Tile?",
+      "es": "Not This Tile?"
+     },
+     "duracao_s": 195,
+     "confianca": "alta",
+     "regras": {
+      "pt": "Memória: algumas casas acendem por um instante; depois fique numa casa azul (certa, +100). Casa vermelha é errada e tira pontos. Balões do Festival: verde +20, amarelo +30. 8 rodadas; o ranking soma tudo.",
+      "en": "Memory: some tiles light up briefly; then stand on a blue tile (correct, +100). Red tiles are wrong and cost points. Festival Balloons: green +20, yellow +30. 8 rounds; ranking adds them all.",
+      "es": "Memoria: algunas casillas se iluminan un instante; luego quédate en una azul (correcta, +100). La roja es incorrecta y resta puntos. Globos del Festival: verde +20, amarillo +30. 8 rondas; el ranking suma todo."
+     }
+    },
+    "110601": {
+     "nome": {
+      "pt": "Tesouro de Goldrin",
+      "en": "Goldrin's Treasure",
+      "es": "Tesoro de Goldrin"
+     },
+     "duracao_s": 230,
+     "confianca": "alta",
+     "regras": {
+      "pt": "Ache os baús e ganhe pontos com o que tem dentro; feixes de luz indicam baús por perto.",
+      "en": "Find chests and score from their treasure; light beams point to nearby chests.",
+      "es": "Encuentra cofres y suma con su tesoro; los haces de luz señalan cofres cercanos."
+     }
+    },
+    "110401": {
+     "nome": {
+      "pt": "Hidden Lugi ou Odyle Flight Frenzy",
+      "en": "Hidden Lugi or Odyle Flight Frenzy",
+      "es": "Hidden Lugi u Odyle Flight Frenzy"
+     },
+     "duracao_s": 210,
+     "confianca": "media",
+     "regras": {
+      "pt": "Um dos dois minijogos de 3:30; falta ver qual numa captura.",
+      "en": "One of the two 3:30 minigames; a capture will tell which.",
+      "es": "Uno de los dos minijuegos de 3:30; falta ver cuál en una captura."
+     }
+    },
+    "110501": {
+     "nome": {
+      "pt": "Hidden Lugi ou Odyle Flight Frenzy",
+      "en": "Hidden Lugi or Odyle Flight Frenzy",
+      "es": "Hidden Lugi u Odyle Flight Frenzy"
+     },
+     "duracao_s": 210,
+     "confianca": "media",
+     "regras": {
+      "pt": "Um dos dois minijogos de 3:30; falta ver qual numa captura.",
+      "en": "One of the two 3:30 minigames; a capture will tell which.",
+      "es": "Uno de los dos minijuegos de 3:30; falta ver cuál en una captura."
+     }
+    },
+    "110201": {
+     "nome": {
+      "pt": "Minijogo de 5 min",
+      "en": "5-min minigame",
+      "es": "Minijuego de 5 min"
+     },
+     "duracao_s": 300,
+     "confianca": "baixa",
+     "regras": {
+      "pt": "Um de: Wraith Evasion, Mysterious Track, Defend Shugo Merchants ou Up! Up! Up!.",
+      "en": "One of: Wraith Evasion, Mysterious Track, Defend Shugo Merchants or Up! Up! Up!.",
+      "es": "Uno de: Wraith Evasion, Mysterious Track, Defend Shugo Merchants o Up! Up! Up!."
+     }
+    },
+    "110701": {
+     "nome": {
+      "pt": "Minijogo de 5 min",
+      "en": "5-min minigame",
+      "es": "Minijuego de 5 min"
+     },
+     "duracao_s": 300,
+     "confianca": "baixa",
+     "regras": {
+      "pt": "Um de: Wraith Evasion, Mysterious Track, Defend Shugo Merchants ou Up! Up! Up!.",
+      "en": "One of: Wraith Evasion, Mysterious Track, Defend Shugo Merchants or Up! Up! Up!.",
+      "es": "Uno de: Wraith Evasion, Mysterious Track, Defend Shugo Merchants o Up! Up! Up!."
+     }
+    },
+    "110801": {
+     "nome": {
+      "pt": "Minijogo de 5 min",
+      "en": "5-min minigame",
+      "es": "Minijuego de 5 min"
+     },
+     "duracao_s": 300,
+     "confianca": "baixa",
+     "regras": {
+      "pt": "Um de: Wraith Evasion, Mysterious Track, Defend Shugo Merchants ou Up! Up! Up!.",
+      "en": "One of: Wraith Evasion, Mysterious Track, Defend Shugo Merchants or Up! Up! Up!.",
+      "es": "Uno de: Wraith Evasion, Mysterious Track, Defend Shugo Merchants o Up! Up! Up!."
+     }
+    },
+    "110301": {
+     "nome": {
+      "pt": "Minijogo de 5 min",
+      "en": "5-min minigame",
+      "es": "Minijuego de 5 min"
+     },
+     "duracao_s": 312,
+     "confianca": "baixa",
+     "regras": {
+      "pt": "Um de: Wraith Evasion, Mysterious Track, Defend Shugo Merchants ou Up! Up! Up!.",
+      "en": "One of: Wraith Evasion, Mysterious Track, Defend Shugo Merchants or Up! Up! Up!.",
+      "es": "Uno de: Wraith Evasion, Mysterious Track, Defend Shugo Merchants o Up! Up! Up!."
+     }
+    }
+   },
+   "fontes": [
+    "https://metabot.gg/en/aion-2/events/shugo-festival"
+   ],
+   "observado_fonte": "captura 2026-10-19 13:00 (0x6001) + vídeo 13:03:33; nomes e durações do metabot.gg"
   },
   {
    "chave": "invasao-dimensional",

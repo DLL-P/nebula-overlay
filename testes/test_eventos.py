@@ -64,6 +64,21 @@ class TestAgenda(unittest.TestCase):
         e.relogio(ts("2026-10-17T01:59:52"), int(ts("2026-10-17T02:00:00") * 1000))
         self.assertEqual(e.estado(ts("2026-10-17T01:59:52"), janela=60)[0]["faltam"], 0)
 
+class TestMinijogos(unittest.TestCase):
+    def test_not_this_tile_pelo_id_e_pela_duracao(self):
+        from a2parse.eventos import carregar
+        e = Eventos(definicoes=carregar())
+        ini = ts("2026-10-19T04:00:01")
+        e.abertos[110901] = {"evento": 110901, "fase": 2, "inicio": ini, "inicio_fase": ini + 180,
+                             "fim_fase": ini + 180 + 195, "tipo": 3}
+        e.abertos[110101] = {"evento": 110101, "fase": 2, "inicio": ini, "inicio_fase": ini + 180,
+                             "fim_fase": ini + 180 + 175, "tipo": 3}
+        m = e.minijogos(ini + 200)
+        self.assertEqual([x["nome"]["pt"] for x in m], ["Jump Jump", "Not This Tile?"])
+        self.assertAlmostEqual(m[1]["restam"], 175.0, places=1)
+        self.assertIn("+100", m[1]["regras"]["pt"])
+        self.assertEqual(e.minijogos(ini + 400), [])
+
 
 if __name__ == "__main__":
     unittest.main()
