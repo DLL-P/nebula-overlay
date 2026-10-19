@@ -63,6 +63,7 @@ class Inicio:
         self.estado = ("esperando", "", None)          # (tipo, texto, erro)
         self.atualizacao: dict | None = None
         self.baixando = ""
+        self.fechar_em: float | None = None            # segundos até fechar sozinho (o jogo fechou)
         self.construir()
         self.j.update_idletasks()
         x = (self.j.winfo_screenwidth() - self.j.winfo_width()) // 2
@@ -85,6 +86,10 @@ class Inicio:
         self.l_status.pack(side="left", fill="x")
         self.f_erro = tk.Frame(self.j, bg=CARTAO)
         self.f_atual = tk.Frame(self.j, bg="#231d33")
+        self.f_fechar = tk.Frame(self.j, bg="#2a2030")
+        self.l_fechar = tk.Label(self.f_fechar, text="", bg="#2a2030", fg="#e6d6b8", font=(FONTE, 10), anchor="w")
+        self.l_fechar.pack(side="left", padx=10, pady=6)
+        _botao(self.f_fechar, t("btn_manter"), self.ov.manter_aberto, pequeno=True).pack(side="right", padx=8, pady=4)
         botoes = tk.Frame(self.j, bg=CARTAO)
         botoes.pack(fill="x", padx=18, pady=(12, 6), side="bottom")
         _botao(botoes, t("btn_config"), lambda: self.ov.abrir_config(perto_do_meter=False), destaque=True).pack(side="left")
@@ -97,6 +102,18 @@ class Inicio:
                      justify="left", anchor="w").pack(fill="x")
         self._mostrar_estado()
         self._mostrar_atualizacao()
+        self.aviso_fechar(self.fechar_em)
+
+    def aviso_fechar(self, segundos: float | None) -> None:
+        """O jogo fechou: "o Nebula fecha em 1:45" com o botão Manter aberto. None esconde."""
+        self.fechar_em = segundos
+        if segundos is None:
+            self.f_fechar.pack_forget()
+            return
+        s = int(segundos + 0.999)
+        self.l_fechar.config(text=t("fecha_em", t=f"{s // 60}:{s % 60:02d}"))
+        if not self.f_fechar.winfo_ismapped():
+            self.f_fechar.pack(fill="x", padx=18, pady=(10, 0))
 
     # estado da conexão
     def status(self, tipo: str, texto: str = "", erro=None) -> None:
@@ -285,6 +302,7 @@ class Configuracoes:
         self._caixa(c, t("perfis_op"), "perfis")
         self._caixa(c, t("borda"), "borda")
         self._caixa(c, t("latencia_op"), "latencia")
+        self._caixa(c, t("fechar_com_jogo"), "fechar_com_jogo")
         fonte = self.ov.fonte
         if fonte is not None and hasattr(fonte, "proxy"):
             self._nota(c, t("latencia_proxy", proxy=fonte.proxy) if fonte.proxy else t("latencia_direta"))

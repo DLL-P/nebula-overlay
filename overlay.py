@@ -39,6 +39,7 @@ from a2parse.sons import tocar
 from a2parse.aovivo import Sessao
 from a2parse.classes import NOME as NOME_CLASSE
 from a2parse.eventos import Eventos, nome as nome_evento
+from a2parse.fechamento import Fechamento
 from a2parse.versao import VERSAO
 from a2parse.captura import _decodificar, ler_segmentos
 from a2parse.fontes import ler_tempo
@@ -285,6 +286,9 @@ class Overlay:
         self._info_atualizacao: dict | None = None
         self._atualizacao_vista: str | None = None   # versão nova já avisada
         self._download: tuple | None = None
+        self.fechamento = Fechamento()          # "Fechar junto com o jogo" (engrenagem)
+        self._saida = None                     # janela de ferramenta aberta (aprender roteiros, relatório)
+        self._fechado = False
         self.inicio = None
         self._config = None
         self.vistos: set = set()
@@ -362,7 +366,8 @@ class Overlay:
         try:
             self._vigiar()
         finally:
-            self.root.after(1000, self._vigiar_jogo)
+            if not self._fechado:
+                self.root.after(1000, self._vigiar_jogo)
 
     def _vigiar(self) -> None:
         self._acompanhar_atualizacao()
@@ -373,6 +378,9 @@ class Overlay:
             return
         pids = pids_do_jogo()
         self.pids = pids
+        self._fechar_sem_jogo(pids)
+        if self._fechado:
+            return
         if self.fonte is not None:
             if pids:
                 self._sem_jogo_desde = None
@@ -395,6 +403,32 @@ class Overlay:
                 self._conectar(rota)
                 return
         self._olhar_rota()
+
+    def _fechar_sem_jogo(self, pids: set) -> None:
+        """Opção "Fechar junto com o jogo": 2 min depois que o AION2.exe some, com contagem e "Manter aberto" na
+        janela principal. A regra (a2parse/fechamento.py) olha só o processo do jogo: parado na cidade ou no meio da
+        run ele continua aberto, então o app nunca fecha por isso."""
+        if not self.cfg.get("fechar_com_jogo", True):
+            self.fechamento.sumiu_em = None
+            self.inicio.aviso_fechar(None)
+            return
+        ocupado = bool(self._download) or any(
+            j is not None and j.j.winfo_exists() for j in (self._config, self._saida))
+        falta = self.fechamento.atualizar(bool(pids), time.monotonic(), ocupado)
+        if falta == 0:
+            print("O jogo fechou há 2 min: fechando o Nebula Overlay (Fechar junto com o jogo).")
+            self.fechar()
+            return
+        if falta is not None and self.inicio.fechar_em is None:    # começou a contar: mostra a janela principal
+            try:
+                self.inicio.j.deiconify()
+            except tk.TclError:
+                pass
+        self.inicio.aviso_fechar(falta)
+
+    def manter_aberto(self) -> None:
+        self.fechamento.manter_aberto()
+        self.inicio.aviso_fechar(None)
 
     def _olhar_rota(self) -> None:
         """O netstat demora: olha a conexão do jogo numa thread (o resultado chega em self._rota)."""
@@ -541,7 +575,7 @@ class Overlay:
             importlib.import_module(nome).main([])
             if nome == "roteiros":
                 self._recarregar_roteiros = True
-        painel.Saida(self, t("aprender" if nome == "roteiros" else "relatorio"), rodar)
+        self._saida = painel.Saida(self, t("aprender" if nome == "roteiros" else "relatorio"), rodar)
 
     def reiniciar(self) -> None:
         import subprocess
@@ -819,6 +853,7 @@ class Overlay:
             traceback.print_exception(tipo, valor, tb)       # no app instalado vai para nebula.log
 
     def fechar(self) -> None:
+        self._fechado = True
         if self.fonte:
             self.fonte.parar()
         self.salvar_cfg()
