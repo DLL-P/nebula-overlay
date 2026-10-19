@@ -632,7 +632,21 @@
   "Esquive já no wind-up (é rápido)": "Dodge on the wind-up (it's fast)",
   "O teste de dano é apertado: fique nas costas e não pare de bater. No enrage a velocidade dobra e o dano sobe muito (kill mediano na Conquista: 4:06)": "The damage check is tight: stay behind her and keep hitting. On enrage her speed doubles and damage rises sharply (median Conquest kill: 4:06)",
   "Remoção de Impacto no atordoamento; Bloqueio Concentrado no salto": "Defiance on the stun; Focused Block the leap",
-  "tank: Bloqueio Concentrado no último golpe e volte à frente": "tank: Focused Block the last swing and get back in front"
+  "tank: Bloqueio Concentrado no último golpe e volte à frente": "tank: Focused Block the last swing and get back in front",
+  "Saia de perto enquanto ele gira; volte quando parar": "Get away while it spins; come back when it stops",
+  "volte quando ele parar de girar": "come back when it stops spinning",
+  "Quem é o alvo esquiva": "The target dodges",
+  "DISPARO EM VOCÊ: ESQUIVA": "SHOT ON YOU: DODGE",
+  "Corra para a borda e largue a poça longe do grupo": "Run to the edge and drop the pool away from the group",
+  "BOMBA EM VOCÊ: LEVA PRA BORDA": "BOMB ON YOU: TAKE IT TO THE EDGE",
+  "a poça cai em 3 s e fica até o fim": "the pool drops in 3 s and stays until the end",
+  "3 ANÉIS: ESQUIVA PERFEITA": "3 RINGS: PERFECT DODGE",
+  "3 ANÉIS: BLOQUEIA OS 3": "3 RINGS: BLOCK ALL 3",
+  "leve ele para a ponta da plataforma": "pull it to the edge of the platform",
+  "3 ANÉIS: FICA A 25 m": "3 RINGS: STAY 25 m AWAY",
+  "de longe dá para ficar fora dos três": "from range you can stay out of all three",
+  "ESPADA: COSTAS E VOLTA": "SWORD: BEHIND AND BACK",
+  "esquive para as costas e volte para a frente antes que ela vire": "dodge behind her and get back in front before she turns"
  },
  "es": {
   "3 ACÚMULOS: AFASTA": "3 CARGAS: ALÉJATE",
@@ -1266,6 +1280,20 @@
   "Esquive já no wind-up (é rápido)": "Esquiva ya en la carga (es rápido)",
   "O teste de dano é apertado: fique nas costas e não pare de bater. No enrage a velocidade dobra e o dano sobe muito (kill mediano na Conquista: 4:06)": "El chequeo de daño es ajustado: quédate a su espalda y no dejes de pegar. En el enrage la velocidad se duplica y el daño sube mucho (kill mediano en Conquista: 4:06)",
   "Remoção de Impacto no atordoamento; Bloqueio Concentrado no salto": "Defiance en el aturdimiento; Focused Block en el salto",
-  "tank: Bloqueio Concentrado no último golpe e volte à frente": "tanque: Focused Block en el último golpe y vuelve al frente"
+  "tank: Bloqueio Concentrado no último golpe e volte à frente": "tanque: Focused Block en el último golpe y vuelve al frente",
+  "Saia de perto enquanto ele gira; volte quando parar": "Aléjate mientras gira; vuelve cuando pare",
+  "volte quando ele parar de girar": "vuelve cuando deje de girar",
+  "Quem é o alvo esquiva": "El objetivo esquiva",
+  "DISPARO EM VOCÊ: ESQUIVA": "DISPARO SOBRE TI: ESQUIVA",
+  "Corra para a borda e largue a poça longe do grupo": "Corre al borde y deja el charco lejos del grupo",
+  "BOMBA EM VOCÊ: LEVA PRA BORDA": "BOMBA SOBRE TI: LLÉVALA AL BORDE",
+  "a poça cai em 3 s e fica até o fim": "el charco cae en 3 s y se queda hasta el final",
+  "3 ANÉIS: ESQUIVA PERFEITA": "3 ANILLOS: ESQUIVA PERFECTA",
+  "3 ANÉIS: BLOQUEIA OS 3": "3 ANILLOS: BLOQUEA LOS 3",
+  "leve ele para a ponta da plataforma": "llévalo al borde de la plataforma",
+  "3 ANÉIS: FICA A 25 m": "3 ANILLOS: QUÉDATE A 25 m",
+  "de longe dá para ficar fora dos três": "a distancia puedes quedarte fuera de los tres",
+  "ESPADA: COSTAS E VOLTA": "ESPADA: ESPALDA Y VUELVE",
+  "esquive para as costas e volte para a frente antes que ela vire": "esquiva a su espalda y vuelve al frente antes de que gire"
  }
 }

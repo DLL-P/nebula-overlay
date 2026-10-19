@@ -3115,6 +3115,123 @@
       "geral": "Leve poções de cura (uma tira a queimadura: beba a sua, não espere o healer), comida de estamina para as esquivas e pergaminhos de velocidade para as paredes da Kromede. Mate os dois intermediários: cada um põe o loot dele no cubo.",
       "bosses": [
         {
+          "nome": "Silver Blade Rotan",
+          "papel": "opcional (patrulha o salão)",
+          "ids": {
+            "Exploração": [
+              2310310
+            ],
+            "Conquista": [
+              2300310
+            ],
+            "Outro modo (a confirmar)": [
+              2320310,
+              2330310
+            ]
+          },
+          "mecanicas": [
+            {
+              "id": "rotan-giro",
+              "nome": "Giro de lâminas",
+              "sinal": "Skills 1227160 e 1227170 (preparo 0,6 s) seguidas de dezenas de golpes (1227165 / 1227175) em volta dele",
+              "acao": "Saia de perto enquanto ele gira; volte quando parar",
+              "alerta": "GIRO: SAI DE PERTO",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_ids": [
+                  1227160,
+                  1227170
+                ],
+                "preparo_s": {
+                  "1227160": 0.6,
+                  "1227170": 0.6
+                },
+                "supressao_s": 4
+              },
+              "so_perto": true,
+              "acao_tipo": "sair",
+              "wipe": false,
+              "confianca": "alta",
+              "confianca_skill": "alta",
+              "voz_curta": "sair",
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "GIRO: SAI DE PERTO",
+                  "sub": "volte quando ele parar de girar",
+                  "tipo": "sair",
+                  "contagem": 2.5
+                }
+              ],
+              "observado": {
+                "fonte": "captura 2026-10-18 16:53 (Exploração, sem vídeo) + guia NoBS Game Guides",
+                "ritmo": "1227160 a cada ~17 s; 1227170 a cada ~34 s"
+              }
+            },
+            {
+              "id": "rotan-disparo-de-energia",
+              "nome": "Disparo de Energia",
+              "sinal": "Skill 1227150 (preparo 1,45 s) em um jogador, ~4 s depois de cada giro",
+              "acao": "Quem é o alvo esquiva",
+              "alerta": "DISPARO EM VOCÊ: ESQUIVA",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_ids": [
+                  1227150
+                ],
+                "preparo_s": {
+                  "1227150": 1.45
+                },
+                "pessoal": true
+              },
+              "acao_tipo": "esquivar",
+              "wipe": false,
+              "confianca": "media",
+              "confianca_skill": "alta",
+              "observado": {
+                "fonte": "captura 2026-10-18 16:53 (Exploração, sem vídeo) + guia NoBS Game Guides",
+                "dano_max": "1.560"
+              }
+            },
+            {
+              "id": "silver-blade-rotan-atordoado",
+              "nome": "Atordoamento (medidor zerado)",
+              "sinal": "O medidor de atordoamento (0xE005) chega a ~0; skill 1000009; o boss fica 5 s parado",
+              "acao": "Use as skills fortes: o boss não ataca e toma mais dano",
+              "alerta": "ATORDOADO: BURST!",
+              "acao_tipo": "burst",
+              "wipe": false,
+              "confianca": "media",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_ids": [
+                  1000009
+                ],
+                "supressao_s": 3
+              },
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "ATORDOADO: BURST!",
+                  "sub": "o boss fica 5 s parado e toma mais dano",
+                  "tipo": "burst",
+                  "contagem": 5.0
+                }
+              ],
+              "status": [
+                {
+                  "texto": "ATORDOADO",
+                  "tipo": "burst",
+                  "em": "boss",
+                  "de": 0,
+                  "ate": 5.0
+                }
+              ]
+            }
+          ],
+          "ordem": 0
+        },
+        {
           "nome": "Red Spark Ignus",
           "papel": "intermediário",
           "ids": {
@@ -3163,18 +3280,56 @@
               ]
             },
             {
+              "id": "ignus-bomba-em-voce",
+              "nome": "Bomba em você (HP verde)",
+              "sinal": "Skill 1600846 (depois da Bomba Flamejante 1600840) cai em 2 jogadores: HP verde por 3 s e depois uma poça de fogo que fica",
+              "acao": "Corra para a borda e largue a poça longe do grupo",
+              "alerta": "BOMBA EM VOCÊ: LEVA PRA BORDA",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_ids": [
+                  1600846
+                ],
+                "pessoal": true,
+                "supressao_s": 3
+              },
+              "acao_tipo": "sair",
+              "wipe": false,
+              "confianca": "alta",
+              "confianca_skill": "media",
+              "voz_curta": "sair_voce",
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "BOMBA EM VOCÊ: LEVA PRA BORDA",
+                  "sub": "a poça cai em 3 s e fica até o fim",
+                  "tipo": "sair",
+                  "contagem": 3.0,
+                  "contagem_voz": true
+                }
+              ],
+              "observado": {
+                "fonte": "captura 2026-10-18 16:53 (Exploração, sem vídeo) + guia NoBS Game Guides",
+                "nota": "1600840 (preparo 1,2 s) aos 79% e 2× 1600846 em jogadores aos 66% na Exploração"
+              }
+            },
+            {
               "nome": "Anel + Blazing Speed",
               "sinal": "Abaixo de 65% ele salta ao centro e põe fogo em quase toda a sala; depois o Blazing Speed pula de jogador em jogador",
               "acao": "Burning Earth queima de 8 a 32 m dele: colado (ranged chega a menos de 8 m) ou bem longe. Depois espalhe, para os pulos do Blazing Speed não somarem",
               "alerta": "COLA NELE, DEPOIS ESPALHA",
               "gatilho": {
-                "tipo": "hp",
-                "pct": 65
+                "tipo": "skill",
+                "skill_ids": [
+                  1600810
+                ],
+                "preparo_s": {
+                  "1600810": 1.0
+                }
               },
               "wipe": false,
               "confianca": "alta",
               "acao_tipo": "empilhar",
-              "pre_aviso_pct": 5,
               "id": "red-spark-ignus-anel-blazing-speed",
               "candidatos_skill": {
                 "1600810": "Blazing Speed (nome igual ao da tabela de skills do jogo; confirmar numa captura (mapear.py mostra como candidato))"
@@ -3191,9 +3346,11 @@
                 "GLADIATOR": "Bloqueio Concentrado no anel se não chegar a tempo"
               },
               "observado": {
-                "fonte": "vídeo NoBS Game Guides + aion2maps (dados do cliente), 2026-10-19",
-                "nota": "sem captura ainda: dispara por HP/tempo; os IDs vêm da run de Conquista"
-              }
+                "fonte": "captura 2026-10-18 16:53 (Exploração, sem vídeo) + guia NoBS Game Guides",
+                "nota": "Disparada Flamejante (1600810) saiu aos 34% na Exploração (o guia diz 65%): a skill vale para todos os modos"
+              },
+              "confianca_skill": "alta",
+              "voz_curta": "meio"
             },
             {
               "nome": "Três círculos rápidos",
@@ -3207,7 +3364,10 @@
               "wipe": false,
               "confianca": "alta",
               "acao_tipo": "atencao",
-              "id": "red-spark-ignus-tres-circulos-rapidos"
+              "id": "red-spark-ignus-tres-circulos-rapidos",
+              "candidatos_skill": {
+                "1600800": "Pedregulho de Flamas (preparo 1,0 s, 2 jogadores) — só pelo nome; confirmar com vídeo"
+              }
             },
             {
               "nome": "Investida no tank",
@@ -3221,7 +3381,10 @@
               "wipe": false,
               "confianca": "alta",
               "acao_tipo": "atencao",
-              "id": "red-spark-ignus-investida-no-tank"
+              "id": "red-spark-ignus-investida-no-tank",
+              "candidatos_skill": {
+                "1600785": "Golpe Potente de Chamas (preparo 0,8 s) — só pelo nome; confirmar com vídeo"
+              }
             },
             {
               "nome": "Estrela de 5 linhas",
@@ -3235,7 +3398,10 @@
               "wipe": false,
               "confianca": "alta",
               "acao_tipo": "atencao",
-              "id": "red-spark-ignus-estrela-de-5-linhas"
+              "id": "red-spark-ignus-estrela-de-5-linhas",
+              "candidatos_skill": {
+                "1600830": "Erupção de Chamas (preparo 1,0 s, a cada ~37 s) — só pelo nome; confirmar com vídeo"
+              }
             },
             {
               "id": "red-spark-ignus-atordoado",
@@ -3330,7 +3496,7 @@
               "nome": "Três anéis",
               "sinal": "Abaixo de 50%: pisões em três ondas cada vez maiores",
               "acao": "Great Earthquake: anéis de ~8, 15 e 25 m, ~2 s entre eles; dois acertos podem matar. O tank leva ele para a ponta da plataforma (sobra espaço) e bloqueia; corpo a corpo faz esquiva perfeita",
-              "alerta": "3 ANÉIS: BLOQUEIA",
+              "alerta": "3 ANÉIS: ESQUIVA PERFEITA",
               "gatilho": {
                 "tipo": "hp",
                 "pct": 50
@@ -3346,7 +3512,7 @@
               "sequencia": [
                 {
                   "t": 0,
-                  "texto": "3 ANÉIS: BLOQUEIA",
+                  "texto": "3 ANÉIS: ESQUIVA PERFEITA",
                   "sub": "8, 15 e 25 m, a cada ~2 s; dois acertos matam",
                   "tipo": "esquivar"
                 }
@@ -3354,6 +3520,36 @@
               "observado": {
                 "fonte": "vídeo NoBS Game Guides + aion2maps (dados do cliente), 2026-10-19",
                 "nota": "sem captura ainda: dispara por HP/tempo; os IDs vêm da run de Conquista"
+              },
+              "voz_curta": "esquivar",
+              "por_papel": {
+                "tank": {
+                  "texto": "3 ANÉIS: BLOQUEIA OS 3",
+                  "sub": "leve ele para a ponta da plataforma",
+                  "voz_curta": "defesa"
+                }
+              },
+              "por_classe": {
+                "RANGER": {
+                  "texto": "3 ANÉIS: FICA A 25 m",
+                  "sub": "de longe dá para ficar fora dos três",
+                  "voz_curta": "sair"
+                },
+                "SORCERER": {
+                  "texto": "3 ANÉIS: FICA A 25 m",
+                  "sub": "de longe dá para ficar fora dos três",
+                  "voz_curta": "sair"
+                },
+                "ELEMENTALIST": {
+                  "texto": "3 ANÉIS: FICA A 25 m",
+                  "sub": "de longe dá para ficar fora dos três",
+                  "voz_curta": "sair"
+                },
+                "CLERIC": {
+                  "texto": "3 ANÉIS: FICA A 25 m",
+                  "sub": "de longe dá para ficar fora dos três",
+                  "voz_curta": "sair"
+                }
               }
             },
             {
@@ -3507,12 +3703,15 @@
                 }
               ],
               "candidatos_skill": {
-                "1801180": "Blazing Judgment = as paredes (aion2maps, dados do cliente)"
+                "1801180": "Blazing Judgment = as paredes (aion2maps, dados do cliente)",
+                "1801185": "visto aos 47% na Exploração (sem preparo, nela mesma)",
+                "1801186": "idem, 18 s antes da 1801185"
               },
               "observado": {
                 "fonte": "vídeo NoBS Game Guides + aion2maps (dados do cliente), 2026-10-19",
                 "nota": "sem captura ainda: dispara por HP/tempo; os IDs vêm da run de Conquista"
-              }
+              },
+              "voz_curta": "abertura"
             },
             {
               "nome": "Paredes de fogo (2ª vez)",
@@ -3540,12 +3739,15 @@
                 }
               ],
               "candidatos_skill": {
-                "1801180": "Blazing Judgment = as paredes (aion2maps, dados do cliente)"
+                "1801180": "Blazing Judgment = as paredes (aion2maps, dados do cliente)",
+                "1801185": "visto aos 47% na Exploração (sem preparo, nela mesma)",
+                "1801186": "idem, 18 s antes da 1801185"
               },
               "observado": {
                 "fonte": "vídeo NoBS Game Guides + aion2maps (dados do cliente), 2026-10-19",
                 "nota": "sem captura ainda: dispara por HP/tempo; os IDs vêm da run de Conquista"
-              }
+              },
+              "voz_curta": "abertura"
             },
             {
               "nome": "Arco ao céu com 1 flecha",
@@ -3554,7 +3756,12 @@
               "alerta": "1 FLECHA: CÍRCULO EM CADA UM",
               "gatilho": {
                 "tipo": "skill",
-                "skill_id": null
+                "skill_ids": [
+                  1801070
+                ],
+                "preparo_s": {
+                  "1801070": 1.7
+                }
               },
               "wipe": false,
               "confianca": "alta",
@@ -3564,9 +3771,11 @@
                 "GLADIATOR": "Remoção de Impacto no atordoamento; Bloqueio Concentrado no salto"
               },
               "observado": {
-                "fonte": "vídeo NoBS Game Guides + aion2maps (dados do cliente), 2026-10-19",
-                "nota": "sem captura ainda: dispara por HP/tempo; os IDs vêm da run de Conquista"
-              }
+                "fonte": "captura 2026-10-18 16:53 (Exploração, sem vídeo) + guia NoBS Game Guides",
+                "nota": "Marca da Morte (1801070): acertou 5 jogadores; nome e alvo batem com o círculo em cada um"
+              },
+              "confianca_skill": "media",
+              "voz_curta": "corre"
             },
             {
               "nome": "Arco abaixado",
@@ -3669,7 +3878,9 @@
               "alerta": "FICA PERTO",
               "gatilho": {
                 "tipo": "skill",
-                "skill_id": null
+                "skill_ids": [
+                  1801160
+                ]
               },
               "wipe": false,
               "confianca": "alta",
@@ -3679,9 +3890,10 @@
                 "GLADIATOR": "Remoção de Impacto se ela te derrubar"
               },
               "observado": {
-                "fonte": "vídeo NoBS Game Guides + aion2maps (dados do cliente), 2026-10-19",
-                "nota": "sem captura ainda: dispara por HP/tempo; os IDs vêm da run de Conquista"
-              }
+                "fonte": "captura 2026-10-18 16:53 (Exploração, sem vídeo) + guia NoBS Game Guides",
+                "nota": "Arrancada (1801160), sem preparo: o aviso sai junto do salto"
+              },
+              "confianca_skill": "baixa"
             },
             {
               "id": "kromede-s-desire-combo-de-espada",
@@ -3691,7 +3903,14 @@
               "alerta": "ESPADA: VAI PRAS COSTAS",
               "gatilho": {
                 "tipo": "skill",
-                "skill_id": null
+                "skill_ids": [
+                  1801060,
+                  1801040
+                ],
+                "preparo_s": {
+                  "1801060": 1.8,
+                  "1801040": 0.9
+                }
               },
               "wipe": false,
               "confianca": "alta",
@@ -3700,8 +3919,17 @@
                 "GLADIATOR": "tank: Bloqueio Concentrado no último golpe e volte à frente"
               },
               "observado": {
-                "fonte": "vídeo NoBS Game Guides + aion2maps (dados do cliente), 2026-10-19",
-                "nota": "sem captura ainda: dispara por HP/tempo; os IDs vêm da run de Conquista"
+                "fonte": "captura 2026-10-18 16:53 (Exploração, sem vídeo) + guia NoBS Game Guides",
+                "nota": "Lâmina Infernal Dançante (1801060) e Tornado de Lâminas (1801040)"
+              },
+              "confianca_skill": "media",
+              "voz_curta": "atras",
+              "por_papel": {
+                "tank": {
+                  "texto": "ESPADA: COSTAS E VOLTA",
+                  "sub": "esquive para as costas e volte para a frente antes que ela vire",
+                  "voz_curta": "vira"
+                }
               }
             },
             {
@@ -3712,15 +3940,21 @@
               "alerta": "2 TEMPOS: ESQUIVA",
               "gatilho": {
                 "tipo": "skill",
-                "skill_id": null
+                "skill_ids": [
+                  1801120
+                ],
+                "preparo_s": {
+                  "1801120": 1.85
+                }
               },
               "wipe": false,
               "confianca": "alta",
               "acao_tipo": "esquivar",
               "observado": {
-                "fonte": "vídeo NoBS Game Guides + aion2maps (dados do cliente), 2026-10-19",
-                "nota": "sem captura ainda: dispara por HP/tempo; os IDs vêm da run de Conquista"
-              }
+                "fonte": "captura 2026-10-18 16:53 (Exploração, sem vídeo) + guia NoBS Game Guides",
+                "nota": "Fagulhas do Demônio (1801120): acertou 6 jogadores; bate com as bolas de fogo em cada um"
+              },
+              "confianca_skill": "media"
             },
             {
               "nome": "Arco ao céu com várias flechas",
@@ -3729,16 +3963,23 @@
               "alerta": "VÁRIAS FLECHAS: ESQUIVA E CORRE",
               "gatilho": {
                 "tipo": "skill",
-                "skill_id": null
+                "skill_ids": [
+                  1801110
+                ],
+                "preparo_s": {
+                  "1801110": 1.8
+                }
               },
               "wipe": false,
               "confianca": "alta",
               "acao_tipo": "esquivar",
               "id": "kromede-s-desire-chuva-rapida",
               "observado": {
-                "fonte": "vídeo NoBS Game Guides + aion2maps (dados do cliente), 2026-10-19",
-                "nota": "sem captura ainda: dispara por HP/tempo; os IDs vêm da run de Conquista"
-              }
+                "fonte": "captura 2026-10-18 16:53 (Exploração, sem vídeo) + guia NoBS Game Guides",
+                "nota": "Chuva de Ódio (1801110) + 30 flechas 1801116 em ~1,5 s; acertou os 6 do grupo"
+              },
+              "confianca_skill": "alta",
+              "voz_curta": "corre"
             },
             {
               "id": "kromede-s-desire-atordoado",
