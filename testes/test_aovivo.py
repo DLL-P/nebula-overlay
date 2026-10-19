@@ -92,6 +92,28 @@ class TestSessao(unittest.TestCase):
         s = Sessao(DADOS, classe_fixa="TEMPLAR", papel_fixo="dps")
         self.assertEqual((s.estado(0)["classe"], s.estado(0)["papel"]), ("Templário", "dps"))
 
+    def test_tank_improvisado_quando_o_aggro_e_seu(self):
+        s = Sessao(DADOS, classe_fixa="GLADIATOR")
+        f = Fluxo(s)
+        f.enviar(0.0, b"", syn=True)
+        f.enviar(0.1, g.horario(1) + g.eu(EU, "Heroi") + g.spawn(BOSS, AULDOR_NPC) + g.hp(BOSS, 8_000_000))
+        b = s.bosses[BOSS]
+        self.assertEqual(s.papel_no_boss(b, 1.0), "dps")
+        for k in range(3):                                   # o boss bate em você: o aggro é seu
+            f.enviar(1.0 + k, g.inicio_skill(BOSS, 1600940, EU, 0))
+        self.assertEqual(s.papel_no_boss(b, 3.5), "dps")     # sozinho (Nightmare): não há grupo para proteger
+        s.grupo = ["Heroi", "Parceiro"]
+        self.assertEqual(s.papel_no_boss(b, 3.5), "tank")
+        f.enviar(4.0, g.inicio_skill(BOSS, 1600925, BOSS, 0))  # leque frontal: aviso só do tank
+        self.assertIn("VIRA ELE PRA FORA", [a.texto for a in s.estado(4.1)["cartoes"]])
+        for k in range(5):                                   # o aggro foi para outro jogador
+            f.enviar(10.0 + k, g.inicio_skill(BOSS, 1600940, 4242, 0))
+        self.assertEqual(s.papel_no_boss(b, 14.5), "dps")
+        s.papel_fixo = "healer"                              # papel escolhido na engrenagem vale sempre
+        for k in range(3):
+            f.enviar(20.0 + k, g.inicio_skill(BOSS, 1600940, EU, 0))
+        self.assertEqual(s.papel_no_boss(b, 22.5), "healer")
+
     def test_npc_comum_e_ignorado(self):
         self.f.enviar(1.0, g.spawn(777, 123456))
         self.assertNotIn(777, self.s.bosses)

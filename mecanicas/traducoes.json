@@ -646,7 +646,22 @@
   "3 ANÉIS: FICA A 25 m": "3 RINGS: STAY 25 m AWAY",
   "de longe dá para ficar fora dos três": "from range you can stay out of all three",
   "ESPADA: COSTAS E VOLTA": "SWORD: BEHIND AND BACK",
-  "esquive para as costas e volte para a frente antes que ela vire": "dodge behind her and get back in front before she turns"
+  "esquive para as costas e volte para a frente antes que ela vire": "dodge behind her and get back in front before she turns",
+  "Burning Earth queima de 8 a 32 m dele: colado (ranged chega a menos de 8 m) ou bem longe. Depois espalhe, para os pulos do Blazing Speed não somarem: ele investe em cada jogador e, juntos, a área pode matar com um golpe. O bloqueio cobre.": "Burning Earth burns from 8 to 32 m around it: hug it (ranged gets under 8 m) or stay far. Then spread so the Blazing Speed jumps don't stack: it charges each player and, stacked, the area can one-shot. Block covers it.",
+  "Os arqueiros atiram projéteis: espere passar antes de andar. Pergaminho de velocidade e Chanter ajudam. Também cai um meteoro no chão que pula de um lado para o outro.": "The archers fire projectiles: wait for them to pass before moving. Speed scrolls and a Chanter help. A meteor also lands and bounces from side to side.",
+  "Uns 7 círculos de 2 m que te seguem, um a cada 0,4 s (queimam, não atordoam): esquive primeiro e depois corra": "About 7 circles of 2 m that follow you, one every 0.4 s (they burn, no stun): dodge the first, then run",
+  "Suba nas pedras do lado direito do salão e espere ele resetar": "Climb the rocks on the right side of the hall and wait for it to reset",
+  "Saia assim que os braços subirem: a pancada em volta dele dá muito dano e vem um círculo amarelo em seguida": "Get out as soon as the arms go up: the slam around it hits hard and a yellow circle follows",
+  "de longe: só desvie do círculo amarelo que vem depois": "from range: just dodge the yellow circle that follows",
+  "Great Earthquake: anéis de ~8, 15 e 25 m, ~2 s entre eles; dois acertos podem matar. Atordoar o boss (stagger) na hora cancela a mecânica. Sem isso: o tank leva ele para a ponta da plataforma e bloqueia; corpo a corpo bloqueia, usa invulnerabilidade ou faz esquiva perfeita (ou sai antes, se começar cedo)": "Great Earthquake: rings at ~8, 15 and 25 m, ~2 s apart; two hits can kill. Staggering the boss right then cancels it. Otherwise the tank pulls it to the platform edge and blocks; melee blocks, uses invulnerability or perfect-dodges (or leaves early)",
+  "Saia e esquive cada meteoro; não fique parado": "Move and dodge each meteor; don't stand still",
+  "Golpe único: bloqueie ou faça esquiva perfeita; corpo a corpo sai de perto": "Single hit: block or perfect-dodge; melee step away",
+  "Uma onda vai em cada jogador: bloqueie ou espere e esquive de lado. Corpo a corpo: um passo para trás ao ver o arco baixo. Na 2ª fase são 2 ondas: bloqueio e depois esquiva (o bloqueio sozinho pode não cobrir as duas)": "A wave goes to each player: block, or wait and sidestep. Melee: step back when you see the low bow. In phase 2 there are 2 waves: block, then dodge (block alone may not cover both)",
+  "Um meteoro grande em cada jogador (dano alto e atordoa): saia do círculo. Logo depois ela investe no mais distante com 2 golpes em área: corpo a corpo, não entre de cara": "A big meteor on each player (high damage and stun): leave the circle. Right after she charges the farthest player with 2 area hits: melee, don't rush in",
+  "Quem ficar na frente morre: grupo sempre nas costas dela até o fim": "Anyone in front dies: the group stays behind her until the end",
+  "FASE 2: NUNCA NA FRENTE": "PHASE 2: NEVER IN FRONT",
+  "FASE 2: VIRA ELA PRA FORA": "PHASE 2: TURN HER AWAY",
+  "o combo no ar mata quem estiver na frente dela": "the aerial combo kills anyone in front of her"
  },
  "es": {
   "3 ACÚMULOS: AFASTA": "3 CARGAS: ALÉJATE",
@@ -1294,6 +1309,21 @@
   "3 ANÉIS: FICA A 25 m": "3 ANILLOS: QUÉDATE A 25 m",
   "de longe dá para ficar fora dos três": "a distancia puedes quedarte fuera de los tres",
   "ESPADA: COSTAS E VOLTA": "ESPADA: ESPALDA Y VUELVE",
-  "esquive para as costas e volte para a frente antes que ela vire": "esquiva a su espalda y vuelve al frente antes de que gire"
+  "esquive para as costas e volte para a frente antes que ela vire": "esquiva a su espalda y vuelve al frente antes de que gire",
+  "Burning Earth queima de 8 a 32 m dele: colado (ranged chega a menos de 8 m) ou bem longe. Depois espalhe, para os pulos do Blazing Speed não somarem: ele investe em cada jogador e, juntos, a área pode matar com um golpe. O bloqueio cobre.": "Burning Earth quema de 8 a 32 m a su alrededor: pégate (a distancia, a menos de 8 m) o quédate lejos. Luego sepárense para que los saltos de Blazing Speed no se sumen: embiste a cada jugador y, juntos, el área puede matar de un golpe. El bloqueo lo cubre.",
+  "Os arqueiros atiram projéteis: espere passar antes de andar. Pergaminho de velocidade e Chanter ajudam. Também cai um meteoro no chão que pula de um lado para o outro.": "Los arqueros disparan proyectiles: espera a que pasen antes de moverte. Pergaminos de velocidad y un Chanter ayudan. También cae un meteoro que rebota de un lado a otro.",
+  "Uns 7 círculos de 2 m que te seguem, um a cada 0,4 s (queimam, não atordoam): esquive primeiro e depois corra": "Unos 7 círculos de 2 m que te siguen, uno cada 0,4 s (queman, no aturden): esquiva el primero y luego corre",
+  "Suba nas pedras do lado direito do salão e espere ele resetar": "Sube a las rocas del lado derecho de la sala y espera a que se reinicie",
+  "Saia assim que os braços subirem: a pancada em volta dele dá muito dano e vem um círculo amarelo em seguida": "Sal en cuanto suba los brazos: el golpe a su alrededor pega fuerte y luego viene un círculo amarillo",
+  "de longe: só desvie do círculo amarelo que vem depois": "a distancia: solo esquiva el círculo amarillo que viene después",
+  "Great Earthquake: anéis de ~8, 15 e 25 m, ~2 s entre eles; dois acertos podem matar. Atordoar o boss (stagger) na hora cancela a mecânica. Sem isso: o tank leva ele para a ponta da plataforma e bloqueia; corpo a corpo bloqueia, usa invulnerabilidade ou faz esquiva perfeita (ou sai antes, se começar cedo)": "Great Earthquake: anillos a ~8, 15 y 25 m, ~2 s entre ellos; dos golpes pueden matar. Aturdir al jefe en ese momento cancela la mecánica. Si no: el tanque lo lleva al borde de la plataforma y bloquea; los cuerpo a cuerpo bloquean, usan invulnerabilidad o esquiva perfecta (o salen antes)",
+  "Saia e esquive cada meteoro; não fique parado": "Muévete y esquiva cada meteoro; no te quedes quieto",
+  "Golpe único: bloqueie ou faça esquiva perfeita; corpo a corpo sai de perto": "Golpe único: bloquea o haz esquiva perfecta; los cuerpo a cuerpo se alejan",
+  "Uma onda vai em cada jogador: bloqueie ou espere e esquive de lado. Corpo a corpo: um passo para trás ao ver o arco baixo. Na 2ª fase são 2 ondas: bloqueio e depois esquiva (o bloqueio sozinho pode não cobrir as duas)": "Una onda va hacia cada jugador: bloquea, o espera y esquiva de lado. Cuerpo a cuerpo: un paso atrás al ver el arco bajo. En la fase 2 son 2 ondas: bloqueo y luego esquiva (el bloqueo solo puede no cubrir ambas)",
+  "Um meteoro grande em cada jogador (dano alto e atordoa): saia do círculo. Logo depois ela investe no mais distante com 2 golpes em área: corpo a corpo, não entre de cara": "Un meteoro grande sobre cada jugador (mucho daño y aturde): sal del círculo. Justo después embiste al más lejano con 2 golpes en área: cuerpo a cuerpo, no entres de inmediato",
+  "Quem ficar na frente morre: grupo sempre nas costas dela até o fim": "Quien quede delante muere: el grupo siempre a su espalda hasta el final",
+  "FASE 2: NUNCA NA FRENTE": "FASE 2: NUNCA DELANTE",
+  "FASE 2: VIRA ELA PRA FORA": "FASE 2: GÍRALA HACIA FUERA",
+  "o combo no ar mata quem estiver na frente dela": "el combo aéreo mata a quien esté delante de ella"
  }
 }

@@ -61,12 +61,13 @@ Cada masmorra tem bosses; cada boss tem `ids` (código do mob por dificuldade) e
 | Campo | O que é |
 |---|---|
 | `id` | identificador estável (preferências do usuário usam ele) |
-| `gatilho` | `{"tipo": "skill", "skill_ids": [...], "preparo_s": {"<skill>": 1.5}}` ou `{"tipo": "hp", "pct": 75}`; `"pessoal": true` só alerta quando o alvo é você |
+| `gatilho` | `{"tipo": "skill", "skill_ids": [...], "preparo_s": {"<skill>": 1.5}}` ou `{"tipo": "hp", "pct": 75}`; `"pessoal": true` só alerta quando o alvo é você, `"outros": true` só quando não é |
+| `modos` | só vale nesses modos (ex.: `["Conquista"]`); o modo vem do código do NPC nos `ids` do boss |
 | `alerta`, `acao`, `acao_tipo` | texto grande, texto menor e tipo da ação (ícone, cor, voz e dica) |
 | `wipe` | `true` vira alarme (cartão vermelho, borda e contagem); o nível também depende do `acao_tipo` |
 | `sequencia` | passos `{"t", "texto", "sub", "tipo", "contagem", "sync"}`; o `sync` reancora a sequência num evento real dentro de uma janela |
 | `status` | `{"texto", "tipo", "em": "boss" ou "alvo", "de", "ate"}`: a faixa abaixo do alerta |
-| `papeis`, `por_papel` | quem vê o alerta e texto trocado por papel (tank, healer, dps, suporte) |
+| `papeis`, `por_papel` | quem vê o alerta e texto trocado por papel (tank, healer, dps, suporte). O papel vem da classe ou da engrenagem; em grupo, quem segura o aggro do boss (alvo mais comum dos casts, ≥3 em 15 s) passa a ver os avisos de `tank` |
 | `so_perto` | só para classes corpo a corpo (ex.: ENGAJE) |
 | `classes`, `por_classe` | quem vê o alerta pela classe e texto trocado por classe (ex.: fase vermelha do Thamon só para dano físico) |
 | `dica_tipo`, `dicas` | outra chave da tabela de dicas, ou dica fixa por classe |

@@ -3194,6 +3194,20 @@
               }
             },
             {
+              "id": "rotan-fuga",
+              "nome": "Fugir do Rotan",
+              "sinal": "Ele te pegou no caminho",
+              "acao": "Suba nas pedras do lado direito do salão e espere ele resetar",
+              "alerta": null,
+              "gatilho": null,
+              "wipe": false,
+              "confianca": "media",
+              "acao_tipo": "atencao",
+              "observado_kr": {
+                "fonte": "vídeo 'Fire Temple conquest mode full run Gladiator POV' (Awake, servidor KR, bosses nível 63), 2026-10-19"
+              }
+            },
+            {
               "id": "silver-blade-rotan-atordoado",
               "nome": "Atordoamento (medidor zerado)",
               "sinal": "O medidor de atordoamento (0xE005) chega a ~0; skill 1000009; o boss fica 5 s parado",
@@ -3316,7 +3330,7 @@
             {
               "nome": "Anel + Blazing Speed",
               "sinal": "Abaixo de 65% ele salta ao centro e põe fogo em quase toda a sala; depois o Blazing Speed pula de jogador em jogador",
-              "acao": "Burning Earth queima de 8 a 32 m dele: colado (ranged chega a menos de 8 m) ou bem longe. Depois espalhe, para os pulos do Blazing Speed não somarem",
+              "acao": "Burning Earth queima de 8 a 32 m dele: colado (ranged chega a menos de 8 m) ou bem longe. Depois espalhe, para os pulos do Blazing Speed não somarem: ele investe em cada jogador e, juntos, a área pode matar com um golpe. O bloqueio cobre.",
               "alerta": "COLA NELE, DEPOIS ESPALHA",
               "gatilho": {
                 "tipo": "skill",
@@ -3343,19 +3357,23 @@
                 }
               ],
               "dicas": {
-                "GLADIATOR": "Bloqueio Concentrado no anel se não chegar a tempo"
+                "GLADIATOR": "Bloqueio Concentrado na investida (se tiver no build)"
               },
               "observado": {
                 "fonte": "captura 2026-10-18 16:53 (Exploração, sem vídeo) + guia NoBS Game Guides",
                 "nota": "Disparada Flamejante (1600810) saiu aos 34% na Exploração (o guia diz 65%): a skill vale para todos os modos"
               },
               "confianca_skill": "alta",
-              "voz_curta": "meio"
+              "voz_curta": "meio",
+              "observado_kr": {
+                "fonte": "vídeo 'Fire Temple conquest mode full run Gladiator POV' (Awake, servidor KR, bosses nível 63), 2026-10-19",
+                "nota": "investe em cada jogador; espalhar ou bloquear"
+              }
             },
             {
               "nome": "Três círculos rápidos",
-              "sinal": "Três AoEs pequenas seguidas em cada jogador",
-              "acao": "Continue se movendo",
+              "sinal": "Meteoros seguidos em cada jogador: 2 no vídeo do KR, 3 em outros guias",
+              "acao": "Saia e esquive cada meteoro; não fique parado",
               "alerta": null,
               "gatilho": {
                 "tipo": "skill",
@@ -3367,12 +3385,16 @@
               "id": "red-spark-ignus-tres-circulos-rapidos",
               "candidatos_skill": {
                 "1600800": "Pedregulho de Flamas (preparo 1,0 s, 2 jogadores) — só pelo nome; confirmar com vídeo"
+              },
+              "observado_kr": {
+                "fonte": "vídeo 'Fire Temple conquest mode full run Gladiator POV' (Awake, servidor KR, bosses nível 63), 2026-10-19",
+                "nota": "dois meteoros seguidos em cada jogador"
               }
             },
             {
               "nome": "Investida no tank",
               "sinal": "Investe no tank e explode em volta",
-              "acao": "Corpo a corpo sai de perto",
+              "acao": "Golpe único: bloqueie ou faça esquiva perfeita; corpo a corpo sai de perto",
               "alerta": null,
               "gatilho": {
                 "tipo": "skill",
@@ -3384,6 +3406,10 @@
               "id": "red-spark-ignus-investida-no-tank",
               "candidatos_skill": {
                 "1600785": "Golpe Potente de Chamas (preparo 0,8 s) — só pelo nome; confirmar com vídeo"
+              },
+              "observado_kr": {
+                "fonte": "vídeo 'Fire Temple conquest mode full run Gladiator POV' (Awake, servidor KR, bosses nível 63), 2026-10-19",
+                "nota": "golpe único, bloqueável"
               }
             },
             {
@@ -3467,7 +3493,7 @@
             {
               "nome": "Braços levantados / soco",
               "sinal": "Ele ergue a(s) mão(s) e soca um ponto marcado",
-              "acao": "Saia assim que os braços subirem",
+              "acao": "Saia assim que os braços subirem: a pancada em volta dele dá muito dano e vem um círculo amarelo em seguida",
               "alerta": "BRAÇOS: SAI",
               "gatilho": {
                 "tipo": "skill",
@@ -3476,7 +3502,28 @@
               "wipe": false,
               "confianca": "alta",
               "acao_tipo": "sair",
-              "id": "black-smoke-murute-bracos-levantados-soco"
+              "id": "black-smoke-murute-bracos-levantados-soco",
+              "por_classe": {
+                "RANGER": {
+                  "sub": "de longe: só desvie do círculo amarelo que vem depois"
+                },
+                "SORCERER": {
+                  "sub": "de longe: só desvie do círculo amarelo que vem depois"
+                },
+                "ELEMENTALIST": {
+                  "sub": "de longe: só desvie do círculo amarelo que vem depois"
+                },
+                "CLERIC": {
+                  "sub": "de longe: só desvie do círculo amarelo que vem depois"
+                }
+              },
+              "dicas": {
+                "GLADIATOR": "no pull, espere 1 s fora até o pisão passar e só então entre"
+              },
+              "observado_kr": {
+                "fonte": "vídeo 'Fire Temple conquest mode full run Gladiator POV' (Awake, servidor KR, bosses nível 63), 2026-10-19",
+                "nota": "o narrador espera fora no pull até o pisão passar"
+              }
             },
             {
               "nome": "Círculos atrasados",
@@ -3495,7 +3542,7 @@
             {
               "nome": "Três anéis",
               "sinal": "Abaixo de 50%: pisões em três ondas cada vez maiores",
-              "acao": "Great Earthquake: anéis de ~8, 15 e 25 m, ~2 s entre eles; dois acertos podem matar. O tank leva ele para a ponta da plataforma (sobra espaço) e bloqueia; corpo a corpo faz esquiva perfeita",
+              "acao": "Great Earthquake: anéis de ~8, 15 e 25 m, ~2 s entre eles; dois acertos podem matar. Atordoar o boss (stagger) na hora cancela a mecânica. Sem isso: o tank leva ele para a ponta da plataforma e bloqueia; corpo a corpo bloqueia, usa invulnerabilidade ou faz esquiva perfeita (ou sai antes, se começar cedo)",
               "alerta": "3 ANÉIS: ESQUIVA PERFEITA",
               "gatilho": {
                 "tipo": "hp",
@@ -3507,7 +3554,7 @@
               "pre_aviso_pct": 5,
               "id": "black-smoke-murute-tres-aneis",
               "dicas": {
-                "GLADIATOR": "Bloqueio Concentrado no impacto (2 cargas)"
+                "GLADIATOR": "Bloqueio Concentrado nos 3 (se tiver no build); senão invulnerabilidade ou esquiva perfeita"
               },
               "sequencia": [
                 {
@@ -3550,6 +3597,11 @@
                   "sub": "de longe dá para ficar fora dos três",
                   "voz_curta": "sair"
                 }
+              },
+              "nota_servidor": "No KR o narrador faz esquiva perfeita com 2–3 ms de ping; com o ping do Global o bloqueio é mais seguro.",
+              "observado_kr": {
+                "fonte": "vídeo 'Fire Temple conquest mode full run Gladiator POV' (Awake, servidor KR, bosses nível 63), 2026-10-19",
+                "nota": "o grupo atordoou o boss e cancelou os anéis na 1ª vez"
               }
             },
             {
@@ -3582,7 +3634,7 @@
             },
             {
               "nome": "Leque de 5 linhas",
-              "sinal": "Cinco linhas em leque à frente",
+              "sinal": "Cinco linhas em leque à frente; abre a luta logo depois do pull",
               "acao": "Fique atrás ou entre as linhas",
               "alerta": null,
               "gatilho": {
@@ -3592,7 +3644,11 @@
               "wipe": false,
               "confianca": "alta",
               "acao_tipo": "atencao",
-              "id": "black-smoke-murute-leque-de-5-linhas"
+              "id": "black-smoke-murute-leque-de-5-linhas",
+              "observado_kr": {
+                "fonte": "vídeo 'Fire Temple conquest mode full run Gladiator POV' (Awake, servidor KR, bosses nível 63), 2026-10-19",
+                "nota": "o cone frontal vem logo depois do pull"
+              }
             },
             {
               "id": "black-smoke-murute-minas-de-fogo",
@@ -3716,7 +3772,7 @@
             {
               "nome": "Paredes de fogo (2ª vez)",
               "sinal": "Aos ~35–40%: paredes de novo, com arqueiros dos dois lados",
-              "acao": "Os arqueiros atiram projéteis: espere passar antes de andar. Pergaminho de velocidade e Chanter ajudam",
+              "acao": "Os arqueiros atiram projéteis: espere passar antes de andar. Pergaminho de velocidade e Chanter ajudam. Também cai um meteoro no chão que pula de um lado para o outro.",
               "alerta": "PAREDES: PROCURA A ABERTURA",
               "gatilho": {
                 "tipo": "hp",
@@ -3747,12 +3803,51 @@
                 "fonte": "vídeo NoBS Game Guides + aion2maps (dados do cliente), 2026-10-19",
                 "nota": "sem captura ainda: dispara por HP/tempo; os IDs vêm da run de Conquista"
               },
-              "voz_curta": "abertura"
+              "voz_curta": "abertura",
+              "observado_kr": {
+                "fonte": "vídeo 'Fire Temple conquest mode full run Gladiator POV' (Awake, servidor KR, bosses nível 63), 2026-10-19",
+                "nota": "2ª transição aos ~40%; o narrador deixa a invulnerabilidade pronta para ela"
+              }
+            },
+            {
+              "id": "kromede-fase-2-combo-no-ar",
+              "nome": "Fase 2: combo no ar",
+              "sinal": "Depois das 2ªs paredes, o combo de 4 golpes vira um combo no ar, flutuando, à frente dela",
+              "acao": "Quem ficar na frente morre: grupo sempre nas costas dela até o fim",
+              "alerta": "FASE 2: NUNCA NA FRENTE",
+              "gatilho": {
+                "tipo": "hp",
+                "pct": 35
+              },
+              "pre_aviso_pct": 0,
+              "wipe": true,
+              "confianca": "media",
+              "acao_tipo": "atras",
+              "voz_curta": "atras",
+              "por_papel": {
+                "tank": {
+                  "texto": "FASE 2: VIRA ELA PRA FORA",
+                  "sub": "o combo no ar mata quem estiver na frente dela",
+                  "voz_curta": "vira"
+                }
+              },
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "FASE 2: NUNCA NA FRENTE",
+                  "sub": "o combo no ar mata quem estiver na frente dela",
+                  "tipo": "atras"
+                }
+              ],
+              "nota": "Disparo por HP (35%) até a skill do combo aéreo ser capturada numa run de Conquista.",
+              "observado_kr": {
+                "fonte": "vídeo 'Fire Temple conquest mode full run Gladiator POV' (Awake, servidor KR, bosses nível 63), 2026-10-19"
+              }
             },
             {
               "nome": "Arco ao céu com 1 flecha",
               "sinal": "Ela pega o arco e aponta para o céu com uma flecha só",
-              "acao": "Um AoE grande em cada jogador (atordoa); depois ela salta no mais distante: quebre o atordoamento e esquive ou bloqueie. Viu o arco? Corra e prepare a esquiva",
+              "acao": "Um meteoro grande em cada jogador (dano alto e atordoa): saia do círculo. Logo depois ela investe no mais distante com 2 golpes em área: corpo a corpo, não entre de cara",
               "alerta": "1 FLECHA: CÍRCULO EM CADA UM",
               "gatilho": {
                 "tipo": "skill",
@@ -3775,12 +3870,16 @@
                 "nota": "Marca da Morte (1801070): acertou 5 jogadores; nome e alvo batem com o círculo em cada um"
               },
               "confianca_skill": "media",
-              "voz_curta": "corre"
+              "voz_curta": "corre",
+              "observado_kr": {
+                "fonte": "vídeo 'Fire Temple conquest mode full run Gladiator POV' (Awake, servidor KR, bosses nível 63), 2026-10-19",
+                "nota": "meteoros com atordoamento e investida de 2 golpes no mais distante"
+              }
             },
             {
               "nome": "Arco abaixado",
               "sinal": "Ela abaixa o arco",
-              "acao": "Uma linha vai em cada jogador: passo para o lado. Corpo a corpo: dê um passo para trás ao ver o arco baixo. Na 2ª fase são 2 tiros por jogador",
+              "acao": "Uma onda vai em cada jogador: bloqueie ou espere e esquive de lado. Corpo a corpo: um passo para trás ao ver o arco baixo. Na 2ª fase são 2 ondas: bloqueio e depois esquiva (o bloqueio sozinho pode não cobrir as duas)",
               "alerta": "ARCO BAIXO: SAI DA LINHA",
               "gatilho": {
                 "tipo": "skill",
@@ -3791,11 +3890,15 @@
               "acao_tipo": "esquivar",
               "id": "kromede-s-desire-arco-abaixado",
               "dicas": {
-                "GLADIATOR": "Bloqueio Concentrado na linha"
+                "GLADIATOR": "Bloqueio Concentrado na 1ª onda e esquiva na 2ª (na fase 2)"
               },
               "observado": {
                 "fonte": "vídeo NoBS Game Guides + aion2maps (dados do cliente), 2026-10-19",
                 "nota": "sem captura ainda: dispara por HP/tempo; os IDs vêm da run de Conquista"
+              },
+              "observado_kr": {
+                "fonte": "vídeo 'Fire Temple conquest mode full run Gladiator POV' (Awake, servidor KR, bosses nível 63), 2026-10-19",
+                "nota": "o narrador bloqueia a 1ª e esquiva a 2ª na fase 2"
               }
             },
             {
@@ -3958,8 +4061,8 @@
             },
             {
               "nome": "Arco ao céu com várias flechas",
-              "sinal": "Arco para o céu com várias flechas (cinco marcas acendem no arco)",
-              "acao": "Uns 6 círculos de 2 m que te seguem, um a cada 0,4 s (queimam, não atordoam): esquive primeiro e depois corra",
+              "sinal": "Arco para o céu com várias flechas (cinco marcas acendem no arco); ~7 acertos no total",
+              "acao": "Uns 7 círculos de 2 m que te seguem, um a cada 0,4 s (queimam, não atordoam): esquive primeiro e depois corra",
               "alerta": "VÁRIAS FLECHAS: ESQUIVA E CORRE",
               "gatilho": {
                 "tipo": "skill",
@@ -3979,7 +4082,11 @@
                 "nota": "Chuva de Ódio (1801110) + 30 flechas 1801116 em ~1,5 s; acertou os 6 do grupo"
               },
               "confianca_skill": "alta",
-              "voz_curta": "corre"
+              "voz_curta": "corre",
+              "observado_kr": {
+                "fonte": "vídeo 'Fire Temple conquest mode full run Gladiator POV' (Awake, servidor KR, bosses nível 63), 2026-10-19",
+                "nota": "sete quedas de flecha que te seguem"
+              }
             },
             {
               "id": "kromede-s-desire-atordoado",
@@ -4022,12 +4129,13 @@
             }
           ],
           "ordem": 3,
-          "faixa_skills_candidata": "1801030–1801192 (Blade Tornado, Mark of Death, Rain of Hatred, Demon Flame, Blazing Judgment, Flame of Desire)"
+          "faixa_skills_candidata": "1801030–1801192 (Blade Tornado, Mark of Death, Rain of Hatred, Demon Flame, Blazing Judgment, Flame of Desire)",
+          "posturas": "Duas posturas: com a espada, tudo é golpe à frente (fique nas costas e evita ~70% da luta); com o arco, vêm as mecânicas de grupo. Duas fases, separadas pelas paredes de fogo (70% e 40%)"
         }
       ],
       "ordem": [
-        "Kibelisk. Dois consoles de resfriamento, um de cada lado do salão: param os cometas que caem pela masmorra inteira (também nas salas dos bosses) e não puxam aggro",
-        "Silver Blade Rotan (opcional, ronda o salão): cuidado com o giro; se cruzar com ele, foque e mate rápido",
+        "Ao abrir o portão, vá pela direita. Dois consoles de resfriamento, um de cada lado do salão: param os cometas que caem pela masmorra inteira (também nas salas dos bosses) e não puxam aggro",
+        "Silver Blade Rotan (opcional, ronda o salão; aparece no minimapa): cuidado com o giro. Se ele te pegar, suba nas pedras do lado direito do salão e espere ele resetar",
         "Red Spark Ignus",
         "Atalho: do penhasco depois do Ignus, pule e planeie até o Murute (espaço abre as asas; não aperte W, que desce; Shift planeia mais rápido)",
         "Black Smoke Murute",
@@ -4040,7 +4148,8 @@
         "https://daevaguides.com/en/guides/fire-temple/",
         "https://dbaion2.ru/en/guides/mekhaniki-hram-ognya/",
         "https://www.youtube.com/watch?v=_2A9rQuWJwM"
-      ]
+      ],
+      "nota_servidor": "Os guias em vídeo usados aqui são do servidor coreano (KR): bosses nível 63 na Conquista, a Kromede com ~8 milhões de HP e ping de 2–3 ms. No Global os números (HP, dano, nível) podem ser outros e, com ping maior, a esquiva perfeita fica mais difícil: prefira o bloqueio onde ele cobre."
     },
     {
       "nome": "Ferocious Horn Den",

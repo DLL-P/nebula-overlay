@@ -17,6 +17,7 @@ from __future__ import annotations
 import json
 import os
 import struct
+from collections import Counter
 from dataclasses import dataclass, field
 
 from .alertas import Alerta, MotorAlertas, boss_por_npc, modo_do_npc, carregar_dicas
@@ -133,6 +134,7 @@ class BossVivo:
     visto: float = 0.0
     previsor: Previsor | None = None
     atordoamento: tuple[int, int] | None = None     # (atual, máximo) do medidor 0xE005
+    alvos: list = field(default_factory=list)        # [(t, entidade)] dos casts do boss mirando um jogador
 
     @property
     def pct(self) -> float:
@@ -194,13 +196,33 @@ class Sessao:
     def meu_papel(self) -> str | None:
         return self.papel_fixo or PAPEL.get(self.minha_classe or "")
 
+    def com_aggro(self, b: BossVivo, agora: float, janela: float = 15.0) -> bool:
+        """Você segura o aggro deste boss: é o alvo mais comum dos casts dele (≥3) nos últimos segundos."""
+        recentes = [a for t, a in b.alvos if agora - t <= janela]
+        if self.eu is None or len(recentes) < 3:
+            return False
+        mais, _ = Counter(recentes).most_common(1)[0]
+        return mais == self.eu
+
+    def papel_no_boss(self, b: BossVivo, agora: float) -> str | None:
+        """O papel dos avisos deste boss: quem está com o aggro vira "tank" (o tank improvisado sem Templário).
+        Um papel escolhido à mão na engrenagem vale sempre."""
+        if not self.papel_fixo and self._em_grupo(b) and self.com_aggro(b, agora):
+            return "tank"
+        return self.meu_papel
+
+    def _em_grupo(self, b: BossVivo) -> bool:
+        """Há mais alguém na luta (a lista do grupo ou um cast do boss em outro jogador). Sozinho, no Nightmare ou no
+        Ascension Trial, o aggro é sempre seu e os avisos de tank ("vira ele pra fora do grupo") não fazem sentido."""
+        return len(self.grupo) > 1 or any(a != self.eu for _, a in b.alvos)
+
     def tick(self, agora: float) -> None:
         """Entrega passos de sequência que vencem mesmo sem pacote novo."""
         self.medidor.tick(agora)
-        classe, papel = self.minha_classe, self.meu_papel
+        classe = self.minha_classe
         for b in self.bosses.values():
             if b.motor:
-                b.motor.classe, b.motor.papel = classe, papel
+                b.motor.classe, b.motor.papel = classe, self.papel_no_boss(b, agora)
                 self.alertas += b.motor.avancar(agora)
         self._podar(agora)
 
@@ -267,7 +289,7 @@ class Sessao:
                 m = fichas.get(p.no)
                 if m is not None:
                     # o mesmo filtro dos alertas: o leque é só do tank, o ENGAJE só de quem bate de perto
-                    passos = passos_completos(m, False, self.meu_papel, ALCANCE.get(self.minha_classe or ""),
+                    passos = passos_completos(m, False, self.papel_no_boss(b, agora), ALCANCE.get(self.minha_classe or ""),
                                               self.minha_classe)
                     if not passos:
                         continue
@@ -402,14 +424,19 @@ class Sessao:
         elif op == 0x3802 and c["conjurador"] in self.bosses:
             b = self.bosses[c["conjurador"]]
             b.visto = ts
+            if c["alvo"] is not None and c["alvo"] != c["conjurador"] and c["alvo"] not in self.bosses:
+                b.alvos.append((ts, c["alvo"]))
+                del b.alvos[:-30]
             if b.previsor:
                 b.previsor.cast(ts, c["skill"])
             if b.motor:
+                b.motor.papel = self.papel_no_boss(b, ts)
                 self.alertas += b.motor.skill(ts, c["skill"], c["alvo"])
         elif op == 0x3809 and c["conjurador"] in self.bosses:
             b = self.bosses[c["conjurador"]]
             b.visto = ts
             if b.motor:
+                b.motor.papel = self.papel_no_boss(b, ts)
                 self.alertas += b.motor.preparo(ts, c["skill"], c["alvo"])
         elif op in (0x3802, 0x3809) and c["conjurador"] not in self.nomes and c["conjurador"] != self.eu:
             # objetos que o boss cria (raios, poças, chakrams) lançam skills da faixa dele: valem para o boss da luta
