@@ -3208,6 +3208,30 @@
               }
             },
             {
+              "id": "rotan-rastreamento",
+              "nome": "Rastreamento da lâmina",
+              "sinal": "Rastreamento da Lâmina (1227180, preparo 1,0 s) com a vida baixa, seguido de vários golpes (1227190)",
+              "acao": "Lâminas te seguem: continue andando até acabar",
+              "alerta": "LÂMINAS: ANDA",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_ids": [
+                  1227180
+                ],
+                "preparo_s": {
+                  "1227180": 1.0
+                }
+              },
+              "acao_tipo": "esquivar",
+              "wipe": false,
+              "confianca": "media",
+              "confianca_skill": "alta",
+              "observado_conquista": {
+                "fonte": "captura 2026-10-19 02:15 (Conquista, 2 runs, tank Templário) + vídeos 02:34:43 e 02:42:56",
+                "nota": "aos 19% e 45% na Conquista; até 2.100"
+              }
+            },
+            {
               "id": "silver-blade-rotan-atordoado",
               "nome": "Atordoamento (medidor zerado)",
               "sinal": "O medidor de atordoamento (0xE005) chega a ~0; skill 1000009; o boss fica 5 s parado",
@@ -3265,18 +3289,22 @@
           "mecanicas": [
             {
               "nome": "Marca de lava",
-              "sinal": "Abaixo de 75% ele ergue uma mão e 2 jogadores ficam com o HP/nome verde (Delayed Explosion)",
+              "sinal": "Ele ergue a mão (Bomba Flamejante) e ~3 s depois 2 jogadores ficam com o HP verde; acontece duas vezes",
               "acao": "Em 3 s o marcado explode e deixa uma poça de fogo que fica até o fim: largue na borda, longe do corpo a corpo",
               "alerta": "HP VERDE: LAVA NA BORDA",
               "gatilho": {
-                "tipo": "hp",
-                "pct": 75
+                "tipo": "skill",
+                "skill_ids": [
+                  1600840
+                ],
+                "preparo_s": {
+                  "1600840": 1.2
+                }
               },
               "wipe": false,
               "confianca": "alta",
               "acao_tipo": "espalhar",
               "id": "red-spark-ignus-marca-de-lava",
-              "pre_aviso_pct": 5,
               "dicas": {
                 "GLADIATOR": "marcado: Golpe de Investida de volta depois de largar a lava"
               },
@@ -3291,7 +3319,12 @@
                   "sub": "olhe a cor do seu HP: verde = você leva a poça",
                   "tipo": "espalhar"
                 }
-              ]
+              ],
+              "confianca_skill": "alta",
+              "observado_conquista": {
+                "fonte": "captura 2026-10-19 02:15 (Conquista, 2 runs, tank Templário) + vídeos 02:34:43 e 02:42:56",
+                "nota": "Bomba Flamejante (1600840) aos ~85% e ~36% na Conquista (79% na Exploração); as marcas (1600846) caem ~3 s depois"
+              }
             },
             {
               "id": "ignus-bomba-em-voce",
@@ -3374,14 +3407,16 @@
               "nome": "Três círculos rápidos",
               "sinal": "Meteoros seguidos em cada jogador: 2 no vídeo do KR, 3 em outros guias",
               "acao": "Saia e esquive cada meteoro; não fique parado",
-              "alerta": null,
+              "alerta": "METEOROS: ANDA",
               "gatilho": {
                 "tipo": "skill",
-                "skill_id": null
+                "skill_ids": [
+                  1600790
+                ]
               },
               "wipe": false,
               "confianca": "alta",
-              "acao_tipo": "atencao",
+              "acao_tipo": "esquivar",
               "id": "red-spark-ignus-tres-circulos-rapidos",
               "candidatos_skill": {
                 "1600800": "Pedregulho de Flamas (preparo 1,0 s, 2 jogadores) — só pelo nome; confirmar com vídeo"
@@ -3389,20 +3424,40 @@
               "observado_kr": {
                 "fonte": "vídeo 'Fire Temple conquest mode full run Gladiator POV' (Awake, servidor KR, bosses nível 63), 2026-10-19",
                 "nota": "dois meteoros seguidos em cada jogador"
-              }
+              },
+              "confianca_skill": "media",
+              "observado_conquista": {
+                "fonte": "captura 2026-10-19 02:15 (Conquista, 2 runs, tank Templário) + vídeos 02:34:43 e 02:42:56",
+                "nota": "Bola de Fogo (1600790), sem preparo: 2 seguidas (~3 s) e outra ~30 s depois"
+              },
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "METEOROS: ANDA",
+                  "sub": "dois seguidos: não fique parado",
+                  "tipo": "esquivar"
+                }
+              ]
             },
             {
               "nome": "Investida no tank",
               "sinal": "Investe no tank e explode em volta",
-              "acao": "Golpe único: bloqueie ou faça esquiva perfeita; corpo a corpo sai de perto",
-              "alerta": null,
+              "acao": "Golpe de chamas em volta do alvo: corpo a corpo sai de perto, ou bloqueia/esquiva perfeita",
+              "alerta": "CHAMAS: SAI DE PERTO",
               "gatilho": {
                 "tipo": "skill",
-                "skill_id": null
+                "skill_ids": [
+                  1600780,
+                  1600785
+                ],
+                "preparo_s": {
+                  "1600780": 0.8,
+                  "1600785": 0.8
+                }
               },
               "wipe": false,
               "confianca": "alta",
-              "acao_tipo": "atencao",
+              "acao_tipo": "sair",
               "id": "red-spark-ignus-investida-no-tank",
               "candidatos_skill": {
                 "1600785": "Golpe Potente de Chamas (preparo 0,8 s) — só pelo nome; confirmar com vídeo"
@@ -3410,7 +3465,23 @@
               "observado_kr": {
                 "fonte": "vídeo 'Fire Temple conquest mode full run Gladiator POV' (Awake, servidor KR, bosses nível 63), 2026-10-19",
                 "nota": "golpe único, bloqueável"
-              }
+              },
+              "confianca_skill": "alta",
+              "observado_conquista": {
+                "fonte": "captura 2026-10-19 02:15 (Conquista, 2 runs, tank Templário) + vídeos 02:34:43 e 02:42:56",
+                "nota": "Golpe Potente de Chamas (1600780/1600785): até 10.300 no Gladiador"
+              },
+              "so_perto": true,
+              "voz_curta": "sair",
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "CHAMAS: SAI DE PERTO",
+                  "sub": "explode em volta do alvo",
+                  "tipo": "sair",
+                  "so_perto": true
+                }
+              ]
             },
             {
               "nome": "Estrela de 5 linhas",
@@ -3497,7 +3568,12 @@
               "alerta": "BRAÇOS: SAI",
               "gatilho": {
                 "tipo": "skill",
-                "skill_id": null
+                "skill_ids": [
+                  1600680
+                ],
+                "preparo_s": {
+                  "1600680": 1.6
+                }
               },
               "wipe": false,
               "confianca": "alta",
@@ -3523,6 +3599,11 @@
               "observado_kr": {
                 "fonte": "vídeo 'Fire Temple conquest mode full run Gladiator POV' (Awake, servidor KR, bosses nível 63), 2026-10-19",
                 "nota": "o narrador espera fora no pull até o pisão passar"
+              },
+              "confianca_skill": "alta",
+              "observado_conquista": {
+                "fonte": "captura 2026-10-19 02:15 (Conquista, 2 runs, tank Templário) + vídeos 02:34:43 e 02:42:56",
+                "nota": "Impacto no Solo (1600680) aos ~95% e ~30%: até 11.100 no Gladiador"
               }
             },
             {
@@ -3545,13 +3626,17 @@
               "acao": "Great Earthquake: anéis de ~8, 15 e 25 m, ~2 s entre eles; dois acertos podem matar. Atordoar o boss (stagger) na hora cancela a mecânica. Sem isso: o tank leva ele para a ponta da plataforma e bloqueia; corpo a corpo bloqueia, usa invulnerabilidade ou faz esquiva perfeita (ou sai antes, se começar cedo)",
               "alerta": "3 ANÉIS: ESQUIVA PERFEITA",
               "gatilho": {
-                "tipo": "hp",
-                "pct": 50
+                "tipo": "skill",
+                "skill_ids": [
+                  1600720
+                ],
+                "preparo_s": {
+                  "1600720": 0.8
+                }
               },
               "wipe": false,
               "confianca": "alta",
               "acao_tipo": "esquivar",
-              "pre_aviso_pct": 5,
               "id": "black-smoke-murute-tres-aneis",
               "dicas": {
                 "GLADIATOR": "Bloqueio Concentrado nos 3 (se tiver no build); senão invulnerabilidade ou esquiva perfeita"
@@ -3602,6 +3687,11 @@
               "observado_kr": {
                 "fonte": "vídeo 'Fire Temple conquest mode full run Gladiator POV' (Awake, servidor KR, bosses nível 63), 2026-10-19",
                 "nota": "o grupo atordoou o boss e cancelou os anéis na 1ª vez"
+              },
+              "confianca_skill": "alta",
+              "observado_conquista": {
+                "fonte": "captura 2026-10-19 02:15 (Conquista, 2 runs, tank Templário) + vídeos 02:34:43 e 02:42:56",
+                "nota": "Terremoto Devastador (1600720 = Great Earthquake) aos 28% na run 1; na run 2 o boss morreu antes"
               }
             },
             {
@@ -3622,15 +3712,34 @@
               "nome": "Investida + pedregulho",
               "sinal": "Investe no tank, vira e arremessa pedregulho em linha",
               "acao": "Saia da frente dele",
-              "alerta": null,
+              "alerta": "INVESTIDA: SAI DA LINHA",
               "gatilho": {
                 "tipo": "skill",
-                "skill_id": null
+                "skill_ids": [
+                  1600730
+                ],
+                "preparo_s": {
+                  "1600730": 1.0
+                }
               },
               "wipe": false,
               "confianca": "alta",
-              "acao_tipo": "atencao",
-              "id": "black-smoke-murute-investida-pedregulho"
+              "acao_tipo": "esquivar",
+              "id": "black-smoke-murute-investida-pedregulho",
+              "confianca_skill": "alta",
+              "observado_conquista": {
+                "fonte": "captura 2026-10-19 02:15 (Conquista, 2 runs, tank Templário) + vídeos 02:34:43 e 02:42:56",
+                "nota": "Investida (1600730) aos 50%; o Arremesso de Pedregulho (1600710) vem ~3 s depois"
+              },
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "INVESTIDA: SAI DA LINHA",
+                  "sub": "Saia da frente dele",
+                  "tipo": "esquivar",
+                  "contagem": 3.0
+                }
+              ]
             },
             {
               "nome": "Leque de 5 linhas",
@@ -3666,6 +3775,31 @@
               "observado": {
                 "fonte": "vídeo NoBS Game Guides + aion2maps (dados do cliente), 2026-10-19",
                 "nota": "sem captura ainda: dispara por HP/tempo; os IDs vêm da run de Conquista"
+              }
+            },
+            {
+              "id": "murute-esmagada-potente",
+              "nome": "Esmagada potente",
+              "sinal": "Esmagada Descendente Potente (1600740, preparo 1,3 s) à frente dele",
+              "acao": "Saia da frente: acerta quem está perto do alvo",
+              "alerta": "ESMAGADA: SAI DA FRENTE",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_ids": [
+                  1600740
+                ],
+                "preparo_s": {
+                  "1600740": 1.3
+                }
+              },
+              "so_perto": true,
+              "acao_tipo": "sair",
+              "wipe": false,
+              "confianca": "media",
+              "confianca_skill": "alta",
+              "observado_conquista": {
+                "fonte": "captura 2026-10-19 02:15 (Conquista, 2 runs, tank Templário) + vídeos 02:34:43 e 02:42:56",
+                "nota": "até 10.200 no Gladiador; a cada ~28 s"
               }
             },
             {
@@ -3708,7 +3842,8 @@
               }
             }
           ],
-          "ordem": 2
+          "ordem": 2,
+          "ids_por_modo": "Conquista usa outra faixa de skills (16006xx–16007xx); os IDs da Exploração ainda não foram vistos"
         },
         {
           "nome": "Kromede's Desire",
@@ -3734,18 +3869,20 @@
           "mecanicas": [
             {
               "nome": "Paredes de fogo",
-              "sinal": "Aos ~70% (67–75%) ela salta e fileiras de blocos de fogo varrem a sala (Blazing Judgment), cada uma com uma abertura",
-              "acao": "Passe pelas aberturas; guarde estamina. A corrida começa quando o personagem guarda as armas; pergaminho de velocidade e Chanter no grupo ajudam. Se for errar, dá para tomar uma parede: o dano é baixo (mas queima)",
+              "sinal": "Ela salta (1801186) e ~4,5 s depois fileiras de blocos de fogo varrem a sala; acontece duas vezes (~70–75% e ~36–39%)",
+              "acao": "Passe pelas aberturas; guarde estamina. A corrida começa quando o personagem guarda as armas; pergaminho de velocidade e Chanter ajudam. Na 2ª vez há arqueiros nas bordas: espere o projétil passar. Dá para tomar uma parede",
               "alerta": "PAREDES: PROCURA A ABERTURA",
               "gatilho": {
-                "tipo": "hp",
-                "pct": 70
+                "tipo": "skill",
+                "skill_ids": [
+                  1801186
+                ],
+                "supressao_s": 30
               },
               "wipe": true,
               "confianca": "alta",
               "nota": "Limiares: ~70% e ~35–40% pelo aion2maps e allthings.how; outros guias dizem 75% e 25%. A captura decide.",
               "acao_tipo": "esquivar",
-              "pre_aviso_pct": 5,
               "id": "kromede-s-desire-paredes-de-fogo",
               "dicas": {
                 "GLADIATOR": "guarde a estamina para as aberturas; Remoção de Impacto não tira a queimadura"
@@ -3754,8 +3891,9 @@
                 {
                   "t": 0,
                   "texto": "PAREDES: PROCURA A ABERTURA",
-                  "sub": "a corrida começa quando o personagem guarda as armas",
-                  "tipo": "esquivar"
+                  "sub": "na 2ª vez, arqueiros nas bordas: espere o projétil passar",
+                  "tipo": "esquivar",
+                  "contagem": 4.5
                 }
               ],
               "candidatos_skill": {
@@ -3767,21 +3905,22 @@
                 "fonte": "vídeo NoBS Game Guides + aion2maps (dados do cliente), 2026-10-19",
                 "nota": "sem captura ainda: dispara por HP/tempo; os IDs vêm da run de Conquista"
               },
-              "voz_curta": "abertura"
+              "voz_curta": "abertura",
+              "confianca_skill": "alta",
+              "observado_conquista": {
+                "fonte": "captura 2026-10-19 02:15 (Conquista, 2 runs, tank Templário) + vídeos 02:34:43 e 02:42:56",
+                "nota": "1801186 aos 69% e 36% (run 1) e 75% e 39% (run 2): o HP varia, a skill não. As paredes começam ~4,5 s depois; 1801185 sai ~18 s depois (fim)"
+              }
             },
             {
               "nome": "Paredes de fogo (2ª vez)",
               "sinal": "Aos ~35–40%: paredes de novo, com arqueiros dos dois lados",
               "acao": "Os arqueiros atiram projéteis: espere passar antes de andar. Pergaminho de velocidade e Chanter ajudam. Também cai um meteoro no chão que pula de um lado para o outro.",
-              "alerta": "PAREDES: PROCURA A ABERTURA",
-              "gatilho": {
-                "tipo": "hp",
-                "pct": 40
-              },
+              "alerta": null,
+              "gatilho": null,
               "wipe": true,
               "confianca": "alta",
               "acao_tipo": "esquivar",
-              "pre_aviso_pct": 5,
               "id": "kromede-s-desire-paredes-de-fogo-2a-vez",
               "dicas": {
                 "GLADIATOR": "guarde a estamina para as aberturas; Remoção de Impacto não tira a queimadura"
@@ -3807,7 +3946,9 @@
               "observado_kr": {
                 "fonte": "vídeo 'Fire Temple conquest mode full run Gladiator POV' (Awake, servidor KR, bosses nível 63), 2026-10-19",
                 "nota": "2ª transição aos ~40%; o narrador deixa a invulnerabilidade pronta para ela"
-              }
+              },
+              "coberto_por": "kromede-s-desire-paredes-de-fogo",
+              "nota": "Na Conquista as duas vezes vêm pela mesma skill (1801186): o alerta sai pela mecânica principal."
             },
             {
               "id": "kromede-fase-2-combo-no-ar",
@@ -3852,10 +3993,10 @@
               "gatilho": {
                 "tipo": "skill",
                 "skill_ids": [
-                  1801070
+                  1801130
                 ],
                 "preparo_s": {
-                  "1801070": 1.7
+                  "1801130": 2.0
                 }
               },
               "wipe": false,
@@ -3874,6 +4015,10 @@
               "observado_kr": {
                 "fonte": "vídeo 'Fire Temple conquest mode full run Gladiator POV' (Awake, servidor KR, bosses nível 63), 2026-10-19",
                 "nota": "meteoros com atordoamento e investida de 2 golpes no mais distante"
+              },
+              "observado_conquista": {
+                "fonte": "captura 2026-10-19 02:15 (Conquista, 2 runs, tank Templário) + vídeos 02:34:43 e 02:42:56",
+                "nota": "Chamas Uivantes (1801130) + 1801131 em cada jogador (um por jogador, até 13.800): círculos embaixo de cada um"
               }
             },
             {
@@ -3907,13 +4052,17 @@
               "acao": "1º: linha na sua frente, passo para o lado. 2º: o clone surge nas suas costas com uma meia-lua: o lado depende de para onde você olha, então olhe para a frente e pule para trás através dele. Correr em pânico é o que faz parecer aleatório",
               "alerta": "CLONES: LADO, DEPOIS PRA TRÁS",
               "gatilho": {
-                "tipo": "hp",
-                "pct": 50
+                "tipo": "skill",
+                "skill_ids": [
+                  1801100
+                ],
+                "preparo_s": {
+                  "1801100": 1.3
+                }
               },
               "wipe": false,
               "confianca": "media",
               "acao_tipo": "esquivar",
-              "pre_aviso_pct": 5,
               "id": "kromede-s-desire-clones",
               "dicas": {
                 "GLADIATOR": "Evasão Urgente na linha; atravesse o leque do seu clone"
@@ -3929,6 +4078,11 @@
               "observado": {
                 "fonte": "vídeo NoBS Game Guides + aion2maps (dados do cliente), 2026-10-19",
                 "nota": "sem captura ainda: dispara por HP/tempo; os IDs vêm da run de Conquista"
+              },
+              "confianca_skill": "alta",
+              "observado_conquista": {
+                "fonte": "captura 2026-10-19 02:15 (Conquista, 2 runs, tank Templário) + vídeos 02:34:43 e 02:42:56",
+                "nota": "Voto da Alma (1801100), 3 s depois do salto 1801109, aos 51% e ~10%: faixas laranja retas para cada jogador e os clones avançam nelas"
               }
             },
             {
@@ -3977,13 +4131,16 @@
             {
               "nome": "Investida no mais distante",
               "sinal": "Ela carrega a espada para trás e salta no jogador mais distante, derrubando",
-              "acao": "Fique perto do grupo; quem estiver longe esquiva no reflexo",
+              "acao": "Ela salta em quem está mais longe (anel laranja grande): fique perto do grupo ou esquive na queda",
               "alerta": "FICA PERTO",
               "gatilho": {
                 "tipo": "skill",
                 "skill_ids": [
-                  1801160
-                ]
+                  1801070
+                ],
+                "preparo_s": {
+                  "1801070": 1.7
+                }
               },
               "wipe": false,
               "confianca": "alta",
@@ -3996,7 +4153,20 @@
                 "fonte": "captura 2026-10-18 16:53 (Exploração, sem vídeo) + guia NoBS Game Guides",
                 "nota": "Arrancada (1801160), sem preparo: o aviso sai junto do salto"
               },
-              "confianca_skill": "baixa"
+              "confianca_skill": "alta",
+              "observado_conquista": {
+                "fonte": "captura 2026-10-19 02:15 (Conquista, 2 runs, tank Templário) + vídeos 02:34:43 e 02:42:56",
+                "nota": "Marca da Morte (1801070): anel laranja grande em quem está mais longe (Clérigo/Arqueiro) e queda ~3 s depois; vem ~3,5 s depois da chuva de flechas (4 de 4)"
+              },
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "FICA PERTO",
+                  "sub": "Fique perto do grupo; quem estiver longe esquiva no reflexo",
+                  "tipo": "atras",
+                  "contagem": 3.0
+                }
+              ]
             },
             {
               "id": "kromede-s-desire-combo-de-espada",
@@ -4008,11 +4178,15 @@
                 "tipo": "skill",
                 "skill_ids": [
                   1801060,
-                  1801040
+                  1801040,
+                  1801030,
+                  1801080
                 ],
                 "preparo_s": {
                   "1801060": 1.8,
-                  "1801040": 0.9
+                  "1801040": 0.9,
+                  "1801030": 1.5,
+                  "1801080": 2.0
                 }
               },
               "wipe": false,
@@ -4025,7 +4199,7 @@
                 "fonte": "captura 2026-10-18 16:53 (Exploração, sem vídeo) + guia NoBS Game Guides",
                 "nota": "Lâmina Infernal Dançante (1801060) e Tornado de Lâminas (1801040)"
               },
-              "confianca_skill": "media",
+              "confianca_skill": "alta",
               "voz_curta": "atras",
               "por_papel": {
                 "tank": {
@@ -4033,6 +4207,10 @@
                   "sub": "esquive para as costas e volte para a frente antes que ela vire",
                   "voz_curta": "vira"
                 }
+              },
+              "observado_conquista": {
+                "fonte": "captura 2026-10-19 02:15 (Conquista, 2 runs, tank Templário) + vídeos 02:34:43 e 02:42:56",
+                "nota": "Golpes de espada da Conquista: Lâmina Infernal Dançante, Tornado de Lâminas, Lâmina Ágil (até 10.400 no Gladiador) e Dilaceração Impiedosa"
               }
             },
             {
@@ -4057,7 +4235,11 @@
                 "fonte": "captura 2026-10-18 16:53 (Exploração, sem vídeo) + guia NoBS Game Guides",
                 "nota": "Fagulhas do Demônio (1801120): acertou 6 jogadores; bate com as bolas de fogo em cada um"
               },
-              "confianca_skill": "media"
+              "confianca_skill": "media",
+              "observado_conquista": {
+                "fonte": "captura 2026-10-19 02:15 (Conquista, 2 runs, tank Templário) + vídeos 02:34:43 e 02:42:56",
+                "nota": "Fagulhas do Demônio (1801120); a 2ª explosão (1801126) apareceu na fase final, até 8.800"
+              }
             },
             {
               "nome": "Arco ao céu com várias flechas",
@@ -4086,6 +4268,10 @@
               "observado_kr": {
                 "fonte": "vídeo 'Fire Temple conquest mode full run Gladiator POV' (Awake, servidor KR, bosses nível 63), 2026-10-19",
                 "nota": "sete quedas de flecha que te seguem"
+              },
+              "observado_conquista": {
+                "fonte": "captura 2026-10-19 02:15 (Conquista, 2 runs, tank Templário) + vídeos 02:34:43 e 02:42:56",
+                "nota": "30 quedas (1801116) por cast; depois dela vem a investida no mais distante (~3,5 s)"
               }
             },
             {
@@ -4130,7 +4316,12 @@
           ],
           "ordem": 3,
           "faixa_skills_candidata": "1801030–1801192 (Blade Tornado, Mark of Death, Rain of Hatred, Demon Flame, Blazing Judgment, Flame of Desire)",
-          "posturas": "Duas posturas: com a espada, tudo é golpe à frente (fique nas costas e evita ~70% da luta); com o arco, vêm as mecânicas de grupo. Duas fases, separadas pelas paredes de fogo (70% e 40%)"
+          "posturas": "Duas posturas: com a espada, tudo é golpe à frente (fique nas costas e evita ~70% da luta); com o arco, vêm as mecânicas de grupo. Duas fases, separadas pelas paredes de fogo (70% e 40%)",
+          "observado_conquista": {
+            "fonte": "captura 2026-10-19 02:15 (Conquista, 2 runs, tank Templário) + vídeos 02:34:43 e 02:42:56",
+            "lutas": "3:08 e 2:54",
+            "relato": "Tank forte no grupo; segundo ele, o Gladiador (você) aguenta o dano frontal com o equipamento atual. Maiores golpes em você: 10.400 (Lâmina Ágil), 8.800 (2ª explosão) e 8.300 (círculo em cada um)."
+          }
         }
       ],
       "ordem": [

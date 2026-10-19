@@ -661,7 +661,19 @@
   "Quem ficar na frente morre: grupo sempre nas costas dela até o fim": "Anyone in front dies: the group stays behind her until the end",
   "FASE 2: NUNCA NA FRENTE": "PHASE 2: NEVER IN FRONT",
   "FASE 2: VIRA ELA PRA FORA": "PHASE 2: TURN HER AWAY",
-  "o combo no ar mata quem estiver na frente dela": "the aerial combo kills anyone in front of her"
+  "o combo no ar mata quem estiver na frente dela": "the aerial combo kills anyone in front of her",
+  "Passe pelas aberturas; guarde estamina. A corrida começa quando o personagem guarda as armas; pergaminho de velocidade e Chanter ajudam. Na 2ª vez há arqueiros nas bordas: espere o projétil passar. Dá para tomar uma parede": "Go through the gaps; save stamina. Sprint starts when your character sheathes; speed scrolls and a Chanter help. The 2nd time there are archers on the edges: wait for the projectile to pass. You can take one wall",
+  "na 2ª vez, arqueiros nas bordas: espere o projétil passar": "2nd time: archers on the edges, wait for the projectile",
+  "Ela salta em quem está mais longe (anel laranja grande): fique perto do grupo ou esquive na queda": "She leaps on the farthest player (big orange ring): stay near the group or dodge the landing",
+  "Saia da frente: acerta quem está perto do alvo": "Get out of the front: it hits whoever is near the target",
+  "ESMAGADA: SAI DA FRENTE": "SLAM: GET OUT OF FRONT",
+  "CHAMAS: SAI DE PERTO": "FLAMES: MOVE AWAY",
+  "Golpe de chamas em volta do alvo: corpo a corpo sai de perto, ou bloqueia/esquiva perfeita": "Flame strike around the target: melee move away, or block/perfect-dodge",
+  "explode em volta do alvo": "explodes around the target",
+  "METEOROS: ANDA": "METEORS: KEEP MOVING",
+  "dois seguidos: não fique parado": "two in a row: don't stand still",
+  "Lâminas te seguem: continue andando até acabar": "Blades follow you: keep moving until it ends",
+  "LÂMINAS: ANDA": "BLADES: KEEP MOVING"
  },
  "es": {
   "3 ACÚMULOS: AFASTA": "3 CARGAS: ALÉJATE",
@@ -1324,6 +1336,18 @@
   "Quem ficar na frente morre: grupo sempre nas costas dela até o fim": "Quien quede delante muere: el grupo siempre a su espalda hasta el final",
   "FASE 2: NUNCA NA FRENTE": "FASE 2: NUNCA DELANTE",
   "FASE 2: VIRA ELA PRA FORA": "FASE 2: GÍRALA HACIA FUERA",
-  "o combo no ar mata quem estiver na frente dela": "el combo aéreo mata a quien esté delante de ella"
+  "o combo no ar mata quem estiver na frente dela": "el combo aéreo mata a quien esté delante de ella",
+  "Passe pelas aberturas; guarde estamina. A corrida começa quando o personagem guarda as armas; pergaminho de velocidade e Chanter ajudam. Na 2ª vez há arqueiros nas bordas: espere o projétil passar. Dá para tomar uma parede": "Pasa por las aberturas; guarda estamina. La carrera empieza al guardar las armas; pergaminos de velocidad y un Chanter ayudan. La 2.ª vez hay arqueros en los bordes: espera a que pase el proyectil. Puedes recibir una pared",
+  "na 2ª vez, arqueiros nas bordas: espere o projétil passar": "2.ª vez: arqueros en los bordes, espera el proyectil",
+  "Ela salta em quem está mais longe (anel laranja grande): fique perto do grupo ou esquive na queda": "Salta sobre el más lejano (anillo naranja grande): quédate cerca del grupo o esquiva la caída",
+  "Saia da frente: acerta quem está perto do alvo": "Sal del frente: golpea a quien esté cerca del objetivo",
+  "ESMAGADA: SAI DA FRENTE": "APLASTAMIENTO: SAL DEL FRENTE",
+  "CHAMAS: SAI DE PERTO": "LLAMAS: ALÉJATE",
+  "Golpe de chamas em volta do alvo: corpo a corpo sai de perto, ou bloqueia/esquiva perfeita": "Golpe de llamas alrededor del objetivo: cuerpo a cuerpo se aleja, o bloquea/esquiva perfecta",
+  "explode em volta do alvo": "explota alrededor del objetivo",
+  "METEOROS: ANDA": "METEOROS: MUÉVETE",
+  "dois seguidos: não fique parado": "dos seguidos: no te quedes quieto",
+  "Lâminas te seguem: continue andando até acabar": "Las cuchillas te siguen: sigue moviéndote hasta que acabe",
+  "LÂMINAS: ANDA": "CUCHILLAS: MUÉVETE"
  }
 }
