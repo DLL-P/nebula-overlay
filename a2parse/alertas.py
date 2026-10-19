@@ -71,6 +71,14 @@ def boss(dados: dict, nome: str) -> dict:
     raise KeyError(f"boss não encontrado: {nome}")
 
 
+def modo_do_npc(boss: dict | None, npc_id: int) -> str | None:
+    """O modo (Exploração, Conquista, Estágio 2...) cujo código de NPC é este, ou None."""
+    for modo, ids in ((boss or {}).get("ids") or {}).items():
+        if npc_id in ids:
+            return modo
+    return None
+
+
 def boss_por_npc(dados: dict, npc_id: int) -> dict | None:
     for m in dados["masmorras"]:
         for b in m["bosses"]:
@@ -220,10 +228,11 @@ class MotorAlertas:
     def __init__(self, boss: dict, pre_aviso: bool = True, usar_observado: bool = True, tolerancia: float = 0.0,
                  modo_skills: bool = False, eu: int | None = None, burst: bool = True,
                  papel: str | None = None, classe: str | None = None, dicas: dict | None = None,
-                 antecipar: float = 0.0) -> None:
+                 antecipar: float = 0.0, modo: str | None = None) -> None:
         """tolerancia: pontos de % acima do gatilho que já contam como cruzado (fonte ruidosa, como o vídeo).
         modo_skills: a fonte tem skills (captura/ao vivo); mecânicas marcadas "fallback_video" ficam de fora.
-        eu: ID da sua entidade, para alertas pessoais ("o mergulho é em você")."""
+        eu: ID da sua entidade, para alertas pessoais ("o mergulho é em você").
+        modo: o modo da luta (do código do NPC); mecânicas com "modos" só valem nesses modos."""
         self.boss = boss
         self.nome = boss["nome"]
         self.pre_aviso = pre_aviso
@@ -236,10 +245,13 @@ class MotorAlertas:
         self.papel = papel                 # "tank", "healer", "dps", "suporte"; None = vê tudo
         self.classe = classe               # "GLADIATOR", ... (a2parse.classes)
         self.dicas = dicas or {}           # {classe: {acao_tipo: dica}} de dados/dicas_classes.json
+        self.modo = modo                   # None = modo desconhecido: vale tudo
         self.reset()
 
     def _ativa(self, m: dict) -> bool:
-        return not (self.modo_skills and m.get("fallback_video"))
+        if self.modo_skills and m.get("fallback_video"):
+            return False
+        return not (m.get("modos") and self.modo is not None and self.modo not in m["modos"])
 
     def reset(self) -> None:
         self.inicio: float | None = None
@@ -259,7 +271,7 @@ class MotorAlertas:
         self.inicio = t
         for m in self.boss["mecanicas"]:
             g = m.get("gatilho") or {}
-            if g.get("tipo") == "enrage" and g.get("segundos"):
+            if g.get("tipo") == "enrage" and g.get("segundos") and self._ativa(m):
                 fim = float(g["segundos"])
                 passos = [{"t": max(0.0, fim - 60), "texto": "ENRAGE EM 60s", "sub": m.get("acao", ""), "tipo": "enrage", "contagem": 60.0},
                           {"t": fim, "texto": "ENRAGE", "sub": m.get("acao", ""), "tipo": "enrage"}]

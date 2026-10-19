@@ -270,6 +270,20 @@ class TestMotor(unittest.TestCase):
         self.assertEqual([a.texto for a in alertas], ["O CÍRCULO É SEU: VÁ PRO GRUPO"])
         self.assertAlmostEqual(alertas[0].contagem, 4.35)
 
+    def test_mecanica_de_conquista_nao_vale_na_exploracao(self):
+        """O enrage de 5:00 da Kromede é só da Conquista; o modo vem do código do NPC."""
+        from a2parse.alertas import modo_do_npc
+        b = boss(DADOS, "Kromede's Desire")
+        self.assertEqual(modo_do_npc(b, b["ids"]["Exploração"][0]), "Exploração")
+        def textos(modo):
+            m = MotorAlertas(b, modo_skills=True, modo=modo)
+            return [a.texto for a in m.hp(0, 100) + m.avancar(301)]
+        self.assertIn("ENRAGE", textos("Conquista"))
+        self.assertNotIn("ENRAGE", textos("Exploração"))
+        self.assertIn("ENRAGE", textos(None))                       # modo desconhecido: avisa
+        m = MotorAlertas(b, pre_aviso=False, modo_skills=True, modo="Conquista")
+        self.assertNotIn("CORRE PRO CÍRCULO (14s)", [a.texto for a in m.hp(0, 100) + m.hp(5, 24) + m.avancar(10)])
+
     def test_reserva_de_hp_fica_de_fora_no_modo_skills(self):
         m = MotorAlertas(boss(DADOS, "Divine Auldor"), pre_aviso=False, modo_skills=True)
         textos = [a.texto for a in m.hp(0, 100) + m.hp(5, 74) + m.avancar(100)]

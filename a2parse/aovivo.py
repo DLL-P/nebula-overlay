@@ -19,7 +19,7 @@ import os
 import struct
 from dataclasses import dataclass, field
 
-from .alertas import Alerta, MotorAlertas, boss_por_npc, carregar_dicas
+from .alertas import Alerta, MotorAlertas, boss_por_npc, modo_do_npc, carregar_dicas
 from .analise import Analise
 from .classes import NOME as NOME_CLASSE, PAPEL, DetectorClasse, classe_do_pc
 from . import controle as cc
@@ -454,7 +454,7 @@ class Sessao:
         nome = b["nome"] if b else info.get("name", f"boss {mob}")
         motor = MotorAlertas(b, pre_aviso=self.pre_aviso, modo_skills=True, eu=self.eu, burst=self.burst,
                              papel=self.meu_papel, classe=self.minha_classe, dicas=self.dicas,
-                             antecipar=self.antecipar) if b else None
+                             antecipar=self.antecipar, modo=modo_do_npc(b, mob)) if b else None
         self.zona_com_boss = True
         rot = (self.roteiros or {}).get(nome)
         previsor = Previsor(rot, b or {"nome": nome, "mecanicas": []}) if rot else None

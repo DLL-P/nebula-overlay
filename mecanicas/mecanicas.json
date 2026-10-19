@@ -3112,7 +3112,7 @@
         "Exploração": 500,
         "Conquista": 2100
       },
-      "geral": "Leve poções amarelas (remover debuff). Evite o Silver Blade Rotan no caminho: aggro enorme, entra na luta do Ignus.",
+      "geral": "Leve poções amarelas (tiram a queimadura das paredes da Kromede). Evite o Silver Blade Rotan no caminho: aggro enorme, entra na luta do Ignus. Ative o console de resfriamento da rampa esquerda (para os projéteis de fogo). Mate os dois intermediários: cada um põe o loot dele no cubo.",
       "bosses": [
         {
           "nome": "Red Spark Ignus",
@@ -3135,33 +3135,56 @@
             {
               "nome": "Marca de lava",
               "sinal": "Abaixo de 75% ele marca jogadores",
-              "acao": "Em 3 s surge lava permanente sob o marcado: leve até a borda da arena",
+              "acao": "Ele marca jogadores; 3 s depois nasce lava permanente sob cada marcado: leve até a borda da arena (lava no centro tira o espaço da luta)",
               "alerta": "MARCADO: LAVA NA BORDA",
               "gatilho": {
-                "tipo": "buff",
-                "abnormal_id": null
+                "tipo": "hp",
+                "pct": 75
               },
               "wipe": false,
               "confianca": "alta",
               "acao_tipo": "espalhar",
-              "id": "red-spark-ignus-marca-de-lava"
+              "id": "red-spark-ignus-marca-de-lava",
+              "pre_aviso_pct": 5,
+              "dicas": {
+                "GLADIATOR": "marcado: Golpe de Investida de volta depois de largar a lava"
+              },
+              "observado": {
+                "fonte": "pesquisa 2026-10-19 (guias dbaion2, daevaguides, allthings.how, game8)",
+                "nota": "sem captura ainda: dispara por HP/tempo; os IDs das skills vêm das runs de Conquista"
+              }
             },
             {
               "nome": "Anel + Blazing Speed",
-              "sinal": "Abaixo de 65% ele salta ao centro e solta um anel largo; depois pula de jogador em jogador",
-              "acao": "Espalhe um pouco depois do anel",
-              "alerta": "ESPALHA",
+              "sinal": "Abaixo de 65% ele salta ao centro e põe fogo em quase toda a sala; depois o Blazing Speed pula de jogador em jogador",
+              "acao": "O único lugar seguro é colado nele; depois do anel, espalhe para os pulos não somarem",
+              "alerta": "COLA NELE, DEPOIS ESPALHA",
               "gatilho": {
                 "tipo": "hp",
                 "pct": 65
               },
               "wipe": false,
               "confianca": "alta",
-              "acao_tipo": "espalhar",
+              "acao_tipo": "empilhar",
               "pre_aviso_pct": 5,
               "id": "red-spark-ignus-anel-blazing-speed",
               "candidatos_skill": {
                 "1600810": "Blazing Speed (nome igual ao da tabela de skills do jogo; confirmar numa captura (mapear.py mostra como candidato))"
+              },
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "COLA NELE, DEPOIS ESPALHA",
+                  "sub": "o único lugar seguro é colado nele; depois espalhe",
+                  "tipo": "empilhar"
+                }
+              ],
+              "dicas": {
+                "GLADIATOR": "Bloqueio Concentrado no anel se não chegar a tempo"
+              },
+              "observado": {
+                "fonte": "pesquisa 2026-10-19 (guias dbaion2, daevaguides, allthings.how, game8)",
+                "nota": "sem captura ainda: dispara por HP/tempo; os IDs das skills vêm das runs de Conquista"
               }
             },
             {
@@ -3298,7 +3321,7 @@
             {
               "nome": "Três anéis",
               "sinal": "Abaixo de 50%: pisões em três ondas cada vez maiores",
-              "acao": "Bloqueie ou faça esquiva perfeita",
+              "acao": "Pisão e mais dois anéis maiores, dano alto: bloqueie, esquiva perfeita ou saia. O tank o segura no canto da sala",
               "alerta": "3 ANÉIS: BLOQUEIA",
               "gatilho": {
                 "tipo": "hp",
@@ -3308,7 +3331,10 @@
               "confianca": "alta",
               "acao_tipo": "esquivar",
               "pre_aviso_pct": 5,
-              "id": "black-smoke-murute-tres-aneis"
+              "id": "black-smoke-murute-tres-aneis",
+              "dicas": {
+                "GLADIATOR": "Bloqueio Concentrado no impacto (2 cargas)"
+              }
             },
             {
               "nome": "Salto no tank",
@@ -3430,7 +3456,18 @@
               "nota": "Repete aos 25%. Na Conquista vêm bolas de fogo junto na 2ª vez.",
               "acao_tipo": "esquivar",
               "pre_aviso_pct": 5,
-              "id": "kromede-s-desire-paredes-de-fogo"
+              "id": "kromede-s-desire-paredes-de-fogo",
+              "dicas": {
+                "GLADIATOR": "guarde a estamina para as aberturas; Remoção de Impacto não tira a queimadura"
+              },
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "PAREDES: PROCURA A ABERTURA",
+                  "sub": "7 ondas; vire cedo e guarde estamina; queimou = poção amarela",
+                  "tipo": "esquivar"
+                }
+              ]
             },
             {
               "nome": "Paredes de fogo (2ª vez)",
@@ -3445,7 +3482,18 @@
               "confianca": "alta",
               "acao_tipo": "esquivar",
               "pre_aviso_pct": 5,
-              "id": "kromede-s-desire-paredes-de-fogo-2a-vez"
+              "id": "kromede-s-desire-paredes-de-fogo-2a-vez",
+              "dicas": {
+                "GLADIATOR": "guarde a estamina para as aberturas; Remoção de Impacto não tira a queimadura"
+              },
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "PAREDES: PROCURA A ABERTURA",
+                  "sub": "Conquista: projéteis das bordas e rastro de fogo no chão",
+                  "tipo": "esquivar"
+                }
+              ]
             },
             {
               "nome": "Arco levantado",
@@ -3473,7 +3521,10 @@
               "wipe": false,
               "confianca": "alta",
               "acao_tipo": "esquivar",
-              "id": "kromede-s-desire-arco-abaixado"
+              "id": "kromede-s-desire-arco-abaixado",
+              "dicas": {
+                "GLADIATOR": "Bloqueio Concentrado na linha"
+              }
             },
             {
               "nome": "Clones",
@@ -3488,7 +3539,31 @@
               "confianca": "media",
               "acao_tipo": "esquivar",
               "pre_aviso_pct": 5,
-              "id": "kromede-s-desire-clones"
+              "id": "kromede-s-desire-clones",
+              "dicas": {
+                "GLADIATOR": "Evasão Urgente na linha; atravesse o leque do seu clone"
+              }
+            },
+            {
+              "id": "kromede-s-desire-enrage-conquista",
+              "nome": "Enrage (Conquista)",
+              "sinal": "Enrage aos 5 minutos de luta",
+              "acao": "Velocidade dobra e o dano sobe muito: guarde o burst para não passar de 5:00 (kill mediano na Conquista: 4:06)",
+              "alerta": "ENRAGE",
+              "gatilho": {
+                "tipo": "enrage",
+                "segundos": 300
+              },
+              "modos": [
+                "Conquista"
+              ],
+              "wipe": true,
+              "confianca": "media",
+              "acao_tipo": "enrage",
+              "observado": {
+                "fonte": "pesquisa 2026-10-19 (guias dbaion2, daevaguides, allthings.how, game8)",
+                "nota": "sem captura ainda: dispara por HP/tempo; os IDs das skills vêm das runs de Conquista"
+              }
             },
             {
               "nome": "Blazing Judgment (só Hard)",
@@ -3501,13 +3576,16 @@
               },
               "wipe": true,
               "confianca": "alta",
-              "nota": "Só na Conquista Hard. No Hard, os clones da borda começam aos 75% em vez de 25%.",
+              "nota": "Só na Conquista Hard, que o Global ainda não tem (os guias que citam vêm de vídeos coreanos). Fica desligada até existir um modo com esse nome nos 'ids'.",
               "acao_tipo": "borda",
               "pre_aviso_pct": 5,
               "id": "kromede-s-desire-blazing-judgment-so-hard",
               "candidatos_skill": {
                 "1801180": "Blazing Judgment (nome igual ao da tabela de skills do jogo; confirmar numa captura (mapear.py mostra como candidato))"
-              }
+              },
+              "modos": [
+                "Conquista Hard"
+              ]
             },
             {
               "nome": "Investida no mais distante",
@@ -3521,7 +3599,10 @@
               "wipe": false,
               "confianca": "alta",
               "acao_tipo": "atras",
-              "id": "kromede-s-desire-investida-no-mais-distante"
+              "id": "kromede-s-desire-investida-no-mais-distante",
+              "dicas": {
+                "GLADIATOR": "Remoção de Impacto se ela te derrubar"
+              }
             },
             {
               "nome": "Chuva rápida",
@@ -3588,6 +3669,11 @@
         "Black Smoke Murute",
         "Escada (rente à parede esquerda), kibelisk e porta",
         "Kromede's Desire: espere o grupo inteiro"
+      ],
+      "fontes": [
+        "https://allthings.how/aion-2-fire-temple-conquest-inside-a-templar-tank-run/",
+        "https://daevaguides.com/en/guides/fire-temple/",
+        "https://dbaion2.ru/en/guides/mekhaniki-hram-ognya/"
       ]
     },
     {
@@ -3810,7 +3896,18 @@
               "nota": "Repete aos ~50% e ~15%.",
               "acao_tipo": "matar_alvo",
               "pre_aviso_pct": 5,
-              "id": "necromancer-duanka-adds-acorrentados"
+              "id": "necromancer-duanka-adds-acorrentados",
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "PEGA O ORBE BRANCO",
+                  "sub": "14 s para matar os 4 adds (o orbe fica no norte)",
+                  "tipo": "matar_alvo"
+                }
+              ],
+              "dicas": {
+                "GLADIATOR": "Salto Esmagador reseta no abate: pule de add em add"
+              }
             },
             {
               "nome": "Adds acorrentados (2ª)",
@@ -3825,7 +3922,18 @@
               "confianca": "alta",
               "acao_tipo": "matar_alvo",
               "pre_aviso_pct": 5,
-              "id": "necromancer-duanka-adds-acorrentados-2a"
+              "id": "necromancer-duanka-adds-acorrentados-2a",
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "PEGA O ORBE BRANCO",
+                  "sub": "14 s para matar os 4 adds (o orbe fica no norte)",
+                  "tipo": "matar_alvo"
+                }
+              ],
+              "dicas": {
+                "GLADIATOR": "Salto Esmagador reseta no abate: pule de add em add"
+              }
             },
             {
               "nome": "Adds acorrentados (3ª)",
@@ -3840,7 +3948,18 @@
               "confianca": "alta",
               "acao_tipo": "matar_alvo",
               "pre_aviso_pct": 5,
-              "id": "necromancer-duanka-adds-acorrentados-3a"
+              "id": "necromancer-duanka-adds-acorrentados-3a",
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "PEGA O ORBE BRANCO",
+                  "sub": "14 s para matar os 4 adds (o orbe fica no norte)",
+                  "tipo": "matar_alvo"
+                }
+              ],
+              "dicas": {
+                "GLADIATOR": "Salto Esmagador reseta no abate: pule de add em add"
+              }
             },
             {
               "nome": "Soul Caller",
@@ -3859,6 +3978,17 @@
               "id": "necromancer-duanka-soul-caller",
               "candidatos_skill": {
                 "1607050": "Soul Caller (nome igual ao da tabela de skills do jogo; confirmar numa captura (mapear.py mostra como candidato))"
+              },
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "SAI DO CÍRCULO",
+                  "sub": "8 s de cast; perto dele é morte",
+                  "tipo": "sair"
+                }
+              ],
+              "dicas": {
+                "GLADIATOR": "Remoção de Impacto se a bola elétrica te atordoar"
               }
             },
             {
@@ -3877,6 +4007,17 @@
               "id": "necromancer-duanka-soul-caller-2a",
               "candidatos_skill": {
                 "1607050": "Soul Caller (nome igual ao da tabela de skills do jogo; confirmar numa captura (mapear.py mostra como candidato))"
+              },
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "SAI DO CÍRCULO",
+                  "sub": "8 s de cast; perto dele é morte",
+                  "tipo": "sair"
+                }
+              ],
+              "dicas": {
+                "GLADIATOR": "Remoção de Impacto se a bola elétrica te atordoar"
               }
             },
             {
@@ -3970,31 +4111,78 @@
           "mecanicas": [
             {
               "nome": "Orbe no centro (redirecionar)",
-              "sinal": "Um orbe/buraco negro puxa jogadores no centro; ele marca um jogador",
-              "acao": "O marcado se posiciona com o orbe entre ele e o boss, para o golpe atravessar o orbe; 3 de 4 tentativas precisam acertar",
+              "sinal": "Aos 30%: orbe no centro e Luz Azul da Destruição (34 s de cast; se terminar, o grupo morre)",
+              "acao": "O marcado põe o orbe entre ele e o boss: 3 golpes no orbe cortam o cast. Todos são puxados devagar para o orbe (poça de dano). Depois vêm 2 projéteis em linha mortais: dois interceptadores diferentes",
               "alerta": "ORBE ENTRE VOCÊ E O BOSS",
               "gatilho": {
-                "tipo": "skill",
-                "skill_id": null
+                "tipo": "hp",
+                "pct": 30
               },
               "wipe": true,
               "confianca": "alta",
               "acao_tipo": "matar_alvo",
-              "id": "ferocious-horn-nuakum-orbe-no-centro-redirecionar"
+              "id": "ferocious-horn-nuakum-orbe-no-centro-redirecionar",
+              "pre_aviso_pct": 5,
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "ORBE ENTRE VOCÊ E O BOSS",
+                  "sub": "3 golpes no orbe cortam o cast de 34 s",
+                  "tipo": "matar_alvo",
+                  "contagem": 34.0
+                }
+              ],
+              "dicas": {
+                "GLADIATOR": "Bloqueio Concentrado se for interceptar o projétil"
+              },
+              "observado": {
+                "fonte": "pesquisa 2026-10-19 (guias dbaion2, daevaguides, allthings.how, game8)",
+                "nota": "sem captura ainda: dispara por HP/tempo; os IDs das skills vêm das runs de Conquista"
+              }
             },
             {
               "nome": "Salto da ilusão",
-              "sinal": "Ele salta para a estátua, marca e enraíza um jogador; a ilusão salta enquanto um círculo cresce",
-              "acao": "Círculo PEQUENO: suportes entram. Círculo GRANDE: suportes saem. Alguém precisa ficar no caminho da ilusão, senão o marcado morre (2 saltos na 1ª vez, 3 na 2ª)",
+              "sinal": "Aos 75% e 55% ele salta para fora da arena e espalha orbes elétricos; prende um jogador e manda a ilusão saltar até ele",
+              "acao": "Juntem num lugar sem poças. Alguém fica no caminho da ilusão (outro na 2ª vez), senão o marcado morre. Círculo PEQUENO no marcado: entra; GRANDE: sai",
               "alerta": "CÍRCULO PEQUENO: ENTRA / GRANDE: SAI",
               "gatilho": {
-                "tipo": "skill",
-                "skill_id": null
+                "tipo": "hp",
+                "pct": 75
               },
               "wipe": false,
               "confianca": "alta",
               "acao_tipo": "sair",
-              "id": "ferocious-horn-nuakum-salto-da-ilusao"
+              "id": "ferocious-horn-nuakum-salto-da-ilusao",
+              "pre_aviso_pct": 5,
+              "dicas": {
+                "GLADIATOR": "Bloqueio Concentrado se for interceptar a ilusão"
+              },
+              "observado": {
+                "fonte": "pesquisa 2026-10-19 (guias dbaion2, daevaguides, allthings.how, game8)",
+                "nota": "sem captura ainda: dispara por HP/tempo; os IDs das skills vêm das runs de Conquista"
+              }
+            },
+            {
+              "nome": "Salto da ilusão (2ª)",
+              "sinal": "Aos 75% e 55% ele salta para fora da arena e espalha orbes elétricos; prende um jogador e manda a ilusão saltar até ele",
+              "acao": "Juntem num lugar sem poças. Alguém fica no caminho da ilusão (outro na 2ª vez), senão o marcado morre. Círculo PEQUENO no marcado: entra; GRANDE: sai",
+              "alerta": "CÍRCULO PEQUENO: ENTRA / GRANDE: SAI",
+              "gatilho": {
+                "tipo": "hp",
+                "pct": 55
+              },
+              "wipe": false,
+              "confianca": "alta",
+              "acao_tipo": "sair",
+              "id": "ferocious-horn-nuakum-salto-da-ilusao-2a",
+              "pre_aviso_pct": 5,
+              "dicas": {
+                "GLADIATOR": "Bloqueio Concentrado se for interceptar a ilusão"
+              },
+              "observado": {
+                "fonte": "pesquisa 2026-10-19 (guias dbaion2, daevaguides, allthings.how, game8)",
+                "nota": "sem captura ainda: dispara por HP/tempo; os IDs das skills vêm das runs de Conquista"
+              }
             },
             {
               "nome": "Orbe vermelho",
@@ -4013,7 +4201,7 @@
             {
               "nome": "Poças de sangue",
               "sinal": "Poças deixadas no chão",
-              "acao": "Leve para as bordas e mantenha o centro limpo",
+              "acao": "Cada golpe dele soma um sangramento que não sai; no 3º ele explode em 4 s e deixa uma poça: com 3 acúmulos, vá para a borda e mantenha o centro limpo",
               "alerta": null,
               "gatilho": null,
               "wipe": false,
@@ -4061,7 +4249,10 @@
               "wipe": true,
               "confianca": "alta",
               "acao_tipo": "enrage",
-              "id": "ferocious-horn-nuakum-enrage-conquista"
+              "id": "ferocious-horn-nuakum-enrage-conquista",
+              "modos": [
+                "Conquista"
+              ]
             },
             {
               "id": "ferocious-horn-nuakum-atordoado",
@@ -4111,7 +4302,12 @@
         "Shining Mau Totem: o grupo inteiro dentro antes de ativar (a porta fecha)",
         "Necromancer Duanka",
         "Ferocious Horn Nuakum: puxa fácil perto da saída do portal; espere no kibelisk"
-      ]
+      ],
+      "fontes": [
+        "https://dbaion2.ru/en/guides/mekhaniki-logovo-roga/",
+        "https://game8.co/games/Aion-2/archives/615767"
+      ],
+      "geral": "Nuakum: arranhão no chão = golpe frontal, fique nas costas; sangramento no 3º acúmulo explode em poça: solte na borda; combine antes dois interceptadores para a ilusão e para os projéteis."
     },
     {
       "nome": "Shattered Arkanis",
