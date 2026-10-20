@@ -16,6 +16,31 @@ Overlay de mecânicas para o **Aion 2**: avisa o que o boss vai fazer, um pouco 
 > não envia nada ao servidor e não aperta teclas por você. Mesmo assim, os termos do jogo proíbem programas de terceiros:
 > **use por sua conta e risco.**
 
+## Como fica na tela
+
+Imagens do modo de demonstração, com grupo e nomes fictícios, sobre um cenário borrado da Fire Temple.
+
+![Alerta da Kromede na Fire Temple: aviso antecipado e contagem](docs/imagens/alerta-kromede.webp)
+
+*Kromede (Fire Temple): a mecânica sobe para o centro ("EM 2s") e vira o alerta com contagem, o que acontece e a dica da sua classe.*
+
+![Tela inteira: painel à esquerda, alerta no centro, eventos à direita](docs/imagens/tela-inteira.webp)
+
+*Na tela: o painel do boss e do grupo, o alerta no centro e os eventos à direita. Tudo pode ser arrastado pelo cadeado.*
+
+![Painel do boss e do grupo, com cartão e com o fundo transparente](docs/imagens/painel-dps.png)
+
+*Painel do boss e do grupo: HP, atordoamento, próximas mecânicas, DPS por jogador com CP e GS, ping e Odyle. À direita, com o
+fundo transparente (opção da engrenagem).*
+
+![Eventos: Festival Shugo aberto e Invasão Dimensional em 5 min](docs/imagens/eventos.png)
+
+*Eventos de campo: o Festival Shugo aberto com o tempo que falta e a Invasão Dimensional chegando.*
+
+<img src="docs/imagens/engrenagem.png" width="420" alt="Engrenagem: idioma, voz, tamanho e o que mostrar">
+
+*A engrenagem: idioma, voz, tamanho e o que aparece na tela.*
+
 ## Instalar
 
 1. Baixe o **NebulaOverlay-Setup.exe** na página de [versões](https://github.com/DLL-P/nebula-overlay/releases/latest) e rode.
@@ -64,6 +89,8 @@ Install: download **NebulaOverlay-Setup.exe** from [releases](https://github.com
 **[Npcap](https://npcap.com/#download)** (check "Support loopback traffic" if you use ExitLag or another booster), then open Nebula Overlay
 and the game in windowed/borderless mode. In game, hold **Alt** to click the padlock and the gear.
 
+Screenshots: see [Como fica na tela](#como-fica-na-tela) above (demo mode, fictional names; the interface is also in English).
+
 Free, unofficial fan project, not affiliated with NCSOFT. It only **reads** network traffic that already reaches your PC (no memory reading,
 no injection, nothing sent to the server, no input automation). The game's terms still forbid third-party programs: **use at your own risk**.
 
@@ -76,6 +103,8 @@ inglés y español. Se actualiza solo.
 Instalación: descarga **NebulaOverlay-Setup.exe** en [versiones](https://github.com/DLL-P/nebula-overlay/releases/latest), instala
 **[Npcap](https://npcap.com/#download)** (marca "Support loopback traffic" si usas ExitLag u otro acelerador) y abre Nebula Overlay y el
 juego en ventana o ventana sin bordes. En el juego, mantén **Alt** para hacer clic en el candado y el engranaje.
+
+Capturas: mira [Como fica na tela](#como-fica-na-tela) arriba (modo demostración, nombres ficticios; la interfaz también está en español).
 
 Proyecto de fans, gratuito y no oficial, sin vínculo con NCSOFT. Solo **lee** el tráfico de red que ya llega a tu PC (no lee memoria, no
 inyecta nada, no envía nada al servidor, no automatiza teclas). Aun así, los términos del juego prohíben programas de terceros:
