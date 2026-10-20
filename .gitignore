@@ -25,3 +25,6 @@ dados/pc_classes.json
 mecanicas/historico/
 *.bat
 *.mp4
+
+# estudos e planejamento internos (ficam só no PC)
+docs/ROTEIRO_MERCADO.md
