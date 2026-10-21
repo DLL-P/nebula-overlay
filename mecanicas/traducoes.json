@@ -673,7 +673,10 @@
   "METEOROS: ANDA": "METEORS: KEEP MOVING",
   "dois seguidos: não fique parado": "two in a row: don't stand still",
   "Lâminas te seguem: continue andando até acabar": "Blades follow you: keep moving until it ends",
-  "LÂMINAS: ANDA": "BLADES: KEEP MOVING"
+  "LÂMINAS: ANDA": "BLADES: KEEP MOVING",
+  "CÍRCULO: SAI": "CIRCLE: MOVE OUT",
+  "Não encoste nos orbes roxos": "Don't touch the purple orbs",
+  "Não fique parado onde o chão acende": "Don't stand where the floor lights up"
  },
  "es": {
   "3 ACÚMULOS: AFASTA": "3 CARGAS: ALÉJATE",
@@ -1348,6 +1351,9 @@
   "METEOROS: ANDA": "METEOROS: MUÉVETE",
   "dois seguidos: não fique parado": "dos seguidos: no te quedes quieto",
   "Lâminas te seguem: continue andando até acabar": "Las cuchillas te siguen: sigue moviéndote hasta que acabe",
-  "LÂMINAS: ANDA": "CUCHILLAS: MUÉVETE"
+  "LÂMINAS: ANDA": "CUCHILLAS: MUÉVETE",
+  "CÍRCULO: SAI": "CÍRCULO: SAL",
+  "Não encoste nos orbes roxos": "No toques los orbes morados",
+  "Não fique parado onde o chão acende": "No te quedes donde el suelo se enciende"
  }
 }

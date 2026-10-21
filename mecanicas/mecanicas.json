@@ -8492,6 +8492,147 @@
           ]
         }
       ]
+    },
+    {
+      "nome": "Nightmare Altar",
+      "tipo": "Ascension Trial (solo)",
+      "modos": {
+        "Fácil": 1000,
+        "Normal": 1500,
+        "Difícil": 2000,
+        "Extremo": 2500,
+        "Insano": 3000,
+        "Inferno": 3500
+      },
+      "geral": "Solo. 3 salas de monstros e o boss Divided Aponos. Objetivo extra da pontuação: 1ª sala em 3:30, 2ª em 6:30 e 3ª em 9:00. É o Ascension Trial da semana (ele alterna entre masmorras).",
+      "ordem": [
+        "Salas 1, 2 e 3: mate todos dentro do tempo do objetivo extra",
+        "Arena circular: Divided Aponos"
+      ],
+      "bosses": [
+        {
+          "nome": "Divided Aponos",
+          "papel": "final",
+          "ordem": 1,
+          "ids": {
+            "Difícil": [
+              2701807
+            ],
+            "Outro modo (a confirmar)": [
+              2701753,
+              2701789,
+              2701866,
+              2702396,
+              2702409
+            ]
+          },
+          "mecanicas": [
+            {
+              "id": "aponos-circulos-laranja",
+              "nome": "Círculos laranja",
+              "sinal": "Círculos laranja no chão, perto de você",
+              "acao": "Saia do círculo antes do golpe",
+              "alerta": "CÍRCULO: SAI",
+              "acao_tipo": "sair",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_id": null
+              },
+              "candidatos_skill": {
+                "1504230": "8 vezes na luta, golpe no jogador (até 2,2 mil); o atordoamento costuma vir 5 s depois"
+              },
+              "wipe": false,
+              "confianca": "baixa",
+              "observado": {
+                "fonte": "captura + vídeo 2026-10-21 10:12 (Hard, solo)",
+                "nota": "1 run: o boss morreu em ~45 s com 6 atordoamentos e nenhuma morte; as skills ainda são candidatas"
+              }
+            },
+            {
+              "id": "aponos-orbes-roxos",
+              "nome": "Orbes roxos",
+              "sinal": "Orbes roxos flutuam pela arena",
+              "acao": "Não encoste nos orbes roxos",
+              "alerta": null,
+              "acao_tipo": "esquivar",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_id": null
+              },
+              "candidatos_skill": {
+                "1504305": "preparo de 0,5 s, sem dano direto"
+              },
+              "wipe": false,
+              "confianca": "baixa",
+              "observado": {
+                "fonte": "captura + vídeo 2026-10-21 10:12 (Hard, solo)",
+                "nota": "1 run: o boss morreu em ~45 s com 6 atordoamentos e nenhuma morte; as skills ainda são candidatas"
+              }
+            },
+            {
+              "id": "aponos-erupcoes-de-fogo",
+              "nome": "Erupções de fogo",
+              "sinal": "Explosões de fogo pelo chão da arena",
+              "acao": "Não fique parado onde o chão acende",
+              "alerta": null,
+              "acao_tipo": "esquivar",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_id": null
+              },
+              "candidatos_skill": {
+                "1504270": "golpe de até 3,5 mil",
+                "1504240": "preparo de 1,2 s"
+              },
+              "wipe": false,
+              "confianca": "baixa",
+              "observado": {
+                "fonte": "captura + vídeo 2026-10-21 10:12 (Hard, solo)",
+                "nota": "1 run: o boss morreu em ~45 s com 6 atordoamentos e nenhuma morte; as skills ainda são candidatas"
+              }
+            },
+            {
+              "id": "divided-aponos-atordoado",
+              "nome": "Atordoamento (medidor zerado)",
+              "sinal": "O medidor de atordoamento (0xE005) chega a ~0; skill 1000009; o boss fica 5 s parado",
+              "acao": "Use as skills fortes: o boss não ataca e toma mais dano",
+              "alerta": "ATORDOADO: BURST!",
+              "acao_tipo": "burst",
+              "wipe": false,
+              "confianca": "alta",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_ids": [
+                  1000009
+                ],
+                "supressao_s": 3
+              },
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "ATORDOADO: BURST!",
+                  "sub": "o boss fica 5 s parado e toma mais dano",
+                  "tipo": "burst",
+                  "contagem": 5.0
+                }
+              ],
+              "status": [
+                {
+                  "texto": "ATORDOADO",
+                  "tipo": "burst",
+                  "em": "boss",
+                  "de": 0,
+                  "ate": 5.0
+                }
+              ],
+              "observado": {
+                "fonte": "captura 2026-10-16 22:57 (Normal)",
+                "nota": "2 atordoamentos (78% e depois)"
+              }
+            }
+          ]
+        }
+      ]
     }
   ],
   "fontes": [
