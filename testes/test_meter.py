@@ -69,6 +69,23 @@ class TestMedidor(unittest.TestCase):
         self.assertEqual(self.m.ultima.inicio, 1.0)
         self.assertEqual(self.m.atual.inicio, 50.0)
 
+    def test_app_aberto_no_meio_da_masmorra_acha_voce_pelas_invocacoes(self):
+        """Sem o 0x3633 você não tem nome; as invocações trazem o nome do dono (Clériga de 21/10). Depois da troca
+        de zona você ganha outro ID, e a luta passada continua sendo sua, numa linha só."""
+        CLERIGA, INVOC, INVOC_SEM_DONO = 8070, 38601, 53821
+        self.m.donos_nome[INVOC] = "Belota"
+        self.bater(1.0, CLERIGA, BOSS, 3000, skill=17_010_000)
+        self.bater(2.0, INVOC, BOSS, 500, skill=17_020_000)
+        self.bater(3.0, INVOC_SEM_DONO, BOSS, 100, skill=17_030_000)   # sem dono: vai para a única Clériga
+        self.bater(4.0, EU, BOSS, 1000)
+        st = self.m.estado(5.0, NOMES, None)
+        self.assertEqual([(x["nome"], x["dano"]) for x in st["linhas"][:2]], [("Belota", 3600), ("Heroi", 1000)])
+        nomes = {**NOMES, 2633: "Belota"}                             # trocou de zona: você virou a entidade 2633
+        st = self.m.estado(6.0, nomes, 2633)
+        belota = [x for x in st["linhas"] if x["nome"] == "Belota"]
+        self.assertEqual(len(belota), 1)
+        self.assertEqual((belota[0]["dano"], belota[0]["classe"], belota[0]["voce"]), (3600, "Clérigo", True))
+
     def test_status_aparece_na_linha_do_jogador(self):
         self.bater(1.0, EU, BOSS, 100)
         st = self.m.estado(2.0, NOMES, EU, [{"em": "alvo", "alvo": EU, "texto": "POÇA"}])

@@ -98,9 +98,13 @@ class Medidor:
             return ent
         nome = self.donos_nome.get(ent)
         if nome:
-            for e, n in nomes.items():
-                if n == nome:
+            # o ID do jogador muda a cada zona: o mesmo nome pode ter dois IDs; vale o que lutou esta luta
+            candidatos = [e for e, n in nomes.items() if n == nome]
+            for e in candidatos:
+                if e in jogadores:
                     return e
+            if candidatos:
+                return candidatos[0]
         cl = self.classe_de(ent)
         if cl:
             mesmos = [j for j in jogadores if self.classe_de(j) == cl]
@@ -108,11 +112,36 @@ class Medidor:
                 return mesmos[0]
         return ent
 
+    def nomes_pelas_invocacoes(self, l, nomes: dict) -> dict:
+        """Nomes que faltam, deduzidos das invocações: o 0x3641 da invocação traz o nome do dono, mas o dono pode
+        não ter nome conhecido (você, com o app aberto no meio da masmorra, antes do 0x3633). Se na luta só uma
+        entidade sem nome, que não é invocação, tem a classe das invocações daquele dono, é ele."""
+        conhecidos = {nomes[e] for e in l.dano if e in nomes}     # só os que lutaram nesta luta (o ID muda por zona)
+        classes_do_dono: dict[str, set] = defaultdict(set)
+        for e, n in self.donos_nome.items():
+            if n not in conhecidos and self.classe_de(e):
+                classes_do_dono[n].add(self.classe_de(e))
+        if not classes_do_dono:
+            return nomes
+        sem_nome = [e for e in l.dano if e not in nomes and e not in self.donos_nome]
+        novos = dict(nomes)
+        for nome, classes in classes_do_dono.items():
+            if len(classes) != 1:
+                continue
+            cl = next(iter(classes))
+            # invocações sem o 0x3641 também ficam sem nome: o jogador é a de longe maior (3× a segunda)
+            ents = sorted((e for e in sem_nome if self.classe_de(e) == cl and e not in novos), key=lambda e: -l.dano[e])
+            if ents and (len(ents) == 1 or l.dano[ents[0]] >= 3 * l.dano[ents[1]]):
+                novos[ents[0]] = nome
+        return novos
+
     def estado(self, agora: float, nomes: dict, eu: int | None, status: list[dict] | None = None) -> dict | None:
         """Luta atual (ou a última) pronta para desenhar: linhas ordenadas por dano."""
         l = self.atual
         if l is None:
             return None
+        meu_nome = nomes.get(eu) if eu is not None else None
+        nomes = self.nomes_pelas_invocacoes(l, nomes)
         dur = l.duracao(agora)
         # invocações somam no dono (sem mexer nos números guardados da luta)
         jogadores = {e for e in l.dano if e in nomes}
@@ -135,7 +164,8 @@ class Medidor:
             chave = self.classe_de(ent)
             linhas.append({
                 "id": ent, "nome": nome or f"#{ent}", "chave": chave or "", "classe": NOME_CLASSE.get(chave or "", ""),
-                "dano": d, "dps": d / dur, "pct": 100 * d / total, "voce": ent == eu,
+                "dano": d, "dps": d / dur, "pct": 100 * d / total,
+                "voce": ent == eu or (meu_nome is not None and nome == meu_nome),     # você com o ID de outra zona
                 "critico": 100 * criticos[ent] / max(1, acertos[ent]), "status": por_alvo.get(ent, []),
             })
         return {"boss": l.nome, "ativa": l.fim is None, "duracao": dur, "total": sum(dano.values()),
