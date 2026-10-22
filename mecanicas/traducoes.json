@@ -723,7 +723,22 @@
   "leve ao grupo": "bring it to the group",
   "~13 mil": "~13k",
   "fora dos quadrados": "out of the squares",
-  "2 vezes": "twice"
+  "2 vezes": "twice",
+  "CÍRCULO VERMELHO: SAI": "RED CIRCLE: GET OUT",
+  "Saia do círculo vermelho grande antes da explosão": "Leave the big red circle before it explodes",
+  "RAIOS: SAI DO CÍRCULO": "LIGHTNING: LEAVE THE CIRCLE",
+  "Círculo laranja embaixo de você: saia antes do raio": "Orange circle under you: move before the bolt",
+  "LEQUE GIGANTE: VAI PRAS COSTAS": "HUGE CONE: GET BEHIND HER",
+  "Meio-círculo enorme à frente dela: só as costas ficam seguras": "Huge half-circle in front of her: only her back is safe",
+  "VIRA ELA PRA FORA": "TURN HER AWAY",
+  "leque gigante à frente: aponte para longe do grupo": "huge cone in front: point it away from the group",
+  "Investida em linha reta: saia da trajetória": "Straight-line charge: get out of its path",
+  "INVESTIDAS: SAI DA LINHA": "CHARGES: LEAVE THE LINE",
+  "Três investidas seguidas: continue fora da linha até a terceira": "Three charges in a row: stay out of the line until the third",
+  "LANÇAS: SAI DAS FAIXAS": "SPEARS: LEAVE THE LANES",
+  "Faixas laranja cruzando a arena: fique fora delas": "Orange lanes crossing the arena: stay out of them",
+  "CÍRCULO EM VOCÊ: AFASTA": "CIRCLE ON YOU: MOVE AWAY",
+  "Afaste-se do grupo até o círculo explodir": "Move away from the group until the circle explodes"
  },
  "es": {
   "3 ACÚMULOS: AFASTA": "3 CARGAS: ALÉJATE",
@@ -1448,6 +1463,21 @@
   "leve ao grupo": "llévalo al grupo",
   "~13 mil": "~13 mil",
   "fora dos quadrados": "fuera de los cuadrados",
-  "2 vezes": "2 veces"
+  "2 vezes": "2 veces",
+  "CÍRCULO VERMELHO: SAI": "CÍRCULO ROJO: SAL",
+  "Saia do círculo vermelho grande antes da explosão": "Sal del círculo rojo grande antes de la explosión",
+  "RAIOS: SAI DO CÍRCULO": "RAYOS: SAL DEL CÍRCULO",
+  "Círculo laranja embaixo de você: saia antes do raio": "Círculo naranja debajo de ti: sal antes del rayo",
+  "LEQUE GIGANTE: VAI PRAS COSTAS": "ABANICO GIGANTE: VE A SU ESPALDA",
+  "Meio-círculo enorme à frente dela: só as costas ficam seguras": "Medio círculo enorme delante de ella: solo la espalda es segura",
+  "VIRA ELA PRA FORA": "GÍRALA HACIA FUERA",
+  "leque gigante à frente: aponte para longe do grupo": "abanico gigante delante: apúntalo lejos del grupo",
+  "Investida em linha reta: saia da trajetória": "Embestida en línea recta: sal de la trayectoria",
+  "INVESTIDAS: SAI DA LINHA": "EMBESTIDAS: SAL DE LA LÍNEA",
+  "Três investidas seguidas: continue fora da linha até a terceira": "Tres embestidas seguidas: sigue fuera de la línea hasta la tercera",
+  "LANÇAS: SAI DAS FAIXAS": "LANZAS: SAL DE LAS FRANJAS",
+  "Faixas laranja cruzando a arena: fique fora delas": "Franjas naranjas cruzando la arena: quédate fuera",
+  "CÍRCULO EM VOCÊ: AFASTA": "CÍRCULO SOBRE TI: ALÉJATE",
+  "Afaste-se do grupo até o círculo explodir": "Aléjate del grupo hasta que explote el círculo"
  }
 }

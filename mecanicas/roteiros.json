@@ -1498,40 +1498,70 @@
  },
  "Talisra of the Void": {
   "cadeia": {
-   "1801600": {
+   "talisra-leque-gigante": {
+    "proxima": "talisra-investidas-seguidas",
+    "apos": 1.95,
+    "chance": 0.6,
+    "vezes": 3
+   },
+   "talisra-investida": {
+    "proxima": "talisra-investidas-seguidas",
+    "apos": 1.7,
+    "chance": 1.0,
+    "vezes": 4
+   },
+   "talisra-investidas-seguidas": {
     "proxima": "1801610",
     "apos": 1.75,
-    "chance": 0.91,
+    "chance": 1.0,
     "vezes": 10
    },
    "1801610": {
     "proxima": "1801620",
     "apos": 1.4,
-    "chance": 0.8,
-    "vezes": 8
+    "chance": 0.9,
+    "vezes": 9
    },
-   "1801630": {
-    "proxima": "1801600",
-    "apos": 1.7,
-    "chance": 1.0,
-    "vezes": 4
+   "talisra-of-the-void-onda-dupla": {
+    "proxima": "1801660",
+    "apos": 4.55,
+    "chance": 0.5,
+    "vezes": 2
    },
    "1801660": {
-    "proxima": "1801600",
+    "proxima": "talisra-investidas-seguidas",
     "apos": 2.6,
-    "chance": 0.67,
+    "chance": 0.5,
     "vezes": 2
+   },
+   "1801592": {
+    "proxima": "1801593",
+    "apos": 0.1,
+    "chance": 1.0,
+    "vezes": 3
    },
    "1801593": {
     "proxima": "1801594",
     "apos": 0.0,
     "chance": 1.0,
-    "vezes": 2
+    "vezes": 6
    },
    "1801594": {
     "proxima": "1801595",
     "apos": 0.0,
     "chance": 1.0,
+    "vezes": 6
+   },
+   "1801595": {
+    "proxima": "1801593",
+    "apos": 0.0,
+    "chance": 0.5,
+    "vezes": 3
+   },
+   "talisra-faixas-de-lancas": {
+    "proxima": "1801670",
+    "apos": 2.9,
+    "chance": 0.67,
     "vezes": 2
    },
    "1801665": {
@@ -1540,45 +1570,123 @@
     "chance": 1.0,
     "vezes": 2
    },
+   "1801720": {
+    "proxima": "1801730",
+    "apos": 0.95,
+    "chance": 1.0,
+    "vezes": 2
+   },
    "1801730": {
     "proxima": "1801735",
     "apos": 1.95,
+    "chance": 0.67,
+    "vezes": 2
+   },
+   "1801743": {
+    "proxima": "1801756",
+    "apos": 2.35,
     "chance": 1.0,
     "vezes": 2
    },
    "1801596": {
     "proxima": "1801597",
-    "apos": 0.06,
+    "apos": 0.1,
     "chance": 1.0,
-    "vezes": 7
+    "vezes": 6
    },
-   "1801600|1801610": {
-    "proxima": "1801620",
-    "apos": 1.4,
-    "chance": 0.8,
-    "vezes": 8
-   },
-   "1801630|1801600": {
+   "talisra-investida|talisra-investidas-seguidas": {
     "proxima": "1801610",
     "apos": 1.75,
     "chance": 1.0,
     "vezes": 4
    },
-   "1801660|1801600": {
+   "talisra-investidas-seguidas|1801610": {
+    "proxima": "1801620",
+    "apos": 1.4,
+    "chance": 0.9,
+    "vezes": 9
+   },
+   "1801620|talisra-of-the-void-onda-dupla": {
+    "proxima": "1801660",
+    "apos": 4.55,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1801660|talisra-investidas-seguidas": {
     "proxima": "1801610",
     "apos": 1.75,
     "chance": 1.0,
     "vezes": 2
    },
+   "1801620|1801592": {
+    "proxima": "1801593",
+    "apos": 0.1,
+    "chance": 1.0,
+    "vezes": 3
+   },
+   "1801592|1801593": {
+    "proxima": "1801594",
+    "apos": 0.0,
+    "chance": 1.0,
+    "vezes": 3
+   },
    "1801593|1801594": {
     "proxima": "1801595",
     "apos": 0.0,
     "chance": 1.0,
+    "vezes": 6
+   },
+   "1801594|1801595": {
+    "proxima": "1801593",
+    "apos": 0.0,
+    "chance": 0.5,
+    "vezes": 3
+   },
+   "1801595|1801593": {
+    "proxima": "1801594",
+    "apos": 0.0,
+    "chance": 1.0,
+    "vezes": 3
+   },
+   "1801595|talisra-faixas-de-lancas": {
+    "proxima": "1801670",
+    "apos": 2.9,
+    "chance": 0.67,
     "vezes": 2
    },
-   "talisra-of-the-void-onda-dupla|1801596": {
+   "1801720|1801730": {
+    "proxima": "1801735",
+    "apos": 1.95,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1801597|talisra-of-the-void-onda-dupla": {
+    "proxima": "talisra-investida",
+    "apos": 4.85,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "talisra-of-the-void-onda-dupla|talisra-investida": {
+    "proxima": "talisra-investidas-seguidas",
+    "apos": 1.7,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "talisra-of-the-void-atordoado|1801596": {
     "proxima": "1801597",
-    "apos": 0.05,
+    "apos": 0.1,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1801597|talisra-leque-gigante": {
+    "proxima": "talisra-investidas-seguidas",
+    "apos": 1.95,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "talisra-leque-gigante|talisra-investidas-seguidas": {
+    "proxima": "1801610",
+    "apos": 1.75,
     "chance": 1.0,
     "vezes": 2
    }
@@ -2890,7 +2998,13 @@
     "proxima": "1227165",
     "apos": 1.4,
     "chance": 0.75,
-    "vezes": 9
+    "vezes": 12
+   },
+   "1227165": {
+    "proxima": "rotan-giro",
+    "apos": 6.78,
+    "chance": 0.5,
+    "vezes": 6
    },
    "1227150": {
     "proxima": "1227130",
@@ -2902,7 +3016,19 @@
     "proxima": "rotan-giro",
     "apos": 1.6,
     "chance": 1.0,
-    "vezes": 3
+    "vezes": 4
+   },
+   "rotan-rastreamento": {
+    "proxima": "1227190",
+    "apos": 2.37,
+    "chance": 1.0,
+    "vezes": 4
+   },
+   "rotan-giro|1227165": {
+    "proxima": "rotan-giro",
+    "apos": 6.78,
+    "chance": 0.5,
+    "vezes": 6
    },
    "1227165|1227150": {
     "proxima": "1227130",
@@ -2914,19 +3040,25 @@
     "proxima": "rotan-giro",
     "apos": 1.6,
     "chance": 1.0,
-    "vezes": 3
+    "vezes": 4
    },
    "1227175|rotan-giro": {
     "proxima": "1227165",
-    "apos": 1.4,
+    "apos": 1.5,
     "chance": 1.0,
-    "vezes": 3
+    "vezes": 4
    },
    "1227165|rotan-giro": {
     "proxima": "1227165",
     "apos": 1.4,
-    "chance": 0.75,
-    "vezes": 3
+    "chance": 0.67,
+    "vezes": 4
+   },
+   "1227165|rotan-rastreamento": {
+    "proxima": "1227190",
+    "apos": 1.4,
+    "chance": 1.0,
+    "vezes": 2
    },
    "1227140|1227130": {
     "proxima": "rotan-rastreamento",
@@ -2943,161 +3075,155 @@
   },
   "fases_hp": [],
   "ciclos": {},
-  "runs": 3,
+  "runs": 4,
   "precisao_centro": 1.0,
-  "previsoes_testadas": 3
+  "previsoes_testadas": 5
  },
  "Red Spark Ignus": {
   "cadeia": {
    "1600830": {
     "proxima": "1600760",
-    "apos": 2.35,
-    "chance": 0.75,
-    "vezes": 6
+    "apos": 2.28,
+    "chance": 0.57,
+    "vezes": 8
    },
    "red-spark-ignus-investida-no-tank": {
     "proxima": "red-spark-ignus-marca-de-lava",
     "apos": 4.05,
-    "chance": 0.78,
-    "vezes": 7
-   },
-   "red-spark-ignus-marca-de-lava": {
-    "proxima": "1600760",
-    "apos": 2.1,
-    "chance": 0.62,
-    "vezes": 5
+    "chance": 0.79,
+    "vezes": 11
    },
    "1600846": {
     "proxima": "red-spark-ignus-tres-circulos-rapidos",
-    "apos": 0.65,
-    "chance": 0.88,
-    "vezes": 7
-   },
-   "red-spark-ignus-tres-circulos-rapidos": {
-    "proxima": "1600760",
-    "apos": 3.86,
-    "chance": 0.5,
-    "vezes": 6
-   },
-   "1600800": {
-    "proxima": "1600811",
-    "apos": 1.99,
-    "chance": 0.5,
-    "vezes": 4
+    "apos": 4.35,
+    "chance": 0.85,
+    "vezes": 11
    },
    "red-spark-ignus-atordoado": {
     "proxima": "1600830",
-    "apos": 6.04,
-    "chance": 0.75,
-    "vezes": 3
+    "apos": 6.02,
+    "chance": 0.5,
+    "vezes": 4
    },
    "1600775": {
     "proxima": "red-spark-ignus-investida-no-tank",
     "apos": 2.65,
     "chance": 1.0,
-    "vezes": 4
+    "vezes": 7
    },
    "1600811": {
     "proxima": "red-spark-ignus-anel-blazing-speed",
     "apos": 1.05,
     "chance": 1.0,
-    "vezes": 6
+    "vezes": 11
    },
    "red-spark-ignus-anel-blazing-speed": {
     "proxima": "1600812",
-    "apos": 0.27,
+    "apos": 0.26,
     "chance": 1.0,
-    "vezes": 6
+    "vezes": 11
    },
    "1600812": {
     "proxima": "1600815",
-    "apos": 0.06,
+    "apos": 0.09,
     "chance": 1.0,
-    "vezes": 20
+    "vezes": 40
    },
    "1600815": {
     "proxima": "1600812",
-    "apos": 0.25,
-    "chance": 0.7,
-    "vezes": 14
+    "apos": 0.21,
+    "chance": 0.72,
+    "vezes": 29
    },
    "1600820": {
     "proxima": "1600850",
     "apos": 4.85,
     "chance": 1.0,
-    "vezes": 2
+    "vezes": 5
    },
    "1600850": {
     "proxima": "1600811",
     "apos": 2.15,
     "chance": 1.0,
+    "vezes": 5
+   },
+   "1600760|1600830": {
+    "proxima": "1600770",
+    "apos": 2.2,
+    "chance": 0.67,
     "vezes": 2
+   },
+   "1600830|1600770": {
+    "proxima": "1600775",
+    "apos": 2.25,
+    "chance": 0.6,
+    "vezes": 3
    },
    "red-spark-ignus-investida-no-tank|red-spark-ignus-marca-de-lava": {
     "proxima": "1600760",
     "apos": 2.1,
-    "chance": 0.71,
-    "vezes": 5
+    "chance": 0.55,
+    "vezes": 6
    },
    "red-spark-ignus-marca-de-lava|1600760": {
     "proxima": "1600846",
     "apos": 1.15,
     "chance": 1.0,
-    "vezes": 5
+    "vezes": 6
    },
    "1600760|1600846": {
     "proxima": "red-spark-ignus-tres-circulos-rapidos",
     "apos": 0.65,
     "chance": 1.0,
-    "vezes": 5
+    "vezes": 6
    },
    "1600846|red-spark-ignus-tres-circulos-rapidos": {
     "proxima": "1600760",
     "apos": 3.85,
-    "chance": 0.71,
-    "vezes": 5
+    "chance": 0.73,
+    "vezes": 8
    },
    "red-spark-ignus-tres-circulos-rapidos|1600760": {
     "proxima": "1600800",
     "apos": 2.8,
-    "chance": 0.83,
-    "vezes": 5
+    "chance": 0.7,
+    "vezes": 7
    },
    "1600760|1600800": {
     "proxima": "red-spark-ignus-atordoado",
-    "apos": 1.38,
+    "apos": 1.62,
     "chance": 0.5,
-    "vezes": 3
+    "vezes": 4
    },
    "1600800|red-spark-ignus-atordoado": {
     "proxima": "1600830",
-    "apos": 6.04,
+    "apos": 6.02,
     "chance": 1.0,
-    "vezes": 3
+    "vezes": 4
    },
    "red-spark-ignus-atordoado|1600830": {
     "proxima": "1600760",
     "apos": 2.35,
-    "chance": 0.67,
-    "vezes": 2
+    "chance": 0.75,
+    "vezes": 3
    },
    "1600830|1600760": {
     "proxima": "1600775",
     "apos": 2.3,
     "chance": 0.5,
-    "vezes": 3
+    "vezes": 4
    },
    "1600760|1600775": {
     "proxima": "red-spark-ignus-investida-no-tank",
     "apos": 2.65,
     "chance": 1.0,
-    "vezes": 3
+    "vezes": 4
    },
    "1600775|red-spark-ignus-investida-no-tank": {
     "proxima": "red-spark-ignus-marca-de-lava",
     "apos": 4.05,
-    "chance": 0.75,
-    "vezes": 3
+    "chance": 0.86,
+    "vezes": 6
    },
    "red-spark-ignus-tres-circulos-rapidos|1600770": {
     "proxima": "1600800",
@@ -3115,59 +3241,77 @@
     "proxima": "red-spark-ignus-anel-blazing-speed",
     "apos": 1.05,
     "chance": 1.0,
-    "vezes": 4
+    "vezes": 6
    },
    "1600811|red-spark-ignus-anel-blazing-speed": {
     "proxima": "1600812",
-    "apos": 0.27,
+    "apos": 0.26,
     "chance": 1.0,
-    "vezes": 6
+    "vezes": 11
    },
    "red-spark-ignus-anel-blazing-speed|1600812": {
     "proxima": "1600815",
     "apos": 0.05,
     "chance": 1.0,
-    "vezes": 6
+    "vezes": 11
    },
    "1600812|1600815": {
     "proxima": "1600812",
-    "apos": 0.25,
-    "chance": 0.7,
-    "vezes": 14
+    "apos": 0.21,
+    "chance": 0.72,
+    "vezes": 29
    },
    "1600815|1600812": {
     "proxima": "1600815",
-    "apos": 0.08,
+    "apos": 0.09,
     "chance": 1.0,
-    "vezes": 14
+    "vezes": 29
    },
    "1600815|1600760": {
     "proxima": "red-spark-ignus-atordoado",
     "apos": 1.8,
-    "chance": 1.0,
+    "chance": 0.6,
     "vezes": 3
    },
    "red-spark-ignus-tres-circulos-rapidos|1600830": {
     "proxima": "1600760",
     "apos": 2.2,
-    "chance": 1.0,
-    "vezes": 3
+    "chance": 0.8,
+    "vezes": 4
    },
    "1600760|red-spark-ignus-investida-no-tank": {
     "proxima": "red-spark-ignus-marca-de-lava",
     "apos": 4.04,
-    "chance": 0.67,
+    "chance": 0.5,
     "vezes": 2
    },
    "red-spark-ignus-marca-de-lava|1600770": {
     "proxima": "1600846",
-    "apos": 1.08,
+    "apos": 1.15,
     "chance": 1.0,
-    "vezes": 2
+    "vezes": 5
    },
    "1600770|1600846": {
     "proxima": "red-spark-ignus-tres-circulos-rapidos",
-    "apos": 4.45,
+    "apos": 4.4,
+    "chance": 1.0,
+    "vezes": 5
+   },
+   "1600770|1600775": {
+    "proxima": "red-spark-ignus-investida-no-tank",
+    "apos": 2.65,
+    "chance": 1.0,
+    "vezes": 3
+   },
+   "1600815|red-spark-ignus-tres-circulos-rapidos": {
+    "proxima": "1600760",
+    "apos": 4.24,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1600760|1600820": {
+    "proxima": "1600850",
+    "apos": 4.85,
     "chance": 1.0,
     "vezes": 2
    },
@@ -3175,106 +3319,94 @@
     "proxima": "1600811",
     "apos": 2.15,
     "chance": 1.0,
-    "vezes": 2
+    "vezes": 5
    },
    "1600850|1600811": {
     "proxima": "red-spark-ignus-anel-blazing-speed",
-    "apos": 1.07,
+    "apos": 1.05,
+    "chance": 1.0,
+    "vezes": 5
+   },
+   "1600800|1600820": {
+    "proxima": "1600850",
+    "apos": 4.85,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "red-spark-ignus-atordoado|red-spark-ignus-investida-no-tank": {
+    "proxima": "red-spark-ignus-marca-de-lava",
+    "apos": 4.05,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1600815|1600770": {
+    "proxima": "1600760",
+    "apos": 2.65,
     "chance": 1.0,
     "vezes": 2
    }
   },
   "fases_hp": [],
   "ciclos": {},
-  "runs": 3,
-  "precisao_centro": 0.96,
-  "previsoes_testadas": 28
+  "runs": 5,
+  "precisao_centro": 0.9,
+  "previsoes_testadas": 48
  },
  "Black Smoke Murute": {
   "cadeia": {
-   "black-smoke-murute-bracos-levantados-soco": {
-    "proxima": "1600660",
-    "apos": 2.75,
-    "chance": 0.5,
-    "vezes": 3
-   },
-   "1600700": {
-    "proxima": "1600690",
-    "apos": 2.95,
-    "chance": 0.67,
-    "vezes": 2
-   },
    "murute-esmagada-potente": {
     "proxima": "1600670",
     "apos": 3.3,
     "chance": 1.0,
-    "vezes": 5
-   },
-   "1600670": {
-    "proxima": "1600660",
-    "apos": 3.9,
-    "chance": 0.6,
-    "vezes": 3
+    "vezes": 11
    },
    "black-smoke-murute-atordoado": {
-    "proxima": "black-smoke-murute-investida-pedregulho",
-    "apos": 6.05,
-    "chance": 0.5,
-    "vezes": 2
+    "proxima": "1600690",
+    "apos": 5.05,
+    "chance": 0.67,
+    "vezes": 6
    },
    "black-smoke-murute-investida-pedregulho": {
     "proxima": "1600710",
     "apos": 2.75,
     "chance": 1.0,
-    "vezes": 3
+    "vezes": 8
    },
    "1600710": {
     "proxima": "1600690",
     "apos": 2.95,
-    "chance": 1.0,
-    "vezes": 3
+    "chance": 0.71,
+    "vezes": 5
    },
    "1600690|black-smoke-murute-bracos-levantados-soco": {
-    "proxima": "1600660",
-    "apos": 2.8,
-    "chance": 0.5,
-    "vezes": 2
+    "proxima": "1600690",
+    "apos": 2.6,
+    "chance": 0.57,
+    "vezes": 4
    },
    "black-smoke-murute-bracos-levantados-soco|1600660": {
     "proxima": "1600700",
     "apos": 2.7,
-    "chance": 0.67,
-    "vezes": 2
+    "chance": 0.6,
+    "vezes": 3
    },
    "1600660|1600700": {
     "proxima": "1600690",
     "apos": 2.95,
-    "chance": 1.0,
-    "vezes": 2
+    "chance": 0.75,
+    "vezes": 3
    },
    "1600700|1600690": {
     "proxima": "1600660",
-    "apos": 4.43,
+    "apos": 4.15,
     "chance": 1.0,
-    "vezes": 2
-   },
-   "1600690|1600660": {
-    "proxima": "murute-esmagada-potente",
-    "apos": 3.5,
-    "chance": 0.6,
     "vezes": 3
    },
    "1600660|murute-esmagada-potente": {
     "proxima": "1600670",
     "apos": 3.3,
     "chance": 1.0,
-    "vezes": 3
-   },
-   "murute-esmagada-potente|1600670": {
-    "proxima": "1600660",
-    "apos": 3.9,
-    "chance": 0.6,
-    "vezes": 3
+    "vezes": 7
    },
    "black-smoke-murute-atordoado|black-smoke-murute-investida-pedregulho": {
     "proxima": "1600710",
@@ -3285,142 +3417,203 @@
    "black-smoke-murute-investida-pedregulho|1600710": {
     "proxima": "1600690",
     "apos": 2.95,
-    "chance": 1.0,
-    "vezes": 3
+    "chance": 0.71,
+    "vezes": 5
    },
    "1600710|1600690": {
     "proxima": "1600660",
-    "apos": 4.15,
+    "apos": 4.1,
+    "chance": 0.8,
+    "vezes": 4
+   },
+   "1600690|1600700": {
+    "proxima": "murute-esmagada-potente",
+    "apos": 6.35,
+    "chance": 0.67,
+    "vezes": 2
+   },
+   "1600700|murute-esmagada-potente": {
+    "proxima": "1600670",
+    "apos": 3.84,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "black-smoke-murute-atordoado|1600690": {
+    "proxima": "black-smoke-murute-bracos-levantados-soco",
+    "apos": 5.42,
+    "chance": 0.5,
+    "vezes": 2
+   },
+   "1600690|murute-esmagada-potente": {
+    "proxima": "1600670",
+    "apos": 3.35,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1600670|1600690": {
+    "proxima": "1600660",
+    "apos": 3.93,
+    "chance": 0.67,
+    "vezes": 2
+   },
+   "black-smoke-murute-tres-aneis|black-smoke-murute-investida-pedregulho": {
+    "proxima": "1600710",
+    "apos": 2.76,
     "chance": 1.0,
     "vezes": 3
+   },
+   "black-smoke-murute-tres-aneis|1600660": {
+    "proxima": "murute-esmagada-potente",
+    "apos": 3.5,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1600670|black-smoke-murute-investida-pedregulho": {
+    "proxima": "1600710",
+    "apos": 2.97,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1600710|black-smoke-murute-atordoado": {
+    "proxima": "1600690",
+    "apos": 5.05,
+    "chance": 1.0,
+    "vezes": 2
    }
   },
-  "fases_hp": [
-   {
-    "no": "black-smoke-murute-bracos-levantados-soco",
-    "vez": 1,
-    "hp": 98.2,
-    "variacao": 4.0
-   }
-  ],
-  "ciclos": {},
-  "runs": 3,
+  "fases_hp": [],
+  "ciclos": {
+   "1600700": 32.1
+  },
+  "runs": 5,
   "precisao_centro": 0.0,
-  "previsoes_testadas": 0
+  "previsoes_testadas": 3
  },
  "Kromede's Desire": {
   "cadeia": {
    "1801160": {
     "proxima": "kromede-s-desire-investida-no-mais-distante",
     "apos": 4.4,
-    "chance": 1.0,
-    "vezes": 3
+    "chance": 0.9,
+    "vezes": 9
    },
    "kromede-s-desire-investida-no-mais-distante": {
     "proxima": "kromede-s-desire-aoe-em-2-tempos",
     "apos": 3.9,
-    "chance": 0.6,
-    "vezes": 6
+    "chance": 0.67,
+    "vezes": 20
    },
    "kromede-s-desire-arco-levantado": {
     "proxima": "1801131",
     "apos": 0.25,
     "chance": 1.0,
-    "vezes": 6
+    "vezes": 15
    },
    "kromede-s-desire-paredes-de-fogo": {
     "proxima": "1801185",
     "apos": 18.5,
-    "chance": 1.0,
-    "vezes": 6
+    "chance": 0.92,
+    "vezes": 11
    },
    "1801185": {
     "proxima": "kromede-s-desire-chuva-rapida",
-    "apos": 3.77,
-    "chance": 0.67,
-    "vezes": 4
+    "apos": 3.75,
+    "chance": 0.58,
+    "vezes": 7
    },
    "kromede-s-desire-chuva-rapida": {
     "proxima": "1801116",
     "apos": 2.2,
     "chance": 1.0,
-    "vezes": 7
-   },
-   "1801116": {
-    "proxima": "kromede-s-desire-investida-no-mais-distante",
-    "apos": 1.45,
-    "chance": 0.86,
-    "vezes": 6
-   },
-   "kromede-s-desire-aoe-em-2-tempos": {
-    "proxima": "1801126",
-    "apos": 1.05,
-    "chance": 0.5,
-    "vezes": 3
+    "vezes": 22
    },
    "1801109": {
     "proxima": "kromede-s-desire-clones",
     "apos": 2.6,
-    "chance": 0.83,
-    "vezes": 5
+    "chance": 0.92,
+    "vezes": 12
    },
-   "1801126": {
-    "proxima": "kromede-s-desire-combo-de-espada",
-    "apos": 2.6,
-    "chance": 0.67,
-    "vezes": 2
-   },
-   "1801020": {
-    "proxima": "kromede-s-desire-atordoado",
-    "apos": 3.08,
+   "1801170": {
+    "proxima": "kromede-s-desire-arco-levantado",
+    "apos": 4.85,
     "chance": 0.5,
-    "vezes": 2
+    "vezes": 3
    },
    "1801160|kromede-s-desire-investida-no-mais-distante": {
     "proxima": "kromede-s-desire-combo-de-espada",
     "apos": 3.9,
-    "chance": 1.0,
-    "vezes": 3
+    "chance": 0.67,
+    "vezes": 6
    },
    "kromede-s-desire-investida-no-mais-distante|kromede-s-desire-combo-de-espada": {
     "proxima": "kromede-s-desire-combo-de-espada",
     "apos": 6.9,
-    "chance": 0.67,
+    "chance": 0.57,
+    "vezes": 4
+   },
+   "kromede-s-desire-atordoado|kromede-s-desire-combo-de-espada": {
+    "proxima": "1801050",
+    "apos": 5.45,
+    "chance": 0.5,
     "vezes": 2
    },
    "kromede-s-desire-paredes-de-fogo|1801185": {
     "proxima": "kromede-s-desire-chuva-rapida",
-    "apos": 3.77,
-    "chance": 0.67,
-    "vezes": 4
+    "apos": 3.75,
+    "chance": 0.64,
+    "vezes": 7
    },
    "1801185|kromede-s-desire-chuva-rapida": {
     "proxima": "1801116",
     "apos": 2.2,
     "chance": 1.0,
-    "vezes": 4
-   },
-   "kromede-s-desire-chuva-rapida|1801116": {
-    "proxima": "kromede-s-desire-investida-no-mais-distante",
-    "apos": 1.45,
-    "chance": 0.86,
-    "vezes": 6
+    "vezes": 7
    },
    "1801116|kromede-s-desire-investida-no-mais-distante": {
     "proxima": "kromede-s-desire-aoe-em-2-tempos",
     "apos": 3.9,
     "chance": 1.0,
-    "vezes": 6
+    "vezes": 9
    },
-   "kromede-s-desire-investida-no-mais-distante|kromede-s-desire-aoe-em-2-tempos": {
-    "proxima": "1801126",
-    "apos": 1.05,
-    "chance": 0.5,
+   "kromede-s-desire-aoe-em-2-tempos|1801050": {
+    "proxima": "1801010",
+    "apos": 2.6,
+    "chance": 0.75,
     "vezes": 3
+   },
+   "1801010|kromede-s-desire-atordoado": {
+    "proxima": "1801109",
+    "apos": 5.18,
+    "chance": 0.67,
+    "vezes": 2
    },
    "kromede-s-desire-atordoado|1801109": {
     "proxima": "kromede-s-desire-clones",
     "apos": 2.59,
+    "chance": 1.0,
+    "vezes": 5
+   },
+   "kromede-s-desire-clones|kromede-s-desire-combo-de-espada": {
+    "proxima": "1801170",
+    "apos": 2.75,
+    "chance": 0.67,
+    "vezes": 2
+   },
+   "kromede-s-desire-combo-de-espada|1801170": {
+    "proxima": "kromede-s-desire-arco-levantado",
+    "apos": 4.75,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1801170|kromede-s-desire-arco-levantado": {
+    "proxima": "1801131",
+    "apos": 0.21,
+    "chance": 1.0,
+    "vezes": 3
+   },
+   "1801000|kromede-s-desire-paredes-de-fogo": {
+    "proxima": "1801185",
+    "apos": 18.5,
     "chance": 1.0,
     "vezes": 2
    },
@@ -3434,13 +3627,7 @@
     "proxima": "1801116",
     "apos": 2.2,
     "chance": 1.0,
-    "vezes": 2
-   },
-   "kromede-s-desire-aoe-em-2-tempos|1801126": {
-    "proxima": "kromede-s-desire-combo-de-espada",
-    "apos": 2.6,
-    "chance": 0.67,
-    "vezes": 2
+    "vezes": 4
    },
    "kromede-s-desire-clones|1801050": {
     "proxima": "1801020",
@@ -3448,29 +3635,23 @@
     "chance": 1.0,
     "vezes": 2
    },
-   "1801050|1801020": {
-    "proxima": "kromede-s-desire-atordoado",
-    "apos": 3.08,
-    "chance": 0.67,
-    "vezes": 2
-   },
    "kromede-s-desire-atordoado|kromede-s-desire-arco-levantado": {
     "proxima": "1801131",
     "apos": 0.25,
     "chance": 1.0,
-    "vezes": 2
+    "vezes": 4
    },
    "kromede-s-desire-combo-de-espada|kromede-s-desire-combo-de-espada": {
     "proxima": "kromede-s-desire-arco-levantado",
-    "apos": 4.81,
-    "chance": 1.0,
-    "vezes": 2
+    "apos": 4.8,
+    "chance": 0.8,
+    "vezes": 4
    },
    "kromede-s-desire-combo-de-espada|kromede-s-desire-arco-levantado": {
     "proxima": "1801131",
-    "apos": 0.22,
+    "apos": 0.23,
     "chance": 1.0,
-    "vezes": 2
+    "vezes": 4
    },
    "kromede-s-desire-atordoado|kromede-s-desire-paredes-de-fogo": {
     "proxima": "1801185",
@@ -3480,29 +3661,118 @@
    },
    "kromede-s-desire-aoe-em-2-tempos|kromede-s-desire-combo-de-espada": {
     "proxima": "1801090",
-    "apos": 3.21,
+    "apos": 3.2,
+    "chance": 0.6,
+    "vezes": 3
+   },
+   "1801090|1801000": {
+    "proxima": "1801109",
+    "apos": 1.8,
     "chance": 1.0,
     "vezes": 2
+   },
+   "kromede-s-desire-combo-de-espada|kromede-s-desire-paredes-de-fogo": {
+    "proxima": "1801185",
+    "apos": 18.5,
+    "chance": 1.0,
+    "vezes": 3
+   },
+   "1801020|1801109": {
+    "proxima": "kromede-s-desire-clones",
+    "apos": 2.6,
+    "chance": 1.0,
+    "vezes": 3
+   },
+   "1801170|kromede-s-desire-chuva-rapida": {
+    "proxima": "1801116",
+    "apos": 1.57,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1801116|kromede-s-desire-atordoado": {
+    "proxima": "1801116",
+    "apos": 1.28,
+    "chance": 0.5,
+    "vezes": 2
+   },
+   "1801020|kromede-s-desire-paredes-de-fogo": {
+    "proxima": "1801185",
+    "apos": 18.5,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1801131|kromede-s-desire-chuva-rapida": {
+    "proxima": "1801116",
+    "apos": 2.18,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1801185|kromede-s-desire-investida-no-mais-distante": {
+    "proxima": "kromede-s-desire-aoe-em-2-tempos",
+    "apos": 3.9,
+    "chance": 1.0,
+    "vezes": 3
+   },
+   "kromede-s-desire-clones|kromede-s-desire-investida-no-mais-distante": {
+    "proxima": "kromede-s-desire-aoe-em-2-tempos",
+    "apos": 3.9,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1801116|1801050": {
+    "proxima": "1801020",
+    "apos": 2.6,
+    "chance": 0.67,
+    "vezes": 2
+   },
+   "1801116|kromede-s-desire-combo-de-espada": {
+    "proxima": "1801090",
+    "apos": 3.2,
+    "chance": 0.6,
+    "vezes": 3
+   },
+   "kromede-s-desire-combo-de-espada|1801010": {
+    "proxima": "kromede-s-desire-atordoado",
+    "apos": 1.0,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1801126|1801050": {
+    "proxima": "1801020",
+    "apos": 2.61,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "kromede-s-desire-atordoado|kromede-s-desire-investida-no-mais-distante": {
+    "proxima": "kromede-s-desire-aoe-em-2-tempos",
+    "apos": 3.9,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1801010|kromede-s-desire-chuva-rapida": {
+    "proxima": "1801116",
+    "apos": 2.12,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1801050|1801160": {
+    "proxima": "kromede-s-desire-investida-no-mais-distante",
+    "apos": 4.4,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1801126|kromede-s-desire-chuva-rapida": {
+    "proxima": "1801116",
+    "apos": 2.16,
+    "chance": 1.0,
+    "vezes": 3
    }
   },
-  "fases_hp": [
-   {
-    "no": "kromede-s-desire-paredes-de-fogo",
-    "vez": 1,
-    "hp": 74.9,
-    "variacao": 5.8
-   },
-   {
-    "no": "kromede-s-desire-paredes-de-fogo",
-    "vez": 2,
-    "hp": 39.1,
-    "variacao": 2.8
-   }
-  ],
+  "fases_hp": [],
   "ciclos": {},
-  "runs": 3,
-  "precisao_centro": 0.61,
-  "previsoes_testadas": 41
+  "runs": 5,
+  "precisao_centro": 0.86,
+  "previsoes_testadas": 37
  },
  "Blooming Korin": {
   "cadeia": {
@@ -3577,6 +3847,45 @@
     "apos": 1.2,
     "chance": 0.6,
     "vezes": 3
+   }
+  },
+  "fases_hp": [],
+  "ciclos": {},
+  "runs": 1,
+  "precisao_centro": 0.0,
+  "previsoes_testadas": 0
+ },
+ "Bodyguard Teegant": {
+  "cadeia": {
+   "1238580": {
+    "proxima": "1238330",
+    "apos": 5.98,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1238330": {
+    "proxima": "1910255",
+    "apos": 1.05,
+    "chance": 0.67,
+    "vezes": 2
+   },
+   "1910255": {
+    "proxima": "1238330",
+    "apos": 1.8,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1238580|1238330": {
+    "proxima": "1910255",
+    "apos": 1.05,
+    "chance": 1.0,
+    "vezes": 2
+   },
+   "1238330|1910255": {
+    "proxima": "1238330",
+    "apos": 1.8,
+    "chance": 1.0,
+    "vezes": 2
    }
   },
   "fases_hp": [],
