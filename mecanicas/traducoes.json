@@ -738,7 +738,16 @@
   "LANÇAS: SAI DAS FAIXAS": "SPEARS: LEAVE THE LANES",
   "Faixas laranja cruzando a arena: fique fora delas": "Orange lanes crossing the arena: stay out of them",
   "CÍRCULO EM VOCÊ: AFASTA": "CIRCLE ON YOU: MOVE AWAY",
-  "Afaste-se do grupo até o círculo explodir": "Move away from the group until the circle explodes"
+  "Afaste-se do grupo até o círculo explodir": "Move away from the group until the circle explodes",
+  "UM E DOIS: SAI DO ANEL": "ONE-TWO: LEAVE THE RING",
+  "Anel azul num jogador: saia antes dos dois golpes": "Blue ring on a player: leave before the two hits",
+  "Laser em linha até o alvo: saia da frente": "Laser line to the target: get out of the way",
+  "SALTO EM VOCÊ: SAI DO CÍRCULO": "LEAP ON YOU: LEAVE THE CIRCLE",
+  "Ele vai cair em você: saia do círculo laranja antes da explosão": "It will land on you: leave the orange circle before the blast",
+  "CÍRCULO E FAIXA: SAI": "CIRCLE AND LANE: GET OUT",
+  "Saia do círculo em volta dele e da faixa antes da explosão": "Leave the circle around it and the lane before the blast",
+  "GELO: SAI DE PERTO": "ICE: MOVE AWAY",
+  "Explosão de gelo em volta dele: corpo a corpo sai de perto": "Ice blast around it: melee move away"
  },
  "es": {
   "3 ACÚMULOS: AFASTA": "3 CARGAS: ALÉJATE",
@@ -1478,6 +1487,15 @@
   "LANÇAS: SAI DAS FAIXAS": "LANZAS: SAL DE LAS FRANJAS",
   "Faixas laranja cruzando a arena: fique fora delas": "Franjas naranjas cruzando la arena: quédate fuera",
   "CÍRCULO EM VOCÊ: AFASTA": "CÍRCULO SOBRE TI: ALÉJATE",
-  "Afaste-se do grupo até o círculo explodir": "Aléjate del grupo hasta que explote el círculo"
+  "Afaste-se do grupo até o círculo explodir": "Aléjate del grupo hasta que explote el círculo",
+  "UM E DOIS: SAI DO ANEL": "UNO Y DOS: SAL DEL ANILLO",
+  "Anel azul num jogador: saia antes dos dois golpes": "Anillo azul en un jugador: sal antes de los dos golpes",
+  "Laser em linha até o alvo: saia da frente": "Láser en línea hasta el objetivo: apártate",
+  "SALTO EM VOCÊ: SAI DO CÍRCULO": "SALTO SOBRE TI: SAL DEL CÍRCULO",
+  "Ele vai cair em você: saia do círculo laranja antes da explosão": "Va a caer sobre ti: sal del círculo naranja antes de la explosión",
+  "CÍRCULO E FAIXA: SAI": "CÍRCULO Y FRANJA: SAL",
+  "Saia do círculo em volta dele e da faixa antes da explosão": "Sal del círculo a su alrededor y de la franja antes de la explosión",
+  "GELO: SAI DE PERTO": "HIELO: ALÉJATE",
+  "Explosão de gelo em volta dele: corpo a corpo sai de perto": "Explosión de hielo a su alrededor: cuerpo a cuerpo se aleja"
  }
 }

@@ -6202,13 +6202,23 @@
               "acao": "O marcado leva o boss para um canto",
               "alerta": "MARCADO: CANTO",
               "gatilho": {
-                "tipo": "buff",
-                "abnormal_id": null
+                "tipo": "skill",
+                "skill_ids": [
+                  1603360
+                ],
+                "preparo_s": {
+                  "1603360": 1.65
+                }
               },
               "wipe": false,
               "confianca": "alta",
               "acao_tipo": "espalhar",
-              "id": "gelcos-investida-marcada"
+              "id": "gelcos-investida-marcada",
+              "confianca_skill": "media",
+              "observado": {
+                "fonte": "captura 2026-10-21 22:51 (run da Deus após 00:20) + vídeo 2026-10-22 00:20:46",
+                "nota": "1603360: feixe vermelho em linha até um jogador, investida e chão elétrico; a cada ~23 s, até 9.300"
+              }
             },
             {
               "nome": "Pancada em 9 linhas",
@@ -6550,6 +6560,71 @@
                   "ok": "arriscado",
                   "nota": "até 18 mil"
                 }
+              }
+            },
+            {
+              "id": "nazmun-um-e-dois",
+              "nome": "\"É Um! E Dois!\"",
+              "sinal": "1605630 (preparo 1,75 s): anel azul em volta de um jogador afastado e dois golpes",
+              "acao": "Anel azul num jogador: saia antes dos dois golpes",
+              "alerta": "UM E DOIS: SAI DO ANEL",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_ids": [
+                  1605630
+                ],
+                "preparo_s": {
+                  "1605630": 1.75
+                }
+              },
+              "wipe": false,
+              "confianca": "media",
+              "confianca_skill": "alta",
+              "acao_tipo": "sair",
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "UM E DOIS: SAI DO ANEL",
+                  "sub": "Anel azul num jogador: saia antes dos dois golpes",
+                  "tipo": "sair",
+                  "contagem": 3.0
+                }
+              ],
+              "observado": {
+                "fonte": "captura 2026-10-21 22:51 (run da Deus após 00:20) + vídeo 2026-10-22 00:20:46",
+                "nota": "a cada ~16 s; até 9.000"
+              }
+            },
+            {
+              "id": "nazmun-laser-poderoso",
+              "nome": "Laser poderoso",
+              "sinal": "1605620 Laser Poderoso (preparo 0,5 s) num jogador, a cada ~16 s",
+              "acao": "Laser em linha até o alvo: saia da frente",
+              "alerta": "LASER: SAI DA FRENTE",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_ids": [
+                  1605620
+                ],
+                "preparo_s": {
+                  "1605620": 0.5
+                }
+              },
+              "wipe": false,
+              "confianca": "media",
+              "confianca_skill": "alta",
+              "acao_tipo": "esquivar",
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "LASER: SAI DA FRENTE",
+                  "sub": "Laser em linha até o alvo: saia da frente",
+                  "tipo": "esquivar"
+                }
+              ],
+              "observado": {
+                "fonte": "captura 2026-10-21 22:51 (run da Deus após 00:20) + vídeo 2026-10-22 00:20:46",
+                "nota": "até 9.400"
               }
             },
             {
@@ -6902,6 +6977,105 @@
                   "nota": "leve ao grupo"
                 }
               }
+            },
+            {
+              "id": "atiel-salto-no-alvo",
+              "nome": "Salto no alvo",
+              "sinal": "1801490 (preparo 1,1 s): ele salta num jogador; ~4,5 s depois o círculo laranja da queda explode (1801500)",
+              "acao": "Ele vai cair em você: saia do círculo laranja antes da explosão",
+              "alerta": "SALTO EM VOCÊ: SAI DO CÍRCULO",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_ids": [
+                  1801490
+                ],
+                "preparo_s": {
+                  "1801490": 1.1
+                },
+                "pessoal": true
+              },
+              "wipe": false,
+              "confianca": "alta",
+              "confianca_skill": "alta",
+              "acao_tipo": "sair",
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "SALTO EM VOCÊ: SAI DO CÍRCULO",
+                  "sub": "Ele vai cair em você: saia do círculo laranja antes da explosão",
+                  "tipo": "sair",
+                  "contagem": 4.0
+                }
+              ],
+              "observado": {
+                "fonte": "captura 2026-10-21 22:51 (run da Deus após 00:20) + vídeo 2026-10-22 00:20:46",
+                "nota": "a cada ~26 s; até 11.400 em quem fica perto da queda"
+              },
+              "voz_curta": "sair_voce"
+            },
+            {
+              "id": "atiel-circulo-e-faixa",
+              "nome": "Círculo e faixa",
+              "sinal": "1801430 (sem preparo): aos ~3 s, círculo laranja grande em volta dele e uma faixa até um jogador afastado; explode aos ~4,5 s",
+              "acao": "Saia do círculo em volta dele e da faixa antes da explosão",
+              "alerta": "CÍRCULO E FAIXA: SAI",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_ids": [
+                  1801430
+                ],
+                "supressao_s": 5
+              },
+              "wipe": false,
+              "confianca": "alta",
+              "confianca_skill": "alta",
+              "acao_tipo": "sair",
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "CÍRCULO E FAIXA: SAI",
+                  "sub": "Saia do círculo em volta dele e da faixa antes da explosão",
+                  "tipo": "sair",
+                  "contagem": 4.0
+                }
+              ],
+              "observado": {
+                "fonte": "captura 2026-10-21 22:51 (run da Deus após 00:20) + vídeo 2026-10-22 00:20:46",
+                "nota": "a cada ~21 s; o golpe que mais acertou o grupo (até 10.500)"
+              }
+            },
+            {
+              "id": "atiel-explosao-de-gelo",
+              "nome": "Explosão de gelo",
+              "sinal": "1801420 (preparo 1,0 s): explosão de gelo em volta dele, logo depois do círculo e faixa",
+              "acao": "Explosão de gelo em volta dele: corpo a corpo sai de perto",
+              "alerta": "GELO: SAI DE PERTO",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_ids": [
+                  1801420
+                ],
+                "preparo_s": {
+                  "1801420": 1.0
+                }
+              },
+              "wipe": false,
+              "confianca": "media",
+              "confianca_skill": "alta",
+              "acao_tipo": "sair",
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "GELO: SAI DE PERTO",
+                  "sub": "Explosão de gelo em volta dele: corpo a corpo sai de perto",
+                  "tipo": "sair"
+                }
+              ],
+              "observado": {
+                "fonte": "captura 2026-10-21 22:51 (run da Deus após 00:20) + vídeo 2026-10-22 00:20:46",
+                "nota": "a cada ~26 s; até 8.600"
+              },
+              "so_perto": true
             },
             {
               "id": "atiel-atordoado",
