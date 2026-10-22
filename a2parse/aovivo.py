@@ -22,7 +22,7 @@ from dataclasses import dataclass, field
 
 from .alertas import Alerta, MotorAlertas, boss_por_npc, modo_do_npc, carregar_dicas
 from .analise import Analise
-from .classes import NOME as NOME_CLASSE, PAPEL, DetectorClasse, classe_do_pc
+from .classes import HIBRIDAS, NOME as NOME_CLASSE, PAPEL, DetectorClasse, classe_do_pc
 from . import controle as cc
 from .decoders import Leitor
 from .eventos import Eventos
@@ -196,19 +196,40 @@ class Sessao:
     def meu_papel(self) -> str | None:
         return self.papel_fixo or PAPEL.get(self.minha_classe or "")
 
-    def com_aggro(self, b: BossVivo, agora: float, janela: float = 15.0) -> bool:
-        """Você segura o aggro deste boss: é o alvo mais comum dos casts dele (≥3) nos últimos segundos."""
+    def quem_tem_aggro(self, b: BossVivo, agora: float, janela: float = 15.0) -> int | None:
+        """O jogador que segura o aggro deste boss: o alvo mais comum dos casts dele (≥3) nos últimos segundos."""
         recentes = [a for t, a in b.alvos if agora - t <= janela]
-        if self.eu is None or len(recentes) < 3:
-            return False
-        mais, _ = Counter(recentes).most_common(1)[0]
-        return mais == self.eu
+        if len(recentes) < 3:
+            return None
+        return Counter(recentes).most_common(1)[0][0]
+
+    def com_aggro(self, b: BossVivo, agora: float, janela: float = 15.0) -> bool:
+        return self.eu is not None and self.quem_tem_aggro(b, agora, janela) == self.eu
+
+    def classes_no_grupo(self) -> set[str]:
+        """Classes do seu grupo: a lista do grupo (0x9702) e quem está batendo no boss nesta luta."""
+        classes = {self.perfis[n].get("classe") for n in self.grupo if n in self.perfis}
+        l = self.medidor.atual
+        if l is not None:
+            classes |= {self.medidor.classe_de(e) for e in l.dano if e in self.nomes and e != self.eu}
+        return {c for c in classes if c}
 
     def papel_no_boss(self, b: BossVivo, agora: float) -> str | None:
-        """O papel dos avisos deste boss: quem está com o aggro vira "tank" (o tank improvisado sem Templário).
-        Um papel escolhido à mão na engrenagem vale sempre."""
-        if not self.papel_fixo and self._em_grupo(b) and self.com_aggro(b, agora):
+        """O papel dos avisos deste boss. Um papel escolhido à mão na engrenagem vale sempre. No automático:
+        1. quem segura o aggro vira "tank" (o tank improvisado);
+        2. classe híbrida sem a classe que faria o papel no grupo assume esse papel: Gladiador sem Templário é o tank
+           (até o aggro mostrar outro jogador segurando), Chanter sem Clérigo é quem cura;
+        3. senão, o papel da classe. Sozinho, vale sempre o papel da classe."""
+        if self.papel_fixo or not self._em_grupo(b):
+            return self.meu_papel
+        dono = self.quem_tem_aggro(b, agora)
+        if dono is not None and dono == self.eu:
             return "tank"
+        hibrida = HIBRIDAS.get(self.minha_classe or "")
+        if hibrida and hibrida[1] not in self.classes_no_grupo():
+            papel, _ = hibrida
+            if papel != "tank" or dono is None:      # outro jogador com o aggro: você volta a ser DPS
+                return papel
         return self.meu_papel
 
     def _em_grupo(self, b: BossVivo) -> bool:
@@ -264,7 +285,7 @@ class Sessao:
             "eu": self.meu_nome or (str(self.eu) if self.eu else ""),
             "classe": NOME_CLASSE.get(self.minha_classe or "", ""),
             "classe_chave": self.minha_classe,
-            "papel": self.meu_papel or "",
+            "papel": (self.papel_no_boss(b, agora) if b else self.meu_papel) or "",     # o papel que vale agora
             "jogo": self.jogo_visto,
             "mensagens": self.mensagens,
         }

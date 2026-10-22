@@ -196,7 +196,8 @@
   "resp_imunidade": "Imunidade",
   "resp_ou": "ou",
   "canal_beta": "Receber versões de teste (beta)",
-  "canal_beta_nota": "As versões beta chegam antes, para testar. Desmarcando, você volta para a estável na próxima versão estável."
+  "canal_beta_nota": "As versões beta chegam antes, para testar. Desmarcando, você volta para a estável na próxima versão estável.",
+  "papel_auto_nota": "Automático: pela classe e pelo grupo. Quem segura o aggro do boss vê os avisos de tank; Gladiador sem Templário no grupo é o tank, e Chanter sem Clérigo é quem cura."
  },
  "classes": {
   "GLADIATOR": "Gladiador",

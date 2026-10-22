@@ -92,6 +92,25 @@ class TestSessao(unittest.TestCase):
         s = Sessao(DADOS, classe_fixa="TEMPLAR", papel_fixo="dps")
         self.assertEqual((s.estado(0)["classe"], s.estado(0)["papel"]), ("Templário", "dps"))
 
+    def test_hibridas_assumem_o_papel_que_falta_no_grupo(self):
+        """Gladiador sem Templário no grupo é o tank desde o pull; com Templário, é DPS. Chanter sem Clérigo cura."""
+        def sessao(classe, outras):
+            s = Sessao(DADOS, classe_fixa=classe)
+            f = Fluxo(s)
+            f.enviar(0.0, b"", syn=True)
+            f.enviar(0.1, g.horario(1) + g.eu(EU, "Heroi") + g.spawn(BOSS, AULDOR_NPC) + g.hp(BOSS, 8_000_000))
+            s.grupo = ["Heroi"] + [f"P{i}" for i in range(len(outras))]
+            s.perfis = {f"P{i}": {"classe": c} for i, c in enumerate(outras)}
+            return s, s.bosses[BOSS]
+        s, b = sessao("GLADIATOR", ["RANGER", "CLERIC"])
+        self.assertEqual(s.papel_no_boss(b, 1.0), "tank")
+        s, b = sessao("GLADIATOR", ["TEMPLAR", "CLERIC"])
+        self.assertEqual(s.papel_no_boss(b, 1.0), "dps")
+        s, b = sessao("CHANTER", ["GLADIATOR", "RANGER"])
+        self.assertEqual(s.papel_no_boss(b, 1.0), "healer")
+        s, b = sessao("CHANTER", ["CLERIC"])
+        self.assertEqual(s.papel_no_boss(b, 1.0), "suporte")
+
     def test_tank_improvisado_quando_o_aggro_e_seu(self):
         s = Sessao(DADOS, classe_fixa="GLADIATOR")
         f = Fluxo(s)

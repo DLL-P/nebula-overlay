@@ -17,6 +17,10 @@ NOME = {"GLADIATOR": "Gladiador", "TEMPLAR": "Templário", "ASSASSIN": "Assassin
         "FIGHTER": "Lutador"}
 
 # papel padrão em masmorra; dá para trocar com --papel no overlay
+# Híbridas: o papel muda com o grupo. Gladiador é DPS corpo a corpo e off-tank (tanka quando não há Templário);
+# Chanter é suporte e DPS corpo a corpo (cura quando não há Clérigo).
+HIBRIDAS = {"GLADIATOR": ("tank", "TEMPLAR"), "CHANTER": ("healer", "CLERIC")}
+
 PAPEL = {"GLADIATOR": "dps", "TEMPLAR": "tank", "ASSASSIN": "dps", "RANGER": "dps", "SORCERER": "dps",
          "ELEMENTALIST": "dps", "CLERIC": "healer", "CHANTER": "suporte", "FIGHTER": "dps"}
 

@@ -196,7 +196,8 @@
   "resp_imunidade": "Immunity",
   "resp_ou": "or",
   "canal_beta": "Get test versions (beta)",
-  "canal_beta_nota": "Beta versions arrive first, for testing. Unchecking it puts you back on stable with the next stable release."
+  "canal_beta_nota": "Beta versions arrive first, for testing. Unchecking it puts you back on stable with the next stable release.",
+  "papel_auto_nota": "Automatic: by class and group. Whoever holds the boss's aggro sees the tank warnings; a Gladiator with no Templar in the group is the tank, and a Chanter with no Cleric is the healer."
  },
  "classes": {
   "GLADIATOR": "Gladiator",

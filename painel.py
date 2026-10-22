@@ -349,6 +349,7 @@ class Configuracoes:
         v_pa = tk.StringVar(value=self.ov.cfg.get("papel") or "")
         self._radios(c, v_pa, [("", t("automatico"))] + [(p, idioma.nome_papel(p)) for p in ("tank", "healer", "dps", "suporte")],
                      lambda: self._papel(v_pa.get()), lado=True)
+        self._nota(c, t("papel_auto_nota"))
 
         self._titulo(c, t("mostrar"))
         self._caixa(c, t("dicas"), "dicas", aplicar=lambda v: setattr(self.ov, "dicas_on", v))

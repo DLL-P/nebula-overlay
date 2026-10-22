@@ -196,7 +196,8 @@
   "resp_imunidade": "Inmunidad",
   "resp_ou": "o",
   "canal_beta": "Recibir versiones de prueba (beta)",
-  "canal_beta_nota": "Las versiones beta llegan antes, para probar. Al desmarcarlo vuelves a la estable con la próxima versión estable."
+  "canal_beta_nota": "Las versiones beta llegan antes, para probar. Al desmarcarlo vuelves a la estable con la próxima versión estable.",
+  "papel_auto_nota": "Automático: por clase y grupo. Quien tiene el aggro del jefe ve los avisos de tanque; un Gladiador sin Templario en el grupo es el tanque, y un Chanter sin Clérigo es quien cura."
  },
  "classes": {
   "GLADIATOR": "Gladiador",
