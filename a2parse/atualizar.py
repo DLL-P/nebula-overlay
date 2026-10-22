@@ -20,6 +20,7 @@ import urllib.request
 from .versao import REPO, VERSAO
 
 API = f"https://api.github.com/repos/{REPO}/releases/latest"
+API_TODAS = f"https://api.github.com/repos/{REPO}/releases?per_page=20"     # inclui os pré-lançamentos (beta)
 INSTALADOR = "NebulaOverlay-Setup.exe"
 _AGENTE = {"User-Agent": "NebulaOverlay", "Accept": "application/vnd.github+json"}
 
@@ -33,10 +34,20 @@ def de_desenvolvimento() -> bool:
     return not numeros(VERSAO)
 
 
-def mais_nova() -> dict | None:
-    """A versão publicada mais nova, se for mais nova que esta: {versao, instalador, sha256, notas}."""
-    with urllib.request.urlopen(urllib.request.Request(API, headers=_AGENTE), timeout=8) as r:
-        d = json.load(r)
+def _publicacao(beta: bool) -> dict:
+    """A versão a comparar: a estável mais nova ou, no canal beta, a mais nova de todas (beta ou estável)."""
+    if not beta:
+        with urllib.request.urlopen(urllib.request.Request(API, headers=_AGENTE), timeout=8) as r:
+            return json.load(r)
+    with urllib.request.urlopen(urllib.request.Request(API_TODAS, headers=_AGENTE), timeout=8) as r:
+        lista = [d for d in json.load(r) if not d.get("draft") and numeros(d.get("tag_name", ""))]
+    return max(lista, key=lambda d: numeros(d["tag_name"]), default={})
+
+
+def mais_nova(beta: bool = False) -> dict | None:
+    """A versão publicada mais nova, se for mais nova que esta: {versao, instalador, sha256, notas, beta}.
+    beta: também os pré-lançamentos (canal de teste); sem ele, só a versão estável."""
+    d = _publicacao(beta)
     tag = d.get("tag_name", "")
     if not numeros(tag) or numeros(tag) <= numeros(VERSAO):
         return None
@@ -44,7 +55,7 @@ def mais_nova() -> dict | None:
     if INSTALADOR not in ativos or INSTALADOR + ".sha256" not in ativos:
         return None
     return {"versao": tag.lstrip("v"), "instalador": ativos[INSTALADOR], "sha256": ativos[INSTALADOR + ".sha256"],
-            "notas": d.get("body", "")}
+            "notas": d.get("body", ""), "beta": bool(d.get("prerelease"))}
 
 
 def _do_repositorio(url: str) -> bool:

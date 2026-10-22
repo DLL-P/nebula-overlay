@@ -510,7 +510,7 @@ class Overlay:
 
         def olhar():
             try:
-                self._info_atualizacao = atualizar.mais_nova() or {}
+                self._info_atualizacao = atualizar.mais_nova(beta=self.cfg.get("canal_beta", False)) or {}
                 return ""
             except Exception as e:
                 return t("sem_internet", erro=str(e)[:80])

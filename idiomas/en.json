@@ -194,7 +194,9 @@
   "resp_limpar": "Cleanse the debuff",
   "resp_escudo": "Shield",
   "resp_imunidade": "Immunity",
-  "resp_ou": "or"
+  "resp_ou": "or",
+  "canal_beta": "Get test versions (beta)",
+  "canal_beta_nota": "Beta versions arrive first, for testing. Unchecking it puts you back on stable with the next stable release."
  },
  "classes": {
   "GLADIATOR": "Gladiator",

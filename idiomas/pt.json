@@ -194,7 +194,9 @@
   "resp_limpar": "Limpe o debuff",
   "resp_escudo": "Escudo",
   "resp_imunidade": "Imunidade",
-  "resp_ou": "ou"
+  "resp_ou": "ou",
+  "canal_beta": "Receber versões de teste (beta)",
+  "canal_beta_nota": "As versões beta chegam antes, para testar. Desmarcando, você volta para a estável na próxima versão estável."
  },
  "classes": {
   "GLADIATOR": "Gladiador",

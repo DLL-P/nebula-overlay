@@ -449,6 +449,8 @@ class Configuracoes:
             self._nota(c, t("versao_dev"))
         else:
             self._caixa(c, t("atualizar_auto"), "atualizar_auto")
+            self._caixa(c, t("canal_beta"), "canal_beta", padrao=False)
+            self._nota(c, t("canal_beta_nota"))
             estado = self._nota(c, self.msg_atual)
 
             def procurar():
@@ -462,7 +464,8 @@ class Configuracoes:
             if self.ov._info_atualizacao:
                 _botao(linha_a, t("btn_atualizar"), self.ov.atualizar_agora, destaque=True, pequeno=True).pack(
                     side="left", padx=(8, 0))
-                self._nota(c, t("nova_versao", v=self.ov._info_atualizacao["versao"]), cor="#d8c9ff")
+                v = self.ov._info_atualizacao["versao"] + (" (beta)" if self.ov._info_atualizacao.get("beta") else "")
+                self._nota(c, t("nova_versao", v=v), cor="#d8c9ff")
         self._titulo(c, "")
         self._nota(c, t("aviso_legal"))
         linha = tk.Frame(c, bg=CARTAO)

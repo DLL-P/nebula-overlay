@@ -1,10 +1,11 @@
 # A cada commit no main (seu ou de uma contribuição aceita): roda os testes, gera o app e o instalador
 # e publica uma versão no GitHub. O Nebula Overlay instalado acha essa versão e se atualiza sozinho.
+# No ramo beta a versão sai como pré-lançamento: só quem marcou "Receber versões de teste" recebe.
 name: Lançar versão
 
 on:
   push:
-    branches: [main]
+    branches: [main, beta]
     paths-ignore: ["**.md", "docs/**", ".github/ISSUE_TEMPLATE/**"]
   workflow_dispatch:
 
@@ -48,6 +49,11 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           git log -1 --pretty=%B > notas.txt
+          if [ "${{ github.ref_name }}" = "beta" ]; then
+            canal="--prerelease"; titulo="Nebula Overlay ${{ steps.v.outputs.versao }} (beta)"
+          else
+            canal="--latest"; titulo="Nebula Overlay ${{ steps.v.outputs.versao }}"
+          fi
           gh release create "v${{ steps.v.outputs.versao }}" \
             dist/NebulaOverlay-Setup.exe dist/NebulaOverlay-Setup.exe.sha256 \
-            --title "Nebula Overlay ${{ steps.v.outputs.versao }}" --notes-file notas.txt --latest
+            --title "$titulo" --notes-file notas.txt $canal
