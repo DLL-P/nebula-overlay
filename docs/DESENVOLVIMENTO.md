@@ -71,6 +71,7 @@ Cada masmorra tem bosses; cada boss tem `ids` (código do mob por dificuldade) e
 | `so_perto` | só para classes corpo a corpo (ex.: ENGAJE) |
 | `classes`, `por_classe` | quem vê o alerta pela classe e texto trocado por classe (ex.: fase vermelha do Thamon só para dano físico) |
 | `dica_tipo`, `dicas` | outra chave da tabela de dicas, ou dica fixa por classe |
+| `respostas` | `{tipo: {"ok": "sim"/"arriscado"/"nao", "nota", "papeis", "classes"}}` com `absorver`, `bloquear`, `esquiva_perfeita`, `esquivar`, `saltar`, `correr`, `empilhar`, `intercepta`, `quebrar_stagger`, `curar`, `limpar`, `escudo`, `imunidade`. O cartão mostra só as 2 melhores para a classe e o papel: DPS mantém o dano, o tank segura, Clérigo e Chanter cuidam do grupo (`ORDEM_RESPOSTAS` em `a2parse/alertas.py`); quem joga de longe prefere sair do alcance. Com respostas, elas tomam o lugar da dica genérica |
 | `burst` | janelas `segurar` / `soltar` |
 | `voz`, `voz_curta` | fala trocada / chave da palavra de ordem |
 

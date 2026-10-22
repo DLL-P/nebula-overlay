@@ -284,6 +284,23 @@ class TestMotor(unittest.TestCase):
         m = MotorAlertas(b, pre_aviso=False, modo_skills=True, modo="Conquista")
         self.assertNotIn("CORRE PRO CÍRCULO (14s)", [a.texto for a in m.hp(0, 100) + m.hp(5, 24) + m.avancar(10)])
 
+    def test_so_as_melhores_respostas_para_cada_classe(self):
+        """DPS mantém o dano (bloqueia antes de sair), o tank segura, Clérigo e Chanter cuidam do grupo; no máximo 2,
+        "nao" nunca aparece e quem não tem a ferramenta (Ranger não bloqueia) não a vê."""
+        from a2parse.alertas import melhores_respostas
+        rs = {"absorver": {"ok": "nao", "nota": "2 acertos matam"}, "bloquear": {"ok": "sim"},
+              "esquiva_perfeita": {"ok": "sim"}, "correr": {"ok": "sim"}, "limpar": {"ok": "sim"},
+              "intercepta": {"ok": "arriscado"}}
+        tipos = lambda classe, papel: [t for t, _ in melhores_respostas(rs, classe, papel)]
+        self.assertEqual(tipos("GLADIATOR", "dps"), ["bloquear", "esquiva_perfeita"])
+        self.assertEqual(tipos("RANGER", "dps"), ["correr", "esquiva_perfeita"])     # de longe, sair não custa dano
+        self.assertEqual(tipos("CLERIC", "healer"), ["limpar", "correr"])
+        self.assertEqual(tipos("TEMPLAR", "tank"), ["bloquear", "esquiva_perfeita"])
+        b = boss(DADOS, "Black Smoke Murute")
+        m = MotorAlertas(b, pre_aviso=False, modo_skills=True, classe="GLADIATOR", papel="dps")
+        a = [x for x in m.skill(1.0, 1600720) + m.avancar(2) if x.texto.startswith("3 ANÉIS")][0]
+        self.assertEqual([t for t, _ in a.respostas], ["bloquear", "esquiva_perfeita"])
+
     def test_reserva_de_hp_fica_de_fora_no_modo_skills(self):
         m = MotorAlertas(boss(DADOS, "Divine Auldor"), pre_aviso=False, modo_skills=True)
         textos = [a.texto for a in m.hp(0, 100) + m.hp(5, 74) + m.avancar(100)]

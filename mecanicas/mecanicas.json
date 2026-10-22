@@ -3166,6 +3166,15 @@
               "observado": {
                 "fonte": "captura 2026-10-18 16:53 (Exploração, sem vídeo) + guia NoBS Game Guides",
                 "ritmo": "1227160 a cada ~17 s; 1227170 a cada ~34 s"
+              },
+              "respostas": {
+                "correr": {
+                  "ok": "sim",
+                  "nota": "volte quando parar"
+                },
+                "esquivar": {
+                  "ok": "sim"
+                }
               }
             },
             {
@@ -3191,6 +3200,14 @@
               "observado": {
                 "fonte": "captura 2026-10-18 16:53 (Exploração, sem vídeo) + guia NoBS Game Guides",
                 "dano_max": "1.560"
+              },
+              "respostas": {
+                "esquivar": {
+                  "ok": "sim"
+                },
+                "bloquear": {
+                  "ok": "sim"
+                }
               }
             },
             {
@@ -3229,6 +3246,12 @@
               "observado_conquista": {
                 "fonte": "captura 2026-10-19 02:15 (Conquista, 2 runs, tank Templário) + vídeos 02:34:43 e 02:42:56",
                 "nota": "aos 19% e 45% na Conquista; até 2.100"
+              },
+              "respostas": {
+                "esquivar": {
+                  "ok": "sim",
+                  "nota": "continue andando"
+                }
               }
             },
             {
@@ -3324,6 +3347,16 @@
               "observado_conquista": {
                 "fonte": "captura 2026-10-19 02:15 (Conquista, 2 runs, tank Templário) + vídeos 02:34:43 e 02:42:56",
                 "nota": "Bomba Flamejante (1600840) aos ~85% e ~36% na Conquista (79% na Exploração); as marcas (1600846) caem ~3 s depois"
+              },
+              "respostas": {
+                "correr": {
+                  "ok": "sim",
+                  "nota": "poça na borda"
+                },
+                "curar": {
+                  "ok": "sim",
+                  "nota": "no marcado"
+                }
               }
             },
             {
@@ -3358,6 +3391,12 @@
               "observado": {
                 "fonte": "captura 2026-10-18 16:53 (Exploração, sem vídeo) + guia NoBS Game Guides",
                 "nota": "1600840 (preparo 1,2 s) aos 79% e 2× 1600846 em jogadores aos 66% na Exploração"
+              },
+              "respostas": {
+                "correr": {
+                  "ok": "sim",
+                  "nota": "poça na borda"
+                }
               }
             },
             {
@@ -3401,6 +3440,16 @@
               "observado_kr": {
                 "fonte": "vídeo 'Fire Temple conquest mode full run Gladiator POV' (Awake, servidor KR, bosses nível 63), 2026-10-19",
                 "nota": "investe em cada jogador; espalhar ou bloquear"
+              },
+              "respostas": {
+                "empilhar": {
+                  "ok": "sim",
+                  "nota": "colado nele, <8 m"
+                },
+                "correr": {
+                  "ok": "arriscado",
+                  "nota": "ou longe, >32 m"
+                }
               }
             },
             {
@@ -3437,7 +3486,16 @@
                   "sub": "dois seguidos: não fique parado",
                   "tipo": "esquivar"
                 }
-              ]
+              ],
+              "respostas": {
+                "esquivar": {
+                  "ok": "sim",
+                  "nota": "não pare"
+                },
+                "curar": {
+                  "ok": "sim"
+                }
+              }
             },
             {
               "nome": "Investida no tank",
@@ -3481,7 +3539,18 @@
                   "tipo": "sair",
                   "so_perto": true
                 }
-              ]
+              ],
+              "respostas": {
+                "bloquear": {
+                  "ok": "sim"
+                },
+                "esquiva_perfeita": {
+                  "ok": "sim"
+                },
+                "correr": {
+                  "ok": "sim"
+                }
+              }
             },
             {
               "nome": "Estrela de 5 linhas",
@@ -3604,6 +3673,18 @@
               "observado_conquista": {
                 "fonte": "captura 2026-10-19 02:15 (Conquista, 2 runs, tank Templário) + vídeos 02:34:43 e 02:42:56",
                 "nota": "Impacto no Solo (1600680) aos ~95% e ~30%: até 11.100 no Gladiador"
+              },
+              "respostas": {
+                "bloquear": {
+                  "ok": "sim",
+                  "papeis": [
+                    "tank"
+                  ]
+                },
+                "correr": {
+                  "ok": "sim",
+                  "nota": "assim que subirem"
+                }
               }
             },
             {
@@ -3618,7 +3699,16 @@
               "wipe": false,
               "confianca": "alta",
               "acao_tipo": "esquivar",
-              "id": "black-smoke-murute-circulos-atrasados"
+              "id": "black-smoke-murute-circulos-atrasados",
+              "respostas": {
+                "bloquear": {
+                  "ok": "sim"
+                },
+                "esquivar": {
+                  "ok": "sim",
+                  "nota": "atrase a esquiva"
+                }
+              }
             },
             {
               "nome": "Três anéis",
@@ -3692,6 +3782,28 @@
               "observado_conquista": {
                 "fonte": "captura 2026-10-19 02:15 (Conquista, 2 runs, tank Templário) + vídeos 02:34:43 e 02:42:56",
                 "nota": "Terremoto Devastador (1600720 = Great Earthquake) aos 28% na run 1; na run 2 o boss morreu antes"
+              },
+              "respostas": {
+                "absorver": {
+                  "ok": "nao",
+                  "nota": "2 acertos matam"
+                },
+                "bloquear": {
+                  "ok": "sim",
+                  "nota": "os 3"
+                },
+                "esquiva_perfeita": {
+                  "ok": "sim",
+                  "nota": "nos 3"
+                },
+                "quebrar_stagger": {
+                  "ok": "sim",
+                  "nota": "cancela os anéis"
+                },
+                "correr": {
+                  "ok": "sim",
+                  "nota": "até 25 m"
+                }
               }
             },
             {
@@ -3739,7 +3851,13 @@
                   "tipo": "esquivar",
                   "contagem": 3.0
                 }
-              ]
+              ],
+              "respostas": {
+                "esquivar": {
+                  "ok": "sim",
+                  "nota": "saia da linha"
+                }
+              }
             },
             {
               "nome": "Leque de 5 linhas",
@@ -3800,6 +3918,18 @@
               "observado_conquista": {
                 "fonte": "captura 2026-10-19 02:15 (Conquista, 2 runs, tank Templário) + vídeos 02:34:43 e 02:42:56",
                 "nota": "até 10.200 no Gladiador; a cada ~28 s"
+              },
+              "respostas": {
+                "bloquear": {
+                  "ok": "sim",
+                  "papeis": [
+                    "tank"
+                  ]
+                },
+                "correr": {
+                  "ok": "sim",
+                  "nota": "saia da frente"
+                }
               }
             },
             {
@@ -3910,6 +4040,20 @@
               "observado_conquista": {
                 "fonte": "captura 2026-10-19 02:15 (Conquista, 2 runs, tank Templário) + vídeos 02:34:43 e 02:42:56",
                 "nota": "1801186 aos 69% e 36% (run 1) e 75% e 39% (run 2): o HP varia, a skill não. As paredes começam ~4,5 s depois; 1801185 sai ~18 s depois (fim)"
+              },
+              "respostas": {
+                "correr": {
+                  "ok": "sim",
+                  "nota": "pela abertura"
+                },
+                "absorver": {
+                  "ok": "arriscado",
+                  "nota": "1 parede, queima"
+                },
+                "limpar": {
+                  "ok": "sim",
+                  "nota": "a queimadura"
+                }
               }
             },
             {
@@ -3948,7 +4092,21 @@
                 "nota": "2ª transição aos ~40%; o narrador deixa a invulnerabilidade pronta para ela"
               },
               "coberto_por": "kromede-s-desire-paredes-de-fogo",
-              "nota": "Na Conquista as duas vezes vêm pela mesma skill (1801186): o alerta sai pela mecânica principal."
+              "nota": "Na Conquista as duas vezes vêm pela mesma skill (1801186): o alerta sai pela mecânica principal.",
+              "respostas": {
+                "correr": {
+                  "ok": "sim",
+                  "nota": "espere o projétil"
+                },
+                "absorver": {
+                  "ok": "arriscado",
+                  "nota": "1 parede, queima"
+                },
+                "limpar": {
+                  "ok": "sim",
+                  "nota": "a queimadura"
+                }
+              }
             },
             {
               "id": "kromede-fase-2-combo-no-ar",
@@ -3983,6 +4141,18 @@
               "nota": "Disparo por HP (35%) até a skill do combo aéreo ser capturada numa run de Conquista.",
               "observado_kr": {
                 "fonte": "vídeo 'Fire Temple conquest mode full run Gladiator POV' (Awake, servidor KR, bosses nível 63), 2026-10-19"
+              },
+              "respostas": {
+                "bloquear": {
+                  "ok": "sim",
+                  "papeis": [
+                    "tank"
+                  ]
+                },
+                "esquivar": {
+                  "ok": "sim",
+                  "nota": "vá pras costas"
+                }
               }
             },
             {
@@ -4019,6 +4189,16 @@
               "observado_conquista": {
                 "fonte": "captura 2026-10-19 02:15 (Conquista, 2 runs, tank Templário) + vídeos 02:34:43 e 02:42:56",
                 "nota": "Chamas Uivantes (1801130) + 1801131 em cada jogador (um por jogador, até 13.800): círculos embaixo de cada um"
+              },
+              "respostas": {
+                "esquivar": {
+                  "ok": "sim",
+                  "nota": "saia do círculo"
+                },
+                "bloquear": {
+                  "ok": "sim",
+                  "nota": "no salto"
+                }
               }
             },
             {
@@ -4044,6 +4224,15 @@
               "observado_kr": {
                 "fonte": "vídeo 'Fire Temple conquest mode full run Gladiator POV' (Awake, servidor KR, bosses nível 63), 2026-10-19",
                 "nota": "o narrador bloqueia a 1ª e esquiva a 2ª na fase 2"
+              },
+              "respostas": {
+                "bloquear": {
+                  "ok": "sim"
+                },
+                "esquivar": {
+                  "ok": "sim",
+                  "nota": "de lado"
+                }
               }
             },
             {
@@ -4083,6 +4272,15 @@
               "observado_conquista": {
                 "fonte": "captura 2026-10-19 02:15 (Conquista, 2 runs, tank Templário) + vídeos 02:34:43 e 02:42:56",
                 "nota": "Voto da Alma (1801100), 3 s depois do salto 1801109, aos 51% e ~10%: faixas laranja retas para cada jogador e os clones avançam nelas"
+              },
+              "respostas": {
+                "esquiva_perfeita": {
+                  "ok": "sim"
+                },
+                "esquivar": {
+                  "ok": "sim",
+                  "nota": "lado, depois pra trás"
+                }
               }
             },
             {
@@ -4166,7 +4364,15 @@
                   "tipo": "atras",
                   "contagem": 3.0
                 }
-              ]
+              ],
+              "respostas": {
+                "bloquear": {
+                  "ok": "sim"
+                },
+                "esquivar": {
+                  "ok": "sim"
+                }
+              }
             },
             {
               "id": "kromede-s-desire-combo-de-espada",
@@ -4211,6 +4417,25 @@
               "observado_conquista": {
                 "fonte": "captura 2026-10-19 02:15 (Conquista, 2 runs, tank Templário) + vídeos 02:34:43 e 02:42:56",
                 "nota": "Golpes de espada da Conquista: Lâmina Infernal Dançante, Tornado de Lâminas, Lâmina Ágil (até 10.400 no Gladiador) e Dilaceração Impiedosa"
+              },
+              "respostas": {
+                "bloquear": {
+                  "ok": "sim",
+                  "nota": "último golpe",
+                  "papeis": [
+                    "tank"
+                  ]
+                },
+                "esquiva_perfeita": {
+                  "ok": "sim",
+                  "papeis": [
+                    "tank"
+                  ]
+                },
+                "esquivar": {
+                  "ok": "sim",
+                  "nota": "vá pras costas"
+                }
               }
             },
             {
@@ -4239,6 +4464,15 @@
               "observado_conquista": {
                 "fonte": "captura 2026-10-19 02:15 (Conquista, 2 runs, tank Templário) + vídeos 02:34:43 e 02:42:56",
                 "nota": "Fagulhas do Demônio (1801120); a 2ª explosão (1801126) apareceu na fase final, até 8.800"
+              },
+              "respostas": {
+                "esquivar": {
+                  "ok": "sim",
+                  "nota": "no wind-up"
+                },
+                "bloquear": {
+                  "ok": "arriscado"
+                }
               }
             },
             {
@@ -4272,6 +4506,16 @@
               "observado_conquista": {
                 "fonte": "captura 2026-10-19 02:15 (Conquista, 2 runs, tank Templário) + vídeos 02:34:43 e 02:42:56",
                 "nota": "30 quedas (1801116) por cast; depois dela vem a investida no mais distante (~3,5 s)"
+              },
+              "respostas": {
+                "esquivar": {
+                  "ok": "sim",
+                  "nota": "e corra"
+                },
+                "absorver": {
+                  "ok": "arriscado",
+                  "nota": "queima, não atordoa"
+                }
               }
             },
             {
@@ -4379,6 +4623,12 @@
               "id": "watchdog-kwapo-thunder-cry",
               "candidatos_skill": {
                 "1606910": "Thunder Cry (nome igual ao da tabela de skills do jogo; confirmar numa captura (mapear.py mostra como candidato))"
+              },
+              "respostas": {
+                "correr": {
+                  "ok": "sim",
+                  "nota": "pro lado limpo"
+                }
               }
             },
             {
@@ -4397,6 +4647,12 @@
               "id": "watchdog-kwapo-thunder-cry-2a-vez",
               "candidatos_skill": {
                 "1606910": "Thunder Cry (nome igual ao da tabela de skills do jogo; confirmar numa captura (mapear.py mostra como candidato))"
+              },
+              "respostas": {
+                "correr": {
+                  "ok": "sim",
+                  "nota": "pro lado limpo"
+                }
               }
             },
             {
@@ -4411,7 +4667,15 @@
               "wipe": true,
               "confianca": "alta",
               "acao_tipo": "pular",
-              "id": "watchdog-kwapo-anel-dos-orbes"
+              "id": "watchdog-kwapo-anel-dos-orbes",
+              "respostas": {
+                "saltar": {
+                  "ok": "sim"
+                },
+                "esquiva_perfeita": {
+                  "ok": "arriscado"
+                }
+              }
             },
             {
               "id": "watchdog-kwapo-atordoado",
@@ -4655,6 +4919,12 @@
               ],
               "dicas": {
                 "GLADIATOR": "Remoção de Impacto se a bola elétrica te atordoar"
+              },
+              "respostas": {
+                "correr": {
+                  "ok": "sim",
+                  "nota": "fora do círculo"
+                }
               }
             },
             {
@@ -4684,6 +4954,12 @@
               ],
               "dicas": {
                 "GLADIATOR": "Remoção de Impacto se a bola elétrica te atordoar"
+              },
+              "respostas": {
+                "correr": {
+                  "ok": "sim",
+                  "nota": "fora do círculo"
+                }
               }
             },
             {
@@ -4698,7 +4974,18 @@
               "wipe": false,
               "confianca": "alta",
               "acao_tipo": "empilhar",
-              "id": "necromancer-duanka-buraco-negro-dividir"
+              "id": "necromancer-duanka-buraco-negro-dividir",
+              "respostas": {
+                "empilhar": {
+                  "ok": "sim"
+                },
+                "escudo": {
+                  "ok": "sim"
+                },
+                "curar": {
+                  "ok": "sim"
+                }
+              }
             },
             {
               "id": "necromancer-duanka-atordoado",
@@ -4804,6 +5091,12 @@
               "observado": {
                 "fonte": "pesquisa 2026-10-19 (guias dbaion2, daevaguides, allthings.how, game8)",
                 "nota": "sem captura ainda: dispara por HP/tempo; os IDs das skills vêm das runs de Conquista"
+              },
+              "respostas": {
+                "intercepta": {
+                  "ok": "sim",
+                  "nota": "orbe entre você e ele"
+                }
               }
             },
             {
@@ -4826,6 +5119,16 @@
               "observado": {
                 "fonte": "pesquisa 2026-10-19 (guias dbaion2, daevaguides, allthings.how, game8)",
                 "nota": "sem captura ainda: dispara por HP/tempo; os IDs das skills vêm das runs de Conquista"
+              },
+              "respostas": {
+                "intercepta": {
+                  "ok": "sim",
+                  "nota": "no caminho"
+                },
+                "bloquear": {
+                  "ok": "sim",
+                  "nota": "ao interceptar"
+                }
               }
             },
             {
@@ -4848,6 +5151,16 @@
               "observado": {
                 "fonte": "pesquisa 2026-10-19 (guias dbaion2, daevaguides, allthings.how, game8)",
                 "nota": "sem captura ainda: dispara por HP/tempo; os IDs das skills vêm das runs de Conquista"
+              },
+              "respostas": {
+                "intercepta": {
+                  "ok": "sim",
+                  "nota": "outro jogador"
+                },
+                "bloquear": {
+                  "ok": "sim",
+                  "nota": "ao interceptar"
+                }
               }
             },
             {
@@ -4862,7 +5175,15 @@
               "wipe": false,
               "confianca": "media",
               "acao_tipo": "empilhar",
-              "id": "ferocious-horn-nuakum-orbe-vermelho"
+              "id": "ferocious-horn-nuakum-orbe-vermelho",
+              "respostas": {
+                "intercepta": {
+                  "ok": "sim"
+                },
+                "escudo": {
+                  "ok": "sim"
+                }
+              }
             },
             {
               "nome": "Poças de sangue",
@@ -4887,7 +5208,18 @@
               "wipe": false,
               "confianca": "alta",
               "acao_tipo": "empilhar",
-              "id": "ferocious-horn-nuakum-marca-de-presa"
+              "id": "ferocious-horn-nuakum-marca-de-presa",
+              "respostas": {
+                "empilhar": {
+                  "ok": "sim"
+                },
+                "escudo": {
+                  "ok": "sim"
+                },
+                "curar": {
+                  "ok": "sim"
+                }
+              }
             },
             {
               "nome": "Poças escuras",
@@ -5099,7 +5431,12 @@
                   "contagem": 6.0,
                   "contagem_voz": true
                 }
-              ]
+              ],
+              "respostas": {
+                "correr": {
+                  "ok": "sim"
+                }
+              }
             },
             {
               "id": "siliator-of-deceit-atordoado",
@@ -5179,7 +5516,12 @@
               "wipe": false,
               "confianca": "alta",
               "acao_tipo": "pular",
-              "id": "ruthilis-of-pain-raio-atrasado"
+              "id": "ruthilis-of-pain-raio-atrasado",
+              "respostas": {
+                "saltar": {
+                  "ok": "sim"
+                }
+              }
             },
             {
               "nome": "Arena vermelha",
@@ -5245,6 +5587,16 @@
               "observado": {
                 "fonte": "captura + vídeo 2026-10-17 18:08 (Transcendência, Estágio 1)",
                 "nota": "1606430 (preparo 1,65 s, ~55%) cria os raios (objeto 2920482): cada onda 1606431 bate ~1,4 s depois em 2 a 4 jogadores (12–13,6 mil) e se repete a cada ~20 s. Matou 2 nesta run"
+              },
+              "respostas": {
+                "absorver": {
+                  "ok": "nao",
+                  "nota": "~13 mil"
+                },
+                "correr": {
+                  "ok": "sim",
+                  "nota": "fora dos quadrados"
+                }
               }
             },
             {
@@ -5450,6 +5802,12 @@
               "observado": {
                 "fonte": "captura + vídeo 2026-10-17 10:34 (Transcendência)",
                 "nota": "1801770 (preparo 1,0 s, a cada ~49 s): anel claro sai pela borda da arena"
+              },
+              "respostas": {
+                "saltar": {
+                  "ok": "sim",
+                  "nota": "2 vezes"
+                }
               }
             },
             {
@@ -5569,6 +5927,15 @@
               "observado": {
                 "fonte": "captura + vídeo 2026-10-17 13:09 (Transcendência, Estágio 2)",
                 "nota": "1603260 (preparo 1,5 s) e 14 pulsos 1603270: anel elétrico grande em volta da arena (36% nesta run)"
+              },
+              "respostas": {
+                "bloquear": {
+                  "ok": "sim"
+                },
+                "correr": {
+                  "ok": "sim",
+                  "nota": "fora do anel"
+                }
               }
             },
             {
@@ -5583,7 +5950,13 @@
               "wipe": false,
               "confianca": "media",
               "acao_tipo": "espalhar",
-              "id": "gelcos-acumulos-eletricos"
+              "id": "gelcos-acumulos-eletricos",
+              "respostas": {
+                "correr": {
+                  "ok": "sim",
+                  "nota": "longe do grupo"
+                }
+              }
             },
             {
               "nome": "Investida marcada",
@@ -5653,7 +6026,16 @@
                 "fonte": "captura + vídeo 2026-10-17 13:09 (Transcendência, Estágio 2)",
                 "nota": "1603355 aos 56% (2 atingidos) e 1603350 aos 12% (3 atingidos), ~13,7 mil"
               },
-              "wipe": false
+              "wipe": false,
+              "respostas": {
+                "absorver": {
+                  "ok": "nao",
+                  "nota": "até 14 mil"
+                },
+                "correr": {
+                  "ok": "sim"
+                }
+              }
             },
             {
               "id": "gelcos-poca-eletrica-em-voce",
@@ -5725,7 +6107,16 @@
                 "fonte": "captura + vídeo 2026-10-17 15:10 (Transcendência, Estágio 2, run completa)",
                 "nota": "matou 2 jogadores e entrou na 1ª morte sua (4 acertos em 2 s)"
               },
-              "wipe": false
+              "wipe": false,
+              "respostas": {
+                "bloquear": {
+                  "ok": "arriscado"
+                },
+                "correr": {
+                  "ok": "sim",
+                  "nota": "volte depois"
+                }
+              }
             },
             {
               "id": "gelcos-atordoado",
@@ -5843,6 +6234,14 @@
               "observado": {
                 "fonte": "captura + vídeo 2026-10-17 13:09 (Transcendência, Estágio 2)",
                 "nota": "1605650 (Dispersão de Laser no cliente, preparo 1,0 s) atinge 4; fios elétricos saem dos dispositivos instalados no começo (1605640, Instalar Armadilha)"
+              },
+              "respostas": {
+                "saltar": {
+                  "ok": "sim"
+                },
+                "esquivar": {
+                  "ok": "arriscado"
+                }
               }
             },
             {
@@ -5901,7 +6300,19 @@
                 "fonte": "captura + vídeo 2026-10-17 13:09 (Transcendência, Estágio 2)",
                 "nota": "4 atingidos; 1605673 aos 32% com até 18 mil; 24 tiros 1605672 depois"
               },
-              "wipe": false
+              "wipe": false,
+              "respostas": {
+                "curar": {
+                  "ok": "sim"
+                },
+                "escudo": {
+                  "ok": "sim"
+                },
+                "absorver": {
+                  "ok": "arriscado",
+                  "nota": "até 18 mil"
+                }
+              }
             },
             {
               "id": "nazmun-atordoado",
@@ -6010,7 +6421,13 @@
                   "tipo": "stagger",
                   "contagem_voz": true
                 }
-              ]
+              ],
+              "respostas": {
+                "quebrar_stagger": {
+                  "ok": "sim",
+                  "nota": "em 10 s"
+                }
+              }
             },
             {
               "nome": "Corrente (2 jogadores)",
@@ -6083,7 +6500,13 @@
                   "sub": "desvie das lâminas azuis que saem do centro",
                   "tipo": "esquivar"
                 }
-              ]
+              ],
+              "respostas": {
+                "correr": {
+                  "ok": "sim",
+                  "nota": "pro centro"
+                }
+              }
             },
             {
               "nome": "Agarrar e esmagar",
@@ -6101,6 +6524,22 @@
               "id": "atiel-agarrar-e-esmagar",
               "candidatos_skill": {
                 "1801400": "preparo 1,0 s, alvo jogador, sem dano; 1801410 0,5 s depois"
+              },
+              "respostas": {
+                "bloquear": {
+                  "ok": "sim"
+                },
+                "esquiva_perfeita": {
+                  "ok": "sim"
+                },
+                "curar": {
+                  "ok": "sim",
+                  "nota": "no agarrado"
+                },
+                "escudo": {
+                  "ok": "sim",
+                  "nota": "no agarrado"
+                }
               }
             },
             {
@@ -6164,7 +6603,18 @@
                   "de": -4.4,
                   "ate": 1.8
                 }
-              ]
+              ],
+              "respostas": {
+                "empilhar": {
+                  "ok": "sim"
+                },
+                "escudo": {
+                  "ok": "sim"
+                },
+                "curar": {
+                  "ok": "sim"
+                }
+              }
             },
             {
               "id": "atiel-golpe-dividido-em-voce",
@@ -6207,6 +6657,12 @@
               "observado": {
                 "fonte": "captura 2026-10-17 23:32 + vídeo 23:30 (Deus, Estágio 2: 1 wipe e 1 vitória)",
                 "nota": "1801440 (preparo 1,5 s) e 1801450 miram sempre o mesmo jogador: preparo do 1801440 → cast do 1801450 em 4,3-4,4 s (6 casos) → dano 1,7 s depois. Sozinho no círculo: 77 mil (outro jogador) e 112 mil (você, 2 vezes). Nas suas duas mortes você era ao mesmo tempo o ligado do fio e o alvo do círculo; o aviso 'LIGADOS: SEPARA' te mandou para longe do grupo."
+              },
+              "respostas": {
+                "empilhar": {
+                  "ok": "sim",
+                  "nota": "leve ao grupo"
+                }
               }
             },
             {

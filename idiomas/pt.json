@@ -180,7 +180,21 @@
   "erro_npcap_admin": "Para ler a conexão do jogo, abra o Nebula Overlay como administrador (captura pelo próprio Windows) ou instale o Npcap.",
   "erro_windows": "Não consegui capturar pelo Windows ({erro}). Instale o Npcap.",
   "btn_admin": "Abrir como administrador",
-  "sem_npcap": "sem Npcap"
+  "sem_npcap": "sem Npcap",
+  "resp_absorver": "Tome o golpe",
+  "resp_bloquear": "Bloqueie",
+  "resp_esquiva_perfeita": "Esquiva perfeita",
+  "resp_esquivar": "Esquive",
+  "resp_saltar": "Salte",
+  "resp_correr": "Saia correndo",
+  "resp_empilhar": "Empilhe",
+  "resp_intercepta": "Intercepte",
+  "resp_quebrar_stagger": "Quebre o stagger",
+  "resp_curar": "Cure o grupo",
+  "resp_limpar": "Limpe o debuff",
+  "resp_escudo": "Escudo",
+  "resp_imunidade": "Imunidade",
+  "resp_ou": "ou"
  },
  "classes": {
   "GLADIATOR": "Gladiador",

@@ -1062,7 +1062,13 @@ class Overlay:
         if a.sub:
             self._texto(self.cv_al, cx, y + 10 * e, tr(a.sub), fonte(11 * e), TEXTO, borda=1)
             y += 22 * e
-        if a.dica and self.dicas_on:
+        if a.respostas and self.dicas_on:
+            # as melhores respostas para a sua classe (no máximo 2): "▸ Bloquear (2 cargas) · ou Esquiva perfeita"
+            partes = [t(f"resp_{tipo}") + (f" ({tr(nota)})" if nota else "") for tipo, nota in a.respostas]
+            self._texto(self.cv_al, cx, y + 10 * e, "▸ " + f" · {t('resp_ou')} ".join(partes), fonte(11 * e, "bold"),
+                        DICA, borda=1)
+            y += 22 * e
+        elif a.dica and self.dicas_on:
             self._texto(self.cv_al, cx, y + 10 * e, f"▸ {tr(a.dica)}", fonte(11 * e, "bold"), DICA, borda=1)
             y += 22 * e
         return y

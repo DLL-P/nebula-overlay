@@ -28,6 +28,48 @@ DURACAO_PADRAO = 3.0      # alerta sem contagem própria fica 3 s (padrão do ca
 LIMIAR_RESET = 99.0       # HP voltou a esse nível depois de cair: o boss resetou (wipe)
 TIPOS_ALARME = {"esconder", "parar_dano", "stagger", "enrage"}
 
+# Respostas a uma mecânica ("respostas" no catálogo: {tipo: {"ok": "sim"|"arriscado"|"nao", "nota": "...",
+# "papeis": [...], "classes": [...]}}). Cada papel prefere uma ordem: DPS e quem não é tank nem suporte mantém o dano
+# (tomar ou bloquear antes de sair), o tank segura o golpe, Clérigo e Chanter cuidam do grupo.
+ORDEM_RESPOSTAS = {
+    "dps": ["absorver", "bloquear", "esquiva_perfeita", "intercepta", "empilhar", "saltar", "esquivar", "quebrar_stagger",
+            "correr"],
+    "tank": ["absorver", "bloquear", "escudo", "intercepta", "empilhar", "esquiva_perfeita", "esquivar", "saltar",
+             "correr"],
+    "healer": ["limpar", "curar", "imunidade", "escudo", "empilhar", "esquivar", "saltar", "esquiva_perfeita", "absorver",
+               "intercepta", "correr"],
+}
+ORDEM_RESPOSTAS["suporte"] = ORDEM_RESPOSTAS["healer"]
+# respostas que só algumas classes têm; as outras (esquivar, saltar, correr...) valem para todas
+RESPOSTA_DAS_CLASSES = {"bloquear": {"GLADIATOR", "TEMPLAR"}, "escudo": {"TEMPLAR", "CLERIC", "CHANTER"},
+                        "imunidade": {"CLERIC"}, "limpar": {"CLERIC", "CHANTER"}, "curar": {"CLERIC", "CHANTER"}}
+QUANTAS_RESPOSTAS = 2
+
+
+def melhores_respostas(respostas: dict | None, classe: str | None, papel: str | None,
+                       n: int = QUANTAS_RESPOSTAS) -> list[tuple[str, str]]:
+    """As n melhores respostas para esta classe e papel: [(tipo, nota)]. "nao" fica de fora; "sim" vem antes de
+    "arriscado"; dentro disso, a ordem do papel. Sem classe conhecida, vale a ordem de DPS."""
+    ordem = list(ORDEM_RESPOSTAS.get(papel or "dps", ORDEM_RESPOSTAS["dps"]))
+    from .classes import ALCANCE
+    if ALCANCE.get(classe or "") == "longe" and papel != "tank" and "correr" in ordem:
+        ordem.remove("correr")          # de longe, ficar fora do alcance não custa dano (ex.: anéis do Murute a 25 m)
+        ordem.insert(ordem.index("esquiva_perfeita"), "correr")
+    opcoes = []
+    for tipo, r in (respostas or {}).items():
+        r = r if isinstance(r, dict) else {"ok": r}
+        if r.get("ok", "sim") == "nao":
+            continue
+        if classe and tipo in RESPOSTA_DAS_CLASSES and classe not in RESPOSTA_DAS_CLASSES[tipo]:
+            continue
+        if classe and r.get("classes") and classe not in r["classes"]:
+            continue
+        if papel and r.get("papeis") and papel not in r["papeis"]:
+            continue
+        pos = ordem.index(tipo) if tipo in ordem else len(ordem)
+        opcoes.append((r.get("ok", "sim") != "sim", pos, tipo, r.get("nota", "")))
+    return [(tipo, nota) for _, _, tipo, nota in sorted(opcoes)[:n]]
+
 
 # ---------------- dados ----------------
 
@@ -108,6 +150,7 @@ class Alerta:
     id: str = field(compare=False, default="")
     dica: str = field(compare=False, default="")          # dica da sua classe para esta ação
     voz_curta: str = field(compare=False, default="")     # chave da palavra de ordem (voz.py); vazio = pelo tipo
+    respostas: tuple = field(compare=False, default=())   # [(tipo, nota)]: as melhores respostas para você
 
     @property
     def duracao(self) -> float:
@@ -483,7 +526,8 @@ class MotorAlertas:
         return Alerta(s.hora(i) - ant, "ativo", self.nome, m["nome"], p["texto"], p.get("sub", ""), tipo, contagem,
                       wipe, i, nivel_de(tipo, wipe), p.get("voz") or (m.get("voz") if i == 0 else None),
                       bool(p.get("contagem_voz")), m.get("id", ""), self._dica(m, p, tipo),
-                      p.get("voz_curta") or m.get("voz_curta", ""))
+                      p.get("voz_curta") or m.get("voz_curta", ""),
+                      tuple(melhores_respostas(p.get("respostas") or m.get("respostas"), self.classe, self.papel)))
 
     def _dica(self, m: dict, p: dict, tipo: str) -> str:
         """Dica da classe: a da mecânica (ou do passo) vence a genérica por tipo de ação."""
