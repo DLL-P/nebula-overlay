@@ -4609,7 +4609,7 @@
             {
               "nome": "Thunder Cry",
               "sinal": "Aos ~75% e ~25% ele fica intocável, salta pela arena e espalha orbes azuis de raio",
-              "acao": "Limpe os orbes de um lado primeiro para criar um bolsão seguro (cada orbe recolhido deixa lento)",
+              "acao": "Pegue os orbes de raio (cada um deixa você mais lento: fique numa área só). Depois ele uiva no centro e solta uma onda: pule. Os orbes que sobrarem explodem com a onda; dá para deixar um quadrante sem pegar e ficar no lado oposto",
               "alerta": "LIMPA OS ORBES",
               "gatilho": {
                 "tipo": "hp",
@@ -4629,6 +4629,9 @@
                   "ok": "sim",
                   "nota": "pro lado limpo"
                 }
+              },
+              "observado_guia": {
+                "fonte": "vídeo 'The Ferocious Horn Den Expedition Guide | Conquest Difficulty' (Player Ay, Global), 2026-10-23"
               }
             },
             {
@@ -4675,6 +4678,80 @@
                 "esquiva_perfeita": {
                   "ok": "arriscado"
                 }
+              }
+            },
+            {
+              "id": "kwapo-abertura",
+              "nome": "Abertura: investida e salto no alvo",
+              "sinal": "Começa avançando em quem pegou o aggro e salta no mesmo alvo (derruba, dano alto)",
+              "acao": "Deixe o tank puxar para a luta começar limpa",
+              "alerta": null,
+              "gatilho": {
+                "tipo": "skill",
+                "skill_id": null
+              },
+              "wipe": false,
+              "confianca": "media",
+              "acao_tipo": "atencao",
+              "observado_guia": {
+                "fonte": "vídeo 'The Ferocious Horn Den Expedition Guide | Conquest Difficulty' (Player Ay, Global), 2026-10-23"
+              }
+            },
+            {
+              "id": "kwapo-garras-frontais",
+              "nome": "Garras à frente",
+              "sinal": "Golpes de garra que pegam tudo à frente dele",
+              "acao": "Só o tank fica na frente; o resto fica de lado ou nas costas",
+              "alerta": "ATRÁS DELE",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_id": null
+              },
+              "wipe": false,
+              "confianca": "media",
+              "acao_tipo": "atras",
+              "observado_guia": {
+                "fonte": "vídeo 'The Ferocious Horn Den Expedition Guide | Conquest Difficulty' (Player Ay, Global), 2026-10-23"
+              },
+              "por_papel": {
+                "tank": {
+                  "texto": "VIRA ELE PRA FORA",
+                  "sub": "garras à frente: aponte para longe do grupo"
+                }
+              }
+            },
+            {
+              "id": "kwapo-tres-esferas",
+              "nome": "Três esferas de raio",
+              "sinal": "Salta para o lado e invoca 3 esferas de raio; ~1 s depois cada uma vai até o jogador mais próximo e explode",
+              "acao": "Afaste-se das esferas antes de elas chegarem: dano alto",
+              "alerta": "3 ESFERAS: AFASTA",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_id": null
+              },
+              "wipe": false,
+              "confianca": "media",
+              "acao_tipo": "esquivar",
+              "observado_guia": {
+                "fonte": "vídeo 'The Ferocious Horn Den Expedition Guide | Conquest Difficulty' (Player Ay, Global), 2026-10-23"
+              }
+            },
+            {
+              "id": "kwapo-raio-no-marcado",
+              "nome": "Raio no marcado",
+              "sinal": "Marca um jogador (quase sempre o tank) e atira raios; o anel com setas para fora quer dizer: saia",
+              "acao": "Quem ficar dentro do anel também leva o raio, e o dano aumenta",
+              "alerta": "MARCADO: TODOS SAEM DO ANEL",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_id": null
+              },
+              "wipe": false,
+              "confianca": "media",
+              "acao_tipo": "sair",
+              "observado_guia": {
+                "fonte": "vídeo 'The Ferocious Horn Den Expedition Guide | Conquest Difficulty' (Player Ay, Global), 2026-10-23"
               }
             },
             {
@@ -4743,14 +4820,17 @@
           "mecanicas": [
             {
               "nome": "Bombas",
-              "sinal": "Ativou o totem: surgem adds",
-              "acao": "Pegue as bombas nas plataformas laterais (3 por vez), limpe os adds e destrua o totem",
+              "sinal": "Ativou o totem: ondas de adds; há bombas dos dois lados da sala",
+              "acao": "Mate as ondas de adds: um segura o aggro no meio e dois de cada lado jogam as bombas; depois o totem pode ser atacado",
               "alerta": null,
               "gatilho": null,
               "wipe": false,
               "confianca": "alta",
               "acao_tipo": "atencao",
-              "id": "shining-mau-totem-bombas"
+              "id": "shining-mau-totem-bombas",
+              "observado_guia": {
+                "fonte": "vídeo 'The Ferocious Horn Den Expedition Guide | Conquest Difficulty' (Player Ay, Global), 2026-10-23"
+              }
             },
             {
               "id": "shining-mau-totem-atordoado",
@@ -4814,9 +4894,9 @@
           "mecanicas": [
             {
               "nome": "Adds acorrentados",
-              "sinal": "Aos ~75%, ~50% e ~15%: quatro adds que ataques normais não ferem",
-              "acao": "Uma pessoa pega o orbe branco no lado norte para liberar dano; matem antes de ele absorver (absorção cura e dá buff de dano)",
-              "alerta": "PEGA O ORBE BRANCO",
+              "sinal": "Fala da boss e quatro almas presas a ela, espalhadas, andando devagar até ela",
+              "acao": "Se as almas tocarem nela, ela cura e ganha dano. Um DPS pega o orbe verde no altar dos fundos e mata as almas",
+              "alerta": "ORBE VERDE: MATA AS ALMAS",
               "gatilho": {
                 "tipo": "hp",
                 "pct": 75
@@ -4830,20 +4910,28 @@
               "sequencia": [
                 {
                   "t": 0,
-                  "texto": "PEGA O ORBE BRANCO",
-                  "sub": "14 s para matar os 4 adds (o orbe fica no norte)",
+                  "texto": "ORBE VERDE: MATA AS ALMAS",
+                  "sub": "14 s: um DPS pega o orbe verde no altar dos fundos",
                   "tipo": "matar_alvo"
                 }
               ],
               "dicas": {
                 "GLADIATOR": "Salto Esmagador reseta no abate: pule de add em add"
+              },
+              "observado_guia": {
+                "fonte": "vídeo 'The Ferocious Horn Den Expedition Guide | Conquest Difficulty' (Player Ay, Global), 2026-10-23"
+              },
+              "por_papel": {
+                "dps": {
+                  "sub": "se ninguém foi, pegue o orbe verde no altar dos fundos"
+                }
               }
             },
             {
               "nome": "Adds acorrentados (2ª)",
-              "sinal": "Aos ~75%, ~50% e ~15%: quatro adds que ataques normais não ferem",
-              "acao": "Uma pessoa pega o orbe branco no lado norte para liberar dano; matem antes de ele absorver (absorção cura e dá buff de dano)",
-              "alerta": "PEGA O ORBE BRANCO",
+              "sinal": "Fala da boss e quatro almas presas a ela, espalhadas, andando devagar até ela",
+              "acao": "Se as almas tocarem nela, ela cura e ganha dano. Um DPS pega o orbe verde no altar dos fundos e mata as almas",
+              "alerta": "ORBE VERDE: MATA AS ALMAS",
               "gatilho": {
                 "tipo": "hp",
                 "pct": 50
@@ -4856,20 +4944,28 @@
               "sequencia": [
                 {
                   "t": 0,
-                  "texto": "PEGA O ORBE BRANCO",
-                  "sub": "14 s para matar os 4 adds (o orbe fica no norte)",
+                  "texto": "ORBE VERDE: MATA AS ALMAS",
+                  "sub": "14 s: um DPS pega o orbe verde no altar dos fundos",
                   "tipo": "matar_alvo"
                 }
               ],
               "dicas": {
                 "GLADIATOR": "Salto Esmagador reseta no abate: pule de add em add"
+              },
+              "observado_guia": {
+                "fonte": "vídeo 'The Ferocious Horn Den Expedition Guide | Conquest Difficulty' (Player Ay, Global), 2026-10-23"
+              },
+              "por_papel": {
+                "dps": {
+                  "sub": "se ninguém foi, pegue o orbe verde no altar dos fundos"
+                }
               }
             },
             {
               "nome": "Adds acorrentados (3ª)",
-              "sinal": "Aos ~75%, ~50% e ~15%: quatro adds que ataques normais não ferem",
-              "acao": "Uma pessoa pega o orbe branco no lado norte para liberar dano; matem antes de ele absorver (absorção cura e dá buff de dano)",
-              "alerta": "PEGA O ORBE BRANCO",
+              "sinal": "Fala da boss e quatro almas presas a ela, espalhadas, andando devagar até ela",
+              "acao": "Se as almas tocarem nela, ela cura e ganha dano. Um DPS pega o orbe verde no altar dos fundos e mata as almas",
+              "alerta": "ORBE VERDE: MATA AS ALMAS",
               "gatilho": {
                 "tipo": "hp",
                 "pct": 15
@@ -4882,27 +4978,35 @@
               "sequencia": [
                 {
                   "t": 0,
-                  "texto": "PEGA O ORBE BRANCO",
-                  "sub": "14 s para matar os 4 adds (o orbe fica no norte)",
+                  "texto": "ORBE VERDE: MATA AS ALMAS",
+                  "sub": "14 s: um DPS pega o orbe verde no altar dos fundos",
                   "tipo": "matar_alvo"
                 }
               ],
               "dicas": {
                 "GLADIATOR": "Salto Esmagador reseta no abate: pule de add em add"
+              },
+              "observado_guia": {
+                "fonte": "vídeo 'The Ferocious Horn Den Expedition Guide | Conquest Difficulty' (Player Ay, Global), 2026-10-23"
+              },
+              "por_papel": {
+                "dps": {
+                  "sub": "se ninguém foi, pegue o orbe verde no altar dos fundos"
+                }
               }
             },
             {
               "nome": "Soul Caller",
               "sinal": "Aos ~65% e ~30% ele puxa o grupo ao centro",
-              "acao": "Corra para fora do círculo grande antes do fim do cast e desvie das bolas elétricas (acerto atordoa)",
-              "alerta": "SAI DO CÍRCULO",
+              "acao": "Ela puxa todos ao centro e carrega uma explosão da arena inteira: corra para longe (o dano cai com a distância) e desvie das esferas elétricas que vêm ao centro (atordoam)",
+              "alerta": "PUXÃO: CORRE PRA LONGE",
               "gatilho": {
                 "tipo": "hp",
                 "pct": 65
               },
               "wipe": true,
               "confianca": "alta",
-              "nota": "Repete aos ~30%.",
+              "nota": "O guia de 2026-10-23 cita só a última vez, aos ~25%; outra fonte diz ~65% e ~30%. A captura decide.",
               "acao_tipo": "sair",
               "pre_aviso_pct": 5,
               "id": "necromancer-duanka-soul-caller",
@@ -4912,8 +5016,8 @@
               "sequencia": [
                 {
                   "t": 0,
-                  "texto": "SAI DO CÍRCULO",
-                  "sub": "8 s de cast; perto dele é morte",
+                  "texto": "PUXÃO: CORRE PRA LONGE",
+                  "sub": "8 s de cast; o dano cai com a distância",
                   "tipo": "sair"
                 }
               ],
@@ -4925,13 +5029,16 @@
                   "ok": "sim",
                   "nota": "fora do círculo"
                 }
+              },
+              "observado_guia": {
+                "fonte": "vídeo 'The Ferocious Horn Den Expedition Guide | Conquest Difficulty' (Player Ay, Global), 2026-10-23"
               }
             },
             {
               "nome": "Soul Caller (2ª)",
               "sinal": "Aos ~65% e ~30% ele puxa o grupo ao centro",
-              "acao": "Corra para fora do círculo grande antes do fim do cast e desvie das bolas elétricas (acerto atordoa)",
-              "alerta": "SAI DO CÍRCULO",
+              "acao": "Ela puxa todos ao centro e carrega uma explosão da arena inteira: corra para longe (o dano cai com a distância) e desvie das esferas elétricas que vêm ao centro (atordoam)",
+              "alerta": "PUXÃO: CORRE PRA LONGE",
               "gatilho": {
                 "tipo": "hp",
                 "pct": 30
@@ -4947,8 +5054,8 @@
               "sequencia": [
                 {
                   "t": 0,
-                  "texto": "SAI DO CÍRCULO",
-                  "sub": "8 s de cast; perto dele é morte",
+                  "texto": "PUXÃO: CORRE PRA LONGE",
+                  "sub": "8 s de cast; o dano cai com a distância",
                   "tipo": "sair"
                 }
               ],
@@ -4960,12 +5067,16 @@
                   "ok": "sim",
                   "nota": "fora do círculo"
                 }
+              },
+              "nota": "O guia de 2026-10-23 cita só a última vez, aos ~25%; outra fonte diz ~65% e ~30%. A captura decide.",
+              "observado_guia": {
+                "fonte": "vídeo 'The Ferocious Horn Den Expedition Guide | Conquest Difficulty' (Player Ay, Global), 2026-10-23"
               }
             },
             {
               "nome": "Buraco negro (dividir)",
-              "sinal": "Um jogador é enraizado num buraco negro / círculo de dano",
-              "acao": "Todos em cima dele para dividir",
+              "sinal": "Um jogador fica preso num vazio: círculo vermelho com setas para dentro",
+              "acao": "Todos entram no círculo para dividir o dano",
               "alerta": "EMPILHA",
               "gatilho": {
                 "tipo": "buff",
@@ -4985,6 +5096,43 @@
                 "curar": {
                   "ok": "sim"
                 }
+              },
+              "observado_guia": {
+                "fonte": "vídeo 'The Ferocious Horn Den Expedition Guide | Conquest Difficulty' (Player Ay, Global), 2026-10-23"
+              }
+            },
+            {
+              "id": "duanka-vazio-a-frente",
+              "nome": "Vazio à frente",
+              "sinal": "Puxa o cajado para trás e solta um vazio retangular à frente (dano contínuo)",
+              "acao": "Saia do retângulo à frente dela; corpo a corpo, fique colado e esquive pelos lados",
+              "alerta": "VAZIO À FRENTE: SAI",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_id": null
+              },
+              "wipe": false,
+              "confianca": "media",
+              "acao_tipo": "sair",
+              "observado_guia": {
+                "fonte": "vídeo 'The Ferocious Horn Den Expedition Guide | Conquest Difficulty' (Player Ay, Global), 2026-10-23"
+              }
+            },
+            {
+              "id": "duanka-explosoes-em-cada-um",
+              "nome": "Explosões em cada jogador",
+              "sinal": "Bate o cajado no chão: uma explosão centrada em cada jogador (é para não empilhar)",
+              "acao": "Fique separado: explosões sobrepostas matam",
+              "alerta": "ESPALHA",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_id": null
+              },
+              "wipe": false,
+              "confianca": "media",
+              "acao_tipo": "espalhar",
+              "observado_guia": {
+                "fonte": "vídeo 'The Ferocious Horn Den Expedition Guide | Conquest Difficulty' (Player Ay, Global), 2026-10-23"
               }
             },
             {
@@ -5065,11 +5213,11 @@
             {
               "nome": "Orbe no centro (redirecionar)",
               "sinal": "Aos 30%: orbe no centro e Luz Azul da Destruição (34 s de cast; se terminar, o grupo morre)",
-              "acao": "O marcado põe o orbe entre ele e o boss: 3 golpes no orbe cortam o cast. Todos são puxados devagar para o orbe (poça de dano). Depois vêm 2 projéteis em linha mortais: dois interceptadores diferentes",
+              "acao": "Buraco negro no centro (deixa lento e puxa): guarde estamina e vá já para o centro. Ele salta para um lado e mira um jogador com a bola vermelha: o marcado fica do lado oposto, para a bola vermelha bater na azul do centro. São 3; depois da 2ª ele uiva (atordoa): esquive para trás 1–2 vezes antes de correr. Sem estamina, atravesse o vazio. Errar 2 bolas = wipe. Outra fonte: 3 golpes no orbe do centro cortam o cast",
               "alerta": "ORBE ENTRE VOCÊ E O BOSS",
               "gatilho": {
                 "tipo": "hp",
-                "pct": 30
+                "pct": 25
               },
               "wipe": true,
               "confianca": "alta",
@@ -5097,12 +5245,16 @@
                   "ok": "sim",
                   "nota": "orbe entre você e ele"
                 }
+              },
+              "nota": "No vídeo de 2026-10-23 o buraco negro começou com o boss a ~20%; outra fonte diz 30%. Gatilho aos 25% com aviso prévio aos 30%.",
+              "observado_guia": {
+                "fonte": "vídeo 'The Ferocious Horn Den Expedition Guide | Conquest Difficulty' (Player Ay, Global), 2026-10-23"
               }
             },
             {
               "nome": "Salto da ilusão",
               "sinal": "Aos 75% e 55% ele salta para fora da arena e espalha orbes elétricos; prende um jogador e manda a ilusão saltar até ele",
-              "acao": "Juntem num lugar sem poças. Alguém fica no caminho da ilusão (outro na 2ª vez), senão o marcado morre. Círculo PEQUENO no marcado: entra; GRANDE: sai",
+              "acao": "Ele salta para os fundos e prende um jogador. 1) Clone azul: um jogador fica entre o clone e o marcado (ganha um debuff: não segure outro clone). 2) Círculo no marcado: grande com setas para fora = todos saem; pequeno com setas para dentro = só UM entra com ele (quem fica perto ganha poça de sangue). Posicione-se cedo",
               "alerta": "CÍRCULO PEQUENO: ENTRA / GRANDE: SAI",
               "gatilho": {
                 "tipo": "hp",
@@ -5129,12 +5281,16 @@
                   "ok": "sim",
                   "nota": "ao interceptar"
                 }
+              },
+              "nota": "No vídeo a 1ª vez começou com o boss a ~75–78%; a 1ª tem 2 rodadas e a 2ª tem 3.",
+              "observado_guia": {
+                "fonte": "vídeo 'The Ferocious Horn Den Expedition Guide | Conquest Difficulty' (Player Ay, Global), 2026-10-23"
               }
             },
             {
               "nome": "Salto da ilusão (2ª)",
               "sinal": "Aos 75% e 55% ele salta para fora da arena e espalha orbes elétricos; prende um jogador e manda a ilusão saltar até ele",
-              "acao": "Juntem num lugar sem poças. Alguém fica no caminho da ilusão (outro na 2ª vez), senão o marcado morre. Círculo PEQUENO no marcado: entra; GRANDE: sai",
+              "acao": "Ele salta para os fundos e prende um jogador. 1) Clone azul: um jogador fica entre o clone e o marcado (ganha um debuff: não segure outro clone). 2) Círculo no marcado: grande com setas para fora = todos saem; pequeno com setas para dentro = só UM entra com ele (quem fica perto ganha poça de sangue). Posicione-se cedo",
               "alerta": "CÍRCULO PEQUENO: ENTRA / GRANDE: SAI",
               "gatilho": {
                 "tipo": "hp",
@@ -5161,6 +5317,10 @@
                   "ok": "sim",
                   "nota": "ao interceptar"
                 }
+              },
+              "nota": "No vídeo a 1ª vez começou com o boss a ~75–78%; a 1ª tem 2 rodadas e a 2ª tem 3.",
+              "observado_guia": {
+                "fonte": "vídeo 'The Ferocious Horn Den Expedition Guide | Conquest Difficulty' (Player Ay, Global), 2026-10-23"
               }
             },
             {
@@ -5188,13 +5348,16 @@
             {
               "nome": "Poças de sangue",
               "sinal": "Poças deixadas no chão",
-              "acao": "Cada golpe dele soma um sangramento que não sai; no 3º ele explode em 4 s e deixa uma poça: com 3 acúmulos, vá para a borda e mantenha o centro limpo",
+              "acao": "Sangramento: no 3º acúmulo aparece um redemoinho vermelho e você solta uma poça que fica dando dano: solte na borda. Durante a mecânica principal, solte junto do grupo (longe dele, ninguém chega a tempo se te marcarem)",
               "alerta": null,
               "gatilho": null,
               "wipe": false,
               "confianca": "alta",
               "acao_tipo": "atencao",
-              "id": "ferocious-horn-nuakum-pocas-de-sangue"
+              "id": "ferocious-horn-nuakum-pocas-de-sangue",
+              "observado_guia": {
+                "fonte": "vídeo 'The Ferocious Horn Den Expedition Guide | Conquest Difficulty' (Player Ay, Global), 2026-10-23"
+              }
             },
             {
               "nome": "Marca de presa",
@@ -5253,6 +5416,115 @@
               ]
             },
             {
+              "id": "nuakum-giro-e-anel",
+              "nome": "Giro e anel externo",
+              "sinal": "Giro de 360° em volta dele; na versão forte, também um anel mais longe; o espaço entre os dois é seguro",
+              "acao": "Corpo a corpo: ande para trás até o espaço entre os anéis (esquivar pode passar do ponto)",
+              "alerta": "ENTRE OS ANÉIS",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_id": null
+              },
+              "wipe": false,
+              "confianca": "media",
+              "acao_tipo": "sair",
+              "observado_guia": {
+                "fonte": "vídeo 'The Ferocious Horn Den Expedition Guide | Conquest Difficulty' (Player Ay, Global), 2026-10-23"
+              },
+              "por_classe": {
+                "RANGER": {
+                  "texto": "ANÉIS: SAI E VOLTA",
+                  "sub": "de longe: esquive para fora e volte; depois do uivo o anel vai mais longe"
+                },
+                "SORCERER": {
+                  "texto": "ANÉIS: SAI E VOLTA",
+                  "sub": "de longe: esquive para fora e volte; depois do uivo o anel vai mais longe"
+                },
+                "ELEMENTALIST": {
+                  "texto": "ANÉIS: SAI E VOLTA",
+                  "sub": "de longe: esquive para fora e volte; depois do uivo o anel vai mais longe"
+                },
+                "CLERIC": {
+                  "texto": "ANÉIS: SAI E VOLTA",
+                  "sub": "de longe: esquive para fora e volte; depois do uivo o anel vai mais longe"
+                }
+              }
+            },
+            {
+              "id": "nuakum-puxao-e-rajada",
+              "nome": "Puxão e rajada",
+              "sinal": "Puxa todos (vácuo); quem for pego fica atordoado e leva uma rajada de golpes à frente dele",
+              "acao": "O atordoamento acaba logo antes da rajada: esquive atravessando ele",
+              "alerta": "PUXÃO: ESQUIVA ATRAVÉS DELE",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_id": null
+              },
+              "wipe": false,
+              "confianca": "media",
+              "acao_tipo": "esquivar",
+              "observado_guia": {
+                "fonte": "vídeo 'The Ferocious Horn Den Expedition Guide | Conquest Difficulty' (Player Ay, Global), 2026-10-23"
+              },
+              "por_papel": {
+                "tank": {
+                  "texto": "PUXÃO: PODE SEGURAR",
+                  "sub": "se o puxão pegar só você, o grupo bate de graça na rajada"
+                }
+              }
+            },
+            {
+              "id": "nuakum-linhas-de-projeteis",
+              "nome": "Linhas de projéteis",
+              "sinal": "Projéteis lentos em semicírculo à frente, cada um pela sua linha laranja; às vezes ele vira e joga de novo",
+              "acao": "O que machuca é o projétil, não a linha: fique entre as linhas ou atravesse ele",
+              "alerta": "LINHAS: DESVIA DO PROJÉTIL",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_id": null
+              },
+              "wipe": false,
+              "confianca": "media",
+              "acao_tipo": "esquivar",
+              "observado_guia": {
+                "fonte": "vídeo 'The Ferocious Horn Den Expedition Guide | Conquest Difficulty' (Player Ay, Global), 2026-10-23"
+              }
+            },
+            {
+              "id": "nuakum-tres-investidas",
+              "nome": "Três investidas",
+              "sinal": "Depois da 1ª mecânica principal: três investidas em jogadores diferentes",
+              "acao": "Saia do caminho; para esquivar, aperte um pouco antes do que parece",
+              "alerta": "3 INVESTIDAS: SAI DA LINHA",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_id": null
+              },
+              "wipe": false,
+              "confianca": "media",
+              "acao_tipo": "esquivar",
+              "observado_guia": {
+                "fonte": "vídeo 'The Ferocious Horn Den Expedition Guide | Conquest Difficulty' (Player Ay, Global), 2026-10-23"
+              }
+            },
+            {
+              "id": "nuakum-bola-vermelha-final",
+              "nome": "Bola vermelha final",
+              "sinal": "Só se o grupo demora: marca um jogador, prende e carrega uma bola vermelha à frente dele (joga duas vezes)",
+              "acao": "Dois jogadores ficam na linha entre o boss e o marcado para segurar as duas bolas",
+              "alerta": "DOIS NA LINHA: INTERCEPTA",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_id": null
+              },
+              "wipe": false,
+              "confianca": "media",
+              "acao_tipo": "empilhar",
+              "observado_guia": {
+                "fonte": "vídeo 'The Ferocious Horn Den Expedition Guide | Conquest Difficulty' (Player Ay, Global), 2026-10-23"
+              }
+            },
+            {
               "id": "ferocious-horn-nuakum-atordoado",
               "nome": "Atordoamento (medidor zerado)",
               "sinal": "O medidor de atordoamento (0xE005) chega a ~0; skill 1000009; o boss fica 5 s parado",
@@ -5296,14 +5568,18 @@
         }
       ],
       "ordem": [
-        "Ordem fixa. Watchdog Kwapo (antes: 31 grupos de monstros; há baús de bomba no caminho)",
+        "Ordem fixa. Watchdog Kwapo: antes há 31 grupos de monstros e baús de bomba no caminho; jogue uma bomba na barricada para abrir",
+        "Depois do Kwapo: suba a rampa, desça a borda, quebre a parede de pedra e mergulhe na caverna",
         "Shining Mau Totem: o grupo inteiro dentro antes de ativar (a porta fecha)",
         "Necromancer Duanka",
+        "Depois da Duanka: pegue o kibelisk logo em frente e suba a escada",
+        "Até o Nuakum: suba pelas pedras até a plataforma do meio e use a corrente de vento; o atalho pulando direto na ponte é rápido, mas arriscado",
         "Ferocious Horn Nuakum: puxa fácil perto da saída do portal; espere no kibelisk"
       ],
       "fontes": [
         "https://dbaion2.ru/en/guides/mekhaniki-logovo-roga/",
-        "https://game8.co/games/Aion-2/archives/615767"
+        "https://game8.co/games/Aion-2/archives/615767",
+        "https://www.youtube.com/watch?v=faFkrnmjZa8"
       ],
       "geral": "Nuakum: arranhão no chão = golpe frontal, fique nas costas; sangramento no 3º acúmulo explode em poça: solte na borda; combine antes dois interceptadores para a ilusão e para os projéteis."
     },
@@ -9529,7 +9805,8 @@
     "https://selphie1999gaming.com/game-guides/aion-2/vakron-sky-island-expedition-in-aion-2/",
     "https://www.inven.co.kr/board/aion2/6493/216",
     "https://allthings.how/?p=244700",
-    "https://allthings.how/?p=247417"
+    "https://allthings.how/?p=247417",
+    "https://www.youtube.com/watch?v=faFkrnmjZa8"
   ],
   "categorias_alerta": {
     "empilhar": {
