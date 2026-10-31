@@ -4608,22 +4608,24 @@
           "mecanicas": [
             {
               "nome": "Thunder Cry",
-              "sinal": "Aos ~75% e ~25% ele fica intocável, salta pela arena e espalha orbes azuis de raio",
+              "sinal": "A cada ~80 s ele fica intocável, salta pela arena e espalha orbes azuis de raio",
               "acao": "Pegue os orbes de raio (cada um deixa você mais lento: fique numa área só). Depois ele uiva no centro e solta uma onda: pule. Os orbes que sobrarem explodem com a onda; dá para deixar um quadrante sem pegar e ficar no lado oposto",
               "alerta": "LIMPA OS ORBES",
               "gatilho": {
-                "tipo": "hp",
-                "pct": 75
+                "tipo": "skill",
+                "skill_ids": [
+                  1606930
+                ],
+                "preparo_s": {
+                  "1606930": 1.0
+                },
+                "supressao_s": 30
               },
               "wipe": false,
               "confianca": "alta",
-              "nota": "Repete aos ~25%.",
+              "nota": "É por tempo (~80 s), não por HP: na run de 2026-10-31 veio aos 83%, 52% e 14%.",
               "acao_tipo": "matar_alvo",
-              "pre_aviso_pct": 5,
               "id": "watchdog-kwapo-thunder-cry",
-              "candidatos_skill": {
-                "1606910": "Thunder Cry (nome igual ao da tabela de skills do jogo; confirmar numa captura (mapear.py mostra como candidato))"
-              },
               "respostas": {
                 "correr": {
                   "ok": "sim",
@@ -4632,6 +4634,11 @@
               },
               "observado_guia": {
                 "fonte": "vídeo 'The Ferocious Horn Den Expedition Guide | Conquest Difficulty' (Player Ay, Global), 2026-10-23"
+              },
+              "confianca_skill": "alta",
+              "observado": {
+                "fonte": "captura 2026-10-31 10:05 (Conquista: Kwapo e Totem mortos, Nuakum até 39%; sem vídeo)",
+                "nota": "1606930 (preparo 1,0 s) a cada ~80 s (aos 83%, 52% e 14%): o HP dele para de cair enquanto os orbes estão no chão"
               }
             },
             {
@@ -4640,13 +4647,12 @@
               "acao": "Limpe os orbes de um lado primeiro para criar um bolsão seguro (cada orbe recolhido deixa lento)",
               "alerta": "LIMPA OS ORBES",
               "gatilho": {
-                "tipo": "hp",
-                "pct": 25
+                "tipo": "skill",
+                "skill_id": null
               },
               "wipe": false,
               "confianca": "alta",
               "acao_tipo": "matar_alvo",
-              "pre_aviso_pct": 5,
               "id": "watchdog-kwapo-thunder-cry-2a-vez",
               "candidatos_skill": {
                 "1606910": "Thunder Cry (nome igual ao da tabela de skills do jogo; confirmar numa captura (mapear.py mostra como candidato))"
@@ -4656,7 +4662,8 @@
                   "ok": "sim",
                   "nota": "pro lado limpo"
                 }
-              }
+              },
+              "nota": "Desligada: 'watchdog-kwapo-thunder-cry' dispara pela skill em todas as vezes."
             },
             {
               "nome": "Anel dos orbes",
@@ -4664,8 +4671,14 @@
               "acao": "Pule o anel. É o wipe mais comum: errar o pulo em cima de restos de orbe",
               "alerta": "PULA O ANEL",
               "gatilho": {
-                "tipo": "fase",
-                "depois_de": "Thunder Cry"
+                "tipo": "skill",
+                "skill_ids": [
+                  1606910
+                ],
+                "preparo_s": {
+                  "1606910": 1.5
+                },
+                "supressao_s": 30
               },
               "wipe": true,
               "confianca": "alta",
@@ -4678,7 +4691,22 @@
                 "esquiva_perfeita": {
                   "ok": "arriscado"
                 }
-              }
+              },
+              "confianca_skill": "alta",
+              "observado": {
+                "fonte": "captura 2026-10-31 10:05 (Conquista: Kwapo e Totem mortos, Nuakum até 39%; sem vídeo)",
+                "nota": "1606910 Rugido do Trovão (preparo 1,5 s), ~18–24 s depois do início dos orbes"
+              },
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "PULA O ANEL",
+                  "sub": "Pule o anel. É o wipe mais comum: errar o pulo em cima de restos de orbe",
+                  "tipo": "pular",
+                  "contagem": 1.5
+                }
+              ],
+              "voz_curta": "pular"
             },
             {
               "id": "kwapo-abertura",
@@ -4695,6 +4723,10 @@
               "acao_tipo": "atencao",
               "observado_guia": {
                 "fonte": "vídeo 'The Ferocious Horn Den Expedition Guide | Conquest Difficulty' (Player Ay, Global), 2026-10-23"
+              },
+              "candidatos_skill": {
+                "1606900": "investida (abre a luta e volta a cada ~28 s, preparo 0,6 s)",
+                "1606940": "salto no mesmo alvo ~1,5 s depois da investida (preparo 0,55 s, até 11.700)"
               }
             },
             {
@@ -4705,7 +4737,13 @@
               "alerta": "ATRÁS DELE",
               "gatilho": {
                 "tipo": "skill",
-                "skill_id": null
+                "skill_ids": [
+                  1606880
+                ],
+                "preparo_s": {
+                  "1606880": 0.8
+                },
+                "supressao_s": 4
               },
               "wipe": false,
               "confianca": "media",
@@ -4718,6 +4756,11 @@
                   "texto": "VIRA ELE PRA FORA",
                   "sub": "garras à frente: aponte para longe do grupo"
                 }
+              },
+              "confianca_skill": "media",
+              "observado": {
+                "fonte": "captura 2026-10-31 10:05 (Conquista: Kwapo e Totem mortos, Nuakum até 39%; sem vídeo)",
+                "nota": "1606880 → 1606890 (+1,55 s) a cada ~14 s, sempre em quem tem o aggro; até 8.700"
               }
             },
             {
@@ -4735,6 +4778,9 @@
               "acao_tipo": "esquivar",
               "observado_guia": {
                 "fonte": "vídeo 'The Ferocious Horn Den Expedition Guide | Conquest Difficulty' (Player Ay, Global), 2026-10-23"
+              },
+              "candidatos_skill": {
+                "1606920": "mira nele mesmo a cada ~15 s, preparo 0,6 s, até 7.100 (confirmar com vídeo)"
               }
             },
             {
@@ -4745,13 +4791,25 @@
               "alerta": "MARCADO: TODOS SAEM DO ANEL",
               "gatilho": {
                 "tipo": "skill",
-                "skill_id": null
+                "skill_ids": [
+                  1606955,
+                  1606950
+                ],
+                "preparo_s": {
+                  "1606950": 1.3
+                },
+                "supressao_s": 5
               },
               "wipe": false,
               "confianca": "media",
               "acao_tipo": "sair",
               "observado_guia": {
                 "fonte": "vídeo 'The Ferocious Horn Den Expedition Guide | Conquest Difficulty' (Player Ay, Global), 2026-10-23"
+              },
+              "confianca_skill": "media",
+              "observado": {
+                "fonte": "captura 2026-10-31 10:05 (Conquista: Kwapo e Totem mortos, Nuakum até 39%; sem vídeo)",
+                "nota": "1606955 e 1,35 s depois 1606950 (preparo 1,3 s), a cada ~47 s, em quem tem o aggro; acertou 1–2 jogadores, até 7.600"
               }
             },
             {
@@ -5253,24 +5311,26 @@
             },
             {
               "nome": "Salto da ilusão",
-              "sinal": "Aos 75% e 55% ele salta para fora da arena e espalha orbes elétricos; prende um jogador e manda a ilusão saltar até ele",
+              "sinal": "Aos ~80% e ~55% ele salta para os fundos; prende um jogador e manda a ilusão saltar até ele",
               "acao": "Ele salta para os fundos e prende um jogador. 1) Clone azul: um jogador fica entre o clone e o marcado (ganha um debuff: não segure outro clone). 2) Círculo no marcado: grande com setas para fora = todos saem; pequeno com setas para dentro = só UM entra com ele (quem fica perto ganha poça de sangue). Posicione-se cedo",
-              "alerta": "CÍRCULO PEQUENO: ENTRA / GRANDE: SAI",
+              "alerta": "ILUSÃO: UM INTERCEPTA O CLONE",
               "gatilho": {
-                "tipo": "hp",
-                "pct": 75
+                "tipo": "skill",
+                "skill_ids": [
+                  1802020
+                ],
+                "supressao_s": 40
               },
               "wipe": false,
               "confianca": "alta",
               "acao_tipo": "sair",
               "id": "ferocious-horn-nuakum-salto-da-ilusao",
-              "pre_aviso_pct": 5,
               "dicas": {
                 "GLADIATOR": "Bloqueio Concentrado se for interceptar a ilusão"
               },
               "observado": {
-                "fonte": "pesquisa 2026-10-19 (guias dbaion2, daevaguides, allthings.how, game8)",
-                "nota": "sem captura ainda: dispara por HP/tempo; os IDs das skills vêm das runs de Conquista"
+                "fonte": "captura 2026-10-31 10:05 (Conquista: Kwapo e Totem mortos, Nuakum até 39%; sem vídeo)",
+                "nota": "1802020 (ele salta para os fundos) aos 81% e 55%; cada rodada: 1802132 marca e prende um jogador, ~5,5 s depois o círculo (1802131 pequeno ou 1802141 grande) explode nele. 1ª vez 2 rodadas, 2ª vez 3"
               },
               "respostas": {
                 "intercepta": {
@@ -5282,10 +5342,11 @@
                   "nota": "ao interceptar"
                 }
               },
-              "nota": "No vídeo a 1ª vez começou com o boss a ~75–78%; a 1ª tem 2 rodadas e a 2ª tem 3.",
+              "nota": "Na run de 2026-10-31 começou aos 81% e aos 55%; o guia em vídeo, aos ~75–78%. 1ª vez 2 rodadas, 2ª vez 3.",
               "observado_guia": {
                 "fonte": "vídeo 'The Ferocious Horn Den Expedition Guide | Conquest Difficulty' (Player Ay, Global), 2026-10-23"
-              }
+              },
+              "confianca_skill": "alta"
             },
             {
               "nome": "Salto da ilusão (2ª)",
@@ -5293,14 +5354,13 @@
               "acao": "Ele salta para os fundos e prende um jogador. 1) Clone azul: um jogador fica entre o clone e o marcado (ganha um debuff: não segure outro clone). 2) Círculo no marcado: grande com setas para fora = todos saem; pequeno com setas para dentro = só UM entra com ele (quem fica perto ganha poça de sangue). Posicione-se cedo",
               "alerta": "CÍRCULO PEQUENO: ENTRA / GRANDE: SAI",
               "gatilho": {
-                "tipo": "hp",
-                "pct": 55
+                "tipo": "skill",
+                "skill_id": null
               },
               "wipe": false,
               "confianca": "alta",
               "acao_tipo": "sair",
               "id": "ferocious-horn-nuakum-salto-da-ilusao-2a",
-              "pre_aviso_pct": 5,
               "dicas": {
                 "GLADIATOR": "Bloqueio Concentrado se for interceptar a ilusão"
               },
@@ -5318,7 +5378,7 @@
                   "nota": "ao interceptar"
                 }
               },
-              "nota": "No vídeo a 1ª vez começou com o boss a ~75–78%; a 1ª tem 2 rodadas e a 2ª tem 3.",
+              "nota": "No vídeo a 1ª vez começou com o boss a ~75–78%; a 1ª tem 2 rodadas e a 2ª tem 3. Desligada: 'ferocious-horn-nuakum-salto-da-ilusao' dispara pela skill em todas as vezes.",
               "observado_guia": {
                 "fonte": "vídeo 'The Ferocious Horn Den Expedition Guide | Conquest Difficulty' (Player Ay, Global), 2026-10-23"
               }
@@ -5423,7 +5483,21 @@
               "alerta": "ENTRE OS ANÉIS",
               "gatilho": {
                 "tipo": "skill",
-                "skill_id": null
+                "skill_ids": [
+                  1802060,
+                  1802070
+                ],
+                "preparo_s": {
+                  "1802060": 1.0,
+                  "1802070": 1.0
+                },
+                "supressao_s": 9,
+                "precursor": {
+                  "ids": [
+                    1802021
+                  ],
+                  "antes": 2.3
+                }
               },
               "wipe": false,
               "confianca": "media",
@@ -5448,6 +5522,11 @@
                   "texto": "ANÉIS: SAI E VOLTA",
                   "sub": "de longe: esquive para fora e volte; depois do uivo o anel vai mais longe"
                 }
+              },
+              "confianca_skill": "media",
+              "observado": {
+                "fonte": "captura 2026-10-31 10:05 (Conquista: Kwapo e Totem mortos, Nuakum até 39%; sem vídeo)",
+                "nota": "1802021 e ~2,3 s depois três golpes em volta dele, 2,7 s entre eles (1802060/1802070, 1802061, 1802071), a cada ~50 s; acertou até 4 jogadores, até 14.200"
               }
             },
             {
@@ -5458,7 +5537,13 @@
               "alerta": "PUXÃO: ESQUIVA ATRAVÉS DELE",
               "gatilho": {
                 "tipo": "skill",
-                "skill_id": null
+                "skill_ids": [
+                  1802110
+                ],
+                "preparo_s": {
+                  "1802110": 0.85
+                },
+                "supressao_s": 5
               },
               "wipe": false,
               "confianca": "media",
@@ -5471,6 +5556,11 @@
                   "texto": "PUXÃO: PODE SEGURAR",
                   "sub": "se o puxão pegar só você, o grupo bate de graça na rajada"
                 }
+              },
+              "confianca_skill": "media",
+              "observado": {
+                "fonte": "captura 2026-10-31 10:05 (Conquista: Kwapo e Totem mortos, Nuakum até 39%; sem vídeo)",
+                "nota": "1802110 (preparo 0,85 s) acerta até 4 jogadores; 2,7 s depois 1802120 em quem tem o aggro"
               }
             },
             {
@@ -5488,6 +5578,10 @@
               "acao_tipo": "esquivar",
               "observado_guia": {
                 "fonte": "vídeo 'The Ferocious Horn Den Expedition Guide | Conquest Difficulty' (Player Ay, Global), 2026-10-23"
+              },
+              "candidatos_skill": {
+                "1802090": "vem 2,5 s depois de 1802025, preparo 1,3 s, acerta 2 jogadores, até 12.700",
+                "1802091": "preparo 1,3 s, acerta 1–3 jogadores, até 4.600"
               }
             },
             {
@@ -5522,6 +5616,76 @@
               "acao_tipo": "empilhar",
               "observado_guia": {
                 "fonte": "vídeo 'The Ferocious Horn Den Expedition Guide | Conquest Difficulty' (Player Ay, Global), 2026-10-23"
+              },
+              "candidatos_skill": {
+                "1802050": "1× aos 40%, pouco antes do wipe da run de 2026-10-31; acertou 2 jogadores, até 15.400"
+              }
+            },
+            {
+              "id": "nuakum-circulo-pequeno",
+              "nome": "Círculo pequeno no marcado",
+              "sinal": "1802131 (preparo 5,5 s): círculo pequeno com setas para dentro no jogador preso; explode ~5,5 s depois",
+              "acao": "Exatamente um jogador entra com o marcado para dividir",
+              "alerta": "CÍRCULO PEQUENO: SÓ UM ENTRA",
+              "wipe": false,
+              "confianca": "media",
+              "acao_tipo": "empilhar",
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "CÍRCULO PEQUENO: SÓ UM ENTRA",
+                  "sub": "Exatamente um jogador entra com o marcado para dividir",
+                  "tipo": "empilhar",
+                  "contagem": 5.5
+                }
+              ],
+              "gatilho": {
+                "tipo": "skill",
+                "skill_ids": [
+                  1802131
+                ],
+                "preparo_s": {
+                  "1802131": 5.5
+                }
+              },
+              "confianca_skill": "media",
+              "observado": {
+                "fonte": "captura 2026-10-31 10:05 (Conquista: Kwapo e Totem mortos, Nuakum até 39%; sem vídeo)",
+                "nota": "sempre acertou 2 jogadores (o marcado e quem entrou), até 18.200"
+              }
+            },
+            {
+              "id": "nuakum-circulo-grande",
+              "nome": "Círculo grande no marcado",
+              "sinal": "1802141 (preparo 5,0 s): círculo grande com setas para fora no jogador preso; explode ~5 s depois",
+              "acao": "Todo mundo sai; só o marcado fica",
+              "alerta": "CÍRCULO GRANDE: TODOS SAEM",
+              "wipe": false,
+              "confianca": "media",
+              "acao_tipo": "sair",
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "CÍRCULO GRANDE: TODOS SAEM",
+                  "sub": "Todo mundo sai; só o marcado fica",
+                  "tipo": "sair",
+                  "contagem": 5.0
+                }
+              ],
+              "voz_curta": "sair",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_ids": [
+                  1802141
+                ],
+                "preparo_s": {
+                  "1802141": 5.0
+                }
+              },
+              "confianca_skill": "media",
+              "observado": {
+                "fonte": "captura 2026-10-31 10:05 (Conquista: Kwapo e Totem mortos, Nuakum até 39%; sem vídeo)",
+                "nota": "acertou 1 a 3 jogadores, até 26.200 (o maior golpe da luta)"
               }
             },
             {
