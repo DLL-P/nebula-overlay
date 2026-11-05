@@ -791,7 +791,17 @@
   "CÍRCULO PEQUENO: SÓ UM ENTRA": "SMALL CIRCLE: ONLY ONE GOES IN",
   "Exatamente um jogador entra com o marcado para dividir": "Exactly one player joins the marked one to split it",
   "CÍRCULO GRANDE: TODOS SAEM": "BIG CIRCLE: EVERYONE OUT",
-  "Todo mundo sai; só o marcado fica": "Everyone leaves; only the marked one stays"
+  "Todo mundo sai; só o marcado fica": "Everyone leaves; only the marked one stays",
+  "ORBES EXPLODEM": "ORBS EXPLODE",
+  "longe dos orbes que sobraram": "away from the leftover orbs",
+  "um círculo em cada jogador; sobrepostos matam": "a circle on each player; overlapping ones kill",
+  "EMPILHA NO MARCADO": "STACK ON THE MARKED",
+  "todos no vazio dele: o dano divide": "everyone in their void: the damage splits",
+  "VAZIO": "VOID",
+  "BOLA VERMELHA: ORBE NO MEIO": "RED BALL: ORB IN BETWEEN",
+  "o marcado fica atrás do orbe azul": "the marked player stays behind the blue orb",
+  "BOLA VERMELHA": "RED BALL",
+  "O marcado fica do lado oposto do orbe azul, para a bola bater nele; errar mata o marcado": "The marked player stands on the far side of the blue orb so the ball hits it; missing kills the marked player"
  },
  "es": {
   "3 ACÚMULOS: AFASTA": "3 CARGAS: ALÉJATE",
@@ -1584,6 +1594,16 @@
   "CÍRCULO PEQUENO: SÓ UM ENTRA": "CÍRCULO PEQUEÑO: SOLO UNO ENTRA",
   "Exatamente um jogador entra com o marcado para dividir": "Exactamente un jugador entra con el marcado para dividir",
   "CÍRCULO GRANDE: TODOS SAEM": "CÍRCULO GRANDE: TODOS FUERA",
-  "Todo mundo sai; só o marcado fica": "Todos salen; solo el marcado se queda"
+  "Todo mundo sai; só o marcado fica": "Todos salen; solo el marcado se queda",
+  "ORBES EXPLODEM": "LOS ORBES EXPLOTAN",
+  "longe dos orbes que sobraram": "lejos de los orbes que quedan",
+  "um círculo em cada jogador; sobrepostos matam": "un círculo en cada jugador; superpuestos matan",
+  "EMPILHA NO MARCADO": "AGRÚPATE EN EL MARCADO",
+  "todos no vazio dele: o dano divide": "todos en su vacío: el daño se divide",
+  "VAZIO": "VACÍO",
+  "BOLA VERMELHA: ORBE NO MEIO": "BOLA ROJA: ORBE EN MEDIO",
+  "o marcado fica atrás do orbe azul": "el marcado se queda detrás del orbe azul",
+  "BOLA VERMELHA": "BOLA ROJA",
+  "O marcado fica do lado oposto do orbe azul, para a bola bater nele; errar mata o marcado": "El marcado se pone del lado opuesto del orbe azul para que la bola lo golpee; fallar mata al marcado"
  }
 }

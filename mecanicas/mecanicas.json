@@ -4704,9 +4704,20 @@
                   "sub": "Pule o anel. É o wipe mais comum: errar o pulo em cima de restos de orbe",
                   "tipo": "pular",
                   "contagem": 1.5
+                },
+                {
+                  "t": 3.6,
+                  "texto": "ORBES EXPLODEM",
+                  "sub": "longe dos orbes que sobraram",
+                  "tipo": "sair",
+                  "contagem": 1.3
                 }
               ],
-              "voz_curta": "pular"
+              "voz_curta": "pular",
+              "observado_2": {
+                "fonte": "captura 2026-11-05 00:30 (Conquista, 4 runs; vídeos 01:04 e 01:15)",
+                "nota": "os 6 orbes do Thunder Cry (mob 2921150) explodem com a 1606938 ~4,9 s depois do anel (23,7 s depois do Thunder Cry): 188.470 de dano, matou 2 na run 4"
+              }
             },
             {
               "id": "kwapo-abertura",
@@ -4956,14 +4967,16 @@
               "acao": "Se as almas tocarem nela, ela cura e ganha dano. Um DPS pega o orbe verde no altar dos fundos e mata as almas",
               "alerta": "ORBE VERDE: MATA AS ALMAS",
               "gatilho": {
-                "tipo": "hp",
-                "pct": 75
+                "tipo": "skill",
+                "skill_ids": [
+                  1607020
+                ],
+                "supressao_s": 30
               },
               "wipe": false,
               "confianca": "alta",
-              "nota": "Repete aos ~50% e ~15%.",
+              "nota": "É por tempo: ~30–33 s depois do pull (com o HP entre 64% e 73%), uma vez por luta na Conquista.",
               "acao_tipo": "matar_alvo",
-              "pre_aviso_pct": 5,
               "id": "necromancer-duanka-adds-acorrentados",
               "sequencia": [
                 {
@@ -4983,6 +4996,11 @@
                 "dps": {
                   "sub": "se ninguém foi, pegue o orbe verde no altar dos fundos"
                 }
+              },
+              "confianca_skill": "alta",
+              "observado": {
+                "fonte": "captura 2026-11-05 00:30 (Conquista, 4 runs; vídeos 01:04 e 01:15)",
+                "nota": "1607020 (Necromancia) e as almas nascem logo depois (1607025)"
               }
             },
             {
@@ -5017,7 +5035,8 @@
                 "dps": {
                   "sub": "se ninguém foi, pegue o orbe verde no altar dos fundos"
                 }
-              }
+              },
+              "fallback_video": true
             },
             {
               "nome": "Adds acorrentados (3ª)",
@@ -5051,7 +5070,8 @@
                 "dps": {
                   "sub": "se ninguém foi, pegue o orbe verde no altar dos fundos"
                 }
-              }
+              },
+              "fallback_video": true
             },
             {
               "nome": "Soul Caller",
@@ -5059,18 +5079,26 @@
               "acao": "Ela puxa todos ao centro e carrega uma explosão da arena inteira: corra para longe (o dano cai com a distância) e desvie das esferas elétricas que vêm ao centro (atordoam)",
               "alerta": "PUXÃO: CORRE PRA LONGE",
               "gatilho": {
-                "tipo": "hp",
-                "pct": 65
+                "tipo": "skill",
+                "skill_ids": [
+                  1607050
+                ],
+                "preparo_s": {
+                  "1607050": 1.0
+                },
+                "supressao_s": 30,
+                "precursor": {
+                  "ids": [
+                    1606982
+                  ],
+                  "antes": 2.5
+                }
               },
               "wipe": true,
               "confianca": "alta",
-              "nota": "O guia de 2026-10-23 cita só a última vez, aos ~25%; outra fonte diz ~65% e ~30%. A captura decide.",
+              "nota": "É por tempo: ~70–74 s depois do pull (com o HP entre 23% e 63%), uma vez por luta na Conquista.",
               "acao_tipo": "sair",
-              "pre_aviso_pct": 5,
               "id": "necromancer-duanka-soul-caller",
-              "candidatos_skill": {
-                "1607050": "Soul Caller (nome igual ao da tabela de skills do jogo; confirmar numa captura (mapear.py mostra como candidato))"
-              },
               "sequencia": [
                 {
                   "t": 0,
@@ -5090,6 +5118,11 @@
               },
               "observado_guia": {
                 "fonte": "vídeo 'The Ferocious Horn Den Expedition Guide | Conquest Difficulty' (Player Ay, Global), 2026-10-23"
+              },
+              "confianca_skill": "alta",
+              "observado": {
+                "fonte": "captura 2026-11-05 00:30 (Conquista, 4 runs; vídeos 01:04 e 01:15)",
+                "nota": "1606982 e 2,5 s depois 1607050 (barra 'Soul Caller', fala 'Flee the oncoming storm'); a tempestade (1607055/1607056) bate por ~6 s"
               }
             },
             {
@@ -5129,7 +5162,8 @@
               "nota": "O guia de 2026-10-23 cita só a última vez, aos ~25%; outra fonte diz ~65% e ~30%. A captura decide.",
               "observado_guia": {
                 "fonte": "vídeo 'The Ferocious Horn Den Expedition Guide | Conquest Difficulty' (Player Ay, Global), 2026-10-23"
-              }
+              },
+              "fallback_video": true
             },
             {
               "nome": "Buraco negro (dividir)",
@@ -5137,8 +5171,14 @@
               "acao": "Todos entram no círculo para dividir o dano",
               "alerta": "EMPILHA",
               "gatilho": {
-                "tipo": "buff",
-                "abnormal_id": null
+                "tipo": "skill",
+                "skill_ids": [
+                  1607030
+                ],
+                "preparo_s": {
+                  "1607030": 1.0
+                },
+                "supressao_s": 10
               },
               "wipe": false,
               "confianca": "alta",
@@ -5157,6 +5197,29 @@
               },
               "observado_guia": {
                 "fonte": "vídeo 'The Ferocious Horn Den Expedition Guide | Conquest Difficulty' (Player Ay, Global), 2026-10-23"
+              },
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "EMPILHA NO MARCADO",
+                  "sub": "todos no vazio dele: o dano divide",
+                  "tipo": "empilhar",
+                  "contagem": 2.0
+                }
+              ],
+              "status": [
+                {
+                  "texto": "VAZIO",
+                  "tipo": "empilhar",
+                  "em": "alvo",
+                  "de": 0,
+                  "ate": 7.0
+                }
+              ],
+              "confianca_skill": "alta",
+              "observado": {
+                "fonte": "captura 2026-11-05 00:30 (Conquista, 4 runs; vídeos 01:04 e 01:15)",
+                "nota": "1607030 (preparo 1,0 s) num jogador; 2 s depois a poça escura nele bate por ~5 s (1607035, até 6.409 em 3–4 jogadores) enquanto ela lança 1607040 três vezes. Aos ~35 e ~82 s"
               }
             },
             {
@@ -5184,13 +5247,34 @@
               "alerta": "ESPALHA",
               "gatilho": {
                 "tipo": "skill",
-                "skill_id": null
+                "skill_ids": [
+                  1606990,
+                  1606995
+                ],
+                "preparo_s": {
+                  "1606990": 1.5
+                },
+                "supressao_s": 8
               },
               "wipe": false,
-              "confianca": "media",
+              "confianca": "alta",
               "acao_tipo": "espalhar",
               "observado_guia": {
                 "fonte": "vídeo 'The Ferocious Horn Den Expedition Guide | Conquest Difficulty' (Player Ay, Global), 2026-10-23"
+              },
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "ESPALHA",
+                  "sub": "um círculo em cada jogador; sobrepostos matam",
+                  "tipo": "espalhar",
+                  "contagem": 1.9
+                }
+              ],
+              "confianca_skill": "alta",
+              "observado": {
+                "fonte": "captura 2026-11-05 00:30 (Conquista, 4 runs; vídeos 01:04 e 01:15)",
+                "nota": "1606990 (preparo 1,5 s) e 0,35 s depois nascem adds (mob 2920598) sob os jogadores que soltam a 1606995; golpe 1,9 s depois do cast. Aos ~6, 26, 50, 71, 101 e 121 s da luta. Foi o que mais matou (5 mortes), até 14.134"
               }
             },
             {
@@ -5274,29 +5358,34 @@
               "acao": "Buraco negro no centro (deixa lento e puxa): guarde estamina e vá já para o centro. Ele salta para um lado e mira um jogador com a bola vermelha: o marcado fica do lado oposto, para a bola vermelha bater na azul do centro. São 3; depois da 2ª ele uiva (atordoa): esquive para trás 1–2 vezes antes de correr. Sem estamina, atravesse o vazio. Errar 2 bolas = wipe. Outra fonte: 3 golpes no orbe do centro cortam o cast",
               "alerta": "ORBE ENTRE VOCÊ E O BOSS",
               "gatilho": {
-                "tipo": "hp",
-                "pct": 25
+                "tipo": "skill",
+                "skill_ids": [
+                  1802150
+                ],
+                "preparo_s": {
+                  "1802150": 3.0
+                },
+                "supressao_s": 60
               },
               "wipe": true,
               "confianca": "alta",
               "acao_tipo": "matar_alvo",
               "id": "ferocious-horn-nuakum-orbe-no-centro-redirecionar",
-              "pre_aviso_pct": 5,
               "sequencia": [
                 {
                   "t": 0,
                   "texto": "ORBE ENTRE VOCÊ E O BOSS",
                   "sub": "3 golpes no orbe cortam o cast de 34 s",
                   "tipo": "matar_alvo",
-                  "contagem": 34.0
+                  "contagem": 35.5
                 }
               ],
               "dicas": {
                 "GLADIATOR": "Bloqueio Concentrado se for interceptar o projétil"
               },
               "observado": {
-                "fonte": "pesquisa 2026-10-19 (guias dbaion2, daevaguides, allthings.how, game8)",
-                "nota": "sem captura ainda: dispara por HP/tempo; os IDs das skills vêm das runs de Conquista"
+                "fonte": "captura 2026-11-05 00:30 (Conquista, 4 runs; vídeos 01:04 e 01:15)",
+                "nota": "1802150 (preparo 3,0 s) abre a barra Blue Light of Destruction (~36 s); 3 bolas vermelhas (1802160) e o uivo (1802030) depois da 2ª"
               },
               "respostas": {
                 "intercepta": {
@@ -5304,9 +5393,51 @@
                   "nota": "orbe entre você e ele"
                 }
               },
-              "nota": "No vídeo de 2026-10-23 o buraco negro começou com o boss a ~20%; outra fonte diz 30%. Gatilho aos 25% com aviso prévio aos 30%.",
+              "nota": "Começa com a fala 'Despair!' e a 1802150, com o HP entre 21% e 27% conforme a run.",
               "observado_guia": {
                 "fonte": "vídeo 'The Ferocious Horn Den Expedition Guide | Conquest Difficulty' (Player Ay, Global), 2026-10-23"
+              }
+            },
+            {
+              "id": "nuakum-bola-vermelha-no-marcado",
+              "nome": "Bola vermelha no marcado (fase do orbe)",
+              "sinal": "Na fase do orbe azul ele mira um jogador e atira a bola vermelha (3 vezes)",
+              "acao": "O marcado fica do lado oposto do orbe azul, para a bola bater nele; errar mata o marcado",
+              "alerta": "BOLA VERMELHA: ORBE NO MEIO",
+              "gatilho": {
+                "tipo": "skill",
+                "skill_ids": [
+                  1802160
+                ],
+                "preparo_s": {
+                  "1802160": 1.0
+                },
+                "supressao_s": 4
+              },
+              "sequencia": [
+                {
+                  "t": 0,
+                  "texto": "BOLA VERMELHA: ORBE NO MEIO",
+                  "sub": "o marcado fica atrás do orbe azul",
+                  "tipo": "matar_alvo"
+                }
+              ],
+              "status": [
+                {
+                  "texto": "BOLA VERMELHA",
+                  "tipo": "matar_alvo",
+                  "em": "alvo",
+                  "de": 0,
+                  "ate": 3.0
+                }
+              ],
+              "wipe": false,
+              "confianca": "alta",
+              "confianca_skill": "alta",
+              "acao_tipo": "matar_alvo",
+              "observado": {
+                "fonte": "captura 2026-11-05 00:30 (Conquista, 4 runs; vídeos 01:04 e 01:15)",
+                "nota": "1802160 (preparo 1,0 s) três vezes na fase; matou 4 marcados nas 4 runs. A 1802050 costuma vir ~3,3 s antes no mesmo alvo, mas também sai fora da fase"
               }
             },
             {
