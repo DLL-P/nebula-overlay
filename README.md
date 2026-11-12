@@ -69,7 +69,14 @@ créditos em [voz_padrao/CREDITOS.md](voz_padrao/CREDITOS.md)). Na engrenagem d�
 
 ## Licença
 
-O código é livre sob a [GPL-3.0](LICENSE): pode usar, estudar, modificar e redistribuir, desde que versões modificadas também tenham o código aberto. A arte do jogo (símbolos das classes) pertence à NCSOFT e não está coberta pela licença.
+Copyright (c) 2026 R.D.S. Distribuído sob a [PolyForm Noncommercial 1.0.0](LICENSE).
+
+- **Liberado:** usar, estudar, modificar e compartilhar para fins pessoais, de estudo, pesquisa ou por organizações sem fins lucrativos, mantendo este aviso.
+- **Proibido sem autorização por escrito:** qualquer uso comercial, inclusive vender, cobrar acesso, oferecer como serviço pago ou incorporar em produto comercial.
+
+Versões publicadas antes desta mudança continuam sob a GPL-3.0 para quem já as recebeu; esta licença vale a partir desta versão.
+
+A arte do jogo (símbolos das classes) pertence à NCSOFT, e as vozes têm licenças próprias ([voz_padrao/CREDITOS.md](voz_padrao/CREDITOS.md)). Nenhum dos dois está coberto por esta licença.
 
 ## Documentação
 

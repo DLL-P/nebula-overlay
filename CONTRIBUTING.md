@@ -51,12 +51,16 @@ Ao mandar material, você autoriza o uso dele para melhorar o Nebula Overlay. An
 - Não mande tabelas extraídas dos arquivos do jogo (nomes de NPC e skill em massa): elas não entram no repositório.
 - Mecânica nova precisa de tradução em `mecanicas/traducoes.json` (o teste `test_todo_texto_de_alerta_tem_traducao` avisa).
 
+## Direitos sobre as contribuições
+
+O Nebula Overlay é distribuído sob a [PolyForm Noncommercial 1.0.0](LICENSE) e pertence a R.D.S. Ao enviar código, texto, tradução ou outro material, você declara que ele é seu e cede a R.D.S., de forma gratuita, definitiva e sem exclusividade, o direito de usá-lo, modificá-lo, distribuí-lo e licenciá-lo em qualquer versão do projeto, inclusive sob outras licenças. Capturas de luta seguem a regra acima: servem só para melhorar o projeto e nunca são publicadas.
+
 ---
 
 **English:** contributions are welcome: screenshots, videos, text descriptions, Nebula Overlay captures and data from other combat-reading
 tools. Never attach `.pcap` files to public issues (they contain character names and chat); open a "Captura de run" issue and a private
-transfer will be arranged. By sending material you allow its use to improve Nebula Overlay; captures are never published.
+transfer will be arranged. By sending material you allow its use to improve Nebula Overlay; captures are never published. Code or text contributions are granted to R.D.S. for use, modification and licensing in any version of the project (see the Portuguese section above; licensed under PolyForm Noncommercial 1.0.0).
 
 **Español:** se aceptan contribuciones: capturas de pantalla, videos, descripciones, capturas del Nebula Overlay y datos de otros programas
 de lectura. Nunca adjuntes `.pcap` en issues públicas (contienen nombres de personajes y chat); abre una issue "Captura de run" y se acordará
-un envío privado. Al enviar material autorizas su uso para mejorar Nebula Overlay; las capturas nunca se publican.
+un envío privado. Al enviar material autorizas su uso para mejorar Nebula Overlay; las capturas nunca se publican. Las contribuciones de código o texto se ceden a R.D.S. para usarlas, modificarlas y licenciarlas en cualquier versión del proyecto (ver la sección en portugués; licencia PolyForm Noncommercial 1.0.0).
